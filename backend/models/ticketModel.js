@@ -8,6 +8,6 @@ const ticketSchema = new mongoose.Schema({
   category: { type: String, required: true }
 })
 
-const ticketModel = mongoose.models.ticket || mongoose.model("ticket", ticketSchema)
+const ticketModel = mongoose.models.ticket || mongoose.model("Event", ticketSchema)
 
 export default ticketModel;

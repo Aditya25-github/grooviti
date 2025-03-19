@@ -7,6 +7,9 @@ import BuyTicket from "./pages/BuyTicket/BuyTicket";
 import Footer from "./components/Footer/Footer";
 import { useState } from "react";
 import LoginPopup from "./components/LoginPage/LoginPopup";
+import TicketConfirmation from "./pages/TicketConfirmation/TicketConfirmation";
+import Verify from "./pages/Verify/verify";
+import MyOrders from "./pages/MyOrders/MyOrders";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -19,6 +22,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/BuyTicket" element={<BuyTicket />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
         </Routes>
       </div>
       <Footer />

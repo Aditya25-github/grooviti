@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/SideBar/SideBar";
-import Login from "./Components/Login/Login";
+import Login from "./components/Login/Login";
 
 const App = () => {
   const url = "https://food-delivery-backend-5b6g.onrender.com";

@@ -5,16 +5,19 @@ import eventRouter from "./routes/EventRoute.js"
 import userRouter from "./routes/userRoute.js"
 import "dotenv/config"
 import cartRouter from "./routes/CartRoute.js"
+import bookingRouter from "./routes/bookingRoute.js"
 
 //app config
 
 const app = express()
-const port = 4000
+const port = process.env.PORT || 4000;
 
 //middle-ware
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  exposedHeaders: ["x-rtb-fingerprint-id"],
+}))
 
 //db connection 
 connectDB()
@@ -24,6 +27,7 @@ app.use("/api/event", eventRouter)
 app.use("/images", express.static('uploads'))
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
+app.use("/api/booking", bookingRouter)
 
 
 app.get("/", (req, res) => {

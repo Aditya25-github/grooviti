@@ -54,13 +54,17 @@ const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <p>Processing fee</p>
-              <p>Rs.{getTotalCartAmount() === 0 ? 0 : 20}</p>
+              {/* 20 rs processing fee after colon */}
+              <p>Rs.{getTotalCartAmount() === 0 ? 0 : 0}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
               <p>
-                Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 20}
+                {/* 20 rs processing fee after plus sign */}
+                Rs.{getTotalCartAmount() === 0
+                  ? 0
+                  : getTotalCartAmount() + 0}{" "}
               </p>
             </div>
             <button onClick={() => navigate("/BuyTicket")}>

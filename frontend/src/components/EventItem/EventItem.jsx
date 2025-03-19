@@ -2,10 +2,13 @@ import React, { useContext } from "react";
 import "./EventItem.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 
 const EventItem = ({ id, name, price, description, image }) => {
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className="event-item">
@@ -40,10 +43,15 @@ const EventItem = ({ id, name, price, description, image }) => {
       <div className="event-item-info">
         <div className="event-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} alt="" />
+          <a className="event-item-view" href="">
+            View details
+          </a>
         </div>
         <p className="event-item-description">{description}</p>
-        <p className="event-item-price">Rs.{price}</p>
+        <p className="event-item-price">
+          Rs.{price}{" "}
+          <button onClick={() => navigate("/BuyTicket")}>Buy Now</button>
+        </p>
       </div>
     </div>
   );

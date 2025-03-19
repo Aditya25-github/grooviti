@@ -1,0 +1,131 @@
+/* General Page Styling */
+.ticket-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe6e1, #fff5f0);
+  padding: 20px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Ticket Box - Glassmorphism Effect */
+.ticket-details {
+  background: rgba(255, 99, 71, 0.1); /* Subtle Tomato Tint */
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(255, 99, 71, 0.2);
+  width: 90%;
+  max-width: 550px;
+  text-align: left;
+  border: 1px solid rgba(255, 99, 71, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ticket Box Hover Effect */
+.ticket-details:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(255, 99, 71, 0.3);
+}
+
+/* Titles */
+.ticket-details h2 {
+  color: #ff6347; /* Tomato */
+  font-size: 26px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ticket-details h3 {
+  color: #343a40;
+  font-size: 22px;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Ticket Information */
+.ticket-details p {
+  font-size: 16px;
+  color: #333;
+  margin: 5px 0;
+  font-weight: 400;
+}
+
+/* List Styling */
+.ticket-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ticket-details ul li {
+  font-size: 16px;
+  color: #222;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 99, 71, 0.2);
+  font-weight: 500;
+}
+
+/* Remove border from last item */
+.ticket-details ul li:last-child {
+  border-bottom: none;
+}
+
+/* Button */
+.confirmation-btn {
+  display: inline-block;
+  background: #ff6347;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(255, 99, 71, 0.3);
+}
+
+.confirmation-btn:hover {
+  background: #e5533d;
+  box-shadow: 0px 5px 15px rgba(255, 99, 71, 0.4);
+  transform: scale(1.05);
+}
+
+/* Animated Spinner */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #ff6347; /* Tomato */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error Message */
+.error-message {
+  color: #dc3545;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  background: rgba(255, 99, 71, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid rgba(255, 99, 71, 0.5);
+}

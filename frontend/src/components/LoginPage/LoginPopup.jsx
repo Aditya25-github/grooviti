@@ -79,6 +79,16 @@ const LoginPopup = ({ setShowLogin }) => {
             placeholder="Password"
             required
           />
+          {/* <select
+            name="role"
+            onChange={onChangeHandler}
+            value={data.role}
+            required
+          >
+            <option value="">Select Role</option>
+            <option value="attendee">Attendee</option>
+            <option value="host">Event Host</option>
+          </select> */}
         </div>
         <button type="submit">
           {currState === "Sign Up" ? "Create account" : "Login"}

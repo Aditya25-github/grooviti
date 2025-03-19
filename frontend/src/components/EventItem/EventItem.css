@@ -29,13 +29,21 @@
   margin-bottom: 10px;
 }
 
-.event-item-name-rating p {
-  font-size: 20px;
-  font-weight: 500;
+.event-item-view {
+  display: flex;
+  align-items: last baseline;
+  color: #000000;
 }
 
-.event-item-name-rating img {
-  width: 70px;
+.event-item-price button {
+  border: none;
+  color: white;
+  background-color: tomato;
+  width: max(5vw, 50px);
+  padding: 10px 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 60px;
 }
 
 .event-item-description {
