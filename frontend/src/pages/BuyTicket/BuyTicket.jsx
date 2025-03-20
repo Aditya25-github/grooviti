@@ -56,7 +56,9 @@ const BuyTicket = () => {
     event.preventDefault();
 
     if (!eventData) {
-      alert("Event details not found.");
+      alert(
+        "Event details not found, Please add atleast one event in your Cart."
+      );
       return;
     }
 
@@ -82,7 +84,6 @@ const BuyTicket = () => {
       if (response.data.success && response.data.order_id) {
         orderData.orderId = response.data.order_id;
 
-        // ✅ Only load Razorpay if the API response is successful
         const isLoaded = await loadRazorpayScript();
         if (!isLoaded) {
           alert("Failed to load Razorpay. Check your internet connection.");
@@ -91,7 +92,7 @@ const BuyTicket = () => {
 
         const options = {
           key: "rzp_live_46Ch3IQvMWEQnp",
-          amount: orderData.amount * 100, // Convert to paise
+          amount: orderData.amount * 100,
           currency: "INR",
           name: "Event Booking",
           description: `Ticket for ${eventData.name}`,
@@ -125,10 +126,10 @@ const BuyTicket = () => {
         };
 
         const rzp1 = new window.Razorpay(options);
-        rzp1.open(); // ✅ Razorpay only opens after button click and successful API response
+        rzp1.open();
       } else {
         console.error("Booking failed", response.data);
-        alert("Booking failed. Please try again.");
+        alert("Please Login First to Book your ticket.");
       }
     } catch (error) {
       console.error("Error booking ticket:", error);
@@ -218,7 +219,7 @@ const BuyTicket = () => {
       </div>
       <div className="place-order-right">
         <div className="cart-total">
-          <h2>Cart Total</h2>
+          <h2>Oder Summary</h2>
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
