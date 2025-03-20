@@ -24,17 +24,20 @@ const BuyTicket = () => {
 
   useEffect(() => {
     // Find event details by name
-    const foundEvent = myevents_list.find(
-      (e) =>
-        e.name.toLowerCase() === decodeURIComponent(eventName).toLowerCase()
-    );
-    setEventData(foundEvent);
+    if (myevents_list.length > 0) {
+      const foundEvent = myevents_list.find(
+        (e) =>
+          e.name.toLowerCase() === decodeURIComponent(eventName).toLowerCase()
+      );
+      setEventData(foundEvent || null);
+    }
   }, [eventName, myevents_list]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -48,32 +51,34 @@ const BuyTicket = () => {
   const buyTicket = async (event) => {
     event.preventDefault();
 
-    let eventitems = [];
+    if (!eventData) {
+      alert("Event details not found.");
+      return;
+    }
+
+    let eventItems = [];
     myevents_list.forEach((item) => {
       if (cartItems[item._id] > 0) {
         let itemInfo = { ...item, quantity: cartItems[item._id] };
-        eventitems.push(itemInfo);
+        eventItems.push(itemInfo);
       }
     });
 
-    let eventData = {
+    let orderData = {
       address: data,
-      items: eventitems,
+      items: eventItems,
       amount: getTotalCartAmount() + 0,
     };
 
     try {
-      let response = await axios.post(`${url}/api/booking/ticket`, eventData, {
+      let response = await axios.post(`${url}/api/booking/ticket`, orderData, {
         headers: { token },
       });
 
       if (response.data.success && response.data.order_id) {
-        eventData.orderId = response.data.order_id;
-      }
+        orderData.orderId = response.data.order_id;
 
-      console.log("API Response:", response.data);
-
-      if (response.data.success && response.data.order_id) {
+        // ✅ Only load Razorpay if the API response is successful
         const isLoaded = await loadRazorpayScript();
         if (!isLoaded) {
           alert("Failed to load Razorpay. Check your internet connection.");
@@ -82,10 +87,10 @@ const BuyTicket = () => {
 
         const options = {
           key: "rzp_live_46Ch3IQvMWEQnp",
-          amount: eventData.amount * 100, // Convert to paise
+          amount: orderData.amount * 100, // Convert to paise
           currency: "INR",
           name: "Event Booking",
-          description: "Ticket Purchase",
+          description: `Ticket for ${eventData.name}`,
           order_id: response.data.order_id,
           handler: async function (paymentResponse) {
             try {
@@ -116,7 +121,7 @@ const BuyTicket = () => {
         };
 
         const rzp1 = new window.Razorpay(options);
-        rzp1.open();
+        rzp1.open(); // ✅ Razorpay only opens after button click and successful API response
       } else {
         console.error("Booking failed", response.data);
         alert("Booking failed. Please try again.");
@@ -218,16 +223,12 @@ const BuyTicket = () => {
             <hr />
             <div className="cart-total-details">
               <p>Processing fee</p>
-              {/* 20 rs processing fee after colon */}
-              <p>Rs.{getTotalCartAmount() === 0 ? 0 : 0}</p>
+              <p>Rs.0</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <p>
-                {/* 20 rs processing fee after colon */}
-                Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 0}
-              </p>
+              <p>Rs.{getTotalCartAmount() + 0}</p>
             </div>
             <button type="submit">PROCEED TO PAYMENT</button>
           </div>
