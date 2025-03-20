@@ -23,6 +23,10 @@ const BuyTicket = () => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     // Find event details by name
     if (myevents_list.length > 0) {
       const foundEvent = myevents_list.find(

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ name }) => {
   const { cartItems, myevents_list, removeFromCart, getTotalCartAmount, url } =
     useContext(StoreContext);
 
@@ -67,8 +67,12 @@ const Cart = () => {
                   : getTotalCartAmount() + 0}{" "}
               </p>
             </div>
-            <button onClick={() => navigate("/BuyTicket")}>
-              PROCEED TO CHECKOUT
+            <button
+              onClick={() =>
+                navigate(`/event/${encodeURIComponent(name)}/buyticket`)
+              }
+            >
+              Proceed To Checkout
             </button>
           </div>
         </div>
