@@ -46,21 +46,35 @@ const TicketConfirmation = () => {
       ) : (
         <div className="ticket-details">
           <h2>🎟️ Ticket Confirmation</h2>
-          <p>Your ticket has been booked successfully!</p>
+          <p>
+            <b>
+              Hey {orderDetails?.address.firstName} ! Your ticket has been
+              booked successfully! Thank you for purchasing tickets on
+              grooviti.com.
+            </b>
+          </p>
+
+          <div className="seperator"></div>
+
           <h3>Booking Details</h3>
           <p>
-            <strong>Order ID:</strong> {orderDetails?.orderId}
+            <strong className="order">Order ID:</strong> {orderDetails?.orderId}
           </p>
           <p>
-            <strong>Name:</strong> {orderDetails?.address.firstName}{" "}
-            {orderDetails?.address.lastName}
+            <strong className="name">Name:</strong>{" "}
+            {orderDetails?.address.firstName} {orderDetails?.address.lastName}
           </p>
           <p>
-            <strong>Email:</strong> {orderDetails?.address.email}
+            <strong className="email">Email:</strong>{" "}
+            {orderDetails?.address.email}
           </p>
           <p>
-            <strong>Phone:</strong> {orderDetails?.address.phone}
+            <strong className="phone">Phone:</strong>{" "}
+            {orderDetails?.address.phone}
           </p>
+
+          <div className="seperator"></div>
+
           <h3>Event Details</h3>
           <ul>
             {orderDetails?.items.map((item, index) => (
@@ -70,10 +84,11 @@ const TicketConfirmation = () => {
             ))}
           </ul>
           <p>
-            <strong>Total Amount:</strong> ₹{orderDetails?.amount}
+            <strong className="total">Total Amount:</strong> ₹
+            {orderDetails?.amount}
           </p>
           <p>
-            <strong>Payment Status:</strong> ✅ Confirmed
+            <strong className="status">Payment Status:</strong> ✅ Confirmed
           </p>
         </div>
       )}

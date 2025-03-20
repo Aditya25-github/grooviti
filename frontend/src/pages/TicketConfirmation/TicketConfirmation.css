@@ -23,6 +23,8 @@
   text-align: left;
   border: 1px solid rgba(255, 99, 71, 0.3);
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Ticket Box Hover Effect */
@@ -41,7 +43,7 @@
 }
 
 .ticket-details h3 {
-  color: #343a40;
+  color: #ff6347;
   font-size: 22px;
   margin-top: 15px;
   font-weight: 500;
@@ -128,4 +130,97 @@
   max-width: 400px;
   text-align: center;
   border: 1px solid rgba(255, 99, 71, 0.5);
+}
+seperator {
+  border-bottom: 1px solid #726363;
+  margin: 20px 0;
+}
+
+.order {
+  margin-right: 80px;
+}
+
+.name {
+  margin-right: 100px;
+}
+
+.email {
+  margin-right: 102px;
+}
+
+.phone {
+  margin-right: 97px;
+}
+
+.total {
+  margin-right: 50px;
+}
+
+.status {
+  margin-right: 27px;
+}
+
+@media (max-width: 1200px) {
+  /* For medium screens (Tablets, small desktops) */
+  .order {
+    margin-right: 60px;
+  }
+
+  .name {
+    margin-right: 80px;
+  }
+
+  .email {
+    margin-right: 82px;
+  }
+
+  .phone {
+    margin-right: 77px;
+  }
+
+  .total {
+    margin-right: 40px;
+  }
+
+  .status {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* For small screens (Tablets, portrait mode) */
+  .order {
+    margin-right: 40px;
+  }
+
+  .name {
+    margin-right: 60px;
+  }
+
+  .email {
+    margin-right: 62px;
+  }
+
+  .phone {
+    margin-right: 57px;
+  }
+
+  .total {
+    margin-right: 30px;
+  }
+
+  .status {
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order,
+  .name,
+  .email,
+  .phone,
+  .total,
+  .status {
+    margin-right: 0;
+  }
 }
