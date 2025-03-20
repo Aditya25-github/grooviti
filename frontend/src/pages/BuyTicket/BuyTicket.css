@@ -1,86 +1,229 @@
+/* Overall container for the form */
 .place-order {
   display: flex;
-  align-items: start;
   justify-content: space-between;
-  gap: 50px;
-  margin-top: 70px;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f5f5f5;
 }
+
+/* Left section of the form */
 .place-order-left {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: max(30%, 500px);
 }
+
 .place-order-left .title {
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
 }
-.place-order-left input {
+
+/* Input fields with equal spacing */
+.multi-fields {
+  display: flex;
+  gap: 15px;
   margin-bottom: 15px;
   width: 100%;
-  padding: 10px;
-  border: 1px solid #c5c5c5;
+}
+
+.multi-fields input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  outline-color: tomato;
+  font-size: 14px;
 }
-.place-order-left .multi-fields {
-  display: flex;
-  gap: 10px;
-}
-.place-order-right {
+
+.place-order-left input {
   width: 100%;
-  max-width: max(40%, 500px);
-}
-.place-order .cart-total button {
-  margin-top: 30px;
-}
-
-/* For large screens (desktops) */
-@media screen and (min-width: 1200px) {
-  .place-order {
-    gap: 70px;
-  }
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
-/* For medium screens (tablets) */
-@media screen and (max-width: 1200px) {
-  .place-order {
-    flex-direction: column;
-    gap: 40px;
-  }
-  .place-order-left,
-  .place-order-right {
-    max-width: 100%;
-  }
+.place-order-left input:focus {
+  outline: none;
+  border-color: tomato;
 }
 
-/* For small screens (phones) */
+/* Right section: Cart Summary */
+.cart-total {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px; /* Reduced padding */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.cart-total h2 {
+  font-size: 22px;
+  margin-bottom: 10px; /* Reduced margin */
+  text-align: center;
+}
+
+/* Event Summary */
+.event-summary {
+  display: flex;
+  flex-direction: column; /* Center elements */
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.event-image {
+  width: 100px; /* Slightly larger for better appearance */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.event-summary h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Ticket counter */
+.ticket-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.ticket-counter button {
+  background-color: #767676;
+  padding: 5px 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.ticket-counter button:hover {
+  background-color: #e1e1e1;
+}
+
+.ticket-counter span {
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: center;
+}
+
+/* Cart total details section */
+.cart-total-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px; /* Reduced font size */
+  margin-bottom: 5px; /* Reduced margin */
+  padding: 5px 0;
+}
+
+.cart-total-details b {
+  font-weight: 600;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 10px 0; /* Reduced margin */
+}
+
+/* Submit Button */
+button[type="submit"] {
+  background-color: tomato;
+  color: #fff;
+  border: none;
+  padding: 10px; /* Reduced padding */
+  border-radius: 4px;
+  font-size: 15px; /* Slightly smaller */
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #ff6000;
+}
+
+button[type="submit"]:active {
+  background-color: #ff6000;
+}
+
+/* Responsive Design */
 @media screen and (max-width: 768px) {
-  .place-order-left .title {
-    font-size: 24px;
+  .place-order {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
   }
-  .place-order-left input {
-    padding: 8px;
+
+  .place-order-left,
+  .cart-total {
+    width: 90%;
+    max-width: 400px;
   }
-  .place-order .cart-total button {
-    margin-top: 20px;
+
+  .multi-fields {
+    flex-direction: column;
+  }
+
+  .multi-fields input {
+    margin-bottom: 10px;
+  }
+
+  .ticket-counter {
+    justify-content: center;
+  }
+
+  .ticket-counter button {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    padding: 3px;
   }
 }
 
-/* For extra small screens (below 480px) */
-@media screen and (max-width: 480px) {
-  .place-order-left .title {
+@media screen and (max-width: 425px) {
+  .cart-total h2 {
     font-size: 20px;
-    margin-bottom: 30px;
   }
-  .place-order-left input {
-    padding: 6px;
+
+  .ticket-counter button {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .cart-total-details {
+    font-size: 13px; /* Further reduced */
+  }
+
+  button[type="submit"] {
     font-size: 14px;
-  }
-  .place-order-left .multi-fields {
-    flex-direction: column;
-    gap: 5px;
-  }
-  .place-order .cart-total button {
-    width: 100%;
+    padding: 8px;
   }
 }

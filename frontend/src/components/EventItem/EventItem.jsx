@@ -18,6 +18,7 @@ const EventItem = ({ id, name, price, description, image }) => {
           src={url + "/images/" + image}
           alt=""
         />
+
         {!cartItems[id] ? (
           <img
             className="add"

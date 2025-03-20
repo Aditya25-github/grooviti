@@ -5,8 +5,15 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 const BuyTicket = () => {
-  const { getTotalCartAmount, token, myevents_list, url, cartItems } =
-    useContext(StoreContext);
+  const {
+    getTotalCartAmount,
+    token,
+    myevents_list,
+    url,
+    cartItems,
+    addToCart,
+    removeFromCart,
+  } = useContext(StoreContext);
   const { eventName } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
@@ -27,15 +34,20 @@ const BuyTicket = () => {
   }, []);
 
   useEffect(() => {
-    // Find event details by name
     if (myevents_list.length > 0) {
       const foundEvent = myevents_list.find(
         (e) =>
           e.name.toLowerCase() === decodeURIComponent(eventName).toLowerCase()
       );
-      setEventData(foundEvent || null);
+      if (foundEvent) {
+        setEventData(foundEvent);
+
+        if (!cartItems[foundEvent._id] || cartItems[foundEvent._id] === 0) {
+          addToCart(foundEvent._id);
+        }
+      }
     }
-  }, [eventName, myevents_list]);
+  }, [eventName, myevents_list, cartItems, addToCart]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -217,27 +229,54 @@ const BuyTicket = () => {
           required
         />
       </div>
-      <div className="place-order-right">
-        <div className="cart-total">
-          <h2>Oder Summary</h2>
-          <div>
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>Rs.{getTotalCartAmount()}</p>
+      <div className="cart-total">
+        <h2>Order Summary</h2>
+
+        {eventData && (
+          <>
+            <div className="event-summary">
+              <img
+                className="event-image"
+                src={
+                  eventData.image
+                    ? `${url}/images/${eventData.image}`
+                    : "/default-image.png"
+                }
+                alt={eventData.name || "Event Image"}
+              />
+              <h3>{eventData.name}</h3>
             </div>
-            <hr />
-            <div className="cart-total-details">
-              <p>Processing fee</p>
-              <p>Rs.0</p>
+
+            <div className="ticket-counter">
+              <button
+                type="button"
+                onClick={() => removeFromCart(eventData._id)}
+              >
+                -
+              </button>
+              <span>{cartItems[eventData._id] || 0}</span>
+              <button type="button" onClick={() => addToCart(eventData._id)}>
+                +
+              </button>
             </div>
-            <hr />
-            <div className="cart-total-details">
-              <b>Total</b>
-              <p>Rs.{getTotalCartAmount() + 0}</p>
-            </div>
-            <button type="submit">PROCEED TO PAYMENT</button>
-          </div>
+          </>
+        )}
+
+        <div className="cart-total-details">
+          <p>Subtotal</p>
+          <p>Rs.{getTotalCartAmount()}</p>
         </div>
+        <hr />
+        <div className="cart-total-details">
+          <p>Processing fee</p>
+          <p>Rs.0</p>
+        </div>
+        <hr />
+        <div className="cart-total-details">
+          <b>Total</b>
+          <p>Rs.{getTotalCartAmount()}</p>
+        </div>
+        <button type="submit">PROCEED TO PAYMENT</button>
       </div>
     </form>
   );
