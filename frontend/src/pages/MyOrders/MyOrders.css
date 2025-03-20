@@ -14,7 +14,7 @@
   gap: 30px;
   font-size: 14px;
   padding: 10px 20px;
-  color: #454545;
+  color: #000000;
   border: 1px solid tomato;
 }
 .my-orders-order img {
@@ -50,7 +50,7 @@
 
 :root .my-orders-order p b,
 :root .my-orders-order {
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .lightcolors .my-orders-order p b,

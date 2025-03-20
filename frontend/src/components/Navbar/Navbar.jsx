@@ -53,7 +53,7 @@ const Navbar = ({ setShowLogin }) => {
         </a>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        {/* <img src={assets.search_icon} alt="" /> */}
         <div className="navbar-search-icon">
           <Link to="/Cart">
             <img src={assets.basket_icon} alt="" />

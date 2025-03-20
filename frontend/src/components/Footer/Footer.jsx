@@ -8,13 +8,23 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-left">
           <img className="logo" src={assets.logo} alt="" />
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus,
-          </p>
+          <p>GROOVE IT. BOOK IT. LIVE IT.</p>
           <div className="footer-social-icons">
-            <img src={assets.facebook_icon} alt="" />
+            <a
+              href="https://www.instagram.com/groov_iti/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={assets.instagram_icon} alt="Instagram" />
+            </a>
             <img src={assets.linkedin_icon} alt="" />
-            <img src={assets.twitter_icon} alt="" />
+            <a
+              href="https://x.com/Groov_iti"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={assets.twitter_icon} alt="Twitter" />
+            </a>
           </div>
         </div>
         <div className="footer-content-center">
@@ -29,14 +39,14 @@ const Footer = () => {
         <div className="footer-content-right">
           <h2>GET IN TOUCH</h2>
           <ul>
-            <li>+91 702-048-1327</li>
-            <li>contact@evvento.com</li>
+            <li>+91 940-457-1327</li>
+            <li>groov.iti25@gmail.com</li>
           </ul>
         </div>
       </div>
       <hr />
       <p className="footer-copyright">
-        Copyright 2025 c grooviti.com - All Rights Reserved.
+        Copyright 2025 &copy; grooviti.com - All Rights Reserved.
       </p>
     </div>
   );
