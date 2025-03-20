@@ -1,51 +1,139 @@
 .place-order {
   display: flex;
-  align-items: start;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 50px;
-  margin-top: 70px;
+  gap: 40px;
+  margin-top: 40px; /* Reduced top margin */
 }
+
+/* Left Section - Form */
 .place-order-left {
   width: 100%;
-  max-width: max(30%, 500px);
+  max-width: 450px;
 }
 .place-order-left .title {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 600;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .place-order-left input {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   width: 100%;
   padding: 10px;
   border: 1px solid #c5c5c5;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 16px;
   outline-color: tomato;
 }
 .place-order-left .multi-fields {
   display: flex;
   gap: 10px;
 }
+.place-order-left .multi-fields input {
+  flex: 1;
+}
+
+/* Right Section - Order Summary */
 .place-order-right {
   width: 100%;
-  max-width: max(40%, 500px);
+  max-width: 400px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.cart-total {
+  text-align: center;
+}
+
+.cart-total hr {
+  margin: 1px 0;
+}
+
+/* Event Summary */
+.event-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1px;
+}
+.event-summary img {
+  width: 100%;
+  max-width: 100px; /* ✅ Reduced image size */
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.event-summary h3 {
+  font-size: 18px;
+  margin: 3px 0;
+}
+
+/* Ticket Quantity Buttons */
+.ticket-quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1px;
+}
+.ticket-quantity button {
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background: rgb(0, 0, 0);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.ticket-quantity button:hover {
+  background: tomato;
+}
+.ticket-quantity span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Order Summary Price Details */
+.cart-total-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin: 1px 0; /* ✅ Reduced margin */
+}
+.cart-total-details b {
+  font-size: 18px;
+}
+
+/* Checkout Button */
 .place-order .cart-total button {
-  margin-top: 30px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background: tomato;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 15px;
+}
+.place-order .cart-total button:hover {
+  background: darkred;
 }
 
-/* For large screens (desktops) */
-@media screen and (min-width: 1200px) {
-  .place-order {
-    gap: 70px;
-  }
-}
-
-/* For medium screens (tablets) */
+/* For Tablets */
 @media screen and (max-width: 1200px) {
   .place-order {
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
   }
   .place-order-left,
   .place-order-right {
@@ -53,24 +141,33 @@
   }
 }
 
-/* For small screens (phones) */
+/* For Small Screens (Phones) */
 @media screen and (max-width: 768px) {
   .place-order-left .title {
-    font-size: 24px;
+    font-size: 22px;
   }
   .place-order-left input {
     padding: 8px;
   }
+  .event-summary img {
+    max-width: 180px; /* ✅ Smaller Image */
+  }
+  .ticket-quantity button {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
   .place-order .cart-total button {
-    margin-top: 20px;
+    font-size: 14px;
+    padding: 8px;
   }
 }
 
-/* For extra small screens (below 480px) */
+/* For Extra Small Screens (Below 480px) */
 @media screen and (max-width: 480px) {
   .place-order-left .title {
-    font-size: 20px;
-    margin-bottom: 30px;
+    font-size: 18px;
+    margin-bottom: 15px;
   }
   .place-order-left input {
     padding: 6px;
@@ -79,6 +176,14 @@
   .place-order-left .multi-fields {
     flex-direction: column;
     gap: 5px;
+  }
+  .event-summary img {
+    max-width: 160px; /* ✅ Adjust Image */
+  }
+  .ticket-quantity button {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
   }
   .place-order .cart-total button {
     width: 100%;

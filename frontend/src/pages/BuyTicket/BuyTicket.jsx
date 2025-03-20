@@ -10,6 +10,7 @@ const BuyTicket = () => {
   const { eventName } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
+  const [ticketQuantity, setTicketQuantity] = useState(1);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -40,6 +41,16 @@ const BuyTicket = () => {
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const increaseTicket = () => {
+    setTicketQuantity(ticketQuantity + 1);
+  };
+
+  const decreaseTicket = () => {
+    if (ticketQuantity > 1) {
+      setTicketQuantity(ticketQuantity - 1);
+    }
   };
 
   const loadRazorpayScript = () => {
@@ -219,24 +230,44 @@ const BuyTicket = () => {
       </div>
       <div className="place-order-right">
         <div className="cart-total">
-          <h2>Oder Summary</h2>
-          <div>
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>Rs.{getTotalCartAmount()}</p>
+          <h2>Order Summary</h2>
+          {eventData ? (
+            <div className="event-summary">
+              <img
+                src={url + "/images/" + eventData.image}
+                alt={eventData.name}
+                className="event-summary-image"
+              />
+              <h3>{eventData.name}</h3>
+              <div className="ticket-quantity">
+                <button type="button" onClick={decreaseTicket}>
+                  -
+                </button>
+                <span>{ticketQuantity}</span>
+                <button type="button" onClick={increaseTicket}>
+                  +
+                </button>
+              </div>
             </div>
-            <hr />
-            <div className="cart-total-details">
-              <p>Processing fee</p>
-              <p>Rs.0</p>
-            </div>
-            <hr />
-            <div className="cart-total-details">
-              <b>Total</b>
-              <p>Rs.{getTotalCartAmount() + 0}</p>
-            </div>
-            <button type="submit">PROCEED TO PAYMENT</button>
+          ) : (
+            <p>Loading event details...</p>
+          )}
+          <hr />
+          <div className="cart-total-details">
+            <p>Subtotal</p>
+            <p>Rs.{eventData ? eventData.price * ticketQuantity : 0}</p>
           </div>
+          <hr />
+          <div className="cart-total-details">
+            <p>Processing fee</p>
+            <p>Rs.0</p>
+          </div>
+          <hr />
+          <div className="cart-total-details">
+            <b>Total</b>
+            <p>Rs.{eventData ? eventData.price * ticketQuantity : 0}</p>
+          </div>
+          <button type="submit">PROCEED TO PAYMENT</button>
         </div>
       </div>
     </form>
