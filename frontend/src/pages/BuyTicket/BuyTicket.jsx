@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./BuyTicket.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BuyTicket = () => {
   const { getTotalCartAmount, token, myevents_list, url, cartItems } =
     useContext(StoreContext);
-
+  const { eventName } = useParams();
   const navigate = useNavigate();
-
+  const [eventData, setEventData] = useState(null);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -21,6 +21,15 @@ const BuyTicket = () => {
     Team_size: "",
     phone: "",
   });
+
+  useEffect(() => {
+    // Find event details by name
+    const foundEvent = myevents_list.find(
+      (e) =>
+        e.name.toLowerCase() === decodeURIComponent(eventName).toLowerCase()
+    );
+    setEventData(foundEvent);
+  }, [eventName, myevents_list]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
