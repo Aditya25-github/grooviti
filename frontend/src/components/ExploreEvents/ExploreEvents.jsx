@@ -7,9 +7,8 @@ const ExploreEvents = ({ category, setCategory }) => {
     <div className="explore-events" id="explore-events">
       <h1>Explore Our List Of Events</h1>
       <p className="explore-events-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci natus
-        nostrum id dolor incidunt voluptas, autem nobis corrupti tenetur cumque
-        numquam enim omnis cum harum deserunt distinctio aut iste a?
+        "Don't miss out on the excitement! Dive into our lineup of trending
+        events and immerse yourself in unforgettable experiences."
       </p>
       <div className="explore-events-list">
         {event_list.map((item, index) => {

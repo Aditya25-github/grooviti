@@ -7,10 +7,13 @@ const Header = () => {
       <div className="header-contents">
         <h2>Buy Your Favourite Event Tickets Here</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint libero
-          ea dolore sunt tempore molestiae expedita quibusdam molestias repellat
-          consectetur velit veritatis vitae odio, tempora in autem rerum culpa
-          modi!
+          At grooviti.com, we make event ticketing and event listing seamless
+          and hassle-free! Whether you're planning an event or looking to attend
+          one, our platform is designed to provide a smooth experience. From
+          exclusive concerts and thrilling sports matches to insightful
+          workshops and community gatherings, we bring you the best events with
+          just a few clicks. Groove it. Book it. Live it. - Your next
+          unforgettable experience starts here!
         </p>
         <button>View Events</button>
       </div>
