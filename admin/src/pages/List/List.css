@@ -7,6 +7,7 @@
   border: 1px solid #cacaca;
   font-size: 13px;
 }
+
 .list-table-format.title {
   background-color: #f9f9f9;
 }
@@ -22,4 +23,8 @@
   .list-table-format.title {
     display: none;
   }
+}
+
+.cursor {
+  cursor: pointer;
 }

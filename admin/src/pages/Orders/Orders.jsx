@@ -1,50 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Orders.css";
-import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import axios from "axios";
 import { assets } from "../../assets/assets";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/storecontext";
 
 const Orders = ({ url }) => {
-  const navigate = useNavigate();
-  const { token, admin } = useContext(StoreContext);
   const [orders, setOrders] = useState([]);
 
-  const fetchAllOrder = async () => {
-    const response = await axios.get(url + "/api/order/list", {
-      headers: { token },
-    });
+  const fetchAllOrders = async () => {
+    const response = await axios.get(url + "/api/order/list");
     if (response.data.success) {
       setOrders(response.data.data);
+      console.log(response.data.data);
+    } else {
+      toast.error("Error");
     }
   };
 
   const statusHandler = async (event, orderId) => {
-    const response = await axios.post(
-      url + "/api/order/status",
-      {
-        orderId,
-        status: event.target.value,
-      },
-      { headers: { token } }
-    );
+    const response = await axios.post(url + "/api/order/status", {
+      orderId,
+      status: event.target.value,
+    });
     if (response.data.success) {
-      toast.success(response.data.message);
-      await fetchAllOrder();
-    } else {
-      toast.error(response.data.message);
+      await fetchAllOrders();
     }
   };
+
   useEffect(() => {
-    if (!admin && !token) {
-      toast.error("Please Login First");
-      navigate("/");
-    }
-    fetchAllOrder();
+    fetchAllOrders();
   }, []);
 
   return (
@@ -81,7 +65,7 @@ const Orders = ({ url }) => {
               </div>
               <p className="order-item-phone">{order.address.phone}</p>
             </div>
-            <p>Items: {order.items.length}</p>
+            <p>Items : {order.items.length}</p>
             <p>${order.amount}</p>
             <select
               onChange={(event) => statusHandler(event, order._id)}

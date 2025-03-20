@@ -50,7 +50,7 @@ const EventItem = ({ id, name, price, description, image }) => {
         <p className="event-item-description">{description}</p>
         <p className="event-item-price">
           Rs.{price}{" "}
-          <button onClick={() => navigate("/BuyTicket")}>Buy Now</button>
+          <button onClick={() => navigate("/BuyTicket")}>Register Now</button>
         </p>
       </div>
     </div>

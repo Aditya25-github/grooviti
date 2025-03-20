@@ -39,7 +39,7 @@
   border: none;
   color: white;
   background-color: tomato;
-  width: max(5vw, 50px);
+  width: max(6vw, 50px);
   padding: 10px 0px;
   border-radius: 4px;
   cursor: pointer;
@@ -85,4 +85,85 @@
 
 .event-item-counter img {
   width: 25px;
+}
+
+/* For large screens (desktops) */
+@media screen and (min-width: 1200px) {
+  .event-item {
+    max-width: 1000px;
+  }
+}
+
+/* For medium screens (tablets) */
+@media screen and (max-width: 1200px) {
+  .event-item {
+    width: 90%;
+  }
+  .event-item-image {
+    border-radius: 15px;
+  }
+  .event-item-price button {
+    margin-left: 30px;
+    width: 80px;
+  }
+}
+
+/* For small screens (phones) */
+@media screen and (max-width: 768px) {
+  .event-item {
+    width: 95%;
+  }
+  .event-item-info {
+    padding: 15px;
+  }
+  .event-item-name-rating {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .event-item-view {
+    margin-top: 10px;
+  }
+  .event-item-price button {
+    width: 100px;
+    padding: 8px 0;
+    margin-left: 70px;
+  }
+  .event-item-description {
+    font-size: 14px;
+  }
+  .event-item-price {
+    font-size: 28px;
+  }
+  .event-item-counter {
+    gap: 5px;
+    padding: 4px;
+  }
+}
+
+/* For extra small screens (below 480px) */
+@media screen and (max-width: 480px) {
+  .event-item {
+    width: 100%;
+  }
+  .event-item-info {
+    padding: 10px;
+  }
+  .event-item-name-rating {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .event-item-price button {
+    width: 100px;
+    padding: 6px 0;
+    margin-left: 160px;
+  }
+  .event-item-description {
+    font-size: 12px;
+  }
+  .event-item-price {
+    font-size: 24px;
+  }
+  .event-item-counter img {
+    width: 20px;
+  }
 }

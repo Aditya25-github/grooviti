@@ -2,13 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/storecontext";
 
 const List = ({ url }) => {
-  const navigate = useNavigate();
-  const { token, admin } = useContext(StoreContext);
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -21,11 +16,7 @@ const List = ({ url }) => {
   };
 
   const removeFood = async (foodId) => {
-    const response = await axios.post(
-      `${url}/api/food/remove`,
-      { id: foodId },
-      { headers: { token } }
-    );
+    const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
     await fetchList();
     if (response.data.success) {
       toast.success(response.data.message);
@@ -33,17 +24,14 @@ const List = ({ url }) => {
       toast.error("Error");
     }
   };
+
   useEffect(() => {
-    if (!admin && !token) {
-      toast.error("Please Login First");
-      navigate("/");
-    }
     fetchList();
   }, []);
 
   return (
     <div className="list add flex-col">
-      <p>All Food List</p>
+      <p>All Foods List</p>
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>

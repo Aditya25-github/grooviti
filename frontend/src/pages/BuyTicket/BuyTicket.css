@@ -33,3 +33,54 @@
 .place-order .cart-total button {
   margin-top: 30px;
 }
+
+/* For large screens (desktops) */
+@media screen and (min-width: 1200px) {
+  .place-order {
+    gap: 70px;
+  }
+}
+
+/* For medium screens (tablets) */
+@media screen and (max-width: 1200px) {
+  .place-order {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .place-order-left,
+  .place-order-right {
+    max-width: 100%;
+  }
+}
+
+/* For small screens (phones) */
+@media screen and (max-width: 768px) {
+  .place-order-left .title {
+    font-size: 24px;
+  }
+  .place-order-left input {
+    padding: 8px;
+  }
+  .place-order .cart-total button {
+    margin-top: 20px;
+  }
+}
+
+/* For extra small screens (below 480px) */
+@media screen and (max-width: 480px) {
+  .place-order-left .title {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  .place-order-left input {
+    padding: 6px;
+    font-size: 14px;
+  }
+  .place-order-left .multi-fields {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .place-order .cart-total button {
+    width: 100%;
+  }
+}
