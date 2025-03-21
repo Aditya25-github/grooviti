@@ -2,7 +2,7 @@ import React from "react";
 import "./TeamGrid.css";
 
 const teamMembers = [
-  { name: "Aditya Divate", role: "CEO", image: "/images/adi.jpg" },
+  { name: "Aditya Divate", role: "CEO & Founder", image: "/images/adi.jpg" },
   { name: "Swaroop Mane", role: "CTO", image: "/images/swaroop1.jpg" },
   { name: "Saksham Gawande", role: "CMO", image: "/images/saksham1.jpg" },
   {
