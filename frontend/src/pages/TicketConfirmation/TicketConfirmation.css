@@ -13,7 +13,7 @@
 
 /* Ticket Box - Glassmorphism Effect */
 .ticket-details {
-  background: rgba(255, 99, 71, 0.1); /* Subtle Tomato Tint */
+  background: rgba(255, 255, 255, 0.771);
   backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 12px;
@@ -46,6 +46,7 @@
   color: #ff6347;
   font-size: 22px;
   margin-top: 15px;
+  margin-bottom: 10px;
   font-weight: 500;
 }
 
@@ -131,7 +132,8 @@
   text-align: center;
   border: 1px solid rgba(255, 99, 71, 0.5);
 }
-seperator {
+
+.seperator {
   border-bottom: 1px solid #726363;
   margin: 20px 0;
 }

@@ -29,7 +29,10 @@ const Verify = () => {
         });
 
         if (response.data.success) {
-          navigate(`/ticket-confirmation?orderId=${orderId}`);
+          console.log("Email sent successfully!");
+          setTimeout(() => {
+            navigate(`/ticket-confirmation?orderId=${orderId}`);
+          }, 2000); // Adding delay to ensure email is sent
         } else {
           setError("Payment verification failed.");
         }

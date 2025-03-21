@@ -10,9 +10,10 @@ const bookingSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   payment: { type: Boolean, default: false },
   paymentId: { type: String },
+
   // event: { type: String },   //event name should be stored in the database
 })
 
-const bookingModel = mongoose.models.booking || mongoose.model("booking", bookingSchema)
+const bookingModel = mongoose.models.booking || mongoose.model("bookings", bookingSchema)
 
 export default bookingModel;

@@ -26,7 +26,12 @@ const BuyTicket = () => {
     Team_name: "",
     Team_leader_name: "",
     Team_size: "",
+    Team_member_name_1: "",
+    Team_member_name_2: "",
+    Team_member_name_3: "",
+    Team_member_name_4: "",
     phone: "",
+    event: "",
   });
 
   useEffect(() => {
@@ -202,6 +207,7 @@ const BuyTicket = () => {
             value={data.Team_name}
             type="text"
             placeholder="Team Name"
+            required
           />
         </div>
         <div className="multi-fields">
@@ -220,12 +226,52 @@ const BuyTicket = () => {
             placeholder="Team Size"
           />
         </div>
+        <div className="multi-fields">
+          <input
+            name="Team_member_name_1"
+            onChange={onChangeHandler}
+            value={data.Team_member_name_1}
+            type="text"
+            placeholder="Team member name 1"
+          />
+          <input
+            name="Team_member_name_2"
+            onChange={onChangeHandler}
+            value={data.Team_member_name_2}
+            type="text"
+            placeholder="Team member name 2"
+          />
+        </div>
+        <div className="multi-fields">
+          <input
+            name="Team_member_name_3"
+            onChange={onChangeHandler}
+            value={data.Team_member_name_3}
+            type="text"
+            placeholder="Team member name 3"
+          />
+          <input
+            name="Team_member_name_4"
+            onChange={onChangeHandler}
+            value={data.Team_member_name_4}
+            type="text"
+            placeholder="Team member name 4"
+          />
+        </div>
         <input
           name="phone"
           onChange={onChangeHandler}
           value={data.phone}
           type="text"
           placeholder="Phone (+91 989-767-0000)"
+          required
+        />
+        <input
+          name="event"
+          onChange={onChangeHandler}
+          value={data.event}
+          type="text"
+          placeholder="Event Name"
           required
         />
       </div>
