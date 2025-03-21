@@ -37,13 +37,14 @@ const Navbar = ({ setShowLogin }) => {
         >
           Events
         </a>
-        <a
-          href="#"
-          onClick={() => setevent("About-us")}
+        <Link
+          to="/about"
+          onClick={() => setevent("about")}
           className={event === "About-us" ? "active" : ""}
-        >
           About-us
-        </a>
+        >
+          About-Us
+        </Link>
         <a
           href="#footer"
           onClick={() => setevent("Contact-us")}

@@ -26,9 +26,9 @@ const App = () => {
           <Route path="/verify" element={<Verify />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
+          <Route path="/about" element={<AboutUs />} />
         </Routes>
       </div>
-      <AboutUs />
       <Footer />
     </>
   );
