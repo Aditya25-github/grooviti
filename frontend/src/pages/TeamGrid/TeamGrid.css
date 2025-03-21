@@ -1,0 +1,56 @@
+.meet-team {
+  padding-bottom: 20px;
+}
+.team-card {
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  color: black;
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.team-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.text-sm {
+  color: #ff6347;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.text-lg {
+  font-weight: 600;
+  font-size: 20px;
+}

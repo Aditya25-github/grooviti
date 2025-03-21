@@ -10,6 +10,7 @@ import LoginPopup from "./components/LoginPage/LoginPopup";
 import TicketConfirmation from "./pages/TicketConfirmation/TicketConfirmation";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
         </Routes>
       </div>
+      <AboutUs />
       <Footer />
     </>
   );
