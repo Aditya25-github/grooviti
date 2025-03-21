@@ -51,6 +51,7 @@ import add_icon_green from './add_icon_green.png'
 import remove_icon_red from './remove_icon_red.png'
 import app_store from './app_store.png'
 import play_store from './play_store.png'
+import instagram_icon from './instagram_icon.png'
 import linkedin_icon from './linkedin_icon.png'
 import facebook_icon from './facebook_icon.png'
 import twitter_icon from './twitter_icon.png'
@@ -75,6 +76,7 @@ export const assets = {
     remove_icon_red,
     app_store,
     play_store,
+    instagram_icon,
     linkedin_icon,
     facebook_icon,
     twitter_icon,

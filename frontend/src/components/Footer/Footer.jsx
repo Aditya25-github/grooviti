@@ -11,7 +11,7 @@ const Footer = () => {
           <p>GROOVE IT. BOOK IT. LIVE IT.</p>
           <div className="footer-social-icons">
             <a
-              href="https://www.instagram.com/groov_iti/"
+              href="https://www.instagram.com/grooviti/"
               target="_blank"
               rel="noopener noreferrer"
             >
