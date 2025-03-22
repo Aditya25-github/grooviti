@@ -17,6 +17,7 @@ const BuyTicket = () => {
   const { eventName } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
+  const [teamSize, setTeamSize] = useState(1);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -210,6 +211,47 @@ const BuyTicket = () => {
             required
           />
         </div>
+        <div className="team-size-counter">
+          <label>Team Size:</label>
+          <select
+            name="Team_size"
+            value={teamSize}
+            onChange={(event) => {
+              const size = parseInt(event.target.value, 10);
+              setTeamSize(size);
+              setData((prevData) => ({
+                ...prevData,
+                Team_size: size,
+              }));
+            }}
+          >
+            {[...Array(10).keys()].map((num) => (
+              <option key={num + 1} value={num + 1}>
+                {num + 1}
+              </option>
+            ))}
+          </select>
+        </div>
+        <input
+          type="text"
+          value={`Team size : ${teamSize}`}
+          readOnly
+          placeholder="Selected Team Size"
+          required
+        />
+        <div className="team-member-fields">
+          {[...Array(teamSize)].map((_, index) => (
+            <input
+              key={index}
+              name={`Team_member_name_${index + 1}`}
+              onChange={onChangeHandler}
+              value={data[`Team_member_name_${index + 1}`] || ""}
+              type="text"
+              placeholder={`Team member name ${index + 1}`}
+              required
+            />
+          ))}
+        </div>
         <div className="multi-fields">
           <input
             name="Team_leader_name"
@@ -217,45 +259,7 @@ const BuyTicket = () => {
             value={data.Team_leader_name}
             type="text"
             placeholder="Team Leader Name"
-          />
-          <input
-            name="Team_size"
-            onChange={onChangeHandler}
-            value={data.Team_size}
-            type="text"
-            placeholder="Team Size"
-          />
-        </div>
-        <div className="multi-fields">
-          <input
-            name="Team_member_name_1"
-            onChange={onChangeHandler}
-            value={data.Team_member_name_1}
-            type="text"
-            placeholder="Team member name 1"
-          />
-          <input
-            name="Team_member_name_2"
-            onChange={onChangeHandler}
-            value={data.Team_member_name_2}
-            type="text"
-            placeholder="Team member name 2"
-          />
-        </div>
-        <div className="multi-fields">
-          <input
-            name="Team_member_name_3"
-            onChange={onChangeHandler}
-            value={data.Team_member_name_3}
-            type="text"
-            placeholder="Team member name 3"
-          />
-          <input
-            name="Team_member_name_4"
-            onChange={onChangeHandler}
-            value={data.Team_member_name_4}
-            type="text"
-            placeholder="Team member name 4"
+            required
           />
         </div>
         <input
