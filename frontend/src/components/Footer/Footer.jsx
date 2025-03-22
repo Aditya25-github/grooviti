@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-left">
           <img className="logo" src={assets.logo} alt="" />
-          <p>GROOVE IT. BOOK IT. LIVE IT.</p>
+          <p>BOOK IT. GROOVE IT. LIVE IT.</p>
           <div className="footer-social-icons">
             <a
               href="https://www.instagram.com/grooviti/"
