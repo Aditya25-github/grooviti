@@ -172,7 +172,63 @@ button[type="submit"]:active {
   background-color: #ff6000;
 }
 
-/* Responsive Design */
+.team-size-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.team-size-counter button {
+  background-color: #767676;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.team-size-counter button:hover {
+  background-color: #e1e1e1;
+  color: #000;
+}
+
+.team-size-counter span {
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 40px;
+  text-align: center;
+}
+
+.team-member-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.team-member-fields input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.team-member-fields input:focus {
+  outline: none;
+  border-color: tomato;
+}
+
+/*--------------------------------------------- Responsive Design -----------------------------------------------*/
 @media screen and (max-width: 768px) {
   .place-order {
     flex-direction: column;
@@ -225,5 +281,21 @@ button[type="submit"]:active {
   button[type="submit"] {
     font-size: 14px;
     padding: 8px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .team-size-counter {
+    gap: 5px;
+  }
+
+  .team-size-counter button {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .team-member-fields input {
+    font-size: 13px;
+    padding: 10px;
   }
 }
