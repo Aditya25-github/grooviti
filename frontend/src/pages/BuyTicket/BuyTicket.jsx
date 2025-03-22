@@ -211,15 +211,6 @@ const BuyTicket = () => {
             required
           />
         </div>
-        <div className="multi-fields">
-          <input
-            name="Team_leader_name"
-            onChange={onChangeHandler}
-            value={data.Team_leader_name}
-            type="text"
-            placeholder="Team Leader Name"
-          />
-        </div>
         <div className="team-size-counter">
           <label>Team Size:</label>
           <select
@@ -246,6 +237,7 @@ const BuyTicket = () => {
           value={`Team size : ${teamSize}`}
           readOnly
           placeholder="Selected Team Size"
+          required
         />
         <div className="team-member-fields">
           {[...Array(teamSize)].map((_, index) => (
@@ -256,8 +248,19 @@ const BuyTicket = () => {
               value={data[`Team_member_name_${index + 1}`] || ""}
               type="text"
               placeholder={`Team member name ${index + 1}`}
+              required
             />
           ))}
+        </div>
+        <div className="multi-fields">
+          <input
+            name="Team_leader_name"
+            onChange={onChangeHandler}
+            value={data.Team_leader_name}
+            type="text"
+            placeholder="Team Leader Name"
+            required
+          />
         </div>
         <input
           name="phone"
