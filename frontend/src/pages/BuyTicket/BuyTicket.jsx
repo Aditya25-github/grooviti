@@ -140,7 +140,7 @@ const BuyTicket = () => {
             email: data.email,
             contact: data.phone,
           },
-          theme: { color: "#3399cc" },
+          theme: { color: "#ff6000" },
         };
 
         const rzp1 = new window.Razorpay(options);
@@ -165,7 +165,7 @@ const BuyTicket = () => {
             onChange={onChangeHandler}
             value={data.firstName}
             type="text"
-            placeholder="First Name"
+            placeholder="First Name *"
             required
           />
           <input
@@ -173,7 +173,7 @@ const BuyTicket = () => {
             onChange={onChangeHandler}
             value={data.lastName}
             type="text"
-            placeholder="Last Name"
+            placeholder="Last Name *"
             required
           />
         </div>
@@ -182,7 +182,7 @@ const BuyTicket = () => {
           onChange={onChangeHandler}
           value={data.college_name}
           type="text"
-          placeholder="College name"
+          placeholder="College name *"
           required
         />
         <input
@@ -190,7 +190,7 @@ const BuyTicket = () => {
           onChange={onChangeHandler}
           value={data.email}
           type="email"
-          placeholder="Email address"
+          placeholder="Email address *"
           required
         />
         <div className="multi-fields">
@@ -199,7 +199,7 @@ const BuyTicket = () => {
             onChange={onChangeHandler}
             value={data.Branch}
             type="text"
-            placeholder="Branch"
+            placeholder="Branch *"
             required
           />
           <input
@@ -207,7 +207,7 @@ const BuyTicket = () => {
             onChange={onChangeHandler}
             value={data.Team_name}
             type="text"
-            placeholder="Team Name"
+            placeholder="Team Name *"
             required
           />
         </div>
@@ -236,7 +236,7 @@ const BuyTicket = () => {
           type="text"
           value={`Team size : ${teamSize}`}
           readOnly
-          placeholder="Selected Team Size"
+          placeholder="Selected Team Size *"
           required
         />
         <div className="team-member-fields">
@@ -247,7 +247,7 @@ const BuyTicket = () => {
               onChange={onChangeHandler}
               value={data[`Team_member_name_${index + 1}`] || ""}
               type="text"
-              placeholder={`Team member name ${index + 1}`}
+              placeholder={`Team member name ${index + 1} *`}
               required
             />
           ))}
@@ -258,7 +258,7 @@ const BuyTicket = () => {
             onChange={onChangeHandler}
             value={data.Team_leader_name}
             type="text"
-            placeholder="Team Leader Name"
+            placeholder="Team Leader Name *"
             required
           />
         </div>
@@ -267,15 +267,15 @@ const BuyTicket = () => {
           onChange={onChangeHandler}
           value={data.phone}
           type="text"
-          placeholder="Phone (+91 989-767-0000)"
+          placeholder="Phone (+91 989-767-0000) *"
           required
         />
         <input
           name="event"
           onChange={onChangeHandler}
-          value={data.event}
+          value={eventName}
           type="text"
-          placeholder="Event Name"
+          placeholder="Event Name *"
           required
         />
       </div>
