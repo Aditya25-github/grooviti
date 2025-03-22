@@ -273,7 +273,7 @@ const BuyTicket = () => {
         <input
           name="event"
           onChange={onChangeHandler}
-          value={eventName}
+          value={`Event name : ${eventName}`}
           type="text"
           placeholder="Event Name *"
           required
