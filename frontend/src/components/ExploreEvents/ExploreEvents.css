@@ -32,7 +32,6 @@
   min-width: 80px;
   cursor: pointer;
   border-radius: 50%;
-  transition: 0.2s;
 }
 
 .explore-evets-list-items p {
