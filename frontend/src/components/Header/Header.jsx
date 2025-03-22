@@ -15,7 +15,9 @@ const Header = () => {
           just a few clicks. Groove it. Book it. Live it. - Your next
           unforgettable experience starts here!
         </p>
-        <button>View Events</button>
+        <button>
+          <a href="#explore-events">View Events</a>
+        </button>
       </div>
     </div>
   );
