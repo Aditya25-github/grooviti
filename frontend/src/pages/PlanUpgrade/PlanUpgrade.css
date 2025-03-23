@@ -23,6 +23,13 @@
   gap: 1.5rem;
   margin-top: 2rem;
   grid-template-columns: repeat(3, 1fr);
+
+}
+
+.pricing-grid :hover {
+  cursor: pointer;
+  
+  
 }
 
 @media (max-width: 768px) {
@@ -39,8 +46,9 @@
   position: relative; 
 }
 
+
 .highlighted-card {
-  border: 2px solid #ff6347;  */
+  border: 2px solid #ff6347;  
 }
 
 .plan-name {
@@ -156,4 +164,19 @@
   font-weight: bold;
   font-size: 1.9rem;
   margin-top: 1rem;
+}
+
+.pricing-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.pricing-card:hover {
+  transform: scale(1.02); 
+  box-shadow: 0px 10px 20px rgba(193, 91, 18, 0.2); 
+  border: 1px solid #deb15c;
+}
+
+.pricing-card * {
+  transition: none;
 }
