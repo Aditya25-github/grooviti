@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "./PlanUpgrade.css";  
+import "./PlanUpgrade.css";
 import { Check } from "lucide-react";
-
 
 const plans = [
   {
@@ -15,7 +14,7 @@ const plans = [
       "Access to admin panel where event organisers can easily manage their events listed on platform",
       "Basic ticket listing options.",
       "Limited event promotions.",
-      "Email support."
+      "Email support.",
     ],
     buttonText: "Get started",
     highlight: false,
@@ -24,7 +23,7 @@ const plans = [
     name: "Premium",
     monthlyPrice: 499,
     quarterlyPrice: 1199,
-    annualPrice: 2999, 
+    annualPrice: 2999,
     per: "per month",
     description: "Perfect for growing event organizers",
     features: [
@@ -33,7 +32,7 @@ const plans = [
       "Access to personalized emails",
       "Certificate generation",
     ],
-    buttonText: "Get started",
+    buttonText: "Get Started ",
     highlight: true,
   },
   {
@@ -62,23 +61,27 @@ export default function PricingPlans() {
 
   const handleButtonClick = () => {
     alert("This feature is coming soon!");
-  }
+  };
 
   return (
     <div className="pricing-container">
-      <h2 className="pricing-title">Flexible plans for <i>every event</i></h2>
-      <p className="pricing-description">Affordable and transparent pricing for individual organizers, event planners, and businesses.</p>
+      <h2 className="pricing-title">
+        Flexible plans for <i>every event</i>
+      </h2>
+      <p className="pricing-description">
+        Affordable and transparent pricing for individual organizers, event
+        planners, and businesses.
+      </p>
       <div className="toggle-switch">
-        
         <button
           className={billingCycle === "monthly" ? "active" : ""}
           onClick={() => setBillingCycle("monthly")}
         >
           Monthly
         </button>
-        <button 
-        className={billingCycle === "quarterly" ? "active" : ""}
-        onClick={() => setBillingCycle("quarterly")}
+        <button
+          className={billingCycle === "quarterly" ? "active" : ""}
+          onClick={() => setBillingCycle("quarterly")}
         >
           Quarterly
         </button>
@@ -92,7 +95,12 @@ export default function PricingPlans() {
 
       <div className="pricing-grid">
         {plans.map((plan, index) => (
-          <div key={index} className={`pricing-card ${plan.highlight ? "highlighted-card" : ""}`}>
+          <div
+            key={index}
+            className={`pricing-card ${
+              plan.highlight ? "highlighted-card" : ""
+            }`}
+          >
             {billingCycle === "annual" && (
               <div className="discount-label">50% Discount</div>
             )}
@@ -104,31 +112,46 @@ export default function PricingPlans() {
             <p className="plan-description">{plan.description}</p>
 
             <div className="plan-price">
-            {billingCycle === "annual" ? (
+              {billingCycle === "annual" ? (
                 <>
-                  <span className="original-price">₹{plan.monthlyPrice * 12 + 11}</span> {/* Original price */}
-                  <span className="discounted-price">₹{plan.annualPrice}</span> {/* Discounted price */}
+                  <span className="original-price">
+                    ₹{plan.monthlyPrice * 12 + 11}
+                  </span>{" "}
+                  {/* Original price */}
+                  <span className="discounted-price">
+                    ₹{plan.annualPrice}
+                  </span>{" "}
+                  {/* Discounted price */}
                 </>
               ) : billingCycle === "quarterly" ? (
                 <>
-                  <span className="original-price">₹{plan.monthlyPrice * 3 + 2}</span> {/* Original price */}
-                  <span className="discounted-price">₹{plan.quarterlyPrice}</span> {/* Discounted price */}
+                  <span className="original-price">
+                    ₹{plan.monthlyPrice * 3 + 2}
+                  </span>{" "}
+                  {/* Original price */}
+                  <span className="discounted-price">
+                    ₹{plan.quarterlyPrice}
+                  </span>{" "}
+                  {/* Discounted price */}
                 </>
               ) : (
                 `₹${plan.monthlyPrice}`
               )}
 
-             <span className="price-per">
-              {billingCycle === "monthly" 
-              ? " per month" 
-              : billingCycle === "quarterly"
-              ? " for 3 Months"
-              : " per year"}
-             </span>
+              <span className="price-per">
+                {billingCycle === "monthly"
+                  ? " per month"
+                  : billingCycle === "quarterly"
+                  ? " for 3 Months"
+                  : " per year"}
+              </span>
             </div>
 
-            <button className={`plan-button ${plan.highlight ? "highlighted-button" : "default-button"}`}
-            onClick={handleButtonClick}
+            <button
+              className={`plan-button ${
+                plan.highlight ? "highlighted-button" : "default-button"
+              }`}
+              onClick={handleButtonClick}
             >
               {plan.buttonText}
             </button>
