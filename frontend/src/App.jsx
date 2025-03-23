@@ -11,7 +11,7 @@ import TicketConfirmation from "./pages/TicketConfirmation/TicketConfirmation";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade"
+import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
