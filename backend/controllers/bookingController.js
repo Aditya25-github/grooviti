@@ -160,9 +160,9 @@ const generateTicketPDF = async (booking) => {
     doc.text(booking?.address.phone, -150, 303, { align: "center" });
 
     // Team Details
-    doc.text(`${booking?.address.team_name || "N/A"}`, -150, 380, { align: "center" });
+    doc.text(`${booking?.address.Team_name || "N/A"}`, -150, 380, { align: "center" });
     doc.text(`${booking?.address.Team_leader_name}`, -150, 412, { align: "center" }); // Team Leader
-    doc.text(`${booking?.address.team_size || 1}`, -150, 442 , { align:"center" }); // Team Size
+    doc.text(`${booking?.address.Team_size || 1}`, -150, 442 , { align:"center" }); // Team Size
 
     // Payment Details
     doc.text(`Rs. ${booking?.amount}`, -150, 517, { align: "center" });
