@@ -136,42 +136,85 @@ const sendBookingEmail = async (userEmail,booking) => {
 };
 
 const generateTicketPDF = async (booking) => {
-  console.log(booking)
+  console.log(booking);
   return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({ size: "A4", margin: 0 });
+    const doc = new PDFDocument({ size: [921, 768], margin: 0 }); // Set size to match ticket template
     const buffer = [];
 
     doc.on("data", (chunk) => buffer.push(chunk));
     doc.on("end", () => resolve(Buffer.concat(buffer)));
 
-    // Load the ticket template
-    doc.image("./uploads/ticketTemplate.png", 0, 0, { width: 595, height: 842 });
+    // Load the updated ticket template with correct dimensions
+    doc.image("./uploads/ticketTemplate3.png", 0, 0, { width: 921, height: 768 });
 
     // Set font and styling
     doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
 
-    // Add user name before confirmation message
-    doc.text(`${booking?.address.firstName}`, 50, 200, { align: "left" });
-    doc.font("Helvetica-Bold").fillColor("black").fontSize(14);
-    // Event Details
-    doc.text(`Technovate - ${booking?.address.event}`, 100, 287, { align: "center" });
-    doc.text(`PCCOER`, 100, 317, { align: "center" });
-    doc.text(`3 April 2025`, 100, 346, { align: "center" });
+    // Event Name
+    doc.text(`Technovate-${booking?.address.event}`, -150, 175, { align: "center" });
 
     // Ticket Holder Details
-    doc.text(`${booking?.address.firstName} ${booking?.address.lastName}`, 100, 449, { align: "center" });
-    doc.text(booking?.address.email, 100, 477, { align: "center" });
-    doc.text(booking?.address.phone,  100, 509, { align: "center" });
-    doc.text(booking?.orderId, 100, 542, { align: "center" });
+    doc.fontSize(14);
+    doc.text(`${booking?.address.firstName} ${booking?.address.lastName}`, -150, 249, { align: "center" });
+    doc.text(booking?.address.email, -150, 278, { align: "center" });
+    doc.text(booking?.address.phone, -150, 303, { align: "center" });
+
+    // Team Details
+    doc.text(`${booking?.address.team_name || "N/A"}`, -150, 380, { align: "center" });
+    doc.text(`${booking?.address.Team_leader_name}`, -150, 412, { align: "center" }); // Team Leader
+    doc.text(`${booking?.address.team_size || 1}`, -150, 442 , { align:"center" }); // Team Size
 
     // Payment Details
-    doc.text(`Rs. ${booking?.amount}`, 100, 640, { align: "center" });
-    doc.text("No fees for PCCOER students!!", 100, 680, { align: "center" });
-    doc.text(`Rs. ${booking?.amount}`, 100, 715, { align: "center" });
+    doc.text(`Rs. ${booking?.amount}`, -150, 517, { align: "center" });
+    doc.text(`Free for PCCOER students`, -150, 547, { align: "center" });
+    doc.text(`Rs. ${booking?.amount}`, -150, 575, { align: "center" });
+
+    // Ticket ID & Event Date
+    doc.fontSize(20).fillColor("orange");
+    doc.text(booking?.orderId, 445, 470, { align: "center" });
 
     doc.end();
   });
 };
+
+
+// const generateTicketPDF = async (booking) => {
+//   console.log(booking)
+//   return new Promise((resolve, reject) => {
+//     const doc = new PDFDocument({ size: "A4", margin: 0 });
+//     const buffer = [];
+
+//     doc.on("data", (chunk) => buffer.push(chunk));
+//     doc.on("end", () => resolve(Buffer.concat(buffer)));
+
+//     // Load the ticket template
+//     doc.image("./uploads/ticketTemplate.png", 0, 0, { width: 595, height: 842 });
+
+//     // Set font and styling
+//     doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
+
+//     // Add user name before confirmation message
+//     doc.text(`${booking?.address.firstName}`, 50, 200, { align: "left" });
+//     doc.font("Helvetica-Bold").fillColor("black").fontSize(14);
+//     // Event Details
+//     doc.text(`Technovate - ${booking?.address.event}`, 100, 287, { align: "center" });
+//     doc.text(`PCCOER`, 100, 317, { align: "center" });
+//     doc.text(`3 April 2025`, 100, 346, { align: "center" });
+
+//     // Ticket Holder Details
+//     doc.text(`${booking?.address.firstName} ${booking?.address.lastName}`, 100, 449, { align: "center" });
+//     doc.text(booking?.address.email, 100, 477, { align: "center" });
+//     doc.text(booking?.address.phone,  100, 509, { align: "center" });
+//     doc.text(booking?.orderId, 100, 542, { align: "center" });
+
+//     // Payment Details
+//     doc.text(`Rs. ${booking?.amount}`, 100, 640, { align: "center" });
+//     doc.text("No fees for PCCOER students!!", 100, 680, { align: "center" });
+//     doc.text(`Rs. ${booking?.amount}`, 100, 715, { align: "center" });
+
+//     doc.end();
+//   });
+// };
 
 // Fetch User Orders
 const userOrders = async (req, res) => {
