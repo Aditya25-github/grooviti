@@ -15,36 +15,18 @@ const Verify = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const verifyPayment = async () => {
-      if (!orderId || !success) {
-        setError("Invalid order details.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.post(`${url}/api/booking/verify`, {
-          success,
-          orderId,
-        });
-
-        if (response.data.success) {
-          console.log("Email sent successfully!");
-          setTimeout(() => {
-            navigate(`/ticket-confirmation?orderId=${orderId}`);
-          }, 2000); // Adding delay to ensure email is sent
-        } else {
-          setError("Payment verification failed.");
-        }
-      } catch (err) {
-        setError("Error verifying payment. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    verifyPayment();
-  }, [orderId, success, url, navigate]);
+    if (!orderId || !success) {
+      setError("Invalid order details.");
+      setLoading(false);
+      return;
+    }
+  
+    setTimeout(() => {
+      navigate(`/ticket-confirmation?orderId=${orderId}`);
+    }, 2000); // Delay navigation for smooth UX
+  
+    setLoading(false);
+  }, [orderId, success, navigate]);
 
   return (
     <div className="verify">
