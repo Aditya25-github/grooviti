@@ -14,6 +14,10 @@ const TicketConfirmation = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
         const response = await axios.post(`${url}/api/booking/order-details`, {
