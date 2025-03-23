@@ -127,8 +127,6 @@ const BuyTicket = () => {
                 orderId: paymentResponse.razorpay_order_id,
                 paymentId: paymentResponse.razorpay_payment_id,
                 success: true,
-              },{
-                headers: { "Content-Type": "application/json" }
               });
 
               alert(
@@ -282,11 +280,7 @@ const BuyTicket = () => {
         <input
           name="event"
           onChange={onChangeHandler}
-
           value={data.event}
-
-       
-
           type="text"
           placeholder="Event Name *"
           required
