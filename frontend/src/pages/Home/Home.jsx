@@ -13,6 +13,7 @@ const Home = () => {
       <ExploreEvents category={category} setCategory={setCategory} />
       <EventDisplay category={category} />
       <TeamGrid />
+      <TeamGrid />
     </div>
   );
 };
