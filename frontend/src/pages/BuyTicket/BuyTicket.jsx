@@ -215,7 +215,7 @@ const BuyTicket = () => {
           <label>Team Size:</label>
           <select
             name="Team_size"
-            value={teamSize}
+            value={data.Team_size}
             onChange={(event) => {
               const size = parseInt(event.target.value, 10);
               setTeamSize(size);
@@ -273,7 +273,7 @@ const BuyTicket = () => {
         <input
           name="event"
           onChange={onChangeHandler}
-          value={`Event name : ${eventName}`}
+          value={`Event name : ${data.eventName}`}
           type="text"
           placeholder="Event Name *"
           required
