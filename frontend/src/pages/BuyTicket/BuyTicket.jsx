@@ -48,6 +48,12 @@ const BuyTicket = () => {
       if (foundEvent) {
         setEventData(foundEvent);
 
+        setData((prevData) => ({
+          ...prevData,
+          event: foundEvent.name,
+          Team_size: prevData.Team_size || 1,
+        }));
+
         if (!cartItems[foundEvent._id] || cartItems[foundEvent._id] === 0) {
           addToCart(foundEvent._id);
         }
@@ -233,6 +239,7 @@ const BuyTicket = () => {
           </select>
         </div>
         <input
+          name="Team_size"
           type="text"
           value={`Team size : ${teamSize}`}
           readOnly
@@ -273,7 +280,7 @@ const BuyTicket = () => {
         <input
           name="event"
           onChange={onChangeHandler}
-          value={`Event name : ${data.eventName}`}
+          value={data.event}
           type="text"
           placeholder="Event Name *"
           required
