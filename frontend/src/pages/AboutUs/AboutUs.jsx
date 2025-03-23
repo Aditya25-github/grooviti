@@ -17,6 +17,7 @@ const AboutUs = () => {
         Our mission is to empower event creators and enrich communities by
         providing a comprehensive event listing platform.
       </p>
+    
       <TeamGrid />
     </div>
   );
