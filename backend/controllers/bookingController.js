@@ -21,62 +21,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Generate Ticket PDF
-const generateTicketPDF = async (booking) => {
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument();
-    const buffer = [];
-
-    doc.on("data", (chunk) => buffer.push(chunk));
-    doc.on("end", () => resolve(Buffer.concat(buffer)));
-
-    doc.fontSize(20).text("🎟️ Event Ticket", { align: "center" });
-    doc.moveDown();
-    doc.fontSize(16).text(`Booking ID: ${booking._id}`);
-    doc.text(`Event: ${booking.items[0]?.eventName}`);
-    doc.text(`Amount: ₹${booking.amount}`);
-    doc.text(`Status: Confirmed ✅`);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`);
-    doc.end();
-  });
-};
-
-// Send Confirmation Email
-const sendBookingEmail = async (userEmail, booking) => {
-  try {
-    const pdfTicket = await generateTicketPDF(booking);
-
-    const mailOptions = {
-      from: "groov.iti25@gmail.com",
-      to: userEmail,
-      subject: "🎟️ Your Event Ticket",
-      html: `
-        <h2>Thank you for your booking!</h2>
-        <p>Your payment was successful. Here are your booking details:</p>
-        <p><strong>Booking ID:</strong> ${booking._id}</p>
-        <p><strong>Event Name:</strong> ${booking.items[0]?.eventName}</p>
-        <p><strong>Total Amount:</strong> ₹${booking.amount}</p>
-        <p><strong>Status:</strong> Confirmed ✅</p>
-        <p>We look forward to seeing you at the event!</p>
-        <p>Best Regards,</p>
-        <p>Event Team</p>
-      `,
-      attachments: [
-        {
-          filename: `Ticket_${booking._id}.pdf`,
-          content: pdfTicket,
-          encoding: "base64",
-        },
-      ],
-    };
-
-    await transporter.sendMail(mailOptions);
-    console.log("Booking confirmation email with PDF sent to:", userEmail);
-  } catch (error) {
-    console.error("Error sending email with PDF:", error);
-  }
-};
-
 // Book Ticket
 const bookTicket = async (req, res) => {
   try {
@@ -84,7 +28,6 @@ const bookTicket = async (req, res) => {
     if (!userId || !items.length || !amount || !address) {
       return res.json({ success: false, message: "Missing required fields" });
     }
-
     const order = await razorpay.orders.create({
       amount: amount * 100,
       currency: "INR",
@@ -103,7 +46,6 @@ const bookTicket = async (req, res) => {
 
     await newTicket.save();
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
-
     res.json({ success: true, order_id: order.id });
   } catch (error) {
     console.error("Error while making payment:", error);
@@ -113,7 +55,7 @@ const bookTicket = async (req, res) => {
 
 // Verify Payment & Send Email
 const verifyOrder = async (req, res) => {
-  let { orderId, success, paymentId } = req.body;
+  let { orderId, paymentId, success } = req.body;
   success = success === "true" || success === true;
 
   try {
@@ -138,11 +80,11 @@ const verifyOrder = async (req, res) => {
       return res.json({ success: false, message: "Payment failed, order deleted" });
     }
 
-    // Fetch user email and send confirmation email
-    const user = await userModel.findById(booking.userId);
-    if (user && user.email) {
-      console.log("Sending email to:", user.email);
-      await sendBookingEmail(user.email, booking);
+    if (booking.address.email) {
+      console.log("Sending email to:", booking.address.email);
+      await sendBookingEmail(booking.address.email , booking);
+    } else {
+      console.log("❌ User email not found!");
     }
 
     res.json({ success: true, message: "Payment confirmed & email sent", booking });
@@ -150,6 +92,85 @@ const verifyOrder = async (req, res) => {
     console.error("Error verifying order:", error);
     res.json({ success: false, message: "Error verifying payment" });
   }
+};
+
+// Send Confirmation Email
+const sendBookingEmail = async (userEmail,booking) => {
+  try {
+    console.log("📄 Generating PDF Ticket...");
+    console.log("📧 Preparing email for:", booking.address.email);
+    console.log("📎 Ticket Attachment:", booking?.orderId);
+    const pdfTicket = await generateTicketPDF(booking);
+    console.log("✅ PDF Generated Successfully");
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: booking?.address.email,
+      subject: "🎟️ Your Event Ticket",
+      html: `
+        <h2>Thank you for your booking!</h2>
+        <p>Your payment was successful. Here are your booking details:</p>
+        <p><strong>Ticket ID:</strong> ${booking?.orderId}</p>
+        <p><strong>Event Name:</strong> ${booking?.address.event}</p>
+        <p><strong>Total Amount:</strong> ₹${booking?.amount}</p>
+        <p><strong>Status:</strong> Confirmed ✅</p>
+        <p>We look forward to seeing you at the event!</p>
+        <p>Best Regards,</p>
+        <p>Grooviti Team</p>
+      `,
+      attachments: [
+        {
+          filename: `Ticket_${booking?.orderId}.pdf`,
+          content: pdfTicket,
+          encoding: "base64",
+        },
+      ],
+    };
+
+    console.log("📧 Sending email to:", booking?.address.email);
+    await transporter.sendMail(mailOptions);
+    console.log("✅ Email Sent Successfully!");
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+  }
+};
+
+const generateTicketPDF = async (booking) => {
+  console.log(booking)
+  return new Promise((resolve, reject) => {
+    const doc = new PDFDocument({ size: "A4", margin: 0 });
+    const buffer = [];
+
+    doc.on("data", (chunk) => buffer.push(chunk));
+    doc.on("end", () => resolve(Buffer.concat(buffer)));
+
+    // Load the ticket template
+    doc.image("./uploads/ticketTemplate.png", 0, 0, { width: 595, height: 842 });
+
+    // Set font and styling
+    doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
+
+    // Add user name before confirmation message
+    doc.text(`${booking?.address.firstName}`, 50, 200, { align: "left" });
+    doc.font("Helvetica-Bold").fillColor("black").fontSize(14);
+    // Event Details
+    doc.text(`Technovate - ${booking?.address.event}`, 100, 287, { align: "center" });
+    doc.text(`PCCOER`, 100, 317, { align: "center" });
+    doc.text(`3 April 2025`, 100, 346, { align: "center" });
+
+    // Ticket Holder Details
+    doc.text(`${booking?.address.firstName} ${booking?.address.lastName}`, 100, 449, { align: "center" });
+    doc.text(booking?.address.email, 100, 477, { align: "center" });
+    doc.text(booking?.address.phone,  100, 509, { align: "center" });
+    doc.text(booking?.orderId, 100, 542, { align: "center" });
+
+    // Payment Details
+    doc.text(`Rs. ${booking?.amount}`, 100, 640, { align: "center" });
+    doc.text("No fees for PCCOER students!!", 100, 680, { align: "center" });
+    doc.text(`Rs. ${booking?.amount}`, 100, 715, { align: "center" });
+
+    doc.end();
+  });
 };
 
 // Fetch User Orders
