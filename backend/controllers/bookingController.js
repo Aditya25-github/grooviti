@@ -145,7 +145,7 @@ const generateTicketPDF = async (booking) => {
     doc.on("end", () => resolve(Buffer.concat(buffer)));
 
     // Load the updated ticket template with correct dimensions
-    doc.image("./uploads/ticketTemplate3.png", 0, 0, { width: 921, height: 768 });
+    doc.image("./uploads/ticketTemplate1.png", 0, 0, { width: 921, height: 768 });
 
     // Set font and styling
     doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
