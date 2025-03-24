@@ -2,20 +2,20 @@ import React from "react";
 import "./TeamGrid.css";
 
 const teamMembers = [
-  { name: "Aditya Divate", role: "CEO & Founder", image: "/images/adi.jpg" },
-  { name: "Swaroop Mane", role: "CTO", image: "/images/swaroop1.jpg" },
-  { name: "Saksham Gawande", role: "CMO", image: "/images/saksham1.jpg" },
+  { name: "Aditya Divate", role: "CEO & Founder", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/adi.jpg" },
+  { name: "Swaroop Mane", role: "CTO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/swaroop1.jpg" },
+  { name: "Saksham Gawande", role: "CMO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/saksham1.jpg" },
   {
     name: "Siddhi Pankhade",
     role: "Lead Developer",
-    image: "/images/Siddhi_P.JPG",
+    image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/Siddhi_P.JPG",
   },
-  { name: "Bhagyesh Makhamale", role: "CFO", image: "/images/bhagyesh1.jpg" },
-  { name: "Esha Pansare", role: "CDO", image: "/images/esha.jpg" },
-  { name: "Samiksha Ner", role: "UI/UX Designer", image: "/images/sam.jpg" },
-  { name: "Akash Patil", role: "Strategy Head", image: "/images/akash1.jpg" },
-  { name: "Diksha Waghulde", role: "HR", image: "/images/diksha.jpg" },
-  { name: "New Employee", role: "--", image: "/images/new.jpg" },
+  { name: "Bhagyesh Makhamale", role: "CFO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/bhagyesh1.jpg" },
+  { name: "Esha Pansare", role: "CDO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/esha.jpg" },
+  { name: "Samiksha Ner", role: "UI/UX Designer", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/sam.jpg" },
+  { name: "Akash Patil", role: "Strategy Head", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/akash1.jpg" },
+  { name: "Diksha Waghulde", role: "HR", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/diksha.jpg" },
+  { name: "New Employee", role: "--", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/new.jpg" },
 ];
 
 const TeamGrid = () => {

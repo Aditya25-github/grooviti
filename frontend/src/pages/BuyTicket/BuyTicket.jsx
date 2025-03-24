@@ -160,8 +160,22 @@ const BuyTicket = () => {
       alert("An error occurred while booking the ticket.");
     }
   };
-
+  const WarningMessage = ({ isLoggedIn }) => {
+    if (isLoggedIn) {
+      console.log("You are good to go!!");
+      return null; // No warning if logged in
+    }
+    return (
+      <div className="warning">
+        <span className="warning-icon">⚠</span> Please sign up before proceeding
+        to payment.
+      </div>
+    );
+  };
   return (
+    <>
+    
+    <WarningMessage isLoggedIn={token} />
     <form onSubmit={buyTicket} className="place-order">
       <div className="place-order-left">
         <p className="title">Ticket Booking Information</p>
@@ -273,8 +287,12 @@ const BuyTicket = () => {
           name="phone"
           onChange={onChangeHandler}
           value={data.phone}
-          type="text"
-          placeholder="Phone (+91 989-767-0000) *"
+          type="tel"
+          pattern="[0-9]{10}"
+          inputMode="numeric"
+          maxLength="10"
+          placeholder="Phone ( 989-767-0000) *"
+          onInput={(e) => (e.target.value = e.target.value.replace(/\D/, ""))}
           required
         />
         <input
@@ -335,7 +353,8 @@ const BuyTicket = () => {
         </div>
         <button type="submit">PROCEED TO PAYMENT</button>
       </div>
-    </form>
+    </form></>
+    
   );
 };
 

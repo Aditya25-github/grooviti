@@ -227,6 +227,24 @@ button[type="submit"]:active {
   border-color: tomato;
 }
 
+.warning {
+  background-color: #ffcccb;
+  color: #d8000c;
+  padding: 15px;
+  border: 1px solid #d8000c;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+.warning-icon {
+  font-size: 20px;
+}
+
+
 /*--------------------------------------------- Responsive Design -----------------------------------------------*/
 @media screen and (max-width: 768px) {
   .place-order {
