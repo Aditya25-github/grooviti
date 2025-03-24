@@ -42,8 +42,10 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className="navbar">
 
-      <div className={`menu-icon ${menuOpen ? 'open' : ''}`} 
-        onClick={() => setMenuOpen(!menuOpen)}>
+      <div 
+      className={`menu-icon ${menuOpen ? 'open' : ''}`} 
+        onClick={() => setMenuOpen(!menuOpen)}
+        >
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
