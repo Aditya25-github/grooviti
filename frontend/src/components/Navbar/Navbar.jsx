@@ -7,6 +7,8 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [event, setevent] = useState("home");
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -19,10 +21,19 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className="navbar">
+
+      <div className={`menu-icon ${menuOpen ? 'open' : ''}`} 
+        onClick={() => setMenuOpen(!menuOpen)}>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
+      
       <Link to="/">
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
-      <ul className="navbar-event">
+
+      <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
         <Link
           to="/"
           onClick={() => setevent("Home")}
