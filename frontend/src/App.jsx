@@ -25,6 +25,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/event/:eventName/buyticket" element={<BuyTicket />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/event" element={<Home />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
           <Route path="/about" element={<AboutUs />} />
