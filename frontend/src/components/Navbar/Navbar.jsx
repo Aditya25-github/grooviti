@@ -21,14 +21,15 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className="navbar">
-
-      <div className={`menu-icon ${menuOpen ? 'open' : ''}`} 
-        onClick={() => setMenuOpen(!menuOpen)}>
+      <div
+        className={`menu-icon ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
       </div>
-      
+
       <Link to="/">
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
@@ -41,13 +42,13 @@ const Navbar = ({ setShowLogin }) => {
         >
           Home
         </Link>
-        <a
-          href="#explore-events"
-          onClick={() => setevent("Events")}
-          className={event === "Events" ? "active" : ""}
+        <Link
+          to="/event"
+          onClick={() => setevent("event")}
+          className={event === "Home" ? "active" : ""}
         >
           Events
-        </a>
+        </Link>
         <Link
           to="/about"
           onClick={() => setevent("about")}
