@@ -97,7 +97,7 @@
 }
 
 .menu-icon {
-  display: flex;
+  display: none;
   flex-direction: column;
   cursor: pointer;
   z-index: 101;
@@ -181,12 +181,6 @@
   /* Hamburger menu */
   .menu-icon {
     display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    z-index: 101;
-    position: fixed;
-    top: 10px;
-    left: 7px;
   }
 
   /* Mobile Menu Links */
@@ -201,7 +195,7 @@
     height: 100%;
     background-color: #111122;
     text-align: left;
-    padding-top: 53px;
+    padding-top: 50px;
     gap: 15px;
     border-radius: 0 5px 5px 0;
   }
