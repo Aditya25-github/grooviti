@@ -1,9 +1,30 @@
 .navbar {
-  padding: 50px 0px;
+  padding: 24px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  width: inherit;
+  margin: auto;
+  background-color: rgb(243,243,243);
+  /* background-color: #1E1E1E; */
+  /* background: linear-gradient(90deg, #1E1E1E, #3A3A3A); */
+  transition: top 0.7s ease-in-out;
+  z-index: 100;
+  /* border-radius: 0 0 15px 15px; */
+  
 }
+
+/* Navbar hides when scrolling down */
+/* .navbar.hidden {
+  top: -145px;
+}
+
+
+.navbar.visible {
+  top: 0;
+} */
 
 .navbar .logo {
   width: 150px;
@@ -13,7 +34,7 @@
   display: flex;
   list-style: none;
   gap: 20px;
-  color: #49447e;
+  color:black;
   font-size: 18px;
 }
 
@@ -26,7 +47,7 @@
 .navbar button {
   background: transparent;
   font-size: 16px;
-  color: #49447e;
+  color: black;
   border: 1px solid tomato;
   padding: 10px 30px;
   border-radius: 50px;
@@ -133,6 +154,11 @@
   height: 2px;
   width: 15px;
  
+}
+
+.header{
+  margin: 133px;
+  padding-top: 137.33px; 
 }
 
 @media (max-width: 1050px) {

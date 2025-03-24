@@ -11,6 +11,7 @@ const Cart = ({ name }) => {
   const navigate = useNavigate();
 
   return (
+    <div style={{paddingTop:"95px"}}>
     <div className="cart">
       <div className="cart-items">
         <div className="cart-items-title">
@@ -86,6 +87,7 @@ const Cart = ({ name }) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

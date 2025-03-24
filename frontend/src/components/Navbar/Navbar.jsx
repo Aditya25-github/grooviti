@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { assets } from "../../assets/frontend_assets/assets";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,11 +6,8 @@ import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
   const [event, setevent] = useState("home");
-
   const [menuOpen, setMenuOpen] = useState(false);
-
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
-
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,16 +16,40 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
 
-  return (
-    <div className="navbar">
+  // State to track navbar visibility
+  const [showNavbar, setShowNavbar] = useState(true);
+  let lastScrollTop = 0;
 
-      <div className={`menu-icon ${menuOpen ? 'open' : ''}`} 
-        onClick={() => setMenuOpen(!menuOpen)}>
+  useEffect(() => {
+    const handleScroll = () => {
+      let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop + 3) {
+        // Hide navbar when scrolling down
+        setShowNavbar(false);
+      } else if (scrollTop < lastScrollTop - 3) {
+        // Show navbar when scrolling up slightly
+        setShowNavbar(true);
+      }
+
+      lastScrollTop = scrollTop;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className={`navbar ${showNavbar ? "visible" : "hidden"}`}>
+      <div
+        className={`menu-icon ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
       </div>
-      
+
       <Link to="/">
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
@@ -70,8 +91,8 @@ const Navbar = ({ setShowLogin }) => {
           Contact-us
         </a>
       </ul>
+
       <div className="navbar-right">
-        {/* <img src={assets.search_icon} alt="" /> */}
         <div className="navbar-search-icon">
           <Link to="/Cart">
             <img src={assets.basket_icon} alt="" />

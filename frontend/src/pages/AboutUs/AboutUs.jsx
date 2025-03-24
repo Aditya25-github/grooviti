@@ -4,6 +4,7 @@ import TeamGrid from "../TeamGrid/TeamGrid";
 
 const AboutUs = () => {
   return (
+    <div style={{ paddingTop: "95px" }}>
     <div className="about-us" id="about-us">
       <h1>About Us</h1>
 
@@ -20,6 +21,7 @@ const AboutUs = () => {
     
       <TeamGrid />
     </div>
+  </div>
   );
 };
 

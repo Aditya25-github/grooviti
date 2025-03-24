@@ -42,6 +42,7 @@ const TicketConfirmation = () => {
   }, [orderId, url]);
 
   return (
+    <div style={{paddingTop:"95px"}}>
     <div className="ticket-confirmation">
       {loading ? (
         <div className="spinner"></div>
@@ -96,6 +97,7 @@ const TicketConfirmation = () => {
           </p>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const Verify = () => {
   
     setTimeout(() => {
       navigate(`/ticket-confirmation?orderId=${orderId}`);
-    }, 2000); // Delay navigation for smooth UX
+    }, 3000); // Delay navigation for smooth UX
   
     setLoading(false);
   }, [orderId, success, navigate]);

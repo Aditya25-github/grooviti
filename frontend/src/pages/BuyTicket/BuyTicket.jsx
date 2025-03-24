@@ -129,12 +129,12 @@ const BuyTicket = () => {
                 success: true,
               });
 
-              alert(
-                "Payment Successful! Payment ID: " +
-                  paymentResponse.razorpay_payment_id
-              );
+              
               navigate(
                 `/verify?success=true&orderId=${response.data.order_id}`
+              );
+              alert(
+                "Payment Successful!! Please check your email for ticket pdf!\n !!If not found please check spam !! "
               );
             } catch (err) {
               console.error("Error verifying payment:", err);
@@ -173,8 +173,7 @@ const BuyTicket = () => {
     );
   };
   return (
-    <>
-    
+    <div style={{paddingTop:"115px"}}>
     <WarningMessage isLoggedIn={token} />
     <form onSubmit={buyTicket} className="place-order">
       <div className="place-order-left">
@@ -353,8 +352,8 @@ const BuyTicket = () => {
         </div>
         <button type="submit">PROCEED TO PAYMENT</button>
       </div>
-    </form></>
-    
+    </form>
+    </div>
   );
 };
 

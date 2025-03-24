@@ -29,6 +29,7 @@ const MyOrders = () => {
   }, [token]);
 
   return (
+    <div style={{paddingTop:"95px"}}>
     <div className="my-orders">
       <h2 className="myorders">My Orders</h2>
 
@@ -58,6 +59,7 @@ const MyOrders = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -64,6 +64,7 @@ export default function PricingPlans() {
   };
 
   return (
+    <div style={{paddingTop : "95px"}}>
     <div className="pricing-container">
       <h2 className="pricing-title">
         Flexible plans for <i>every event</i>
@@ -165,6 +166,7 @@ export default function PricingPlans() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
