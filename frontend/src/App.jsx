@@ -12,6 +12,7 @@ import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
+import Events from "./pages/Events/Events";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -25,7 +26,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/event/:eventName/buyticket" element={<BuyTicket />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/event" element={<Home />} />
+          <Route path="/event" element={<Events />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
           <Route path="/about" element={<AboutUs />} />
