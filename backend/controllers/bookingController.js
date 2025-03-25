@@ -151,7 +151,7 @@ const generateTicketPDF = async (booking) => {
     doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
 
     // Event Name
-    doc.text(`Technovate-${booking?.address.event}`, -150, 175, { align: "center" });
+    doc.text(`Technovate-${booking?.address.event}`, -190, 175, { align: "center" });
 
     // Ticket Holder Details
     doc.fontSize(14);
@@ -166,7 +166,7 @@ const generateTicketPDF = async (booking) => {
 
     // Payment Details
     doc.text(`Rs. ${booking?.amount}`, -150, 517, { align: "center" });
-    doc.text(`Free for PCCOER students`, -150, 547, { align: "center" });
+    doc.text(`No taxes for students`, -150, 547, { align: "center" });
     doc.text(`Rs. ${booking?.amount}`, -150, 575, { align: "center" });
 
     // Ticket ID & Event Date
