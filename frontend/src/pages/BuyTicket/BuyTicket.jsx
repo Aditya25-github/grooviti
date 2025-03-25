@@ -17,6 +17,7 @@ const BuyTicket = () => {
   const { eventName } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
+  const [loading, setLoading] = useState(false); // New state to track button status
   const [teamSize, setTeamSize] = useState(1);
   const [data, setData] = useState({
     firstName: "",
@@ -85,6 +86,7 @@ const BuyTicket = () => {
       );
       return;
     }
+    setLoading(true); // Disable button and show loading
 
     let eventItems = [];
     myevents_list.forEach((item) => {
@@ -140,6 +142,7 @@ const BuyTicket = () => {
               console.error("Error verifying payment:", err);
               alert("Payment verification failed. Please contact support.");
             }
+            setLoading(false);
           },
           prefill: {
             name: `${data.firstName} ${data.lastName}`,
@@ -151,6 +154,9 @@ const BuyTicket = () => {
 
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
+        rzp1.on("payment.failed", function () {
+          setLoading(false); // Enable button if payment fails
+        });
       } else {
         console.error("Booking failed", response.data);
         alert("Please Login First to Book your ticket.");
@@ -350,7 +356,16 @@ const BuyTicket = () => {
           <b>Total</b>
           <p>Rs.{getTotalCartAmount()}</p>
         </div>
-        <button type="submit">PROCEED TO PAYMENT</button>
+        <button
+            type="submit"
+            disabled={loading}
+            style={{
+              backgroundColor: loading ? "#ccc" : "#ff6000",
+              cursor: loading ? "not-allowed" : "pointer",
+            }}
+          >
+            {loading ? "Loading..." : "PROCEED TO PAYMENT"}
+          </button>
       </div>
     </form>
     </div>
