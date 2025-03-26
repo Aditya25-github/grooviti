@@ -58,35 +58,49 @@ const Navbar = ({ setShowLogin }) => {
       <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
         <Link
           to="/"
-          onClick={() => setevent("Home")}
+          onClick={() => {setevent("Home");
+            setMenuOpen(false);
+          }}
           className={event === "Home" ? "active" : ""}
         >
           Home
         </Link>
         <Link
           to="/event"
-          onClick={() => setevent("event")}
+          onClick={() => {
+            setevent("event");
+            setMenuOpen(false);
+        }}
           className={event === "Home" ? "active" : ""}
         >
           Events
         </Link>
         <Link
           to="/about"
-          onClick={() => setevent("about")}
+          onClick={() => {
+            setevent("about");
+            setMenuOpen(false);
+        }}
           className={event === "About-us" ? "active" : ""}
         >
           About-Us
         </Link>
         <Link
           to="/plans"
-          onClick={() => setevent("Plans")}
+          onClick={() => {
+            setevent("Plans");
+            setMenuOpen(false);
+        }}
           className={event === "Plans" ? "active" : ""}
         >
           Plans
         </Link>
         <a
           href="#footer"
-          onClick={() => setevent("Contact-us")}
+          onClick={() => {
+            setevent("Contact-us");
+            setMenuOpen(false);
+        }}
           className={event === "Contact-us" ? "active" : ""}
         >
           Contact-us
