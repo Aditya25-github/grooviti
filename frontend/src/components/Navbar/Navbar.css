@@ -212,7 +212,7 @@
   /* Mobile Menu Links */
   .navbar-event {
     display: none;
-    width: 40%;
+    width: 50%;
     z-index: 100;
     flex-direction: column;
     position: fixed;
@@ -228,7 +228,7 @@
 
   .navbar-event.active {
     display: flex;
-    padding-left: 20px;
+    padding-left: 40px;
     color: white;
   }
 
