@@ -107,6 +107,9 @@ const Navbar = ({ setShowLogin }) => {
         </a>
       </ul>
 
+      {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
+
+
       <div className="navbar-right">
         <div className="navbar-search-icon">
           <Link to="/Cart">
