@@ -40,7 +40,7 @@ const bookTicket = async (req, res) => {
       amount,
       address,
       orderId: order.id,
-      status: "Booked",
+      status: "Ticket booked , Payment verification pending!",
       payment: false,
     });
 
