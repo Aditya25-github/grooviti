@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
 
