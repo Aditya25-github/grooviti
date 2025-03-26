@@ -188,7 +188,7 @@ const BuyTicket = () => {
           <input
             name="firstName"
             onChange={onChangeHandler}
-            value={data.firstName}
+            value={data.firstName}  
             type="text"
             placeholder="First Name *"
             required
@@ -366,6 +366,9 @@ const BuyTicket = () => {
           >
             {loading ? "Loading..." : "PROCEED TO PAYMENT"}
           </button>
+          <div class="message">
+            <p>After succesful payment, ticket will be shown on this website itself.</p>
+          </div>
       </div>
     </form>
     </div>

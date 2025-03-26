@@ -161,6 +161,8 @@ button[type="submit"] {
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s ease;
+  display: block;
+    margin: 0 auto;
 }
 
 button[type="submit"]:hover {
@@ -244,6 +246,17 @@ button[type="submit"]:active {
   font-size: 20px;
 }
 
+.message{
+  background-color: #fff3cd; /* Light yellow background */
+  color: #856404; /* Dark yellow text */
+  padding: 10px 15px;
+  border-left: 5px solid #ffcc00; /* Yellow border for emphasis */
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
 
 /*--------------------------------------------- Responsive Design -----------------------------------------------*/
 @media screen and (max-width: 768px) {
