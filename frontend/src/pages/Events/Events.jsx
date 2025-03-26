@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
 
 const Events = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [category, setCategory] = useState("All");
   return (
     <div style={{ paddingTop: "95px" }}>
