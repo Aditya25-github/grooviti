@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
@@ -6,6 +6,9 @@ import EventDisplay from "../../components/EventDisplay/EventDisplay";
 import TeamGrid from "../TeamGrid/TeamGrid";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [category, setCategory] = useState("All");
   return (
     <div>
