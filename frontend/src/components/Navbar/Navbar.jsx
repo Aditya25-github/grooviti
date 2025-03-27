@@ -42,6 +42,13 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className="navbar">
 
+      {/* Sign Up button outside the hamburger menu */}
+      {!token && (
+        <button className="mobile-signup-btn" onClick={() => setShowLogin(true)}>
+          Sign Up
+        </button>
+      )}
+
       <div 
       className={`menu-icon ${menuOpen ? 'open' : ''}`} 
         onClick={() => setMenuOpen(!menuOpen)}
@@ -61,24 +68,6 @@ const Navbar = ({ setShowLogin }) => {
         
         {/* Login & Cart buttons above all navbar elements */}
         <div className="mobile-top-buttons">
-          {!token ? (
-            <button onClick={() => { setShowLogin(true); setMenuOpen(false); }}>Sign Up</button>
-          ) : (
-            <div className="mobile-profile">
-              <img src={assets.profile_icon} alt="" />
-              <ul className="nav-profile-dropdown">
-                <li onClick={() => navigate("/myorders")}>
-                  <img src={assets.bag_icon} alt="" />
-                  <p>Orders</p>
-                </li>
-                <hr />
-                <li onClick={logout}>
-                  <img src={assets.logout_icon} alt="" />
-                  <p>Logout</p>
-                </li>
-              </ul>
-            </div>
-          )}
           <Link to="/cart" className="mobile-cart-btn" onClick={() => setMenuOpen(false)}>
             Go to Cart
           </Link>

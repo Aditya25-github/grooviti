@@ -163,6 +163,10 @@
   padding-top: 137.33px; 
 }
 
+.mobile-signup-btn{
+  display: none;
+}
+
 @media (max-width: 2560px) {
   .navbar .logo {
     width: 140px;
@@ -326,5 +330,23 @@
   }
   .navbar-event .logoutt-btn{
     display: block;
+  }
+
+  .mobile-signup-btn {
+    position: fixed;
+    top: 20px;
+    right: 70px; 
+    background: tomato;
+    color: white;
+    border: none;
+    padding: 7px 15px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+  }
+
+  .menu-icon {
+    right: 20px; /* Adjusted to maintain spacing */
   }
 }
