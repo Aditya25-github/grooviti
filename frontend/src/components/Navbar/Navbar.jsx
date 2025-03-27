@@ -56,6 +56,35 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
 
       <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
+
+        
+        
+        {/* Login & Cart buttons above all navbar elements */}
+        <div className="mobile-top-buttons">
+          {!token ? (
+            <button onClick={() => { setShowLogin(true); setMenuOpen(false); }}>Sign Up</button>
+          ) : (
+            <div className="mobile-profile">
+              <img src={assets.profile_icon} alt="" />
+              <ul className="nav-profile-dropdown">
+                <li onClick={() => navigate("/myorders")}>
+                  <img src={assets.bag_icon} alt="" />
+                  <p>Orders</p>
+                </li>
+                <hr />
+                <li onClick={logout}>
+                  <img src={assets.logout_icon} alt="" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </div>
+          )}
+          <Link to="/cart" className="mobile-cart-btn" onClick={() => setMenuOpen(false)}>
+            Go to Cart
+          </Link>
+        </div>
+
+        {/* Navbar Links */}
         <Link
           to="/"
           onClick={() => {setevent("Home");
@@ -105,36 +134,47 @@ const Navbar = ({ setShowLogin }) => {
         >
           Contact-us
         </a>
+
+        {/* Logout Button at the Bottom */}
+        {token && (
+          <button className="logoutt-btn" onClick={logout}>
+            Logout
+          </button>
+        )}
+
       </ul>
 
       {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
 
 
       <div className="navbar-right">
-        <div className="navbar-search-icon">
+        <div className="navbar-search-icon desktop-only">
           <Link to="/Cart">
-            <img src={assets.basket_icon} alt="" />
+            <img src={assets.basket_icon} alt="Cart" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        {!token ? (
-          <button onClick={() => setShowLogin(true)}>Sign In</button>
-        ) : (
-          <div className="navbar-profile">
-            <img src={assets.profile_icon} alt="" />
-            <ul className="nav-profile-dropdown">
-              <li onClick={() => navigate("/myorders")}>
-                <img src={assets.bag_icon} alt="" />
-                <p>Orders</p>
-              </li>
-              <hr />
-              <li onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
-                <p>Logout</p>
-              </li>
-            </ul>
-          </div>
-        )}
+
+        <div className="desktop-buttons">
+          {!token ? (
+            <button onClick={() => setShowLogin(true)}>Sign In</button>
+          ) : (
+            <div className="navbar-profile">
+              <img src={assets.profile_icon} alt="" />
+              <ul className="nav-profile-dropdown">
+                <li onClick={() => navigate("/myorders")}>
+                  <img src={assets.bag_icon} alt="" />
+                  <p>Orders</p>
+                </li>
+                <hr />
+                <li onClick={logout}>
+                  <img src={assets.logout_icon} alt="" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
