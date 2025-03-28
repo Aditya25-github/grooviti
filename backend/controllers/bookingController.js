@@ -12,14 +12,26 @@ const razorpay = new Razorpay({
   key_secret: process.env.REACT_APP_RAZORPAY_SECRET_KEY,
 });
 
-// Nodemailer Configuration
+//Nodemailer Configuration
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.brevo.com",  // ✅ Use Brevo SMTP
+  port: 587,                     // ✅ Brevo SMTP port
+  secure: false,                 // ✅ Must be false for port 587
   auth: {
-    user: process.env.EMAIL_USER,
+    user: "8918db001@smtp-brevo.com",
     pass: process.env.EMAIL_PASS,
+    method: "LOGIN",
   },
 });
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log("SMTP Connection Error:", error);
+  } else {
+    console.log("✅ SMTP Connected Successfully!");
+  }
+});
+
 
 // Book Ticket
 const bookTicket = async (req, res) => {
@@ -82,7 +94,7 @@ const verifyOrder = async (req, res) => {
 
     if (booking.address.email) {
       console.log("Sending email to:", booking.address.email);
-      await sendBookingEmail(booking.address.email , booking);
+      await sendBookingEmail(booking.address.email, booking);
     } else {
       console.log("❌ User email not found!");
     }
@@ -95,16 +107,16 @@ const verifyOrder = async (req, res) => {
 };
 
 // Send Confirmation Email
-const sendBookingEmail = async (userEmail,booking) => {
+const sendBookingEmail = async (userEmail, booking) => {
   try {
     console.log("📄 Generating PDF Ticket...");
     console.log("📧 Preparing email for:", booking.address.email);
     console.log("📎 Ticket Attachment:", booking?.orderId);
     const pdfTicket = await generateTicketPDF(booking);
     console.log("✅ PDF Generated Successfully");
-    
+
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"Grooviti Team" <${process.env.EMAIL_USER}>`,
       to: booking?.address.email,
       subject: "🎟️ Your Event Ticket",
       html: `
@@ -162,7 +174,7 @@ const generateTicketPDF = async (booking) => {
     // Team Details
     doc.text(`${booking?.address.Team_name || "N/A"}`, -150, 380, { align: "center" });
     doc.text(`${booking?.address.Team_leader_name}`, -150, 412, { align: "center" }); // Team Leader
-    doc.text(`${booking?.address.Team_size || 1}`, -150, 442 , { align:"center" }); // Team Size
+    doc.text(`${booking?.address.Team_size || 1}`, -150, 442, { align: "center" }); // Team Size
 
     // Payment Details
     doc.text(`Rs. ${booking?.amount}`, -150, 517, { align: "center" });
