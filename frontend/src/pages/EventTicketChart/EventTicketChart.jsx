@@ -35,7 +35,7 @@ const EventTicketChart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/booking/event-stats"
+          "http://grooviti-backend.onrender.com/api/booking/event-stats"
         );
         console.log("API Response:", response.data);
 
