@@ -1,0 +1,156 @@
+.chart-container {
+  padding: 80px 20px 40px;
+  text-align: center;
+}
+
+/* Error Message */
+.error-text {
+  color: red;
+  font-size: 18px;
+}
+
+/* Chart Wrapper */
+.charts-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.chart-box {
+  width: 600px;
+  height: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pie-chart {
+  width: 500px;
+  height: 500px;
+}
+
+/* Table Styling */
+.table-heading {
+  margin-top: 50px;
+  font-size: 22px;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.event-table {
+  border-collapse: collapse;
+  width: 60%;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.event-table th,
+.event-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.event-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.even-row {
+  background-color: #f9f9f9;
+}
+
+/* Total Tickets */
+.total-tickets {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+@media screen and (max-width: 1024px) {
+  .chart-box {
+    width: 80%;
+    height: auto;
+  }
+
+  .pie-chart {
+    width: 80%;
+    height: auto;
+  }
+
+  .event-table {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chart-container {
+    padding: 60px 10px 30px;
+  }
+
+  .charts-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-box {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .pie-chart {
+    width: 100%;
+    height: auto;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .event-table {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .event-table th,
+  .event-table td {
+    padding: 8px;
+  }
+
+  .total-tickets {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .chart-container {
+    padding: 90px 5px 20px;
+  }
+
+  .chart-box {
+    width: 100%;
+    height: auto;
+  }
+
+  .pie-chart {
+    width: 100%;
+    height: auto;
+  }
+
+  .event-table {
+    font-size: 14px;
+  }
+
+  .total-tickets {
+    font-size: 20px;
+  }
+}

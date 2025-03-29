@@ -22,6 +22,7 @@ const LoginPopup = ({ setShowLogin }) => {
   const onLogin = async (event) => {
     event.preventDefault();
     let newUrl = url;
+
     if (currState === "Login") {
       newUrl += "/api/user/login";
     } else {
@@ -33,7 +34,12 @@ const LoginPopup = ({ setShowLogin }) => {
     if (response.data.success) {
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-      setShowLogin(false);
+
+      if (response.data.role === "eventHost") {
+        window.location.href = "/admin"; // Redirect to Admin Panel
+      } else {
+        setShowLogin(false);
+      }
     } else {
       alert(response.data.message);
     }
