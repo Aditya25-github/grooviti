@@ -139,7 +139,10 @@ const EventTicketChart = () => {
   
       const text = `Total: ${totalConfirmedTickets}`;
       const textX = width / 2;
-      const textY = height / 2;
+      
+      const cutoutPercentage = chart.config.options.cutout || "40%"; // Default to 50%
+      const cutoutRadius = (parseInt(cutoutPercentage) / 100) * (height / 2);
+      const textY = height / 2 - cutoutRadius / 3; // Move up slightly for better centering
   
       ctx.fillText(text, textX, textY);
       ctx.restore();
@@ -196,6 +199,7 @@ const EventTicketChart = () => {
                 <Pie
                   data={pieChartData}
                   options={{
+                    responsive: true,
                     maintainAspectRatio: false,
                     cutout: "70%", // Makes it a donut chart by cutting out the center
                     plugins: {
