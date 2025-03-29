@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block sensitive pages (if needed)
+Disallow: /admin
+Disallow: /buyticket
+Disallow: /Cart
+Disallow: /api
+
+# Sitemap location
+Sitemap: https://grooviti.com/sitemap.xml
