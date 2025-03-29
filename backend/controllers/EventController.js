@@ -1,6 +1,6 @@
 
 import fs from 'fs';
-import bookingModel from '../models/bookingsModel.js';
+import ticketModel from '../models/ticketModel.js';
 
 
 // add Event item
@@ -9,7 +9,7 @@ const addEvent = async (req, res) => {
 
   let image_filename = `${req.file.filename}`;
 
-  const event = new bookingModel({
+  const event = new ticketModel({
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
@@ -31,7 +31,7 @@ const addEvent = async (req, res) => {
 const listEvent = async (req, res) => {
 
   try {
-    const events = await bookingModel.find({})
+    const events = await ticketModel.find({})
     res.json({ sucess: true, data: events })
   } catch (error) {
     console.log(error)
@@ -44,10 +44,10 @@ const listEvent = async (req, res) => {
 
 const RemoveEvent = async (req, res) => {
   try {
-    const event = await bookingModel.findById(req.body.id);
+    const event = await ticketModel.findById(req.body.id);
     fs.unlink(`uploads/${event.image}`, () => { })
 
-    await bookingModel.findByIdAndDelete(req.body.id);
+    await ticketModel.findByIdAndDelete(req.body.id);
     res.json({ sucess: true, message: "Event Removed" })
   } catch (error) {
     console.log(error);
