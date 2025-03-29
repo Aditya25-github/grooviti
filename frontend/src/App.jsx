@@ -1,6 +1,7 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import Navbar from "./components/Navbar/Navbar";
-import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import BuyTicket from "./pages/BuyTicket/BuyTicket";
@@ -18,10 +19,10 @@ import EventTicketChart from "./pages/EventTicketChart/EventTicketChart";
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   return (
-    <>
-      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+    <HelmetProvider>
+      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
       <div className="app">
-        <Navbar setShowLogin={setShowLogin}></Navbar>
+        <Navbar setShowLogin={setShowLogin} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
@@ -36,7 +37,7 @@ const App = () => {
         </Routes>
       </div>
       <Footer />
-    </>
+    </HelmetProvider>
   );
 };
 
