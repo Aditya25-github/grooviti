@@ -35,7 +35,7 @@ const EventTicketChart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/booking/event-stats"
+          "http://grooviti-backend.onrender.com/api/booking/event-stats"
         );
         console.log("API Response:", response.data);
 
@@ -136,16 +136,15 @@ const EventTicketChart = () => {
       ctx.fillStyle = "black"; // Text color
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-  
+
       const text = `Total: ${totalConfirmedTickets}`;
       const textX = width / 2;
       const textY = height / 2;
-  
+
       ctx.fillText(text, textX, textY);
       ctx.restore();
     },
   };
-  
 
   return (
     <div className="chart-container">
@@ -159,34 +158,31 @@ const EventTicketChart = () => {
           <div className="charts-wrapper">
             {barChartData && (
               <div className="chart-box bar-chart">
-                <Bar data={barChartData} 
-                
-                options={{
-
-                  responsive: true,
-                  maintainAspectRatio: false, // Allows dynamic resizing
-                  plugins: {
-                    legend: {
-                      labels: {
-                        usePointStyle: true, // Makes the legend markers circular or small squares
+                <Bar
+                  data={barChartData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false, // Allows dynamic resizing
+                    plugins: {
+                      legend: {
+                        labels: {
+                          usePointStyle: true, // Makes the legend markers circular or small squares
+                        },
                       },
                     },
-                  },
-                  elements: {
-                    bar: {
-                      borderRadius: 4, // This makes the bars rounded
+                    elements: {
+                      bar: {
+                        borderRadius: 4, // This makes the bars rounded
+                      },
                     },
-                  },
-                  scales: {
-                    x: {
-                      barThickness: 'flex', // Allows auto adjustment
-                      categoryPercentage: 0.7, // Adjusts width of bars (try values between 0.3 - 1)
-                      barPercentage: 0.9, // Controls bar width within category
+                    scales: {
+                      x: {
+                        barThickness: "flex", // Allows auto adjustment
+                        categoryPercentage: 0.7, // Adjusts width of bars (try values between 0.3 - 1)
+                        barPercentage: 0.9, // Controls bar width within category
+                      },
                     },
-                  },
-                }}
-                
-
+                  }}
                 />
               </div>
             )}
