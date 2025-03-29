@@ -1,16 +1,16 @@
-.chart-container {
+/* .chart-container {
   padding: 80px 20px 40px;
   text-align: center;
-}
+} */
 
 /* Error Message */
-.error-text {
+/* .error-text {
   color: red;
   font-size: 18px;
-}
+} */
 
 /* Chart Wrapper */
-.charts-wrapper {
+/* .charts-wrapper {
   display: flex;
   justify-content: center;
   gap: 50px;
@@ -30,10 +30,10 @@
 .pie-chart {
   width: 500px;
   height: 500px;
-}
+} */
 
 /* Table Styling */
-.table-heading {
+/* .table-heading {
   margin-top: 50px;
   font-size: 22px;
 }
@@ -65,16 +65,16 @@
 
 .even-row {
   background-color: #f9f9f9;
-}
+} */
 
 /* Total Tickets */
-.total-tickets {
+/* .total-tickets {
   margin-top: 50px;
   font-weight: bold;
   font-size: 30px;
-}
+} */
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   .chart-box {
     width: 80%;
     height: auto;
@@ -153,4 +153,133 @@
   .total-tickets {
     font-size: 20px;
   }
+} */
+
+
+
+/* General Container Styling */
+.chart-container {
+  text-align: center;
+  margin-top: 100px;
 }
+
+/* Typography */
+h2, h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
+/* Error Message */
+.error-text {
+  color: #ff4d4f;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Chart Styling */
+.charts-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.chart-box {
+  width: 500px;
+  height: 350px;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+  flex: 1;
+  min-width: 400px;
+  max-width: 600px;
+  height: 350px;
+}
+
+.pie-chart {
+  width: 400px;
+  height: 350px;
+}
+
+/* Table Styling */
+.table-heading {
+  margin-top: 40px;
+  font-size: 20px;
+  color: #374151;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.event-table {
+  border-collapse: collapse;
+  width: 70%;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-table th, .event-table td {
+  border: none;
+  padding: 14px;
+}
+
+.event-table th {
+  background-color: #2e547a;
+  color: white;
+  font-weight: 600;
+}
+
+.event-table tr:nth-child(even) {
+  background-color: #f3f4f6;
+}
+
+/* Total Tickets */
+.total-tickets {
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 22px;
+  color: #000000;
+}
+
+
+.chart-box.bar-chart {
+  width: 100%;
+  max-width: 900px; /* Controls the max size */
+  margin: auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .chart-box {
+    max-width: 90%;
+    height: auto;
+  }
+  .pie-chart {
+    width: 90%;
+    height: auto;
+  }
+  .event-table {
+    width: 90%;
+    font-size: 14px;
+  }
+  .total-tickets {
+    font-size: 20px;
+  }
+  .charts-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+

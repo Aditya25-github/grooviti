@@ -35,7 +35,7 @@ const EventTicketChart = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://grooviti-backend.onrender.com/api/booking/event-stats"
+          "http://localhost:4000/api/booking/event-stats"
         );
         console.log("API Response:", response.data);
 
@@ -64,12 +64,12 @@ const EventTicketChart = () => {
               {
                 label: "Confirmed Tickets",
                 data: confirmedData,
-                backgroundColor: "green",
+                backgroundColor: "#2E5894",
               },
               {
                 label: "Pending Tickets",
                 data: pendingData,
-                backgroundColor: "red",
+                backgroundColor: "#BCC6E0",
               },
             ],
           });
@@ -81,9 +81,22 @@ const EventTicketChart = () => {
           const totalConfirmed = confirmedBookings.reduce((a, b) => a + b, 0);
           setTotalConfirmedTickets(totalConfirmed);
 
-          const dynamicColors = labels.map(
-            (_, i) => `hsl(${i * 50}, 70%, 50%)`
-          );
+          // const dynamicColors = labels.map(
+          //   (_, i) => `hsl(${i * 50}, 70%, 50%)`
+          // );
+
+          const customColors = [
+            "#f8b48f", // Red-Orange
+            "#f69d63", // Green
+            "#f4874c", // Blue
+            "#f3702a", // Yellow
+            "#ec5a03", // Dark Red
+            "#ca4d06", // Purple
+            "#a84009", // Light Green
+            "#873307", // Purple
+            "#650625", // Light Green
+            "#431903", // Purple
+          ];
 
           setPieChartData({
             labels,
@@ -91,7 +104,7 @@ const EventTicketChart = () => {
               {
                 label: "Confirmed Bookings",
                 data: confirmedBookings,
-                backgroundColor: dynamicColors,
+                backgroundColor: customColors,
               },
             ],
           });
@@ -114,6 +127,26 @@ const EventTicketChart = () => {
     fetchData();
   }, []);
 
+  const centerTextPlugin = {
+    id: "centerText",
+    beforeDraw(chart) {
+      const { width, height, ctx } = chart;
+      ctx.save();
+      ctx.font = "bold 16px Arial";
+      ctx.fillStyle = "black"; // Text color
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+  
+      const text = `Total: ${totalConfirmedTickets}`;
+      const textX = width / 2;
+      const textY = height / 2;
+  
+      ctx.fillText(text, textX, textY);
+      ctx.restore();
+    },
+  };
+  
+
   return (
     <div className="chart-container">
       <h2>Event Ticket Sales</h2>
@@ -125,8 +158,36 @@ const EventTicketChart = () => {
         <>
           <div className="charts-wrapper">
             {barChartData && (
-              <div className="chart-box">
-                <Bar data={barChartData} />
+              <div className="chart-box bar-chart">
+                <Bar data={barChartData} 
+                
+                options={{
+
+                  responsive: true,
+                  maintainAspectRatio: false, // Allows dynamic resizing
+                  plugins: {
+                    legend: {
+                      labels: {
+                        usePointStyle: true, // Makes the legend markers circular or small squares
+                      },
+                    },
+                  },
+                  elements: {
+                    bar: {
+                      borderRadius: 4, // This makes the bars rounded
+                    },
+                  },
+                  scales: {
+                    x: {
+                      barThickness: 'flex', // Allows auto adjustment
+                      categoryPercentage: 0.7, // Adjusts width of bars (try values between 0.3 - 1)
+                      barPercentage: 0.9, // Controls bar width within category
+                    },
+                  },
+                }}
+                
+
+                />
               </div>
             )}
 
@@ -136,6 +197,7 @@ const EventTicketChart = () => {
                   data={pieChartData}
                   options={{
                     maintainAspectRatio: false,
+                    cutout: "70%", // Makes it a donut chart by cutting out the center
                     plugins: {
                       legend: {
                         position: "bottom",
@@ -155,6 +217,7 @@ const EventTicketChart = () => {
                       },
                     },
                   }}
+                  plugins={[centerTextPlugin]} // Register the plugin
                 />
               </div>
             )}
