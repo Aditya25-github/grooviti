@@ -139,7 +139,7 @@ const EventTicketChart = () => {
 
       const text = `Total: ${totalConfirmedTickets}`;
       const textX = width / 2;
-      
+
       const cutoutPercentage = chart.config.options.cutout || "40%"; // Default to 50%
       const cutoutRadius = (parseInt(cutoutPercentage) / 100) * (height / 2);
       const textY = height / 2 - cutoutRadius / 3; // Move up slightly for better centering
@@ -151,7 +151,7 @@ const EventTicketChart = () => {
 
   return (
     <div className="chart-container">
-      <h2>Event Ticket Sales</h2>
+      <h2>Event Ticket Sales For Technovate</h2>
 
       {loading && <p>Loading data...</p>}
       {error && <p className="error-text">{error}</p>}
@@ -165,24 +165,24 @@ const EventTicketChart = () => {
                   data={barChartData}
                   options={{
                     responsive: true,
-                    maintainAspectRatio: false, // Allows dynamic resizing
+                    maintainAspectRatio: false,
                     plugins: {
                       legend: {
                         labels: {
-                          usePointStyle: true, // Makes the legend markers circular or small squares
+                          usePointStyle: true,
                         },
                       },
                     },
                     elements: {
                       bar: {
-                        borderRadius: 4, // This makes the bars rounded
+                        borderRadius: 4,
                       },
                     },
                     scales: {
                       x: {
-                        barThickness: "flex", // Allows auto adjustment
-                        categoryPercentage: 0.7, // Adjusts width of bars (try values between 0.3 - 1)
-                        barPercentage: 0.9, // Controls bar width within category
+                        barThickness: "flex",
+                        categoryPercentage: 0.7,
+                        barPercentage: 0.9,
                       },
                     },
                   }}
