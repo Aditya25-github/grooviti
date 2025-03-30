@@ -15,7 +15,6 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
 import EventTicketChart from "./pages/EventTicketChart/EventTicketChart";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectecdRoute";
 import { useEffect } from "react";
 
 const App = () => {
@@ -44,14 +43,7 @@ const App = () => {
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/plans" element={<PlanUpgrade />} />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute user={user}>
-                <EventTicketChart />
-              </ProtectedRoute>
-            } 
-          />  
+          <Route path="/admin" element={<EventTicketChart />} />
         </Routes>
       </div>
       <Footer />
