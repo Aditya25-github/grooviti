@@ -86,16 +86,20 @@ const EventTicketChart = () => {
           // );
 
           const customColors = [
-            "#f8b48f", // Red-Orange
-            "#f69d63", // Green
-            "#f4874c", // Blue
-            "#f3702a", // Yellow
-            "#ec5a03", // Dark Red
-            "#ca4d06", // Purple
-            "#a84009", // Light Green
-            "#873307", // Purple
-            "#650625", // Light Green
-            "#431903", // Purple
+            "#f8b48f", 
+            "#f69d63", 
+            "#f3702a",  
+            "#ca4d06", 
+            "#a84009", 
+            "#873307", 
+            "#650625", 
+            "#fcbd68",
+            "#fcae44",
+            "#fb9f21",
+            "#f68f03",
+            "#d37b03",
+            "#8c5202",
+            "#693d01",
           ];
 
           setPieChartData({
