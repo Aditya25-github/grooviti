@@ -9,9 +9,8 @@ const List = ({ url }) => {
   const listEvent = async () => {
     try {
       const response = await axios.get(`${url}/api/event/list`);
-      console.log(response.data); // ✅ Debugging: Check API response
-      if (response.data.sucess) {
-        // ✅ Fix typo
+      console.log(response.data);
+      if (response.data.success) {
         setList(response.data.data);
       } else {
         toast.error("Error fetching events");
@@ -24,11 +23,11 @@ const List = ({ url }) => {
   const RemoveEvent = async (eventId) => {
     try {
       const response = await axios.post(`${url}/api/event/remove`, {
-        id: ObjectId,
+        id: eventId,
       });
       if (response.data.success) {
-        toast.success(response.data.message);
         await listEvent();
+        toast.success(response.data.message);
       } else {
         toast.error("Error deleting event");
       }

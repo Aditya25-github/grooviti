@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Add.css";
 import { assets } from "../../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Add = ({ url }) => {
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -13,32 +14,57 @@ const Add = ({ url }) => {
     category: "Cultural",
   });
 
+  useEffect(() => {
+    if (image) {
+      const objectUrl = URL.createObjectURL(image);
+      setPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl); // Clean up memory
+    }
+  }, [image]);
+
   const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+    const { name, value } = event.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("price", Number(data.price));
-    formData.append("category", data.category);
-    formData.append("image", image);
-    const response = await axios.post(`${url}/api/event/add`, formData);
-    if (response.data.success) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "Cultural",
-      });
-      setImage(false);
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
+
+    // Validation checks
+    if (!data.name || !data.description || !data.price || !image) {
+      toast.error("Please fill all fields and upload an image.");
+      return;
+    }
+    if (Number(data.price) <= 0) {
+      toast.error("Price must be greater than zero.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("description", data.description);
+      formData.append("price", Number(data.price));
+      formData.append("category", data.category);
+      formData.append("image", image);
+
+      const response = await axios.post(`${url}/api/event/add`, formData);
+
+      if (response.data.success) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          category: "Cultural",
+        });
+        setImage(null);
+        setPreview(null);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Failed to add event. Please try again.");
     }
   };
 
@@ -50,8 +76,8 @@ const Add = ({ url }) => {
           <label htmlFor="image">
             <img
               className="image"
-              src={image ? URL.createObjectURL(image) : assets.upload_area}
-              alt=""
+              src={preview || assets.upload_area}
+              alt="Upload preview"
             />
           </label>
           <input
@@ -63,58 +89,64 @@ const Add = ({ url }) => {
           />
         </div>
         <div className="add-product-name flex-col">
-          <p>Product name</p>
+          <p>Event Name</p>
           <input
             onChange={onChangeHandler}
             value={data.name}
             type="text"
             name="name"
-            placeholder="Type here"
+            placeholder="Enter event name"
           />
         </div>
         <div className="add-product-description flex-col">
-          <p>Product Description</p>
+          <p>Event Description</p>
           <textarea
             onChange={onChangeHandler}
             value={data.description}
             name="description"
             rows="6"
-            placeholder="Write content here"
+            placeholder="Describe the event"
             required
           ></textarea>
         </div>
         <div className="add-category-price">
           <div className="add-category flex-col">
-            <p>Product Category</p>
+            <p>Event Category</p>
             <select
               className="selectt"
               onChange={onChangeHandler}
               name="category"
             >
-              <option value="Cultural">Cultural</option>
-              <option value="Club">Club</option>
-              <option value="Sports">Sports</option>
-              <option value="Tech">Tech</option>
-              <option value="Drama">Drama</option>
-              <option value="Open-mic">Open mic</option>
-              <option value="Stand-up">Stand-up</option>
-              <option value="Conference">Conference</option>
+              {[
+                "Cultural",
+                "Club",
+                "Sports",
+                "Tech",
+                "Drama",
+                "Open-mic",
+                "Stand-up",
+                "Conference",
+              ].map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
             </select>
           </div>
           <div className="add-price flex-col">
-            <p>Product Price</p>
+            <p>Event Price (Rs)</p>
             <input
               className="inputclasa"
               onChange={onChangeHandler}
               value={data.price}
-              type="Number"
+              type="number"
               name="price"
-              placeholder="Rs.20"
+              placeholder="e.g., 100"
             />
           </div>
         </div>
         <button type="submit" className="add-btn">
-          ADD
+          ADD EVENT
         </button>
       </form>
     </div>
