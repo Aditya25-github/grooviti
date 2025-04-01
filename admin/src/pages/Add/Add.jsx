@@ -10,7 +10,7 @@ const Add = ({ url }) => {
     name: "",
     description: "",
     price: "",
-    category: "Tech",
+    category: "Cultural",
   });
 
   const onChangeHandler = (event) => {
@@ -27,13 +27,13 @@ const Add = ({ url }) => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    const response = await axios.post(`${url}/api/food/add`, formData);
+    const response = await axios.post(`${url}/api/event/add`, formData);
     if (response.data.success) {
       setData({
         name: "",
         description: "",
         price: "",
-        category: "Tech",
+        category: "Cultural",
       });
       setImage(false);
       toast.success(response.data.message);

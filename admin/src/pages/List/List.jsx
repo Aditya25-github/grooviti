@@ -6,32 +6,44 @@ import { toast } from "react-toastify";
 const List = ({ url }) => {
   const [list, setList] = useState([]);
 
-  const fetchList = async () => {
-    const response = await axios.get(`${url}/api/food/list`);
-    if (response.data.success) {
-      setList(response.data.data);
-    } else {
-      toast.error("Error");
+  const listEvent = async () => {
+    try {
+      const response = await axios.get(`${url}/api/event/list`);
+      console.log(response.data); // ✅ Debugging: Check API response
+      if (response.data.sucess) {
+        // ✅ Fix typo
+        setList(response.data.data);
+      } else {
+        toast.error("Error fetching events");
+      }
+    } catch (error) {
+      toast.error("Network error: Unable to fetch events");
     }
   };
 
-  const removeFood = async (foodId) => {
-    const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
-    await fetchList();
-    if (response.data.success) {
-      toast.success(response.data.message);
-    } else {
-      toast.error("Error");
+  const RemoveEvent = async (eventId) => {
+    try {
+      const response = await axios.post(`${url}/api/event/remove`, {
+        id: ObjectId,
+      });
+      if (response.data.success) {
+        toast.success(response.data.message);
+        await listEvent();
+      } else {
+        toast.error("Error deleting event");
+      }
+    } catch (error) {
+      toast.error("Network error: Unable to delete event");
     }
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    listEvent();
+  }, [url]);
 
   return (
     <div className="list add flex-col">
-      <p>All Foods List</p>
+      <p>All Events List</p>
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>
@@ -40,19 +52,17 @@ const List = ({ url }) => {
           <b>Price</b>
           <b>Action</b>
         </div>
-        {list.map((item, index) => {
-          return (
-            <div key={index} className="list-table-format">
-              <img src={`${url}/images/` + item.image} alt="" />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>${item.price}</p>
-              <p onClick={() => removeFood(item._id)} className="cursor">
-                X
-              </p>
-            </div>
-          );
-        })}
+        {list.map((item) => (
+          <div key={item._id} className="list-table-format">
+            <img src={`${url}/images/${item.image}`} alt={item.name} />
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>${item.price}</p>
+            <button onClick={() => RemoveEvent(item._id)} className="cursor">
+              X
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

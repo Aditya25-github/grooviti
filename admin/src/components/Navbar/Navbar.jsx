@@ -24,7 +24,6 @@ const Navbar = () => {
       }
     }
 
-    // Call the function to apply the mode preference on page load
     applyModePreference();
 
     toggle.addEventListener("change", function () {
@@ -42,7 +41,7 @@ const Navbar = () => {
           .classList.remove("lightmode");
       }
     });
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
   return (
     <div>
       <div className="navbar">
