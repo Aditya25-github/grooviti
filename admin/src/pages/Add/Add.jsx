@@ -18,7 +18,7 @@ const Add = ({ url }) => {
     if (image) {
       const objectUrl = URL.createObjectURL(image);
       setPreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl); // Clean up memory
+      return () => URL.revokeObjectURL(objectUrl);
     }
   }, [image]);
 
@@ -141,7 +141,7 @@ const Add = ({ url }) => {
               value={data.price}
               type="number"
               name="price"
-              placeholder="e.g., 100"
+              placeholder="ex : 100"
             />
           </div>
         </div>

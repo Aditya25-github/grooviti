@@ -52,16 +52,10 @@ const Orders = ({ url }) => {
                 {order.address.firstName + " " + order.address.lastName}
               </p>
               <div className="order-item-address">
-                <p>{order.address.street + ","}</p>
-                <p>
-                  {order.address.city +
-                    ", " +
-                    order.address.state +
-                    ", " +
-                    order.address.country +
-                    ", " +
-                    order.address.zipcode}
-                </p>
+                <p>payId : {order.paymentId + ","}</p>
+                <p>payment-status : {order.payment + ","}</p>
+                <p>Status : {order.status + ", "} </p>
+                <p>Team Size : {order.address.Team_size + ", "}</p>
               </div>
               <p className="order-item-phone">{order.address.phone}</p>
             </div>
