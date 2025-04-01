@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContextt";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,7 +18,9 @@ const Navbar = () => {
   };
   return (
     <div className="navbar">
-      <img className="logo" src={assets.logo} alt="" />
+      <Link to="/">
+        <img className="logo" src={assets.logo} alt="" />
+      </Link>
       {token && admin ? (
         <p className="login-conditon" onClick={logout}>
           Logout
