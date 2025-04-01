@@ -57,7 +57,10 @@ const Orders = ({ url }) => {
                 <p>Status : {order.status + ", "} </p>
                 <p>Team Size : {order.address.Team_size + ", "}</p>
               </div>
-              <p className="order-item-phone">{order.address.phone}</p>
+              <p className="order-item-phone">
+                {" "}
+                phone no : {order.address.phone}
+              </p>
             </div>
             <p>Items : {order.items.length}</p>
             <p>Rs.{order.amount}</p>
