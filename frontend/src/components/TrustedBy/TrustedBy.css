@@ -1,0 +1,62 @@
+.trusted-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+}
+
+.textt {
+  margin: 20px;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.marquee-wrapper {
+  width: 500px; 
+  height: 80px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 16s linear infinite; 
+  animation-play-state: running; /* Ensure animation runs initially */
+}
+
+.marquee:hover {
+  animation-play-state: paused; 
+}
+
+.marquee-content {
+  display: flex;
+  white-space: nowrap;
+}
+
+.trust-logo {
+  width: 70px;
+  height: auto;
+  margin-right: 50px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.trust-logo:hover {
+  filter: grayscale(0%); 
+  cursor: pointer; 
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(100%); /* Start off-screen to the right */
+  }
+  to {
+    transform: translateX(-100%); /* Move off-screen to the left */
+  }
+}

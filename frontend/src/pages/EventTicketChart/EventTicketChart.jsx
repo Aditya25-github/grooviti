@@ -11,7 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import axios from "axios";
-import "./EventTicketChart.css"; // Import the CSS file
+import "./EventTicketChart.css";
 
 ChartJS.register(
   CategoryScale,
@@ -81,18 +81,14 @@ const EventTicketChart = () => {
           const totalConfirmed = confirmedBookings.reduce((a, b) => a + b, 0);
           setTotalConfirmedTickets(totalConfirmed);
 
-          // const dynamicColors = labels.map(
-          //   (_, i) => `hsl(${i * 50}, 70%, 50%)`
-          // );
-
           const customColors = [
-            "#f8b48f", 
-            "#f69d63", 
-            "#f3702a",  
-            "#ca4d06", 
-            "#a84009", 
-            "#873307", 
-            "#650625", 
+            "#f8b48f",
+            "#f69d63",
+            "#f3702a",
+            "#ca4d06",
+            "#a84009",
+            "#873307",
+            "#650625",
             "#fcbd68",
             "#fcae44",
             "#fb9f21",
@@ -136,17 +132,26 @@ const EventTicketChart = () => {
     beforeDraw(chart) {
       const { width, height, ctx } = chart;
       ctx.save();
-      ctx.font = "bold 16px Arial";
-      ctx.fillStyle = "black"; // Text color
+      const fontSize = Math.max(14, width / 28) || 14; // Default to 14 if invalid
+      ctx.font = `bold ${fontSize}px Arial`;
+      ctx.fillStyle = "black";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
       const text = `Total: ${totalConfirmedTickets}`;
       const textX = width / 2;
 
-      const cutoutPercentage = chart.config.options.cutout || "40%"; // Default to 50%
+      const cutoutPercentage = chart.config.options.cutout || "70%";
       const cutoutRadius = (parseInt(cutoutPercentage) / 100) * (height / 2);
-      const textY = height / 2 - cutoutRadius / 3; // Move up slightly for better centering
+      let textY = height / 2 - cutoutRadius / 3;
+
+      if (width <= 426) {
+        textY = height / 2 - cutoutRadius / 1.5;
+      } else if (width <= 768) {
+        textY = height / 2 - cutoutRadius / 3;
+      } else if (width <= 1024) {
+        textY = height / 2 - cutoutRadius / 5;
+      }
 
       ctx.fillText(text, textX, textY);
       ctx.restore();

@@ -4,6 +4,9 @@ import Header from "../../components/Header/Header";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
 import TeamGrid from "../TeamGrid/TeamGrid";
+import TrustedBy from "../../components/TrustedBy/TrustedBy";
+import WebBuilt from "../../components/WebBuilt/WebBuilt";
+import ListButton from "../../components/ListButton/ListButton";
 
 const Home = () => {
   useEffect(() => {
@@ -36,6 +39,9 @@ const Home = () => {
       <ExploreEvents category={category} setCategory={setCategory} />
       <EventDisplay category={category} />
       <TeamGrid />
+      <ListButton />
+      <TrustedBy />
+      <WebBuilt />
     </div>
   );
 };

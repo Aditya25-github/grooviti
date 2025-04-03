@@ -1,0 +1,24 @@
+.list-button-container{
+  text-align: center;
+  margin: 50px;
+
+}
+
+.some-quote{
+  margin: 30px;
+  font-weight: 100;
+}
+
+.list-event-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff6000;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.list-event-button:hover {
+  background-color: #e05500;
+}

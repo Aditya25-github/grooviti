@@ -16,6 +16,8 @@ import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
 import EventTicketChart from "./pages/EventTicketChart/EventTicketChart";
 import { useEffect } from "react";
+import ListButton from "./components/ListButton/ListButton";
+import CreateEvent from "./components/CreateEvent/CreateEvent";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -44,6 +46,8 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/plans" element={<PlanUpgrade />} />
           <Route path="/admin" element={<EventTicketChart />} />
+          <Route path="/" element={<ListButton />} />
+          <Route path="/create-event" element={<CreateEvent />} />
         </Routes>
       </div>
       <Footer />
