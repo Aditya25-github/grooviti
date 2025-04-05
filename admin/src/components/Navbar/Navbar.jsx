@@ -9,8 +9,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { token, admin, setAdmin, setToken } = useContext(StoreContext);
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("admin");
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("eventHost");
     setToken("");
     setAdmin(false);
     toast.success("Logout Successfully");

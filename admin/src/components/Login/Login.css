@@ -1,6 +1,6 @@
 .login-popup {
   width: 70%;
-  margin-left: max(5vw, 25px);
+  margin-left: max(18vw, 25px);
   margin-top: 50px;
   display: grid;
 }
