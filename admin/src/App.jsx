@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/SideBar/SideBar";
 import Login from "./components/Login/Login";
-import Statistics from "./pages/Statistics /Statistics";
+import Statistics from "./pages/Statistics/Statistics";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
