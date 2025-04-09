@@ -12,7 +12,10 @@ const ListButton = () => {
       </h2>
       <button
         className="list-event-button"
-        onClick={() => navigate("/create-event")}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          navigate("/create-event"); 
+        }}
       >
         List an Event
       </button>
