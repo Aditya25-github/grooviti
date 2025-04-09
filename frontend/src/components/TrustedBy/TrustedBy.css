@@ -18,7 +18,6 @@
 
 .marquee-wrapper {
   width: 100%;
-  max-width: 500px; 
   height: 80px;
   overflow: hidden;
   display: flex;
@@ -29,7 +28,7 @@
 
 .marquee {
   display: flex;
-  animation: marquee 20s linear infinite; 
+  animation: marquee 40s linear infinite; 
   animation-play-state: running; 
   will-change: transform;
 }
@@ -43,12 +42,6 @@
   white-space: nowrap;
 }
 
-/* Duplicate the content to allow smooth looping */
-.marquee-content::after {
-  content: "";
-  display: inline-block;
-  width: 100%; 
-}
 
 .trust-logo {
   width: 70px;
