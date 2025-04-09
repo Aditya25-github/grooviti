@@ -6,6 +6,8 @@
   text-align: center;
   width: 100%;
   padding: 30px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .textt {
@@ -15,19 +17,21 @@
 }
 
 .marquee-wrapper {
-  width: 500px; 
+  width: 100%;
+  max-width: 500px; 
   height: 80px;
   overflow: hidden;
   display: flex;
   align-items: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 .marquee {
   display: flex;
-  width: max-content;
-  animation: marquee 16s linear infinite; 
-  animation-play-state: running; /* Ensure animation runs initially */
+  animation: marquee 20s linear infinite; 
+  animation-play-state: running; 
+  will-change: transform;
 }
 
 .marquee:hover {
@@ -37,6 +41,13 @@
 .marquee-content {
   display: flex;
   white-space: nowrap;
+}
+
+/* Duplicate the content to allow smooth looping */
+.marquee-content::after {
+  content: "";
+  display: inline-block;
+  width: 100%; 
 }
 
 .trust-logo {
@@ -53,10 +64,29 @@
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(100%); /* Start off-screen to the right */
+  0% {
+    transform: translateX(100%); 
   }
-  to {
-    transform: translateX(-100%); /* Move off-screen to the left */
+  100% {
+    transform: translateX(-100%); 
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .trusted-container {
+    padding: 20px;
+  }
+
+  .textt {
+    font-size: 20px;
+  }
+
+  .trust-logo {
+    width: 60px;
+    margin-right: 40px;
+  }
+
+  .marquee-wrapper {
+    height: 70px;
   }
 }
