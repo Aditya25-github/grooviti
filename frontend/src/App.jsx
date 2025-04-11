@@ -14,7 +14,6 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
-import EventTicketChart from "./pages/EventTicketChart/EventTicketChart";
 import { useEffect } from "react";
 import ListButton from "./components/ListButton/ListButton";
 import CreateEvent from "./components/CreateEvent/CreateEvent";
@@ -45,7 +44,6 @@ const App = () => {
           <Route path="/ticket-confirmation" element={<TicketConfirmation />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/plans" element={<PlanUpgrade />} />
-          <Route path="/admin" element={<EventTicketChart />} />
           <Route path="/" element={<ListButton />} />
           <Route path="/create-event" element={<CreateEvent />} />
         </Routes>

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-top: 50px; 
+  margin-top: 50px;
 }
 
 .form-box {
@@ -35,14 +35,15 @@
   margin-bottom: 15px;
 }
 
-label {
+.form-group label {
   display: block;
   font-weight: normal;
   margin-bottom: 5px;
   color: #ff6000;
 }
 
-input, select {
+.form-group input,
+select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -96,7 +97,3 @@ input, select {
 .event-button:hover:hover {
   transform: scale(1.05);
 }
-
-
-
-
