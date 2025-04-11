@@ -48,7 +48,13 @@ const EventItem = ({ id, name, price, description, image }) => {
         <p className="event-item-description">{description}</p>
         <p className="event-item-price">Rs.{price} </p>
         <div className="event-item-register">
-          <button onClick={() => navigate(`/`)}>Sold Out!</button>
+          <button
+            onClick={() =>
+              navigate(`/event/${encodeURIComponent(name)}/buyticket`)
+            }
+          >
+            Sold Out!
+          </button>
         </div>
       </div>
     </div>
