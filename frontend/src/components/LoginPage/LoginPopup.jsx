@@ -36,7 +36,7 @@ const LoginPopup = ({ setShowLogin }) => {
       localStorage.setItem("token", response.data.token);
 
       if (response.data.role === "eventHost") {
-        window.location.href = "/admin"; // Redirect to Admin Panel
+        window.location.href = "https://grooviti-admin.onrender.com"; // Redirect to Admin Panel
       } else {
         setShowLogin(false);
       }
