@@ -87,3 +87,28 @@
 label img[src*="assets/upload_area"] {
   filter: var(--upload);
 }
+.add-total-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-total-tickets p {
+  margin: 0;
+  color: var(--light-text);
+  font-size: 14px;
+}
+
+.add-total-tickets input {
+  padding: 10px;
+  max-width: 120px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+@media (max-width: 400px) {
+  .add-total-tickets input {
+    width: max(40%, 220px);
+  }
+}

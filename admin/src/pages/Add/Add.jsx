@@ -12,6 +12,7 @@ const Add = ({ url }) => {
     description: "",
     price: "",
     category: "Cultural",
+    totalTickets: "", // Add totalTickets in the data state
   });
 
   useEffect(() => {
@@ -31,12 +32,22 @@ const Add = ({ url }) => {
     event.preventDefault();
 
     // Validation checks
-    if (!data.name || !data.description || !data.price || !image) {
+    if (
+      !data.name ||
+      !data.description ||
+      !data.price ||
+      !data.totalTickets ||
+      !image
+    ) {
       toast.error("Please fill all fields and upload an image.");
       return;
     }
     if (Number(data.price) <= 0) {
       toast.error("Price must be greater than zero.");
+      return;
+    }
+    if (Number(data.totalTickets) <= 0) {
+      toast.error("Total Tickets must be a positive number.");
       return;
     }
 
@@ -47,6 +58,7 @@ const Add = ({ url }) => {
       formData.append("price", Number(data.price));
       formData.append("category", data.category);
       formData.append("image", image);
+      formData.append("totalTickets", data.totalTickets); // Include totalTickets
 
       const response = await axios.post(`${url}/api/event/add`, formData);
 
@@ -56,6 +68,7 @@ const Add = ({ url }) => {
           description: "",
           price: "",
           category: "Cultural",
+          totalTickets: "", // Reset totalTickets after successful form submission
         });
         setImage(null);
         setPreview(null);
@@ -144,6 +157,18 @@ const Add = ({ url }) => {
               placeholder="ex : 100"
             />
           </div>
+        </div>
+        <div className="add-total-tickets flex-col">
+          <p>Total Tickets</p>
+          <input
+            className="inputclasa"
+            onChange={onChangeHandler}
+            value={data.totalTickets}
+            type="number"
+            name="totalTickets"
+            placeholder="Enter total number of tickets"
+            required
+          />
         </div>
         <button type="submit" className="add-btn">
           ADD EVENT

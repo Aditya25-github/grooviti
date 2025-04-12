@@ -38,12 +38,19 @@
 .event-item-register button {
   border: none;
   color: white;
-  background-color: #808080;
+  background-color: tomato;
   width: max(6vw, 50px);
   padding: 10px 0px;
   border-radius: 8px;
   cursor: pointer;
   margin-left: 0px;
+}
+
+.sold-out-button {
+  background-color: grey;
+  cursor: not-allowed;
+  color: white;
+  font-weight: bold;
 }
 
 .event-item-description {

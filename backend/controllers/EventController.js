@@ -14,7 +14,9 @@ const addEvent = async (req, res) => {
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
-    image: image_filename
+    image: image_filename,
+    totalTickets: req.body.totalTickets, // Add totalTickets here
+    ticketsSold: 0
   })
 
   try {

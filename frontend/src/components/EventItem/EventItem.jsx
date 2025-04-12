@@ -4,11 +4,19 @@ import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
-const EventItem = ({ id, name, price, description, image }) => {
+const EventItem = ({
+  id,
+  name,
+  price,
+  description,
+  image,
+  availableTickets,
+}) => {
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
-
   const navigate = useNavigate();
+
+  const isSoldOut = availableTickets <= 0;
 
   return (
     <div className="event-item">
@@ -19,13 +27,14 @@ const EventItem = ({ id, name, price, description, image }) => {
           alt=""
         />
 
-        {!cartItems[id] ? (
+        {!isSoldOut && !cartItems[id] ? (
           <img
             className="add"
             onClick={() => addToCart(id)}
             src={assets.add_icon_white}
-          ></img>
-        ) : (
+            alt=""
+          />
+        ) : !isSoldOut ? (
           <div className="event-item-counter">
             <img
               onClick={() => removeFromCart(id)}
@@ -39,21 +48,27 @@ const EventItem = ({ id, name, price, description, image }) => {
               alt=""
             />
           </div>
-        )}
+        ) : null}
       </div>
+
       <div className="event-item-info">
         <div className="event-item-name-rating">
           <p>{name}</p>
         </div>
         <p className="event-item-description">{description}</p>
-        <p className="event-item-price">Rs.{price} </p>
+        <p className="event-item-price">Rs.{price}</p>
+
         <div className="event-item-register">
           <button
-            onClick={() =>
-              navigate(`/event/${encodeURIComponent(name)}/buyticket`)
-            }
+            onClick={() => {
+              if (!isSoldOut) {
+                navigate(`/event/${encodeURIComponent(name)}/buyticket`);
+              }
+            }}
+            disabled={isSoldOut}
+            className={isSoldOut ? "sold-out-button" : ""}
           >
-            Sold Out!
+            {isSoldOut ? "Sold Out!" : "Buy Ticket"}
           </button>
         </div>
       </div>
