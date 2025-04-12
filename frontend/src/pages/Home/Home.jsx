@@ -10,6 +10,7 @@ import TeamGrid from "../TeamGrid/TeamGrid";
 import TrustedBy from "../../components/TrustedBy/TrustedBy";
 import WebBuilt from "../../components/WebBuilt/WebBuilt";
 import ListButton from "../../components/ListButton/ListButton";
+import Feedback from "../../components/Feedback/Feedback";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -47,6 +48,7 @@ const Home = () => {
       <TeamGrid />
       <ListButton />
       <TrustedBy />
+      <Feedback />
       <WebBuilt />
     </motion.div>
   );
