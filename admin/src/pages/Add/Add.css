@@ -96,7 +96,7 @@ label img[src*="assets/upload_area"] {
 .add-total-tickets p {
   margin: 0;
   color: var(--light-text);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .add-total-tickets input {
@@ -104,7 +104,7 @@ label img[src*="assets/upload_area"] {
   max-width: 120px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 @media (max-width: 400px) {

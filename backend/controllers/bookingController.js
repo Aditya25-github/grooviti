@@ -65,6 +65,7 @@ const bookTicket = async (req, res) => {
     console.error("Error while making payment:", error);
     res.json({ success: false, message: "Error while making payment" });
   }
+
 };
 
 // Verify Payment & Send Email
@@ -93,11 +94,14 @@ const verifyOrder = async (req, res) => {
       await bookingModel.findOneAndDelete({ orderId });
       return res.json({ success: false, message: "Payment failed, order deleted" });
     }
+
     for (const item of booking.items) {
-      const event = await ticketModel.findById(item.id);
+      console.log("🔍 Ticket Item:", item);
+      const event = await ticketModel.findById(item._id);
       if (!event) continue;
 
       const newTicketsSold = event.ticketsSold + item.quantity;
+      console.log(`🧮 ${event.name}: ${event.ticketsSold} + ${item.quantity} = ${newTicketsSold}`)
       if (newTicketsSold > event.totalTickets) {
         console.log(`❌ Overbooking prevented for ${event.name}`);
         continue;
@@ -105,6 +109,7 @@ const verifyOrder = async (req, res) => {
 
       event.ticketsSold = newTicketsSold;
       await event.save();
+      console.log(`✅ Updated ticketsSold for ${event.name} to ${event.ticketsSold}`);
     }
 
     if (booking.address.email) {

@@ -166,7 +166,7 @@ const Add = ({ url }) => {
             value={data.totalTickets}
             type="number"
             name="totalTickets"
-            placeholder="Enter total number of tickets"
+            placeholder="Enter total tickets"
             required
           />
         </div>
