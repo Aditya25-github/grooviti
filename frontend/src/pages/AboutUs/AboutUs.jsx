@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import "./AboutUs.css";
 import TeamGrid from "../TeamGrid/TeamGrid";
 
@@ -8,7 +9,13 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <div style={{ paddingTop: "95px" }}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      style={{ paddingTop: "95px" }}
+    >
       <div className="about-us" id="about-us">
         <h1>About Us</h1>
 
@@ -25,7 +32,7 @@ const AboutUs = () => {
 
         <TeamGrid />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
