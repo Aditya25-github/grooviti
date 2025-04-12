@@ -50,6 +50,7 @@ const Feedback = () => {
       viewport={{ once: true }}
     >
       <motion.h2
+        className="feedback-title"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -57,6 +58,7 @@ const Feedback = () => {
         Feedback
       </motion.h2>
       <motion.h1
+        className="customer-say"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
