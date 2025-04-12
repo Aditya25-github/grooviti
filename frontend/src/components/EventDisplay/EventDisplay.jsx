@@ -19,6 +19,7 @@ const EventDisplay = ({ category }) => {
                 description={item.description}
                 price={item.price}
                 image={item.image}
+                availableTickets={item.availableTickets}
               />
             );
           }

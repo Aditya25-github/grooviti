@@ -66,7 +66,9 @@ const EventItem = ({
               }
             }}
             disabled={isSoldOut}
-            className={isSoldOut ? "sold-out-button" : ""}
+            className={`event-item-register-button ${
+              isSoldOut ? "sold-out-button" : ""
+            }`}
           >
             {isSoldOut ? "Sold Out!" : "Buy Ticket"}
           </button>

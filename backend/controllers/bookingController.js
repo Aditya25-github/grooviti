@@ -4,6 +4,8 @@ import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
 import PDFDocument from "pdfkit";
 import dotenv from "dotenv";
+import ticketModel from "../models/ticketModel.js";
+
 
 dotenv.config(); // Load environment variables
 
@@ -90,6 +92,19 @@ const verifyOrder = async (req, res) => {
     if (!success) {
       await bookingModel.findOneAndDelete({ orderId });
       return res.json({ success: false, message: "Payment failed, order deleted" });
+    }
+    for (const item of booking.items) {
+      const event = await ticketModel.findById(item.id);
+      if (!event) continue;
+
+      const newTicketsSold = event.ticketsSold + item.quantity;
+      if (newTicketsSold > event.totalTickets) {
+        console.log(`❌ Overbooking prevented for ${event.name}`);
+        continue;
+      }
+
+      event.ticketsSold = newTicketsSold;
+      await event.save();
     }
 
     if (booking.address.email) {

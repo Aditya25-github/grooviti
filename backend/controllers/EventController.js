@@ -34,7 +34,14 @@ const listEvent = async (req, res) => {
 
   try {
     const events = await ticketModel.find({})
-    res.json({ success: true, data: events })
+    const updatedEvents = events.map(event => {
+      const availableTickets = event.totalTickets - event.ticketsSold;
+      return {
+        ...event._doc,
+        availableTickets,
+      };
+    });
+    res.json({ success: true, data: updatedEvents })
   } catch (error) {
     console.log(error)
     response.json({ success: false, message: "Error" })
