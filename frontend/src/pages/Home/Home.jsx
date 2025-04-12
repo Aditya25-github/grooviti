@@ -35,7 +35,7 @@ const Home = () => {
     }
   }, []);
 
-  // Define variants for smooth transitions
+  // Animation variants
   const sectionVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.98 },
     visible: {
@@ -68,57 +68,41 @@ const Home = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-<<<<<<< HEAD
-      <Header />
-      <ExploreEvents category={category} setCategory={setCategory} />
-      <EventDisplay category={category} />
-      <TeamGrid />
-      <ListButton />
-      <TrustedBy />
-      <Feedback />
-      <WebBuilt />
-      <FAQ />
-=======
-      {/* Header Section with Animation */}
       <motion.div variants={headerVariants} initial="hidden" animate="visible">
         <Header />
       </motion.div>
 
-      {/* Explore Events Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <ExploreEvents category={category} setCategory={setCategory} />
       </motion.div>
 
-      {/* Event Display Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <EventDisplay category={category} />
       </motion.div>
 
-      {/* Team Grid Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <TeamGrid />
       </motion.div>
 
-      {/* List Button Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <ListButton />
       </motion.div>
 
-      {/* Trusted By Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <TrustedBy />
       </motion.div>
 
-      {/* Feedback Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <Feedback />
       </motion.div>
 
-      {/* Web Built Section */}
       <motion.div variants={sectionVariants} initial="hidden" animate="visible">
         <WebBuilt />
       </motion.div>
->>>>>>> 2856774 (animation added by framer)
+
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <FAQ />
+      </motion.div>
     </motion.div>
   );
 };
