@@ -40,7 +40,7 @@ export default function ContactUs() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      style={{ paddingTop: "95px" }}
+      style={{ paddingTop: "25px" }}
     >
       <div className="contact-page">
         {/* Hero */}
