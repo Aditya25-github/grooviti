@@ -11,6 +11,7 @@ import TrustedBy from "../../components/TrustedBy/TrustedBy";
 import WebBuilt from "../../components/WebBuilt/WebBuilt";
 import ListButton from "../../components/ListButton/ListButton";
 import Feedback from "../../components/Feedback/Feedback";
+import FAQ from "../../components/FAQ/FAQ";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -50,6 +51,7 @@ const Home = () => {
       <TrustedBy />
       <Feedback />
       <WebBuilt />
+      <FAQ />
     </motion.div>
   );
 };

@@ -42,8 +42,8 @@ const FeedbackData = [
 const Feedback = () => {
   return (
     <section className="section__container">
-      <h2>Feedback</h2>
-      <h1>What our customers say</h1>
+      <h2 className="feedback-title">Feedback</h2>
+      <h1 className="customer-say">What our customers say</h1>
       <Swiper
         modules={[Pagination, Autoplay, Navigation, Keyboard]}
         spaceBetween={30}

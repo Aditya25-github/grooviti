@@ -24,13 +24,13 @@ body {
   text-align: center;
 }
 
-.section__container h2 {
+.feedback-title{
   font-size: 1.3rem;
   font-weight: 400;
   color: var(--primary-color);
 }
 
-.section__container h1 {
+.customer-say{
   position: relative;
   margin-bottom: 2rem;
   font-size: 1.5rem;
