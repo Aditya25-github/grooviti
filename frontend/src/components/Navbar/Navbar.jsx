@@ -41,18 +41,20 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className="navbar">
-
       {/* Sign Up button outside the hamburger menu */}
       {!token && (
-        <button className="mobile-signup-btn" onClick={() => setShowLogin(true)}>
+        <button
+          className="mobile-signup-btn"
+          onClick={() => setShowLogin(true)}
+        >
           Sign Up
         </button>
       )}
 
-      <div 
-      className={`menu-icon ${menuOpen ? 'open' : ''}`} 
+      <div
+        className={`menu-icon ${menuOpen ? "open" : ""}`}
         onClick={() => setMenuOpen(!menuOpen)}
-        >
+      >
         <div className="line"></div>
         <div className="line"></div>
         <div className="line"></div>
@@ -63,12 +65,13 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
 
       <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
-
-        
-        
         {/* Login & Cart buttons above all navbar elements */}
         <div className="mobile-top-buttons">
-          <Link to="/cart" className="mobile-cart-btn" onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/cart"
+            className="mobile-cart-btn"
+            onClick={() => setMenuOpen(false)}
+          >
             Go to Cart
           </Link>
         </div>
@@ -76,7 +79,8 @@ const Navbar = ({ setShowLogin }) => {
         {/* Navbar Links */}
         <Link
           to="/"
-          onClick={() => {setevent("Home");
+          onClick={() => {
+            setevent("Home");
             setMenuOpen(false);
           }}
           className={event === "Home" ? "active" : ""}
@@ -88,7 +92,7 @@ const Navbar = ({ setShowLogin }) => {
           onClick={() => {
             setevent("event");
             setMenuOpen(false);
-        }}
+          }}
           className={event === "Home" ? "active" : ""}
         >
           Events
@@ -98,7 +102,7 @@ const Navbar = ({ setShowLogin }) => {
           onClick={() => {
             setevent("about");
             setMenuOpen(false);
-        }}
+          }}
           className={event === "About-us" ? "active" : ""}
         >
           About-Us
@@ -108,21 +112,21 @@ const Navbar = ({ setShowLogin }) => {
           onClick={() => {
             setevent("Plans");
             setMenuOpen(false);
-        }}
+          }}
           className={event === "Plans" ? "active" : ""}
         >
           Plans
         </Link>
-        <a
-          href="#footer"
+        <Link
+          to="/ContactUs"
           onClick={() => {
             setevent("Contact-us");
             setMenuOpen(false);
-        }}
+          }}
           className={event === "Contact-us" ? "active" : ""}
         >
           Contact-us
-        </a>
+        </Link>
 
         {/* Logout Button at the Bottom */}
         {token && (
@@ -130,11 +134,11 @@ const Navbar = ({ setShowLogin }) => {
             Logout
           </button>
         )}
-
       </ul>
 
-      {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
-
+      {menuOpen && (
+        <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>
+      )}
 
       <div className="navbar-right">
         <div className="navbar-search-icon desktop-only">

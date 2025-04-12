@@ -73,8 +73,8 @@ const Footer = () => {
         >
           <h2>GET IN TOUCH</h2>
           <ul>
-            <li>+91 940-457-1327</li>
-            <li>groov.iti25@gmail.com</li>
+            <a href="tel:+919404571327">+91 940-457-1327</a> <br />
+            <a href="mailto:groov.iti25@gmail.com">groov.iti25@gmail.com</a>
           </ul>
         </motion.div>
       </div>

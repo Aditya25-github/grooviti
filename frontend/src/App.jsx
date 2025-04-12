@@ -20,6 +20,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/plans" element={<PlanUpgrade />} />
             <Route path="/list-event" element={<ListButton />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/ContactUs" element={<ContactUs />} />
           </Routes>
         </AnimatePresence>
       </div>
