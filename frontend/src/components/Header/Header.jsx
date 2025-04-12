@@ -1,25 +1,32 @@
 import React from "react";
 import "./Header.css";
-
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/event");
+  };
   return (
     <div style={{ paddingTop: "114px" }}>
       <div className="header">
         <div className="header-contents">
           <h2>Buy Your Favourite Event Tickets Here</h2>
           <p>
-          At grooviti.com, we make event ticketing and event listing seamless
-          and hassle-free! Whether you're planning an event or looking to attend
-          one, our platform is designed to provide a smooth experience. From
-          exclusive concerts and thrilling sports matches to insightful
-          workshops and community gatherings, we bring you the best events with
-          just a few clicks. Groove it. Book it. Live it. - Your next
-          unforgettable experience starts here!
+            At grooviti.com, we make event ticketing and event listing seamless
+            and hassle-free! Whether you're planning an event or looking to
+            attend one, our platform is designed to provide a smooth experience.
+            From exclusive concerts and thrilling sports matches to insightful
+            workshops and community gatherings, we bring you the best events
+            with just a few clicks. Groove it. Book it. Live it. - Your next
+            unforgettable experience starts here!
           </p>
-          <button>
-            <a href="#explore-events">View Events</a>
+          <button
+            onClick={handleClick}
+            aria-label="View Events"
+            className="view-events-button"
+          >
+            View Events
           </button>
         </div>
       </div>

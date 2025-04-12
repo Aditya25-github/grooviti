@@ -72,6 +72,28 @@ export default function PricingPlans() {
   const handleButtonClick = () => {
     alert("This feature is coming soon!");
   };
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
+    }),
+  };
+
+  const listContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const listItem = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
     <motion.div
@@ -82,38 +104,54 @@ export default function PricingPlans() {
     >
       <div style={{ paddingTop: "95px" }}>
         <div className="pricing-container">
-          <h2 className="pricing-title">
+          <motion.h2
+            className="pricing-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             Flexible plans for <i>every event</i>
-          </h2>
-          <p className="pricing-description">
+          </motion.h2>
+
+          <motion.p
+            className="pricing-description"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             Affordable and transparent pricing for individual organizers, event
             planners, and businesses.
-          </p>
-          <div className="toggle-switch">
-            <button
-              className={billingCycle === "monthly" ? "active" : ""}
-              onClick={() => setBillingCycle("monthly")}
-            >
-              Monthly
-            </button>
-            <button
-              className={billingCycle === "quarterly" ? "active" : ""}
-              onClick={() => setBillingCycle("quarterly")}
-            >
-              Quarterly
-            </button>
-            <button
-              className={billingCycle === "annual" ? "active" : ""}
-              onClick={() => setBillingCycle("annual")}
-            >
-              Annually
-            </button>
-          </div>
+          </motion.p>
+
+          <motion.div
+            className="toggle-switch"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            {["monthly", "quarterly", "annual"].map((cycle) => (
+              <motion.button
+                key={cycle}
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className={billingCycle === cycle ? "active" : ""}
+                onClick={() => setBillingCycle(cycle)}
+              >
+                {cycle.charAt(0).toUpperCase() + cycle.slice(1)}
+              </motion.button>
+            ))}
+          </motion.div>
 
           <div className="pricing-grid">
             {plans.map((plan, index) => (
-              <div
+              <motion.div
                 key={index}
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
                 className={`pricing-card ${
                   plan.highlight ? "highlighted-card" : ""
                 }`}
@@ -133,28 +171,23 @@ export default function PricingPlans() {
                     <>
                       <span className="original-price">
                         ₹{plan.monthlyPrice * 12 + 11}
-                      </span>{" "}
-                      {/* Original price */}
+                      </span>
                       <span className="discounted-price">
                         ₹{plan.annualPrice}
-                      </span>{" "}
-                      {/* Discounted price */}
+                      </span>
                     </>
                   ) : billingCycle === "quarterly" ? (
                     <>
                       <span className="original-price">
                         ₹{plan.monthlyPrice * 3 + 2}
-                      </span>{" "}
-                      {/* Original price */}
+                      </span>
                       <span className="discounted-price">
                         ₹{plan.quarterlyPrice}
-                      </span>{" "}
-                      {/* Discounted price */}
+                      </span>
                     </>
                   ) : (
                     `₹${plan.monthlyPrice}`
                   )}
-
                   <span className="price-per">
                     {billingCycle === "monthly"
                       ? " per month"
@@ -164,22 +197,34 @@ export default function PricingPlans() {
                   </span>
                 </div>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   className={`plan-button ${
                     plan.highlight ? "highlighted-button" : "default-button"
                   }`}
                   onClick={handleButtonClick}
                 >
                   {plan.buttonText}
-                </button>
-                <ul className="plan-features">
+                </motion.button>
+
+                <motion.ul
+                  className="plan-features"
+                  variants={listContainer}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="feature-item">
+                    <motion.li
+                      key={i}
+                      className="feature-item"
+                      variants={listItem}
+                    >
                       <Check className="feature-icon" /> {feature}
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
-              </div>
+                </motion.ul>
+              </motion.div>
             ))}
           </div>
         </div>

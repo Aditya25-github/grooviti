@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion"; // ✅ Import Framer Motion
+import { motion } from "framer-motion";
 import "./Home.css";
 
 // Components
@@ -35,6 +35,31 @@ const Home = () => {
     }
   }, []);
 
+  // Define variants for smooth transitions
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        delay: 0.2,
+      },
+    },
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: -50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <motion.div
       className="home-page"
@@ -43,6 +68,7 @@ const Home = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
+<<<<<<< HEAD
       <Header />
       <ExploreEvents category={category} setCategory={setCategory} />
       <EventDisplay category={category} />
@@ -52,6 +78,47 @@ const Home = () => {
       <Feedback />
       <WebBuilt />
       <FAQ />
+=======
+      {/* Header Section with Animation */}
+      <motion.div variants={headerVariants} initial="hidden" animate="visible">
+        <Header />
+      </motion.div>
+
+      {/* Explore Events Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <ExploreEvents category={category} setCategory={setCategory} />
+      </motion.div>
+
+      {/* Event Display Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <EventDisplay category={category} />
+      </motion.div>
+
+      {/* Team Grid Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <TeamGrid />
+      </motion.div>
+
+      {/* List Button Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <ListButton />
+      </motion.div>
+
+      {/* Trusted By Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <TrustedBy />
+      </motion.div>
+
+      {/* Feedback Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <Feedback />
+      </motion.div>
+
+      {/* Web Built Section */}
+      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+        <WebBuilt />
+      </motion.div>
+>>>>>>> 2856774 (animation added by framer)
     </motion.div>
   );
 };

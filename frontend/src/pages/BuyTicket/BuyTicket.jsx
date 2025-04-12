@@ -3,6 +3,7 @@ import "./BuyTicket.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const BuyTicket = () => {
   const {
@@ -131,7 +132,6 @@ const BuyTicket = () => {
                 success: true,
               });
 
-              
               navigate(
                 `/verify?success=true&orderId=${response.data.order_id}`
               );
@@ -179,199 +179,215 @@ const BuyTicket = () => {
     );
   };
   return (
-    <div style={{paddingTop:"115px"}}>
-    <WarningMessage isLoggedIn={token} />
-    <form onSubmit={buyTicket} className="place-order">
-      <div className="place-order-left">
-        <p className="title">Ticket Booking Information</p>
-        <div className="multi-fields">
-          <input
-            name="firstName"
-            onChange={onChangeHandler}
-            value={data.firstName}  
-            type="text"
-            placeholder="First Name *"
-            required
-          />
-          <input
-            name="lastName"
-            onChange={onChangeHandler}
-            value={data.lastName}
-            type="text"
-            placeholder="Last Name *"
-            required
-          />
-        </div>
-        <input
-          name="college_name"
-          onChange={onChangeHandler}
-          value={data.college_name}
-          type="text"
-          placeholder="College name *"
-          required
-        />
-        <input
-          name="email"
-          onChange={onChangeHandler}
-          value={data.email}
-          type="email"
-          placeholder="Email address *"
-          required
-        />
-        <div className="multi-fields">
-          <input
-            name="Branch"
-            onChange={onChangeHandler}
-            value={data.Branch}
-            type="text"
-            placeholder="Branch *"
-            required
-          />
-          <input
-            name="Team_name"
-            onChange={onChangeHandler}
-            value={data.Team_name}
-            type="text"
-            placeholder="Team Name *"
-            required
-          />
-        </div>
-        <div className="team-size-counter">
-          <label>Team Size:</label>
-          <select
-            name="Team_size"
-            value={data.Team_size}
-            onChange={(event) => {
-              const size = parseInt(event.target.value, 10);
-              setTeamSize(size);
-              setData((prevData) => ({
-                ...prevData,
-                Team_size: size,
-              }));
-            }}
-          >
-            {[...Array(10).keys()].map((num) => (
-              <option key={num + 1} value={num + 1}>
-                {num + 1}
-              </option>
-            ))}
-          </select>
-        </div>
-        <input
-          name="Team_size"
-          type="text"
-          value={`Team size : ${teamSize}`}
-          readOnly
-          placeholder="Selected Team Size *"
-          required
-        />
-        <div className="team-member-fields">
-          {[...Array(teamSize)].map((_, index) => (
+    <motion.div
+      className="home-page"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
+      <div style={{ paddingTop: "115px" }}>
+        <WarningMessage isLoggedIn={token} />
+        <form onSubmit={buyTicket} className="place-order">
+          <div className="place-order-left">
+            <p className="title">Ticket Booking Information</p>
+            <div className="multi-fields">
+              <input
+                name="firstName"
+                onChange={onChangeHandler}
+                value={data.firstName}
+                type="text"
+                placeholder="First Name *"
+                required
+              />
+              <input
+                name="lastName"
+                onChange={onChangeHandler}
+                value={data.lastName}
+                type="text"
+                placeholder="Last Name *"
+                required
+              />
+            </div>
             <input
-              key={index}
-              name={`Team_member_name_${index + 1}`}
+              name="college_name"
               onChange={onChangeHandler}
-              value={data[`Team_member_name_${index + 1}`] || ""}
+              value={data.college_name}
               type="text"
-              placeholder={`Team member name ${index + 1} *`}
+              placeholder="College name *"
               required
             />
-          ))}
-        </div>
-        <div className="multi-fields">
-          <input
-            name="Team_leader_name"
-            onChange={onChangeHandler}
-            value={data.Team_leader_name}
-            type="text"
-            placeholder="Team Leader Name *"
-            required
-          />
-        </div>
-        <input
-          name="phone"
-          onChange={onChangeHandler}
-          value={data.phone}
-          type="tel"
-          pattern="[0-9]{10}"
-          inputMode="numeric"
-          maxLength="10"
-          placeholder="Phone ( 989-767-0000) *"
-          onInput={(e) => (e.target.value = e.target.value.replace(/\D/, ""))}
-          required
-        />
-        <input
-          name="event"
-          onChange={onChangeHandler}
-          value={data.event}
-          type="text"
-          placeholder="Event Name *"
-          required
-        />
-      </div>
-      <div className="cart-total">
-        <h2>Order Summary</h2>
-
-        {eventData && (
-          <>
-            <div className="event-summary">
-              <img
-                className="event-image"
-                src={
-                  eventData.image
-                    ? `${url}/images/${eventData.image}`
-                    : "/default-image.png"
-                }
-                alt={eventData.name || "Event Image"}
+            <input
+              name="email"
+              onChange={onChangeHandler}
+              value={data.email}
+              type="email"
+              placeholder="Email address *"
+              required
+            />
+            <div className="multi-fields">
+              <input
+                name="Branch"
+                onChange={onChangeHandler}
+                value={data.Branch}
+                type="text"
+                placeholder="Branch *"
+                required
               />
-              <h3>{eventData.name}</h3>
+              <input
+                name="Team_name"
+                onChange={onChangeHandler}
+                value={data.Team_name}
+                type="text"
+                placeholder="Team Name *"
+                required
+              />
             </div>
-
-            <div className="ticket-counter">
-              <button
-                type="button"
-                onClick={() => removeFromCart(eventData._id)}
+            <div className="team-size-counter">
+              <label>Team Size:</label>
+              <select
+                name="Team_size"
+                value={data.Team_size}
+                onChange={(event) => {
+                  const size = parseInt(event.target.value, 10);
+                  setTeamSize(size);
+                  setData((prevData) => ({
+                    ...prevData,
+                    Team_size: size,
+                  }));
+                }}
               >
-                -
-              </button>
-              <span>{cartItems[eventData._id] || 0}</span>
-              <button type="button" onClick={() => addToCart(eventData._id)}>
-                +
-              </button>
+                {[...Array(10).keys()].map((num) => (
+                  <option key={num + 1} value={num + 1}>
+                    {num + 1}
+                  </option>
+                ))}
+              </select>
             </div>
-          </>
-        )}
-
-        <div className="cart-total-details">
-          <p>Subtotal</p>
-          <p>Rs.{getTotalCartAmount()}</p>
-        </div>
-        <hr />
-        <div className="cart-total-details">
-          <p>Processing fee</p>
-          <p>Rs.0</p>
-        </div>
-        <hr />
-        <div className="cart-total-details">
-          <b>Total</b>
-          <p>Rs.{getTotalCartAmount()}</p>
-        </div>
-        <button
-            type="submit"
-            disabled={loading}
-            style={{
-              backgroundColor: loading ? "#ccc" : "#ff6000",
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
-          >
-            {loading ? "Loading..." : "PROCEED TO PAYMENT"}
-          </button>
-          <div class="message">
-            <p>After succesful payment, ticket will be shown on this website itself.</p>
+            <input
+              name="Team_size"
+              type="text"
+              value={`Team size : ${teamSize}`}
+              readOnly
+              placeholder="Selected Team Size *"
+              required
+            />
+            <div className="team-member-fields">
+              {[...Array(teamSize)].map((_, index) => (
+                <input
+                  key={index}
+                  name={`Team_member_name_${index + 1}`}
+                  onChange={onChangeHandler}
+                  value={data[`Team_member_name_${index + 1}`] || ""}
+                  type="text"
+                  placeholder={`Team member name ${index + 1} *`}
+                  required
+                />
+              ))}
+            </div>
+            <div className="multi-fields">
+              <input
+                name="Team_leader_name"
+                onChange={onChangeHandler}
+                value={data.Team_leader_name}
+                type="text"
+                placeholder="Team Leader Name *"
+                required
+              />
+            </div>
+            <input
+              name="phone"
+              onChange={onChangeHandler}
+              value={data.phone}
+              type="tel"
+              pattern="[0-9]{10}"
+              inputMode="numeric"
+              maxLength="10"
+              placeholder="Phone ( 989-767-0000) *"
+              onInput={(e) =>
+                (e.target.value = e.target.value.replace(/\D/, ""))
+              }
+              required
+            />
+            <input
+              name="event"
+              onChange={onChangeHandler}
+              value={data.event}
+              type="text"
+              placeholder="Event Name *"
+              required
+            />
           </div>
+          <div className="cart-total">
+            <h2>Order Summary</h2>
+
+            {eventData && (
+              <>
+                <div className="event-summary">
+                  <img
+                    className="event-image"
+                    src={
+                      eventData.image
+                        ? `${url}/images/${eventData.image}`
+                        : "/default-image.png"
+                    }
+                    alt={eventData.name || "Event Image"}
+                  />
+                  <h3>{eventData.name}</h3>
+                </div>
+
+                <div className="ticket-counter">
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(eventData._id)}
+                  >
+                    -
+                  </button>
+                  <span>{cartItems[eventData._id] || 0}</span>
+                  <button
+                    type="button"
+                    onClick={() => addToCart(eventData._id)}
+                  >
+                    +
+                  </button>
+                </div>
+              </>
+            )}
+
+            <div className="cart-total-details">
+              <p>Subtotal</p>
+              <p>Rs.{getTotalCartAmount()}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Processing fee</p>
+              <p>Rs.0</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <b>Total</b>
+              <p>Rs.{getTotalCartAmount()}</p>
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                backgroundColor: loading ? "#ccc" : "#ff6000",
+                cursor: loading ? "not-allowed" : "pointer",
+              }}
+            >
+              {loading ? "Loading..." : "PROCEED TO PAYMENT"}
+            </button>
+            <div class="message">
+              <p>
+                After succesful payment, ticket will be shown on this website
+                itself.
+              </p>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-    </div>
+    </motion.div>
   );
 };
 

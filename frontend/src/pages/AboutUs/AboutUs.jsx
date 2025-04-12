@@ -13,24 +13,49 @@ const AboutUs = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 0.7, ease: "easeInOut" }}
       style={{ paddingTop: "95px" }}
     >
       <div className="about-us" id="about-us">
-        <h1>About Us</h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="about-us-title"
+        >
+          About Us
+        </motion.h1>
 
-        <p className="intro">
+        <motion.p
+          className="intro"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
+        >
           Welcome to our platform grooviti.com, where you can discover and book
           exciting events happening near you. Whether it's concerts, tech
           conferences, or food festivals, we bring them all to one place.
-        </p>
+        </motion.p>
 
-        <p className="mission">
+        <motion.p
+          className="mission"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: "easeInOut", delay: 0.4 }}
+        >
           Our mission is to empower event creators and enrich communities by
           providing a comprehensive event listing platform.
-        </p>
+        </motion.p>
 
-        <TeamGrid />
+        {/* Team Grid with animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.6 }}
+        >
+          <TeamGrid />
+        </motion.div>
       </div>
     </motion.div>
   );

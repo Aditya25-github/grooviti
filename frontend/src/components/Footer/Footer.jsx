@@ -1,33 +1,61 @@
 import React from "react";
 import "./Footer.css";
 import { assets } from "../../assets/frontend_assets/assets";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <div className="footer" id="footer">
+    <motion.div
+      className="footer"
+      id="footer"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <div className="footer-content">
-        <div className="footer-content-left">
-          <img className="logo" src={assets.logo} alt="" />
+        <motion.div
+          className="footer-content-left"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <img className="logo" src={assets.logo} alt="Grooviti Logo" />
           <p>BOOK IT. GROOVE IT. LIVE IT.</p>
           <div className="footer-social-icons">
-            <a
+            <motion.a
               href="https://www.instagram.com/grooviti/"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <img src={assets.instagram_icon} alt="Instagram" />
-            </a>
-            <img src={assets.linkedin_icon} alt="" />
-            <a
+            </motion.a>
+            <motion.img
+              src={assets.linkedin_icon}
+              alt="LinkedIn"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            />
+            <motion.a
               href="https://x.com/Groov_iti"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
               <img src={assets.twitter_icon} alt="Twitter" />
-            </a>
+            </motion.a>
           </div>
-        </div>
-        <div className="footer-content-center">
+        </motion.div>
+
+        <motion.div
+          className="footer-content-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
           <h2>COMPANY</h2>
           <ul>
             <li>Home</li>
@@ -35,20 +63,32 @@ const Footer = () => {
             <li>Contact-Us</li>
             <li>Privacy-policy</li>
           </ul>
-        </div>
-        <div className="footer-content-right">
+        </motion.div>
+
+        <motion.div
+          className="footer-content-right"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
           <h2>GET IN TOUCH</h2>
           <ul>
             <li>+91 940-457-1327</li>
             <li>groov.iti25@gmail.com</li>
           </ul>
-        </div>
+        </motion.div>
       </div>
+
       <hr />
-      <p className="footer-copyright">
+      <motion.p
+        className="footer-copyright"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
         Copyright 2025 &copy; grooviti.com - All Rights Reserved.
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   );
 };
 

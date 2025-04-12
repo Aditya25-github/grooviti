@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./Feedback.css";
+import { motion } from "framer-motion";
 
 const FeedbackData = [
   {
@@ -42,24 +43,28 @@ const FeedbackData = [
 const Feedback = () => {
   return (
     <section className="section__container">
-      <h2 className="feedback-title">Feedback</h2>
-      <h1 className="customer-say">What our customers say</h1>
+      <h2>Feedback</h2>
+      <h1>What our customers say</h1>
       <Swiper
         modules={[Pagination, Autoplay, Navigation, Keyboard]}
         spaceBetween={30}
-        
         keyboard={{ enabled: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
-          
         }}
       >
         {FeedbackData.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="section__card">
+            <motion.div
+              className="section__card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
               <span>
                 <i className="ri-double-quotes-l"></i>
               </span>
@@ -72,11 +77,11 @@ const Feedback = () => {
                   ))}
               </div>
               <h5>{item.name}</h5>
-            </div>
+            </motion.div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </section>
+    </motion.section>
   );
 };
 

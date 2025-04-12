@@ -1,4 +1,3 @@
-
 .header {
   height: 32vw;
   margin: 30px auto;
@@ -39,6 +38,19 @@
   background-color: white;
   font-size: max(1vw, 13px);
   border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-contents button:hover {
+  background-color: #f1f1f1;
+  color: #333;
+  transform: translateY(-2px);
+}
+
+.header-contents button:active {
+  background-color: #e0e0e0;
+  transform: translateY(1px);
 }
 
 @media (max-width: 1050px) {
