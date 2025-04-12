@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // ✅ Import Framer Motion
 import "./Home.css";
+
+// Components
 import Header from "../../components/Header/Header";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
@@ -9,13 +12,12 @@ import WebBuilt from "../../components/WebBuilt/WebBuilt";
 import ListButton from "../../components/ListButton/ListButton";
 
 const Home = () => {
+  const [category, setCategory] = useState("All");
+
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // ✅ Set page title
     document.title = "Grooviti - Your Ultimate Event Ticketing Platform";
 
-    // ✅ Set meta description dynamically
     const metaDescription = document.querySelector("meta[name='description']");
     if (metaDescription) {
       metaDescription.setAttribute(
@@ -31,10 +33,14 @@ const Home = () => {
     }
   }, []);
 
-  const [category, setCategory] = useState("All");
-
   return (
-    <div>
+    <motion.div
+      className="home-page"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
       <Header />
       <ExploreEvents category={category} setCategory={setCategory} />
       <EventDisplay category={category} />
@@ -42,7 +48,7 @@ const Home = () => {
       <ListButton />
       <TrustedBy />
       <WebBuilt />
-    </div>
+    </motion.div>
   );
 };
 
