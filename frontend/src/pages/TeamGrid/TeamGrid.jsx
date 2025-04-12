@@ -10,11 +10,11 @@ const teamMembers = [
     role: "Lead Developer",
     image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/Siddhi_P.JPG",
   },
-  { name: "Bhagyesh Makhamale", role: "CFO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/bhagyesh1.jpg" },
-  { name: "Esha Pansare", role: "CDO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/esha.jpg" },
   { name: "Samiksha Ner", role: "UI/UX Designer", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/sam.jpg" },
+  { name: "Esha Pansare", role: "CDO", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/esha.jpg" },
   { name: "Akash Patil", role: "Strategy Head", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/akash1.jpg" },
   { name: "Diksha Waghulde", role: "HR", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/diksha.jpg" },
+  { name: "New Employee", role: "--", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/new.jpg" },
   { name: "New Employee", role: "--", image: "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/new.jpg" },
 ];
 

@@ -28,7 +28,7 @@
 
 .marquee {
   display: flex;
-  animation: marquee 40s linear infinite; 
+  animation: marquee 70s linear infinite; 
   animation-play-state: running; 
   will-change: transform;
 }
