@@ -7,13 +7,12 @@
   top: 0;
   width: inherit;
   margin: auto;
-  background-color: rgb(243,243,243);
+  background-color: rgb(233, 233, 233);
   /* background-color: #1E1E1E; */
   /* background: linear-gradient(90deg, #1E1E1E, #3A3A3A); */
   transition: top 0.7s ease-in-out;
   z-index: 100;
   /* border-radius: 0 0 15px 15px; */
-  
 }
 
 /* Navbar hides when scrolling down */
@@ -34,7 +33,7 @@
   display: flex;
   list-style: none;
   gap: 20px;
-  color:black;
+  color: black;
   font-size: 18px;
 }
 
@@ -61,7 +60,6 @@
 
 .navbar .active {
   padding-bottom: 2px;
-
 }
 
 .navbar li {
@@ -139,7 +137,7 @@
 .menu-icon.open .line:nth-child(1) {
   transform: rotate(45deg);
   position: fixed;
-  top: 20px; 
+  top: 20px;
   right: 15px;
   height: 2px;
   width: 18px;
@@ -152,18 +150,18 @@
 .menu-icon.open .line:nth-child(3) {
   transform: rotate(-45deg);
   position: fixed;
-  top: 20px; 
+  top: 20px;
   right: 15px;
   height: 2px;
   width: 18px;
 }
 
-.header{
+.header {
   margin: 133px;
-  padding-top: 137.33px; 
+  padding-top: 137.33px;
 }
 
-.mobile-signup-btn{
+.mobile-signup-btn {
   display: none;
 }
 
@@ -181,7 +179,7 @@
   .navbar-right button {
     padding: 8px 25px;
   }
-  .navbar-event .logoutt-btn{
+  .navbar-event .logoutt-btn {
     display: none;
   }
 }
@@ -200,7 +198,7 @@
   .navbar-right button {
     padding: 8px 25px;
   }
-  .navbar-event .logoutt-btn{
+  .navbar-event .logoutt-btn {
     display: none;
   }
 }
@@ -220,7 +218,7 @@
     padding: 7px 20px;
     font-size: 15px;
   }
-  .navbar-event .logoutt-btn{
+  .navbar-event .logoutt-btn {
     display: none;
   }
 }
@@ -234,7 +232,6 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 99;
 }
-
 
 /* Mobile Menu: Login & Cart buttons at the top */
 .mobile-top-buttons {
@@ -253,7 +250,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  
 }
 
 .mobile-cart-btn {
@@ -283,12 +279,11 @@
   margin-top: 50px;
 }
 
-
 @media screen and (max-width: 768px) {
   .menu-icon {
     display: none;
   }
-  .navbar-event .logoutt-btn{
+  .navbar-event .logoutt-btn {
     display: none;
   }
 }
@@ -315,27 +310,27 @@
     color: white;
   }
 
-  .mobile-top-buttons{
+  .mobile-top-buttons {
     display: flex;
   }
 
   .desktop-only {
     display: none;
   }
-  .navbar-right{
+  .navbar-right {
     display: none;
   }
-  .menu-icon{
+  .menu-icon {
     display: flex;
   }
-  .navbar-event .logoutt-btn{
+  .navbar-event .logoutt-btn {
     display: block;
   }
 
   .mobile-signup-btn {
     position: fixed;
     top: 20px;
-    right: 70px; 
+    right: 70px;
     background: tomato;
     color: white;
     border: none;
