@@ -112,11 +112,12 @@ const TeamGrid = () => {
               key={index}
               className="bg-white shadow-xl rounded-xl p-6 text-center team-card"
               variants={cardVariants}
+              initial={{ y: 0 }}
               whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                y: -10,
+                transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
               }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              animate={{ y: 0, transition: { duration: 0 } }}
             >
               <img
                 src={member.image}

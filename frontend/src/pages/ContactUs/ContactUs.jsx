@@ -46,7 +46,7 @@ export default function ContactUs() {
         {/* Hero */}
         <div className="hero-section">
           <p className="small-text">Contact us</p>
-          <h1>Need help? We’re here for you 24/7.</h1>
+          <h1 className="need-help">Need help? We’re here for you 24/7.</h1>
           <p className="description">
             Our dedicated team of growth experts is ready to help around the
             clock. Access 24/7 support through our award-winning network.
@@ -58,17 +58,17 @@ export default function ContactUs() {
         </div>
 
         {/* Team */}
-        <div className="team-section">
-          <h2 className="section-title">Meet our Support Team</h2>
-          <div className="team-grid">
+        <div className="teeam-section">
+          <h2 className="section-title">Our Support Team</h2>
+          <div className="teeam-grid">
             {team.map((member, i) => (
               <div key={i} className="teeam-card">
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="team-avatar"
+                  className="teeam-avatar"
                 />
-                <div className="team-info">
+                <div className="teeam-info">
                   <h4>{member.name}</h4>
                   <p>{member.role}</p>
                 </div>
@@ -80,7 +80,7 @@ export default function ContactUs() {
         {/* Form */}
         <div className="contact-form-section">
           <form className="contact-form">
-            <h3>Contact our sales team</h3>
+            <h3>Contact Our Sales Team</h3>
             <div className="row">
               <input type="text" placeholder="First name *" required />
               <input type="text" placeholder="Last name *" required />
@@ -94,7 +94,7 @@ export default function ContactUs() {
           </form>
 
           <div className="support-info">
-            <h3>Other ways to reach us</h3>
+            <h3>Other Ways to Reach Us</h3>
             <p>
               <strong>Chat to sales:</strong>{" "}
               <a href="tel:+919404571327">+91 940-457-1327</a>
