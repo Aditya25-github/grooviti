@@ -47,7 +47,7 @@ const CreateEvent = () => {
       return;
     }
 
-    alert('Event created successfully!');
+    alert('Event Details Sent Succesfully! We will Contact You Soon for Further Inquiry!');
     console.log({ eventName, startDate, endDate, timeZone, eventType, eventMode, currency, eventLink, country, city, venue });
   };
 

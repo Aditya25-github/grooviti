@@ -55,7 +55,7 @@ const Feedback = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        Feedback
+        FEEDBACK
       </motion.h2>
       <motion.h1
         className="customer-say"
@@ -63,7 +63,7 @@ const Feedback = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
       >
-        What our customers say
+        What our Customers Say
       </motion.h1>
 
       <Swiper

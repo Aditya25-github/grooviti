@@ -8,7 +8,7 @@ const ListButton = () => {
   return (
     <div className="list-button-container">
       <h2 className="some-quote">
-        Seamlessly list your event and connect with the right audience.
+        Seamlessly List Your Event and Connect With The Right Audience.
       </h2>
       <button
         className="list-event-button"
