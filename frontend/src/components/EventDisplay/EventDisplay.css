@@ -1,15 +1,40 @@
 .event-display {
   margin-top: 30px;
+  padding: 0 16px;
 }
 
 .event-display h2 {
   font-size: max(2vw, 24px);
   font-weight: 600;
+  margin-bottom: 20px;
 }
+
 .event-display-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  margin-top: 30px;
   gap: 30px;
   row-gap: 50px;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .event-display-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .event-display-list > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 80%;
+    max-width: 85%;
+  }
+
+  .event-display-list::-webkit-scrollbar {
+    display: none; /* hides scrollbar on mobile */
+  }
 }
