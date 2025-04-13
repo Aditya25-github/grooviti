@@ -105,31 +105,32 @@ const TeamGrid = () => {
         >
           Meet Our Team
         </motion.h1>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              className="bg-white shadow-xl rounded-xl p-6 text-center team-card"
-              variants={cardVariants}
-              initial={{ y: 0 }}
-              whileHover={{
-                y: -10,
-                transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-              }}
-              animate={{ y: 0, transition: { duration: 0 } }}
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
-              />
-              <h3 className="text-lg font-semibold text-gray-800">
-                {member.name}
-              </h3>
-              <p className="text-sm text-gray-500">{member.role}</p>
-            </motion.div>
-          ))}
+        <div className="team-scroll-wrapper">
+          <div className="team-grid">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                className="bg-white shadow-xl rounded-xl p-6 text-center team-card"
+                variants={cardVariants}
+                initial={{ y: 0 }}
+                whileHover={{
+                  y: -10,
+                  transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+                }}
+                animate={{ y: 0, transition: { duration: 0 } }}
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"
+                />
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {member.name}
+                </h3>
+                <p className="text-sm text-gray-500">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>

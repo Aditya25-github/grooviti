@@ -1,6 +1,10 @@
 .meet-team {
   margin-top: 50px;
   padding-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a1a;
 }
 .team-card {
   text-align: center;
@@ -13,10 +17,22 @@
   transform: translateY(-10px);
 }
 
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5rem;
+}
+
+.team-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -26,14 +42,26 @@
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  .team-grid {
+    display: flex;
+    gap: 1px;
+    scroll-snap-type: x mandatory;
+  }
+  .team-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 75%;
+    max-width: 80%;
+  }
+
+  .team-scroll-wrapper::-webkit-scrollbar {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.2fr;
   }
 }
 
