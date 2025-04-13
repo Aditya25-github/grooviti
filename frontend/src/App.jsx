@@ -21,6 +21,7 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import SearchResults from "./components/SearchResults/SearchResults";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="/list-event" element={<ListButton />} />
             <Route path="/create-event" element={<CreateEvent />} />
             <Route path="/ContactUs" element={<ContactUs />} />
+            <Route path="/search" element={<SearchResults />} />
           </Routes>
         </AnimatePresence>
       </div>

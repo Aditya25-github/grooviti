@@ -1,0 +1,38 @@
+/* Title */
+.search-results h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+/* Event card grid layout (desktop) */
+.event-display-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Scrollable horizontal slider on mobile */
+@media (max-width: 768px) {
+  .event-display-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .event-display-list > * {
+    flex: 0 0 auto;
+    min-width: 80%;
+    max-width: 85%;
+    scroll-snap-align: start;
+  }
+
+  .event-display-list::-webkit-scrollbar {
+    display: none;
+  }
+}

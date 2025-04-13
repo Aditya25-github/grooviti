@@ -9,6 +9,8 @@ const Navbar = ({ setShowLogin }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -39,6 +41,12 @@ const Navbar = ({ setShowLogin }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  }, [searchQuery, navigate]);
+
   return (
     <div className="navbar">
       {/* Sign Up button outside the hamburger menu */}
@@ -65,6 +73,24 @@ const Navbar = ({ setShowLogin }) => {
       </Link>
 
       <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
+        <div className="mobile-search-bar">
+          <img
+            src={assets.search_icon}
+            alt="Search"
+            className="search-icon"
+            onClick={() => setShowSearch(!showSearch)}
+          />
+          {showSearch && (
+            <input
+              type="text"
+              placeholder="Search events..."
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          )}
+        </div>
+
         {/* Login & Cart buttons above all navbar elements */}
         <div className="mobile-top-buttons">
           <Link
@@ -141,6 +167,23 @@ const Navbar = ({ setShowLogin }) => {
       )}
 
       <div className="navbar-right">
+        <div className="navbar-search-wrapper">
+          <img
+            src={assets.search_icon}
+            alt="Search"
+            className="search-icon"
+            onClick={() => setShowSearch(!showSearch)}
+          />
+          {showSearch && (
+            <input
+              type="text"
+              placeholder="Search events..."
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          )}
+        </div>
         <div className="navbar-search-icon desktop-only">
           <Link to="/Cart">
             <img src={assets.basket_icon} alt="Cart" />
