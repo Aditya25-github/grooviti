@@ -4,7 +4,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: outfit;
+  font-family: "Outfit", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -19,6 +19,9 @@ a {
 }
 
 .app {
-  width: 85%;
+  width: 95%;
   margin: auto;
+}
+html {
+  scroll-behavior: smooth;
 }

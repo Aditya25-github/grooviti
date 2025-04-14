@@ -61,49 +61,87 @@ const Home = () => {
   };
 
   return (
-    <motion.div
-      className="home-page"
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-    >
-      <motion.div variants={headerVariants} initial="hidden" animate="visible">
-        <Header />
-      </motion.div>
+    <>
+      <motion.div
+        className="home-page space-y-24 pt-[95px] md:pt-[120px] px-4 md:px-8"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        <motion.div
+          variants={headerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <Header />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <ExploreEvents category={category} setCategory={setCategory} />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <ExploreEvents category={category} setCategory={setCategory} />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <EventDisplay category={category} />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <EventDisplay category={category} />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <TeamGrid />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <TeamGrid />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <ListButton />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <ListButton />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <TrustedBy />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <TrustedBy />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <Feedback />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <Feedback />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <WebBuilt />
-      </motion.div>
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <WebBuilt />
+        </motion.div>
 
-      <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-        <FAQ />
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <FAQ />
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </>
   );
 };
 

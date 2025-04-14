@@ -1,0 +1,105 @@
+/* General layout */
+.home-page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Section spacing */
+.home-page > * {
+  margin-bottom: 80px;
+}
+
+/* Section wrapper (optional for consistent layout) */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Typography */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.section-subtext {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.primary-button {
+  background-color: #ff6000;
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  font-size: 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(255, 96, 0, 0.2);
+}
+
+.primary-button:hover {
+  background-color: #e55500;
+  transform: translateY(-2px);
+}
+
+.primary-button:active {
+  transform: scale(0.97);
+}
+
+/* Section fade-in (for motion fallback or custom) */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtext {
+    font-size: 1rem;
+  }
+
+  .home-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-subtext {
+    font-size: 0.95rem;
+  }
+
+  .primary-button {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+}
