@@ -7,6 +7,9 @@ const ListButton = () => {
 
   return (
     <div className="list-button-container">
+      <h1 className="qoute-1">
+        Book it! Groove it! Live it!
+      </h1>
       <h2 className="some-quote">
         Seamlessly List Your Event and Connect With The Right Audience.
       </h2>
