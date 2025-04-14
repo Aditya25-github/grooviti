@@ -12,6 +12,7 @@ import WebBuilt from "../../components/WebBuilt/WebBuilt";
 import ListButton from "../../components/ListButton/ListButton";
 import Feedback from "../../components/Feedback/Feedback";
 import FAQ from "../../components/FAQ/FAQ";
+import AnimateOnScroll from "../../components/AnimateOnScroll/AnimateOnScroll";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -115,6 +116,14 @@ const Home = () => {
           animate="visible"
         >
           <TrustedBy />
+        </motion.div>
+
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <AnimateOnScroll />
         </motion.div>
 
         <motion.div
