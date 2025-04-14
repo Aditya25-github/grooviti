@@ -44,6 +44,8 @@ const Navbar = ({ setShowLogin }) => {
   useEffect(() => {
     if (searchQuery.trim() !== "") {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    } else {
+      navigate("/");
     }
   }, [searchQuery, navigate]);
 
