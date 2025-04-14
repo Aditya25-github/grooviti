@@ -42,12 +42,18 @@ const Navbar = ({ setShowLogin }) => {
   }, []);
 
   useEffect(() => {
+    // When the search query changes and it's not empty, navigate to the search page
     if (searchQuery.trim() !== "") {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
-    } else {
+    }
+  }, [searchQuery]); // Only navigate when the searchQuery changes
+
+  useEffect(() => {
+    // Redirect to home when the search input is empty
+    if (searchQuery.trim() === "" && window.location.pathname !== "/") {
       navigate("/");
     }
-  }, [searchQuery, navigate]);
+  }, [searchQuery]); // This will only trigger when the searchQuery is empty and you're not already on the homepage
 
   return (
     <div className="navbar">
