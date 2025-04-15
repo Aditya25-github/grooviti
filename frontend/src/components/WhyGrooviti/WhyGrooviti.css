@@ -1,0 +1,92 @@
+/* Whygrooviti.css */
+.grooviti-container {
+    display: flex;
+    height: 500px;
+    max-width: 100%;
+    overflow: hidden;
+    background: #0f0f1a;
+    border-radius: 16px;
+    padding: 20px;
+    gap: 10px;
+    color: white;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #1a1a2e;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    min-width: 60px;
+  }
+  
+  .card-title {
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    margin-top: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .card.active .card-title {
+    transform: rotate(0deg);
+    margin: 10px 0;
+  }
+  
+  .card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .card-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .info-panel {
+    background: #1f1f2f;
+    border-radius: 16px;
+    padding: 30px;
+    margin-left: auto;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  
+  .info-panel h2 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .info-panel p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ccc;
+  }
+  
+  .explore-btn {
+    padding: 10px 16px;
+    background: #4f46e5;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .explore-btn:hover {
+    background: #3730a3;
+  }
+  

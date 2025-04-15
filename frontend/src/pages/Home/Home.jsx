@@ -94,6 +94,14 @@ const Home = () => {
           <EventDisplay category={category} />
         </motion.div>
 
+        {/* <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <WhyGrooviti />
+        </motion.div> */}
+
         <motion.div
           variants={sectionVariants}
           initial="hidden"

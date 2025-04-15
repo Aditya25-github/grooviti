@@ -14,8 +14,11 @@ const Header = () => {
         <div className="header-contents">
           <h2>Buy Your Favourite Event Tickets Here</h2>
           <p>
-            From concerts and sports to workshops and festivals — Grooviti makes
-            it easy to book tickets and enjoy your favorite moments. Plan less.
+            From electrifying concerts and thrilling sports events to inspiring
+            workshops and vibrant festivals — Grooviti is your one-stop
+            destination for discovering and booking unforgettable experiences.
+            Whether you're chasing adrenaline or seeking inspiration, we make it
+            simple to find, book, and enjoy the moments that matter. Plan less.
             Groove more.
           </p>
           <button

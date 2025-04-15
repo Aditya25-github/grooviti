@@ -333,7 +333,7 @@
   }
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 550px) {
   .navbar-event {
     display: none;
     width: 70%;

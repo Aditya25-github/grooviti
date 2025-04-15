@@ -42,18 +42,27 @@ const Navbar = ({ setShowLogin }) => {
   }, []);
 
   useEffect(() => {
-    // When the search query changes and it's not empty, navigate to the search page
-    if (searchQuery.trim() !== "") {
-      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    const trimmedQuery = searchQuery.trim();
+    const currentPath = window.location.pathname;
+
+    // Only handle navigation if we're on home or search page
+    if (currentPath === "/" || currentPath === "/events") {
+      //does not work due to extra s in event
+      if (trimmedQuery === "") {
+        navigate("/");
+      } else {
+        navigate(`/search?query=${encodeURIComponent(trimmedQuery)}`);
+      }
     }
-  }, [searchQuery]); // Only navigate when the searchQuery changes
+  }, [searchQuery, navigate]);
 
   useEffect(() => {
-    // Redirect to home when the search input is empty
-    if (searchQuery.trim() === "" && window.location.pathname !== "/") {
-      navigate("/");
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    if (query) {
+      setSearchQuery(query);
     }
-  }, [searchQuery]); // This will only trigger when the searchQuery is empty and you're not already on the homepage
+  }, []); // Run only once on mount (for initial page load)
 
   return (
     <div className="navbar">
