@@ -10,6 +10,7 @@ import Sidebar from "./components/SideBar/SideBar";
 import Login from "./components/Login/Login";
 import Statistics from "./pages/Statistics/Statistics";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
@@ -64,6 +65,7 @@ const App = () => {
           />
         </Routes>
       </div>
+      <Footer />
     </div>
   );
 };

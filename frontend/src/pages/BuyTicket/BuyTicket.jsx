@@ -15,7 +15,7 @@ const BuyTicket = () => {
     addToCart,
     removeFromCart,
   } = useContext(StoreContext);
-  const { eventName } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(false); // New state to track button status
@@ -43,25 +43,20 @@ const BuyTicket = () => {
 
   useEffect(() => {
     if (myevents_list.length > 0) {
-      const foundEvent = myevents_list.find(
-        (e) =>
-          e.name.toLowerCase() === decodeURIComponent(eventName).toLowerCase()
-      );
+      const foundEvent = myevents_list.find((e) => e._id === id);
       if (foundEvent) {
         setEventData(foundEvent);
-
         setData((prevData) => ({
           ...prevData,
           event: foundEvent.name,
           Team_size: prevData.Team_size || 1,
         }));
-
         if (!cartItems[foundEvent._id] || cartItems[foundEvent._id] === 0) {
           addToCart(foundEvent._id);
         }
       }
     }
-  }, [eventName, myevents_list, cartItems, addToCart]);
+  }, [id, myevents_list, cartItems, addToCart]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;

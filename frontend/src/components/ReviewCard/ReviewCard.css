@@ -1,0 +1,42 @@
+.review-card {
+  background: #f9f9f9;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-comment {
+  margin: 12px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+.review-date {
+  color: #888;
+  font-size: 13px;
+}
+
+.review-actions {
+  margin-top: 10px;
+}
+
+.review-actions button {
+  margin-right: 10px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #eee;
+}
+
+.review-actions button:hover {
+  background-color: #ddd;
+}

@@ -25,10 +25,21 @@ const faqs = [
   },
   {
     category: "Management",
-    question: "What should I do if I encounter issues during event setup or management?",
+    question:
+      "What should I do if I encounter issues during event setup or management?",
     answer: (
       <>
-        If you face any issues while setting up or managing your event, our support team is here to help. You can reach out through the in-platform support chat or email us at <a href="https://grooviti.com/contact" target="_blank" rel="noopener noreferrer">https://grooviti.com/contact</a> for prompt assistance.
+        If you face any issues while setting up or managing your event, our
+        support team is here to help. You can reach out through the in-platform
+        support chat or email us at{" "}
+        <a
+          href="https://grooviti.com/ContactUs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://grooviti.com/contact
+        </a>{" "}
+        for prompt assistance.
       </>
     ),
   },
@@ -70,7 +81,9 @@ export default function FAQ() {
         {categories.map((cat, i) => (
           <button
             key={i}
-            className={`faq-category-btn ${selectedCategory === cat ? "active" : ""}`}
+            className={`faq-category-btn ${
+              selectedCategory === cat ? "active" : ""
+            }`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}
@@ -82,10 +95,14 @@ export default function FAQ() {
         {filteredFaqs.map((faq, index) => (
           <div key={index} className="faq-item">
             <button className="faq-question" onClick={() => toggleFAQ(index)}>
-              <span><FaQuestionCircle className="icon" /> {faq.question}</span>
+              <span>
+                <FaQuestionCircle className="icon" /> {faq.question}
+              </span>
               {activeIndex === index ? <FaChevronUp /> : <FaChevronDown />}
             </button>
-            {activeIndex === index && <p className="faq-answer">{faq.answer}</p>}
+            {activeIndex === index && (
+              <p className="faq-answer">{faq.answer}</p>
+            )}
           </div>
         ))}
       </div>

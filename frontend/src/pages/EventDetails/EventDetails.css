@@ -1,0 +1,205 @@
+/* Main Container */
+.event-details {
+  width: 95%;
+  margin: 0 auto;
+  padding: 32px 0;
+  font-family: "Segoe UI", sans-serif;
+  color: #222;
+}
+
+/* Top section layout */
+.event-top-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+/* Image Slider */
+.event-slider {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.event-slider img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: #f97316;
+}
+.swiper-pagination-bullet {
+  background: #f97316;
+}
+
+/* Event Info Panel */
+.event-info {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Event Header */
+.event-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.event-location {
+  color: #f97316;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Action Buttons */
+.event-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.book-now-btn,
+.secondary-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+.book-now-btn {
+  background: #f97316;
+  color: white;
+  border: none;
+}
+.book-now-btn:hover {
+  background: #e55a00;
+}
+.sold-out-btn {
+  background: #ccc !important;
+  color: white !important;
+  cursor: not-allowed;
+}
+.secondary-btn {
+  background: #f4f4f4;
+  color: #333;
+  border: 1px solid #ddd;
+}
+.secondary-btn:hover {
+  background: #eaeaea;
+}
+
+/* Content Sections */
+.event-description,
+.event-map-section,
+.event-reviews {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+}
+
+/* Map Section */
+.event-map-section {
+  border: 0;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Reviews Section */
+.event-reviews {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+  margin-bottom: 40px;
+}
+.event-reviews h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Edit/Delete */
+.review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.review-actions button {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.review-actions button:hover {
+  background: #e55a00;
+}
+
+/* Not signed in */
+.login-reminder {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #f97316;
+  font-weight: 500;
+}
+.sticky-book-btn {
+  display: none;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .event-top-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .event-title {
+    font-size: 1.5rem;
+  }
+  .event-meta-group {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 768px) {
+  .sticky-book-btn {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    padding: 10px 20px;
+    z-index: 999;
+  }
+
+  .sticky-book-btn button {
+    width: 100%;
+    background: #f97316;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .sticky-book-btn button:hover {
+    background: #e55a00;
+  }
+}

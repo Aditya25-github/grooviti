@@ -7,10 +7,12 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [event, setevent] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken, myevents_list } =
+    useContext(StoreContext);
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -18,55 +20,65 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
 
-  // State to track navbar visibility
+  // Scroll behavior to show/hide navbar
   const [showNavbar, setShowNavbar] = useState(true);
   let lastScrollTop = 0;
 
   useEffect(() => {
     const handleScroll = () => {
       let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      if (scrollTop > lastScrollTop + 3) {
-        // Hide navbar when scrolling down
-        setShowNavbar(false);
-      } else if (scrollTop < lastScrollTop - 3) {
-        // Show navbar when scrolling up slightly
-        setShowNavbar(true);
-      }
-
+      if (scrollTop > lastScrollTop + 3) setShowNavbar(false);
+      else if (scrollTop < lastScrollTop - 3) setShowNavbar(true);
       lastScrollTop = scrollTop;
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle route navigation on input change
   useEffect(() => {
     const trimmedQuery = searchQuery.trim();
     const currentPath = window.location.pathname;
 
-    // Only handle navigation if we're on home or search page
-    if (currentPath === "/" || currentPath === "/events") {
-      //does not work due to extra s in event
+    // Only auto-navigate if on search or home page
+    if (currentPath === "/" || currentPath.startsWith("/search")) {
       if (trimmedQuery === "") {
         navigate("/");
       } else {
         navigate(`/search?query=${encodeURIComponent(trimmedQuery)}`);
       }
     }
-  }, [searchQuery, navigate]);
+  }, [searchQuery]);
 
+  // Pre-fill input if there's a query in URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get("query");
     if (query) {
       setSearchQuery(query);
     }
-  }, []); // Run only once on mount (for initial page load)
+  }, []);
+
+  const handleInputChange = (value) => {
+    setSearchQuery(value);
+    if (value.trim() && myevents_list?.length > 0) {
+      const filtered = myevents_list.filter((event) =>
+        event.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered.slice(0, 5));
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (name) => {
+    setSearchQuery(name);
+    setSuggestions([]);
+    navigate(`/search?query=${encodeURIComponent(name)}`);
+  };
 
   return (
     <div className="navbar">
-      {/* Sign Up button outside the hamburger menu */}
       {!token && (
         <button
           className="mobile-signup-btn"
@@ -98,17 +110,30 @@ const Navbar = ({ setShowLogin }) => {
             onClick={() => setShowSearch(!showSearch)}
           />
           {showSearch && (
-            <input
-              type="text"
-              placeholder="Search events..."
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <div className="search-suggestion-wrapper">
+              <input
+                type="text"
+                placeholder="Search events..."
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => handleInputChange(e.target.value)}
+              />
+              {suggestions.length > 0 && (
+                <ul className="autocomplete-list">
+                  {suggestions.map((event) => (
+                    <li
+                      key={event._id}
+                      onClick={() => handleSuggestionClick(event.name)}
+                    >
+                      {event.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
         </div>
 
-        {/* Login & Cart buttons above all navbar elements */}
         <div className="mobile-top-buttons">
           <Link
             to="/cart"
@@ -119,7 +144,6 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
         </div>
 
-        {/* Navbar Links */}
         <Link
           to="/"
           onClick={() => {
@@ -136,7 +160,7 @@ const Navbar = ({ setShowLogin }) => {
             setevent("event");
             setMenuOpen(false);
           }}
-          className={event === "Home" ? "active" : ""}
+          className={event === "event" ? "active" : ""}
         >
           Events
         </Link>
@@ -146,7 +170,7 @@ const Navbar = ({ setShowLogin }) => {
             setevent("about");
             setMenuOpen(false);
           }}
-          className={event === "About-us" ? "active" : ""}
+          className={event === "about" ? "active" : ""}
         >
           About-Us
         </Link>
@@ -171,7 +195,6 @@ const Navbar = ({ setShowLogin }) => {
           Contact-us
         </Link>
 
-        {/* Logout Button at the Bottom */}
         {token && (
           <button className="logoutt-btn" onClick={logout}>
             Logout
@@ -192,15 +215,30 @@ const Navbar = ({ setShowLogin }) => {
             onClick={() => setShowSearch(!showSearch)}
           />
           {showSearch && (
-            <input
-              type="text"
-              placeholder="Search events..."
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <div className="search-suggestion-wrapper">
+              <input
+                type="text"
+                placeholder="Search events..."
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => handleInputChange(e.target.value)}
+              />
+              {suggestions.length > 0 && (
+                <ul className="autocomplete-list">
+                  {suggestions.map((event) => (
+                    <li
+                      key={event._id}
+                      onClick={() => handleSuggestionClick(event.name)}
+                    >
+                      {event.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
         </div>
+
         <div className="navbar-search-icon desktop-only">
           <Link to="/Cart">
             <img src={assets.basket_icon} alt="Cart" />

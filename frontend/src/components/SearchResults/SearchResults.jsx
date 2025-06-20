@@ -6,9 +6,10 @@ import "./SearchResults.css";
 
 const SearchResults = () => {
   const { myevents_list } = useContext(StoreContext);
-  const query = new URLSearchParams(useLocation().search).get("query") || "";
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("query") || "";
 
-  const filteredEvents = myevents_list.filter((event) =>
+  const filteredEvents = (myevents_list || []).filter((event) =>
     event.name.toLowerCase().includes(query.toLowerCase())
   );
 
@@ -19,7 +20,7 @@ const SearchResults = () => {
         {filteredEvents.length > 0 ? (
           filteredEvents.map((item, index) => (
             <EventItem
-              key={index}
+              key={item._id || index}
               id={item._id}
               name={item.name}
               description={item.description}

@@ -11,6 +11,7 @@ const EventItem = ({
   description,
   image,
   availableTickets,
+  location,
 }) => {
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
@@ -19,7 +20,11 @@ const EventItem = ({
   const isSoldOut = availableTickets <= 0;
 
   return (
-    <div className="event-item">
+    <div
+      className="event-item"
+      onClick={() => navigate(`/event/${id}`)}
+      style={{ cursor: "pointer" }}
+    >
       <div className="event-item-img-container">
         <img
           className="event-item-image"
@@ -30,22 +35,31 @@ const EventItem = ({
         {!isSoldOut && !cartItems[id] ? (
           <img
             className="add"
-            onClick={() => addToCart(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              addToCart(id);
+            }}
             src={assets.add_icon_white}
             alt=""
           />
         ) : !isSoldOut ? (
           <div className="event-item-counter">
             <img
-              onClick={() => removeFromCart(id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                removeFromCart(id);
+              }}
               src={assets.remove_icon_red}
               alt=""
             />
             <p>{cartItems[id]}</p>
             <img
-              onClick={() => addToCart(id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                addToCart(id);
+              }}
               src={assets.add_icon_green}
-              alt=""
+              alt="Add"
             />
           </div>
         ) : null}
@@ -55,14 +69,21 @@ const EventItem = ({
         <div className="event-item-name-rating">
           <p>{name}</p>
         </div>
-        <p className="event-item-description">{description}</p>
-        <p className="event-item-price">Rs.{price}</p>
-
-        <div className="event-item-register">
+        <div className="event-item-description">
+          <p>{description}</p>
+        </div>
+        <div className="event-item-price">
+          <p>Rs.{price}</p>
+        </div>
+        <div className="event-item-location-button">
+          <p className="event-item-location">
+            {location?.city || "Location not specified"}
+          </p>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               if (!isSoldOut) {
-                navigate(`/event/${encodeURIComponent(name)}/buyticket`);
+                navigate(`/event/${id}/buyticket`);
               }
             }}
             disabled={isSoldOut}

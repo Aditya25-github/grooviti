@@ -1,0 +1,21 @@
+.event-meta-group {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.event-meta-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.event-meta-value {
+  color: #555;
+}

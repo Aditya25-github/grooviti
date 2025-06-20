@@ -1,0 +1,92 @@
+.event-location-filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 1rem 2rem;
+  gap: 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  flex-wrap: wrap;
+}
+
+.event-location-filter label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #555;
+  white-space: nowrap;
+}
+
+.event-location-filter select {
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 100px;
+  max-width: 180px;
+  width: auto;
+  white-space: nowrap;
+}
+
+.event-location-filter select:focus {
+  border-color: #ff6000;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.event-location-filter button {
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  border: 1.5px solid #ff6000;
+  background-color: white;
+  color: #ff6000;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.event-location-filter button:hover {
+  background-color: #ff6000;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
+}
+
+.event-location-filter p {
+  margin: 0 0 0 1rem;
+  color: #d9534f; /* Bootstrap's red color */
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .event-location-filter {
+    justify-content: center;
+    margin: 1rem;
+    gap: 0.7rem;
+    width: 100%;
+  }
+
+  .event-location-filter select {
+    min-width: 80px;
+    max-width: 140px;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .event-location-filter button {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .event-location-filter p {
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+  }
+}

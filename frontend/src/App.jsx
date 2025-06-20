@@ -22,6 +22,8 @@ import PlanUpgrade from "./pages/PlanUpgrade/PlanUpgrade";
 import Events from "./pages/Events/Events";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import SearchResults from "./components/SearchResults/SearchResults";
+import EventDetails from "./pages/EventDetails/EventDetails";
+import EventDirection from "./pages/EventDirection/EventDirection";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -45,7 +47,7 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/event/:eventName/buyticket" element={<BuyTicket />} />
+            <Route path="/event/:id/buyticket" element={<BuyTicket />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/event" element={<Events />} />
             <Route path="/myorders" element={<MyOrders />} />
@@ -59,6 +61,8 @@ const App = () => {
             <Route path="/create-event" element={<CreateEvent />} />
             <Route path="/ContactUs" element={<ContactUs />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/event/:id" element={<EventDetails />} />
+            <Route path="/event/:id/direction" element={<EventDirection />} />
           </Routes>
         </AnimatePresence>
       </div>

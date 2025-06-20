@@ -1,0 +1,27 @@
+.organizer-info {
+  background: #fff;
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.organizer-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.organizer-detail {
+  display: flex;
+  gap: 12px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.organizer-detail .label {
+  font-weight: 600;
+  color: #444;
+  min-width: 80px;
+}

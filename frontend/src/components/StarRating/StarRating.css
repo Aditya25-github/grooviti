@@ -1,0 +1,9 @@
+/* Star Rating */
+.star-rating {
+  display: flex;
+  gap: 5px;
+  margin-top: 4px;
+}
+.star-rating span {
+  font-size: 20px;
+}
