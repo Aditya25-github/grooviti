@@ -16,7 +16,7 @@ import Footer from "./components/Footer/Footer";
 import { StoreContext } from "./context/StoreContext";
 
 const App = () => {
-  const url = "http://localhost:4000";
+  const url = "https://grooviti-backend.onrender.com";
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
   const { token, admin, loading } = useContext(StoreContext);
