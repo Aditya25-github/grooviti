@@ -9,11 +9,15 @@ import bookingRouter from "./routes/bookingRoute.js"
 import organizerRoutes from "./routes/organizerRoutes.js";
 import reviewRouter from "./routes/ReviewRoute.js";
 import axios from "axios";
-
+import fs from "fs";
 //app config
 
 const app = express()
 const port = process.env.PORT || 4000;
+const uploadsPath = path.join(process.cwd(), "uploads");
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath);
+}
 
 
 //middle-ware
@@ -29,8 +33,7 @@ connectDB()
 
 // API endpoints
 app.use("/api/event", eventRouter)
-app.use("/images", express.static('uploads'))
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"))
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/booking", bookingRouter)

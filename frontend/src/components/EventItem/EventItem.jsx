@@ -28,7 +28,7 @@ const EventItem = ({
       <div className="event-item-img-container">
         <img
           className="event-item-image"
-          src={url + "/images/" + coverImage}
+          src={url + "/uploads/" + coverImage}
           alt=""
         />
 

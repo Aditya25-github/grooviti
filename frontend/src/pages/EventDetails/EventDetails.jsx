@@ -92,24 +92,6 @@ const EventDetails = () => {
     );
   }, []);
 
-  // useEffect(() => {
-  //   const fetchRelated = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${url}/api/event?city=${event?.location?.city}`
-  //       );
-  //       if (res.data.success) {
-  //         const filtered = res.data.data.filter((e) => e._id !== id);
-  //         setRelatedEvents(filtered.slice(0, 6)); // limit
-  //       }
-  //     } catch (err) {
-  //       console.error("Related fetch error:", err);
-  //     }
-  //   };
-
-  //   if (event) fetchRelated();
-  // }, [event]);
-
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -263,7 +245,7 @@ const EventDetails = () => {
             {images.map((img, idx) => (
               <SwiperSlide key={idx}>
                 <img
-                  src={`${url}/images/${img}`}
+                  src={`${url}/uploads/${img}`}
                   alt={`event-${idx}`}
                   style={{ width: "100%", borderRadius: "12px" }}
                 />
