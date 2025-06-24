@@ -10,6 +10,8 @@ import organizerRoutes from "./routes/organizerRoutes.js";
 import reviewRouter from "./routes/ReviewRoute.js";
 import axios from "axios";
 import fs from "fs";
+import path from "path";
+
 //app config
 
 const app = express()
