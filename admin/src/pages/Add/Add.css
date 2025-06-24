@@ -10,6 +10,7 @@
 }
 .add-img-upload img {
   width: 120px;
+  cursor: pointer;
 }
 .add-product-name,
 .add-product-description {
@@ -101,6 +102,73 @@
 .add-location input:focus {
   outline: none;
   border-color: black;
+}
+.preview-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border: 2px dashed #ccc;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.image-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+}
+
+.other-images-wrapper {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.image-thumb-wrapper {
+  cursor: pointer;
+}
+
+.highlights-selection h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.highlight-option {
+  display: inline-flex;
+  align-items: center;
+  margin: 8px;
+  padding: 10px 16px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.highlight-option:hover {
+  border-color: #888;
+  background-color: #f1f1f1;
+}
+
+.highlight-option input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+}
+.highlight-option.active {
+  border-color: #ff6000;
+  background-color: #e6f0ff;
 }
 
 @media (max-width: 400px) {

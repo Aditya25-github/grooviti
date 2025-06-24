@@ -1,0 +1,76 @@
+.myplan-page {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.myplan-page h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+}
+
+.plan-card {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+.plan-card h3 {
+  font-size: 24px;
+  color: #007bff;
+}
+
+.plan-card ul {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.plan-card li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #444;
+}
+
+.price {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #222;
+}
+
+.upgrade-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.premium-highlight {
+  border: 2px dashed #ffc107;
+  background-color: #fffaf3;
+}
+
+.premium-highlight h4 {
+  font-size: 20px;
+  color: #d9822b;
+  margin-bottom: 10px;
+}
+
+.upgrade-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #ff6b00;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upgrade-btn:hover {
+  background-color: #e85a00;
+}

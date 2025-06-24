@@ -3,45 +3,74 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const LoginPopup = ({ setShowLogin }) => {
   const { url, setToken } = useContext(StoreContext);
   const [currState, setCurrState] = useState("Sign Up");
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [data, setData] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
 
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onLogin = async (event) => {
-    event.preventDefault();
-    let newUrl = url;
+  const onLogin = async (e) => {
+    e.preventDefault();
+    let endpoint =
+      currState === "Login" ? "/api/user/login" : "/api/user/register";
 
-    if (currState === "Login") {
-      newUrl += "/api/user/login";
-    } else {
-      newUrl += "/api/user/register";
-    }
+    try {
+      const response = await axios.post(`${url}${endpoint}`, data);
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
 
-    const response = await axios.post(newUrl, data);
-
-    if (response.data.success) {
-      setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
-
-      if (response.data.role === "eventHost") {
-        window.location.href = "https://grooviti-admin.onrender.com"; // Redirect to Admin Panel
+        if (response.data.role === "eventHost") {
+          window.location.href = "https://grooviti-admin.onrender.com";
+        } else {
+          setShowLogin(false);
+        }
       } else {
-        setShowLogin(false);
+        toast.error(response.data.message);
       }
-    } else {
-      alert(response.data.message);
+    } catch (error) {
+      toast.error("Something went wrong.");
+    }
+  };
+
+  const handleForgotPassword = () => {
+    setShowLogin(false);
+    navigate("/forgot-password");
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const token = await user.getIdToken();
+
+      const response = await axios.post(`${url}/api/user/google-login`, {
+        email: user.email,
+        name: user.displayName,
+        token,
+      });
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setShowLogin(false);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (err) {
+      toast.error("Google sign-in failed");
+      console.error(err);
     }
   };
 
@@ -51,15 +80,14 @@ const LoginPopup = ({ setShowLogin }) => {
         <div className="login-popup-title">
           <h2>{currState}</h2>
           <img
-            onClick={() => setShowLogin(false)}
             src={assets.cross_icon}
             alt=""
+            onClick={() => setShowLogin(false)}
           />
         </div>
+
         <div className="login-popup-input">
-          {currState === "Login" ? (
-            <></>
-          ) : (
+          {currState === "Login" ? null : (
             <input
               name="name"
               onChange={onChangeHandler}
@@ -85,32 +113,49 @@ const LoginPopup = ({ setShowLogin }) => {
             placeholder="Password"
             required
           />
-          {/* <select
-            name="role"
-            onChange={onChangeHandler}
-            value={data.role}
-            required
-          >
-            <option value="">Select Role</option>
-            <option value="attendee">Attendee</option>
-            <option value="host">Event Host</option>
-          </select> */}
         </div>
+
+        {currState === "Login" && (
+          <p className="forgot-password-link" onClick={handleForgotPassword}>
+            Forgot Password?
+          </p>
+        )}
+
         <button type="submit">
           {currState === "Sign Up" ? "Create account" : "Login"}
         </button>
+
+        <div className="divider">or</div>
+
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="social-login google"
+        >
+          <img src={assets.google_icon} alt="Google" /> Continue with Google
+        </button>
+
+        <button
+          type="button"
+          onClick={() => toast.info("Mobile OTP Login coming soon")}
+          className="social-login otp"
+        >
+          Continue with Mobile OTP
+        </button>
+
         <div className="login-popup-condition">
           <input type="checkbox" required />
-          <p>By Continuing, I agree to the terms of use & privacy policy</p>
+          <p>By continuing, you agree to our Terms and Privacy Policy</p>
         </div>
+
         {currState === "Login" ? (
           <p>
-            Create a new account?{" "}
-            <span onClick={() => setCurrState("Sign Up")}>Click here</span>
+            Don't have an account?{" "}
+            <span onClick={() => setCurrState("Sign Up")}>Sign up here</span>
           </p>
         ) : (
           <p>
-            Already have and account?{" "}
+            Already have an account?{" "}
             <span onClick={() => setCurrState("Login")}>Login here</span>
           </p>
         )}

@@ -1,24 +1,26 @@
 // src/components/EventHighlights.jsx
 import React from "react";
-import "./EventHighlights.css"; // we'll style it separately
+import "./EventHighlights.css";
 
-const defaultFeatures = [
-  { icon: "🎵", label: "Live Music" },
-  { icon: "🪑", label: "Seating Available" },
-  { icon: "🚻", label: "Washrooms" },
-  { icon: "🅿", label: "Parking" },
-  { icon: "🍕", label: "Food Stalls" },
-];
+const iconMap = {
+  "Live Music": "🎵",
+  "Seating Available": "🪑",
+  Washrooms: "🚻",
+  Parking: "🅿",
+  "Food Stalls": "🍕",
+};
 
-const EventHighlights = ({ features = defaultFeatures }) => {
+const EventHighlights = ({ highlights = [] }) => {
+  if (!highlights.length) return null;
+
   return (
     <div className="event-highlights">
       <h2>Event Highlights</h2>
       <div className="highlights-grid">
-        {features.map((f, idx) => (
+        {highlights.map((label, idx) => (
           <div className="highlight-card" key={idx}>
-            <span className="highlight-icon">{f.icon}</span>
-            <span className="highlight-label">{f.label}</span>
+            <span className="highlight-icon">{iconMap[label] || "✨"}</span>
+            <span className="highlight-label">{label}</span>
           </div>
         ))}
       </div>

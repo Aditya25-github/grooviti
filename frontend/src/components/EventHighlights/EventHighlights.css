@@ -1,48 +1,51 @@
 .event-highlights {
-  background: #fff;
+  margin-top: 40px;
   padding: 24px;
-  border-radius: 12px;
-  margin-bottom: 32px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
+  background: linear-gradient(to right, #fdfdfd, #f6fafe);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e3eaf2;
+  margin-bottom: 20px;
 }
 
 .event-highlights h2 {
-  font-size: 1.4rem;
+  font-size: 22px;
   margin-bottom: 20px;
   font-weight: 600;
-  color: #222;
+  color: #1e293b;
+  border-left: 4px solid #3b82f6;
+  padding-left: 12px;
 }
 
 .highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
 }
 
 .highlight-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background: #fafafa;
-  padding: 16px;
-  border-radius: 10px;
-  border: 1px solid #eee;
-  transition: 0.2s ease;
+  gap: 12px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .highlight-card:hover {
-  background: #fefefe;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.15);
 }
 
 .highlight-icon {
-  font-size: 28px;
-  margin-bottom: 8px;
+  font-size: 22px;
 }
 
 .highlight-label {
-  font-size: 0.95rem;
+  font-size: 15px;
   font-weight: 500;
-  color: #444;
-  text-align: center;
+  color: #1f2937;
 }

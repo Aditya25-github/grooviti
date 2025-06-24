@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PlanUpgrade.css";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const plans = [
   {
@@ -9,7 +10,6 @@ const plans = [
     monthlyPrice: 49,
     quarterlyPrice: 119,
     annualPrice: 299,
-    per: "per month",
     description: "Ideal for individuals or small event organizers",
     features: [
       "Access to admin panel where event organisers can easily manage their events listed on platform",
@@ -26,7 +26,6 @@ const plans = [
     monthlyPrice: 499,
     quarterlyPrice: 1199,
     annualPrice: 2999,
-    per: "per month",
     description: "Perfect for growing event organizers",
     features: [
       "Access to admin panel",
@@ -37,7 +36,7 @@ const plans = [
       "Default Templates",
       "Event Attendance Management",
     ],
-    buttonText: "Get Started ",
+    buttonText: "Get Started",
     highlight: true,
   },
   {
@@ -45,7 +44,6 @@ const plans = [
     monthlyPrice: 999,
     quarterlyPrice: 2399,
     annualPrice: 5999,
-    per: "per month",
     description: "Designed for large-scale event management",
     features: [
       "Access to admin panel",
@@ -64,14 +62,19 @@ const plans = [
 ];
 
 export default function PricingPlans() {
+  const navigate = useNavigate();
+  const [billingCycle, setBillingCycle] = useState("monthly");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const [billingCycle, setBillingCycle] = useState("monthly");
 
-  const handleButtonClick = () => {
-    alert("This feature is coming soon!");
+  const handleButtonClick = (plan, billing) => {
+    navigate("/organizer-info", {
+      state: { planName: plan.name, billingCycle: billing },
+    });
   };
+
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
@@ -123,6 +126,7 @@ export default function PricingPlans() {
             planners, and businesses.
           </motion.p>
 
+          {/* Billing Cycle Toggle */}
           <motion.div
             className="toggle-switch"
             initial={{ opacity: 0 }}
@@ -143,6 +147,7 @@ export default function PricingPlans() {
             ))}
           </motion.div>
 
+          {/* Plan Cards */}
           <div className="pricing-grid">
             {plans.map((plan, index) => (
               <motion.div
@@ -156,6 +161,7 @@ export default function PricingPlans() {
                   plan.highlight ? "highlighted-card" : ""
                 }`}
               >
+                {/* Discount Label */}
                 {billingCycle === "annual" && (
                   <div className="discount-label">50% Discount</div>
                 )}
@@ -166,6 +172,7 @@ export default function PricingPlans() {
                 <div className="plan-name">{plan.name}</div>
                 <p className="plan-description">{plan.description}</p>
 
+                {/* Price */}
                 <div className="plan-price">
                   {billingCycle === "annual" ? (
                     <>
@@ -197,17 +204,19 @@ export default function PricingPlans() {
                   </span>
                 </div>
 
+                {/* Button */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`plan-button ${
                     plan.highlight ? "highlighted-button" : "default-button"
                   }`}
-                  onClick={handleButtonClick}
+                  onClick={() => handleButtonClick(plan, billingCycle)}
                 >
                   {plan.buttonText}
                 </motion.button>
 
+                {/* Features */}
                 <motion.ul
                   className="plan-features"
                   variants={listContainer}

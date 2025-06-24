@@ -20,7 +20,6 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
 
-  // Scroll behavior to show/hide navbar
   const [showNavbar, setShowNavbar] = useState(true);
   let lastScrollTop = 0;
 
@@ -248,7 +247,7 @@ const Navbar = ({ setShowLogin }) => {
 
         <div className="desktop-buttons">
           {!token ? (
-            <button onClick={() => setShowLogin(true)}>Sign In</button>
+            <button onClick={() => setShowLogin(true)}>Sign Up</button>
           ) : (
             <div className="navbar-profile">
               <img src={assets.profile_icon} alt="" />

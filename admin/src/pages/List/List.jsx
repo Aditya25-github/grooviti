@@ -6,17 +6,26 @@ import { toast } from "react-toastify";
 const List = ({ url }) => {
   const [list, setList] = useState([]);
 
-  const listEvent = async () => {
+  const listMyEvents = async () => {
+    const email = localStorage.getItem("eventHost");
+    if (!email) {
+      toast.error("Organizer email not found.");
+      return;
+    }
+
     try {
-      const response = await axios.get(`${url}/api/event/list`);
-      console.log(response.data);
+      const response = await axios.get(
+        `${url}/api/event/my-events?email=${email}`
+      );
+
       if (response.data.success) {
-        setList(response.data.data);
+        setList(response.data.events);
       } else {
-        toast.error("Error fetching events");
+        toast.error("Error fetching your events");
       }
     } catch (error) {
       toast.error("Network error: Unable to fetch events");
+      console.error("List Fetch Error:", error);
     }
   };
 
@@ -26,7 +35,7 @@ const List = ({ url }) => {
         id: eventId,
       });
       if (response.data.success) {
-        await listEvent();
+        await listMyEvents(); // ✅ re-fetch your events only
         toast.success(response.data.message);
       } else {
         toast.error("Error deleting event");
@@ -37,12 +46,12 @@ const List = ({ url }) => {
   };
 
   useEffect(() => {
-    listEvent();
+    listMyEvents(); // ✅ updated function
   }, [url]);
 
   return (
     <div className="list add flex-col">
-      <p>All Events List</p>
+      <p>My Events</p> {/* ✅ updated heading */}
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>

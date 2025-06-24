@@ -49,8 +49,6 @@ const food_32 = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/r
 const add_icon_white = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/add_icon_white.png'
 const add_icon_green = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/add_icon_green.png'
 const remove_icon_red = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/remove_icon_red.png'
-// import app_store from './app_store.png'
-// import play_store from './play_store.png'
 const instagram_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/instagram_icon.png'
 const linkedin_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/linkedin_icon.png'
 const facebook_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/facebook_icon.png'
@@ -59,6 +57,7 @@ const cross_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-asset
 const selector_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/selector_icon.png'
 const rating_starts = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/rating_starts.png'
 const profile_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/profile_icon.png'
+const google_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/google.png'
 const bag_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/bag_icon.png'
 const logout_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/logout_icon.png'
 const parcel_icon = 'https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/parcel_icon.png'
@@ -83,7 +82,8 @@ export const assets = {
     profile_icon,
     logout_icon,
     bag_icon,
-    parcel_icon
+    parcel_icon,
+    google_icon
 }
 
 export const event_list = [

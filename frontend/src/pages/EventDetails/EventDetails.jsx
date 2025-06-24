@@ -10,7 +10,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
-import RoutingMap from "../../components/RoutingMap/RoutingMap.jsx";
 import EventHighlights from "../../components/EventHighlights/EventHighlights.jsx";
 import RatingBreakdown from "../../components/RatingBreakdown/RatingBreakdown.jsx";
 import OrganizerInfo from "../../components/OrganizerInfo/OrganizerInfo.jsx";
@@ -57,6 +56,11 @@ const EventDetails = () => {
   }, []);
 
   useEffect(() => {
+    console.log("Cover Image:", event?.coverImage);
+    console.log("Other Images:", event?.otherImages);
+  }, [event]);
+
+  useEffect(() => {
     const fetchEvent = async () => {
       try {
         const res = await axios.get(`${url}/api/event/${id}`);
@@ -88,23 +92,23 @@ const EventDetails = () => {
     );
   }, []);
 
-  useEffect(() => {
-    const fetchRelated = async () => {
-      try {
-        const res = await axios.get(
-          `${url}/api/event?city=${event?.location?.city}`
-        );
-        if (res.data.success) {
-          const filtered = res.data.data.filter((e) => e._id !== id);
-          setRelatedEvents(filtered.slice(0, 6)); // limit
-        }
-      } catch (err) {
-        console.error("Related fetch error:", err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRelated = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `${url}/api/event?city=${event?.location?.city}`
+  //       );
+  //       if (res.data.success) {
+  //         const filtered = res.data.data.filter((e) => e._id !== id);
+  //         setRelatedEvents(filtered.slice(0, 6)); // limit
+  //       }
+  //     } catch (err) {
+  //       console.error("Related fetch error:", err);
+  //     }
+  //   };
 
-    if (event) fetchRelated();
-  }, [event]);
+  //   if (event) fetchRelated();
+  // }, [event]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -222,10 +226,7 @@ const EventDetails = () => {
         )}&output=embed`
       : null;
 
-  const images =
-    event.images?.length > 0
-      ? event.images
-      : [event.image, event.image, event.image];
+  const images = [event.coverImage, ...(event.otherImages || [])];
 
   return (
     <motion.div
@@ -377,7 +378,8 @@ const EventDetails = () => {
         </motion.div>
       </motion.div>
 
-      <EventHighlights />
+      <EventHighlights highlights={event.highlights} />
+
       <RatingBreakdown reviews={reviews} />
       <OrganizerInfo
         name={event.organizerName}

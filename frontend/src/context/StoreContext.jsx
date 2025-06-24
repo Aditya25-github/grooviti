@@ -6,7 +6,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +22,7 @@ const StoreContextProvider = (props) => {
       await axios.post(
         url + "/api/cart/add",
         { itemId },
-        { headers: { token } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
     }
   };
@@ -33,7 +33,7 @@ const StoreContextProvider = (props) => {
       await axios.post(
         url + "/api/cart/remove",
         { itemId },
-        { headers: { token } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
     }
   };
@@ -63,6 +63,14 @@ const StoreContextProvider = (props) => {
         setToken(storedToken);
         try {
           const decoded = jwtDecode(storedToken);
+          if (decoded.exp * 1000 < Date.now()) {
+            // Token expired
+            console.warn("Token expired. Logging out.");
+            localStorage.removeItem("token");
+            setUser(null);
+            setIsLoggedIn(false);
+            return;
+          }
           setUser(decoded);
           setIsLoggedIn(true);
         } catch (err) {

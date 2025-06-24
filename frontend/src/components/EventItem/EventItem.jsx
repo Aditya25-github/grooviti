@@ -9,7 +9,7 @@ const EventItem = ({
   name,
   price,
   description,
-  image,
+  coverImage,
   availableTickets,
   location,
 }) => {
@@ -28,7 +28,7 @@ const EventItem = ({
       <div className="event-item-img-container">
         <img
           className="event-item-image"
-          src={url + "/images/" + image}
+          src={url + "/images/" + coverImage}
           alt=""
         />
 

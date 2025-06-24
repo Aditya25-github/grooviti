@@ -11,38 +11,63 @@ import {
 } from "../controllers/bookingController.js";
 import bookingModel from "../models/bookingsModel.js";
 import "dotenv/config"; // Load environment variables
+import ticketModel from "../models/ticketModel.js";
+
 
 const bookingRouter = express.Router();
 
-// Fetch event stats
+// Fetch event stats of event hosted by organizer
 bookingRouter.get("/event-stats", async (req, res) => {
   try {
-    const bookings = await bookingModel.find({}, "payment address.event status");
+    const organizerEmail = req.query.email;
+    if (!organizerEmail) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Organizer email required" });
+    }
 
-    const eventStats = bookings.reduce((acc, { address, payment, status }) => {
-      const event = address?.event || "Unknown Event";
+    // Get all events created by this organizer
+    const events = await ticketModel.find({ organizerEmail });
 
-      if (!acc[event]) {
-        acc[event] = { confirmed: 0, pending: 0 };
+    const eventIdToName = {};
+    events.forEach((event) => {
+      eventIdToName[event._id.toString()] = event.name;
+    });
+
+    const eventIds = Object.keys(eventIdToName);
+
+    const bookings = await bookingModel.find({
+      "items._id": { $in: eventIds },
+    });
+
+    const eventStats = {};
+
+    for (const booking of bookings) {
+      for (const item of booking.items) {
+        const id = item._id?.toString();
+        if (!eventIdToName[id]) continue;
+
+        const eventName = eventIdToName[id];
+        if (!eventStats[eventName]) {
+          eventStats[eventName] = { confirmed: 0, pending: 0 };
+        }
+
+        if (booking.payment === true || booking.status === "Confirmed") {
+          eventStats[eventName].confirmed += 1;
+        } else {
+          eventStats[eventName].pending += 1;
+        }
       }
+    }
 
-      // ✅ Fix Payment Status Check
-      if (payment === true || status === "Confirmed") {
-        acc[event].confirmed += 1;
-      } else {
-        acc[event].pending += 1;
-      }
-
-      return acc;
-    }, {});
-
-    res.json({ success: true, data: eventStats });
+    return res.json({ success: true, data: eventStats });
   } catch (error) {
     console.error("Error fetching event stats:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
   }
 });
-
 // Webhook for Razorpay payment verification
 bookingRouter.post("/webhook", express.json({ type: "application/json" }), async (req, res) => {
   try {
@@ -85,7 +110,7 @@ bookingRouter.post("/webhook", express.json({ type: "application/json" }), async
 bookingRouter.post("/ticket", authMiddleware, bookTicket);
 bookingRouter.post("/verify", verifyOrder);
 bookingRouter.post("/userorders", authMiddleware, userOrders);
-bookingRouter.get("/list", listOrders);
+bookingRouter.get("/my-orders", listOrders);
 bookingRouter.post("/status", updateStatus);
 bookingRouter.post("/order-details", getOrderDetails);
 

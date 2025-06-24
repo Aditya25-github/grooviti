@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence } from "framer-motion";
+import { ToastContainer } from "react-toastify";
 
 // Components
 import Navbar from "./components/Navbar/Navbar";
@@ -9,6 +10,8 @@ import Footer from "./components/Footer/Footer";
 import LoginPopup from "./components/LoginPage/LoginPopup";
 import ListButton from "./components/ListButton/ListButton";
 import CreateEvent from "./components/CreateEvent/CreateEvent";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 // Pages
 import Home from "./pages/Home/Home";
@@ -24,6 +27,7 @@ import ContactUs from "./pages/ContactUs/ContactUs";
 import SearchResults from "./components/SearchResults/SearchResults";
 import EventDetails from "./pages/EventDetails/EventDetails";
 import EventDirection from "./pages/EventDirection/EventDirection";
+import OrganizerInfo from "./pages/OrganizerInfo/OrganizerInfo";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -39,6 +43,7 @@ const App = () => {
 
   return (
     <HelmetProvider>
+      <ToastContainer position="top-center" />
       {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
       <div className="app">
         <Navbar setShowLogin={setShowLogin} />
@@ -47,6 +52,8 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/event/:id/buyticket" element={<BuyTicket />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/event" element={<Events />} />
@@ -63,6 +70,7 @@ const App = () => {
             <Route path="/search" element={<SearchResults />} />
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/event/:id/direction" element={<EventDirection />} />
+            <Route path="/organizer-info" element={<OrganizerInfo />} />
           </Routes>
         </AnimatePresence>
       </div>

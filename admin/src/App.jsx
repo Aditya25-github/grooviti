@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Add from "./pages/Add/Add";
 import List from "./pages/List/List";
@@ -9,28 +9,31 @@ import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/SideBar/SideBar";
 import Login from "./components/Login/Login";
 import Statistics from "./pages/Statistics/Statistics";
+import MyPlan from "./pages/MyPlans/MyPlan";
+import Settings from "./pages/Settings/Settings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
+import { StoreContext } from "./context/StoreContext";
 
 const App = () => {
-  const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
+  const { token, admin, loading } = useContext(StoreContext);
+
+  if (loading) return null;
 
   return (
     <div>
       <ToastContainer />
-      <Navbar />
+      <Navbar url={url} />
       <hr />
 
       <div className="app-content">
-        {/*  Only show sidebar if not on login page */}
         {!isLoginPage && <Sidebar />}
 
-        <Routes>
+        <Routes key={token}>
           <Route path="/" element={<Login url={url} />} />
-
-          {/*  Protected Routes */}
           <Route
             path="/add"
             element={
@@ -44,6 +47,22 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <List url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-plan"
+            element={
+              <ProtectedRoute>
+                <MyPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings url={url} />
               </ProtectedRoute>
             }
           />

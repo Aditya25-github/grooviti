@@ -1,37 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Login.css";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { StoreContext } from "../../context/StoreContextt";
+import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ url }) => {
   const navigate = useNavigate();
   const { admin, setAdmin, token, setToken } = useContext(StoreContext);
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
+  const [data, setData] = useState({ email: "", password: "" });
 
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onLogin = async (event) => {
-    event.preventDefault();
+  const onLogin = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(url + "/api/user/login", data);
-
+      const response = await axios.post(url + "/api/organizer/login", data);
       if (response.data.success) {
-        if (response.data.role === "eventHost") {
+        if (response.data.role === "host") {
           setToken(response.data.token);
           setAdmin(true);
           localStorage.setItem("adminToken", response.data.token);
-          localStorage.setItem("eventHost", true);
-
+          localStorage.setItem("organizerEmail", response.data.email);
+          localStorage.setItem("eventHost", response.data.email);
           toast.success("Login Successfully");
           navigate("/add");
         } else {
@@ -41,25 +35,28 @@ const Login = ({ url }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
-      console.error(error);
+      console.error("🔥 AXIOS LOGIN ERROR:", error);
+      if (error.response) {
+        toast.error(
+          error.response.data.message || "Server responded with error"
+        );
+      } else {
+        toast.error("Network or client error");
+      }
     }
   };
 
   useEffect(() => {
-    // ✅ Fix: Add dependencies
     if (admin && token) {
       navigate("/add");
+      return;
     }
-
-    // ✅ Optional fallback: if refreshed and context is empty, use localStorage
     const tokenFromStorage = localStorage.getItem("adminToken");
-    const isEventHost = localStorage.getItem("eventHost");
+    const emailFromStorage = localStorage.getItem("eventHost");
 
-    if (tokenFromStorage && isEventHost) {
+    if (!token && !admin && tokenFromStorage && emailFromStorage) {
       setToken(tokenFromStorage);
       setAdmin(true);
-      navigate("/add");
     }
   }, [admin, token, navigate, setAdmin, setToken]);
 

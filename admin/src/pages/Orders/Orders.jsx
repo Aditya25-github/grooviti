@@ -8,12 +8,24 @@ const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
-    const response = await axios.get(url + "/api/booking/list");
-    if (response.data.success) {
-      setOrders(response.data.data);
-      console.log(response.data.data);
-    } else {
-      toast.error("Error");
+    const email = localStorage.getItem("eventHost");
+    if (!email) {
+      toast.error("Organizer email not found");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${url}/api/booking/my-orders?email=${email}`
+      );
+      if (response.data.success) {
+        setOrders(response.data.data);
+      } else {
+        toast.error("Error fetching orders");
+      }
+    } catch (err) {
+      toast.error("Network error");
+      console.error(err);
     }
   };
 

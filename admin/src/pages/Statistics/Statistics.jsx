@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-const Statistics = () => {
+const Statistics = ({ url }) => {
   const [barChartData, setBarChartData] = useState(null);
   const [pieChartData, setPieChartData] = useState(null);
   const [eventTableData, setEventTableData] = useState([]);
@@ -34,8 +34,9 @@ const Statistics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const email = localStorage.getItem("eventHost"); // organizer's email
         const response = await axios.get(
-          "https://grooviti-backend.onrender.com/api/booking/event-stats"
+          `${url}/api/booking/event-stats?email=${email}`
         );
         console.log("API Response:", response.data);
 
@@ -80,10 +81,6 @@ const Statistics = () => {
 
           const totalConfirmed = confirmedBookings.reduce((a, b) => a + b, 0);
           setTotalConfirmedTickets(totalConfirmed);
-
-          // const dynamicColors = labels.map(
-          //   (_, i) => `hsl(${i * 50}, 70%, 50%)`
-          // );
 
           const customColors = [
             "#f8b48f",

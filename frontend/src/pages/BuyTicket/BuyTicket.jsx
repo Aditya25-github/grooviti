@@ -87,7 +87,11 @@ const BuyTicket = () => {
     let eventItems = [];
     myevents_list.forEach((item) => {
       if (cartItems[item._id] > 0) {
-        let itemInfo = { ...item, quantity: cartItems[item._id] };
+        let itemInfo = {
+          ...item,
+          quantity: cartItems[item._id],
+          eventId: item._id,
+        };
         eventItems.push(itemInfo);
       }
     });
@@ -99,8 +103,10 @@ const BuyTicket = () => {
     };
 
     try {
+      console.log("Booking orderData:", orderData);
+      console.log("Token used for booking:", token);
       let response = await axios.post(`${url}/api/booking/ticket`, orderData, {
-        headers: { token },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.data.success && response.data.order_id) {
@@ -373,7 +379,7 @@ const BuyTicket = () => {
             >
               {loading ? "Loading..." : "PROCEED TO PAYMENT"}
             </button>
-            <div class="message">
+            <div className="message">
               <p>
                 After succesful payment, ticket will be shown on this website
                 itself.

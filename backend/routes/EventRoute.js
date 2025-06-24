@@ -1,5 +1,5 @@
 import express from "express";
-import { addEvent, listEvent, RemoveEvent, getEventById } from "../controllers/EventController.js";
+import { addEvent, listEvent, RemoveEvent, getEventById, getEventsByOrganizer } from "../controllers/EventController.js";
 import multer from "multer"
 
 const eventRouter = express.Router();
@@ -13,11 +13,34 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage: storage })
 
-eventRouter.post("/add", upload.single("image"), addEvent)
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/webp"
+    ) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only .jpg, .png, .webp formats allowed!"), false);
+    }
+  },
+});
+
+eventRouter.get("/my-events", getEventsByOrganizer);
+eventRouter.post(
+  "/add",
+  upload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "otherImages", maxCount: 5 },
+  ]),
+  addEvent
+);
 eventRouter.get("/list", listEvent)
 eventRouter.post("/remove", RemoveEvent);
 eventRouter.get("/:id", getEventById);
+
 
 export default eventRouter;

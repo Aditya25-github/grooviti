@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(" ")[1]; // Expected format: Bearer <token>
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ success: false, message: "Not Authorized Login Again" });
@@ -10,7 +10,8 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = token_decode; // Attach decoded token (e.g., { id, name, etc. })
+    req.user = token_decode;
+    req.body.userId = token_decode.id;
     next();
   } catch (error) {
     console.log(error);

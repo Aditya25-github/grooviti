@@ -3,17 +3,23 @@ import "./Add.css";
 import { assets } from "../../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import DraggableMapPicker from "../../components/DraggableMapPicker/DraggableMapPicker.jsx";
 
 const Add = ({ url }) => {
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
+  const [otherImages, setOtherImages] = useState([]);
+  const [coverPreview, setCoverPreview] = useState(null);
+  const navigate = useNavigate();
+  const [otherPreviews, setOtherPreviews] = useState([]);
+
   const [data, setData] = useState({
     name: "",
     description: "",
     price: "",
     category: "Cultural",
     totalTickets: "",
+    highlights: [],
     location: {
       city: "",
       state: "",
@@ -25,12 +31,20 @@ const Add = ({ url }) => {
   });
 
   useEffect(() => {
-    if (image) {
-      const objectUrl = URL.createObjectURL(image);
-      setPreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
+    if (coverImage) {
+      const url = URL.createObjectURL(coverImage);
+      setCoverPreview(url);
+      return () => URL.revokeObjectURL(url);
     }
-  }, [image]);
+  }, [coverImage]);
+
+  useEffect(() => {
+    if (otherImages.length > 0) {
+      const urls = otherImages.map((img) => URL.createObjectURL(img));
+      setOtherPreviews(urls);
+      return () => urls.forEach((url) => URL.revokeObjectURL(url));
+    }
+  }, [otherImages]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -125,7 +139,6 @@ const Add = ({ url }) => {
       !data.description ||
       !data.price ||
       !data.totalTickets ||
-      !image ||
       !data.location.city
     ) {
       toast.error(
@@ -145,12 +158,19 @@ const Add = ({ url }) => {
     }
 
     try {
+      const organizerEmail = localStorage.getItem("eventHost");
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
       formData.append("price", Number(data.price));
       formData.append("category", data.category);
-      formData.append("image", image);
+      formData.append("highlights", JSON.stringify(data.highlights));
+      formData.append("coverImage", coverImage);
+      formData.append("organizerEmail", organizerEmail);
+      otherImages.forEach((img) => {
+        formData.append("otherImages", img);
+      });
+
       formData.append("totalTickets", data.totalTickets);
       formData.append(
         "location",
@@ -182,9 +202,15 @@ const Add = ({ url }) => {
             address: "",
           },
         });
-        setImage(null);
-        setPreview(null);
+        setCoverImage(null);
+        setCoverPreview(null);
+        setOtherImages([]);
+        setOtherPreviews([]);
+
         toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/list");
+        }, 200);
       } else {
         toast.error(response.data.message);
       }
@@ -196,22 +222,59 @@ const Add = ({ url }) => {
   return (
     <div className="add">
       <form className="flex-col" onSubmit={onSubmitHandler}>
+        {/* Cover Image */}
         <div className="add-img-upload flex-col">
-          <p>Upload Image</p>
-          <label htmlFor="image">
+          <p>Upload Cover Image</p>
+          <label htmlFor="coverImage">
             <img
               className="image"
-              src={preview || assets.upload_area}
-              alt="Upload preview"
+              src={coverPreview || assets.upload_area}
+              alt="Cover Preview"
             />
           </label>
           <input
-            onChange={(e) => setImage(e.target.files[0])}
             type="file"
-            id="image"
+            id="coverImage"
+            accept="image/*"
             hidden
             required
+            onChange={(e) => setCoverImage(e.target.files[0])}
           />
+        </div>
+        {/* Other Images Upload with Preview Click */}
+        <div className="add-img-upload flex-col">
+          <p>Upload Other Event Images (3-4)</p>
+          <div className="other-images-wrapper">
+            {Array(4)
+              .fill(null)
+              .map((_, index) => (
+                <label key={index} className="image-thumb-wrapper">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={(e) => {
+                      const files = [...otherImages];
+                      files[index] = e.target.files[0];
+                      setOtherImages(files);
+
+                      const previews = [...otherPreviews];
+                      previews[index] = URL.createObjectURL(e.target.files[0]);
+                      setOtherPreviews(previews);
+                    }}
+                  />
+                  <img
+                    src={
+                      otherPreviews[index]
+                        ? otherPreviews[index]
+                        : assets.upload_area
+                    }
+                    alt={`preview-${index}`}
+                    className="image-thumb"
+                  />
+                </label>
+              ))}
+          </div>
         </div>
 
         {/* Event Name */}
@@ -226,7 +289,6 @@ const Add = ({ url }) => {
             required
           />
         </div>
-
         {/* Description */}
         <div className="add-product-description flex-col">
           <p>Event Description</p>
@@ -239,7 +301,6 @@ const Add = ({ url }) => {
             required
           ></textarea>
         </div>
-
         {/* Category and Price */}
         <div className="add-category-price">
           <div className="add-category flex-col">
@@ -279,7 +340,6 @@ const Add = ({ url }) => {
             />
           </div>
         </div>
-
         {/* Total Tickets */}
         <div className="add-total-tickets flex-col">
           <p>Total Tickets</p>
@@ -292,6 +352,36 @@ const Add = ({ url }) => {
             placeholder="Enter total tickets"
             required
           />
+        </div>
+        {/* Event highlight */}
+        <div className="highlights-selection">
+          <h4>Event Highlights</h4>
+          {[
+            "Live Music",
+            "Seating Available",
+            "Washrooms",
+            "Parking",
+            "Food Stalls",
+          ].map((highlight) => (
+            <label key={highlight} className="highlight-option">
+              <input
+                type="checkbox"
+                value={highlight}
+                checked={data.highlights?.includes(highlight)}
+                onChange={() => {
+                  const updated = data.highlights?.includes(highlight)
+                    ? data.highlights.filter((h) => h !== highlight)
+                    : [...(data.highlights || []), highlight];
+
+                  setData((prev) => ({
+                    ...prev,
+                    highlights: updated,
+                  }));
+                }}
+              />
+              {highlight}
+            </label>
+          ))}
         </div>
 
         {/* Location inputs */}
@@ -336,7 +426,7 @@ const Add = ({ url }) => {
             step="any"
             name="latitude"
             placeholder="Latitude"
-            value={data.location.latitude}
+            value={data.location.latitude || ""}
             onChange={onChangeHandler}
           />
           <input
@@ -344,7 +434,7 @@ const Add = ({ url }) => {
             step="any"
             name="longitude"
             placeholder="Longitude"
-            value={data.location.longitude}
+            value={data.location.longitude || ""}
             onChange={onChangeHandler}
           />
           <button
@@ -387,7 +477,6 @@ const Add = ({ url }) => {
           }
           url={url}
         />
-
         <button type="submit" className="add-btn">
           ADD EVENT
         </button>

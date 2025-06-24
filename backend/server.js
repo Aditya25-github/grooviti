@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoute.js"
 import "dotenv/config"
 import cartRouter from "./routes/CartRoute.js"
 import bookingRouter from "./routes/bookingRoute.js"
+import organizerRoutes from "./routes/organizerRoutes.js";
 import reviewRouter from "./routes/ReviewRoute.js";
 import axios from "axios";
 
@@ -29,10 +30,12 @@ connectDB()
 // API endpoints
 app.use("/api/event", eventRouter)
 app.use("/images", express.static('uploads'))
+app.use("/uploads", express.static("uploads"));
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/booking", bookingRouter)
 app.use("/api/reviews", reviewRouter)
+app.use("/api/organizer", organizerRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Working")

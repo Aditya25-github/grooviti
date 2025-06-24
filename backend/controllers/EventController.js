@@ -6,44 +6,92 @@ import ticketModel from '../models/ticketModel.js';
 // add Event item
 
 const addEvent = async (req, res) => {
-  let image_filename = `${req.file.filename}`;
-
-  let parsedLocation;
   try {
-    parsedLocation = JSON.parse(req.body.location);
-    if (
-      !parsedLocation ||
-      !parsedLocation.city ||
-      !parsedLocation.latitude ||
-      !parsedLocation.longitude
-    ) {
-      throw new Error("Incomplete location data");
+    // 1. Parse and validate location
+    let parsedLocation = {};
+    try {
+      parsedLocation = JSON.parse(req.body.location);
+      if (
+        !parsedLocation ||
+        !parsedLocation.city ||
+        !parsedLocation.latitude ||
+        !parsedLocation.longitude
+      ) {
+        throw new Error("Incomplete location data");
+      }
+    } catch (err) {
+      console.log("Location parsing error:", req.body.location);
+      return res.json({ success: false, message: "Invalid location format" });
     }
-    console.log("Parsed Location:", parsedLocation);
-  } catch (err) {
-    console.log("Location parsing error:", req.body.location);
-    return res.json({ success: false, message: "Invalid location format" });
-  }
 
-  const event = new ticketModel({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    image: image_filename,
-    totalTickets: req.body.totalTickets,
-    ticketsSold: 0,
-    location: parsedLocation,
-  });
+    // 2. Get images
+    const coverImage = req.files?.coverImage?.[0]?.filename;
+    const otherImages = req.files?.otherImages?.map((file) => file.filename) || [];
 
-  try {
+    const organizerEmail = req.body.organizerEmail;
+
+
+    if (!coverImage) {
+      return res.json({ success: false, message: "Cover image is required" });
+    }
+
+    const allowedHighlights = [
+      "Live Music",
+      "Seating Available",
+      "Washrooms",
+      "Parking",
+      "Food Stalls",
+    ];
+
+    let highlights = [];
+    try {
+      const parsedHighlights = JSON.parse(req.body.highlights || "[]");
+      highlights = parsedHighlights.filter((h) => allowedHighlights.includes(h));
+    } catch (err) {
+      console.log("Invalid highlights format");
+    }
+
+    // 3. Create event
+    const event = new ticketModel({
+      name: req.body.name,
+      description: req.body.description,
+      organizerEmail,
+      price: req.body.price,
+      category: req.body.category,
+      coverImage,
+      otherImages,
+      totalTickets: req.body.totalTickets,
+      ticketsSold: 0,
+      location: parsedLocation,
+      highlights,
+    });
+
+    // 4. Save to DB
     await event.save();
     res.json({ success: true, message: "Event Added" });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
-  }
 
+  } catch (error) {
+    console.log("Error in addEvent:", error);
+    res.json({ success: false, message: "Error adding event" });
+  }
+};
+
+//specific events shown by the organizer
+
+export const getEventsByOrganizer = async (req, res) => {
+  try {
+    const email = req.query.email;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: "Email is required" });
+    }
+
+    const events = await ticketModel.find({ organizerEmail: email });
+    return res.json({ success: true, events });
+  } catch (error) {
+    console.error("Error fetching organizer's events:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 
@@ -78,6 +126,20 @@ const RemoveEvent = async (req, res) => {
     }
 
     await ticketModel.findByIdAndDelete(req.body.id);
+
+    if (event.coverImage) {
+      fs.unlink(`uploads/${event.coverImage}`, (err) => {
+        if (err) console.error("Error deleting cover image:", err);
+      });
+    }
+
+    if (event.otherImages && event.otherImages.length > 0) {
+      event.otherImages.forEach((img) => {
+        fs.unlink(`uploads/${img}`, (err) => {
+          if (err) console.error("Error deleting image:", err);
+        });
+      });
+    }
 
     if (event.image) {
       fs.unlink(`uploads/${event.image}`, (err) => {

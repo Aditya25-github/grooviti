@@ -96,7 +96,7 @@ const EventDisplay = ({ category, location, userLocation }) => {
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                image={item.image}
+                coverImage={item.coverImage}
                 availableTickets={item.availableTickets}
                 location={item.location}
               />

@@ -42,6 +42,26 @@ const bookTicket = async (req, res) => {
     if (!userId || !items.length || !amount || !address) {
       return res.json({ success: false, message: "Missing required fields" });
     }
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "email",
+      "college_name",
+      "Branch",
+      "Team_name",
+      "Team_leader_name",
+      "phone",
+      "event",
+    ];
+
+    for (let field of requiredFields) {
+      if (!address[field]) {
+        return res.json({
+          success: false,
+          message: `Missing required field: ${field}`,
+        });
+      }
+    }
     const order = await razorpay.orders.create({
       amount: amount * 100,
       currency: "INR",
@@ -219,15 +239,27 @@ const userOrders = async (req, res) => {
     res.json({ success: false, message: "Error" });
   }
 };
-
-// Fetch All Orders
+// fetches particular order from event organizers
 const listOrders = async (req, res) => {
   try {
-    const orders = await bookingModel.find({});
+    const organizerEmail = req.query.email;
+
+    if (!organizerEmail) {
+      return res.status(400).json({ success: false, message: "Email is required" });
+    }
+    const organizerEvents = await ticketModel.find({ organizerEmail });
+
+    const eventIds = organizerEvents.map((event) => event._id.toString());
+
+    // Step 3: Find bookings that include any of these event IDs
+    const orders = await bookingModel.find({
+      "items.eventId": { $in: eventIds }
+    });
+
     res.json({ success: true, data: orders });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error" });
+    res.status(500).json({ success: false, message: "Error fetching orders" });
   }
 };
 
