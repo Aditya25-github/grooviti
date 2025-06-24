@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./OrganizerInfo.css";
 import { toast } from "react-toastify";
+import { StoreContext } from "../../context/StoreContext";
 
 const pricing = {
   Basic: { monthly: 49, quarterly: 119, annual: 299 },
@@ -14,6 +15,7 @@ const OrganizerInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { planName, billingCycle } = location.state || {};
+  const { url } = useContext(StoreContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -86,7 +88,7 @@ const OrganizerInfo = () => {
       data.append("amount", totalPrice);
       if (profileImage) data.append("profileImage", profileImage);
 
-      const res = await axios.post("/api/organizer/register", data, {
+      const res = await axios.post(`${url}/api/organizer/register`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
