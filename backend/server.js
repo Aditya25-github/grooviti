@@ -3,7 +3,6 @@ import cors from "cors"
 import { connectDB } from "./config/db.js"
 import eventRouter from "./routes/EventRoute.js"
 import userRouter from "./routes/userRoute.js"
-import "dotenv/config"
 import cartRouter from "./routes/CartRoute.js"
 import bookingRouter from "./routes/bookingRoute.js"
 import organizerRoutes from "./routes/organizerRoutes.js";
@@ -11,8 +10,12 @@ import reviewRouter from "./routes/ReviewRoute.js";
 import axios from "axios";
 import fs from "fs";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
+import cloudinary from "./utils/cloudinary.js";
 
 //app config
+
 
 const app = express()
 const port = process.env.PORT || 4000;
@@ -68,6 +71,19 @@ app.get("/api/reverse-geocode", async (req, res) => {
   } catch (err) {
     console.error("Reverse geocode error:", err.response?.data || err.message);
     res.status(500).json({ error: "Reverse geocoding failed" });
+  }
+});
+
+app.get("/test-cloudinary", async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(
+      "https://res.cloudinary.com/demo/image/upload/sample.jpg",
+      { folder: "test-folder" }
+    );
+    res.json({ success: true, url: result.secure_url });
+  } catch (err) {
+    console.error("❌ Cloudinary upload failed:", err);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 

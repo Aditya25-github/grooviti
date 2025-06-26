@@ -245,7 +245,7 @@ const EventDetails = () => {
             {images.map((img, idx) => (
               <SwiperSlide key={idx}>
                 <img
-                  src={`${url}/uploads/${img}`}
+                  src={img.url}
                   alt={`event-${idx}`}
                   style={{ width: "100%", borderRadius: "12px" }}
                 />

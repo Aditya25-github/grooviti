@@ -6,7 +6,11 @@ const organizerSchema = new mongoose.Schema({
   password: { type: String, required: true },
   phone: { type: String },
   organization: { type: String },
-  profileImage: { type: String },
+  profileImage: {
+    url: { type: String },
+    public_id: { type: String },
+  },
+
   bio: { type: String },
   plan: {
     name: { type: String, required: true },

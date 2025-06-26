@@ -28,8 +28,8 @@ const EventItem = ({
       <div className="event-item-img-container">
         <img
           className="event-item-image"
-          src={url + "/uploads/" + coverImage}
-          alt=""
+          src={coverImage?.url || "fallback-image.jpg"}
+          alt={name || "Event image"}
         />
 
         {!isSoldOut && !cartItems[id] ? (

@@ -1,7 +1,6 @@
-
-import fs from 'fs';
+import cloudinary from "../utils/cloudinary.js";
 import ticketModel from '../models/ticketModel.js';
-
+import mongoose from "mongoose";
 
 // add Event item
 
@@ -24,17 +23,25 @@ const addEvent = async (req, res) => {
       return res.json({ success: false, message: "Invalid location format" });
     }
 
-    // 2. Get images
-    const coverImage = req.files?.coverImage?.[0]?.filename;
-    const otherImages = req.files?.otherImages?.map((file) => file.filename) || [];
+    // 2. Get uploaded images from multer-storage-cloudinary
+    const coverImageFile = req.files?.coverImage?.[0];
+    const otherImageFiles = req.files?.otherImages || [];
 
-    const organizerEmail = req.body.organizerEmail;
-
-
-    if (!coverImage) {
-      return res.json({ success: false, message: "Cover image is required" });
+    if (!coverImageFile) {
+      return res.status(400).json({ success: false, message: "Cover image is required" });
     }
 
+    const coverImage = {
+      public_id: coverImageFile.filename,
+      url: coverImageFile.path,
+    };
+
+    const otherImages = otherImageFiles.map(file => ({
+      public_id: file.filename,
+      url: file.path,
+    }));
+
+    // 3. Parse and filter highlights
     const allowedHighlights = [
       "Live Music",
       "Seating Available",
@@ -46,16 +53,16 @@ const addEvent = async (req, res) => {
     let highlights = [];
     try {
       const parsedHighlights = JSON.parse(req.body.highlights || "[]");
-      highlights = parsedHighlights.filter((h) => allowedHighlights.includes(h));
+      highlights = parsedHighlights.filter(h => allowedHighlights.includes(h));
     } catch (err) {
       console.log("Invalid highlights format");
     }
 
-    // 3. Create event
+    // 4. Create event object
     const event = new ticketModel({
       name: req.body.name,
       description: req.body.description,
-      organizerEmail,
+      organizerEmail: req.body.organizerEmail,
       price: req.body.price,
       category: req.body.category,
       coverImage,
@@ -66,15 +73,15 @@ const addEvent = async (req, res) => {
       highlights,
     });
 
-    // 4. Save to DB
     await event.save();
     res.json({ success: true, message: "Event Added" });
 
   } catch (error) {
     console.log("Error in addEvent:", error);
-    res.json({ success: false, message: "Error adding event" });
+    res.status(500).json({ success: false, message: "Error adding event" });
   }
 };
+
 
 //specific events shown by the organizer
 
@@ -127,24 +134,30 @@ const RemoveEvent = async (req, res) => {
 
     await ticketModel.findByIdAndDelete(req.body.id);
 
+    // Extract Cloudinary public_id from URL
+    const getPublicId = (url) => {
+      const match = url.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/);
+      return match ? match[1] : null;
+    };
+
     if (event.coverImage) {
-      fs.unlink(`uploads/${event.coverImage}`, (err) => {
-        if (err) console.error("Error deleting cover image:", err);
-      });
+      try {
+        const publicId = getPublicId(event.coverImage);
+        await cloudinary.uploader.destroy(publicId);
+      } catch (err) {
+        console.error("Cloudinary cover image delete error:", err);
+      }
     }
 
     if (event.otherImages && event.otherImages.length > 0) {
-      event.otherImages.forEach((img) => {
-        fs.unlink(`uploads/${img}`, (err) => {
-          if (err) console.error("Error deleting image:", err);
-        });
-      });
-    }
-
-    if (event.image) {
-      fs.unlink(`uploads/${event.image}`, (err) => {
-        if (err) console.error("Error deleting image:", err);
-      });
+      for (const imgUrl of event.otherImages) {
+        try {
+          const publicId = getPublicId(imgUrl);
+          await cloudinary.uploader.destroy(publicId);
+        } catch (err) {
+          console.error("Cloudinary image delete error:", err);
+        }
+      }
     }
 
     res.json({ success: true, message: "Event Removed" });
@@ -155,9 +168,14 @@ const RemoveEvent = async (req, res) => {
 };
 
 const getEventById = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ success: false, message: "Invalid event ID" });
+  }
+
   try {
-    console.log("Received event ID:", req.params.id);
-    const event = await ticketModel.findById(req.params.id);
+    const event = await ticketModel.findById(id);
     if (!event) {
       return res.status(404).json({ success: false, message: "Event not found" });
     }

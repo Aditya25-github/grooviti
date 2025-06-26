@@ -1,25 +1,34 @@
 import express from "express";
 import { addEvent, listEvent, RemoveEvent, getEventById, getEventsByOrganizer } from "../controllers/EventController.js";
-import multer from "multer"
-import path from "path";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../utils/cloudinary.js";
+
 
 
 const eventRouter = express.Router();
 
 // Image Storage Engine
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(process.cwd(), "uploads")); // ensures absolute path
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()} ${file.originalname}`);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    let folder = "grooviti/events";
+    if (file.fieldname === "coverImage") {
+      folder = "grooviti/events/covers";
+    } else if (file.fieldname === "otherImages") {
+      folder = "grooviti/events/gallery";
+    }
+
+    return {
+      folder,
+      allowed_formats: ["jpg", "jpeg", "png", "webp"],
+      transformation: [{ width: 1000, height: 600, crop: "limit" }],
+    };
   },
 });
 
-
-
 const upload = multer({
-  storage: storage,
+  storage,
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype === "image/jpeg" ||
@@ -32,6 +41,7 @@ const upload = multer({
     }
   },
 });
+
 
 eventRouter.get("/my-events", getEventsByOrganizer);
 eventRouter.post(

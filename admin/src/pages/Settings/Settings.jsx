@@ -44,10 +44,27 @@ const Settings = ({ url }) => {
             newPassword: "",
             confirmPassword: "",
           });
-          setPreviewImage(`${url}/uploads/organizers/${org.profileImage}`);
-          setProfileImageFromDB(
-            `${url}/uploads/organizers/${org.profileImage}`
-          );
+          if (org.profileImage) {
+            if (typeof org.profileImage === "object" && org.profileImage.url) {
+              setPreviewImage(org.profileImage.url);
+              setProfileImageFromDB(org.profileImage.url);
+            } else if (typeof org.profileImage === "string") {
+              if (org.profileImage.startsWith("http")) {
+                setPreviewImage(org.profileImage);
+                setProfileImageFromDB(org.profileImage);
+              } else {
+                setPreviewImage(
+                  `${url}/uploads/organizers/${org.profileImage}`
+                );
+                setProfileImageFromDB(
+                  `${url}/uploads/organizers/${org.profileImage}`
+                );
+              }
+            }
+          } else {
+            setPreviewImage(null);
+            setProfileImageFromDB(null);
+          }
         }
       } catch (err) {
         console.error(err);

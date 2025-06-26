@@ -5,8 +5,16 @@ const ticketSchema = new mongoose.Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   organizerEmail: { type: String, required: true },
-  coverImage: { type: String, required: true },
-  otherImages: [{ type: String }],
+  coverImage: {
+    url: { type: String, required: true },
+    public_id: { type: String, required: true },
+  },
+  otherImages: [
+    {
+      url: { type: String, required: true },
+      public_id: { type: String, required: true },
+    }
+  ],
   category: { type: String, required: true },
   totalTickets: { type: Number, required: true },
   ticketsSold: { type: Number, default: 0 },

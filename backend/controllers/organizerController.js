@@ -53,7 +53,9 @@ export const registerOrganizer = async (req, res) => {
       password: hashedPassword,
       phone,
       organization,
-      profileImage: req.file?.filename || "",
+      profileImage: req.file
+        ? { url: req.file.path, public_id: req.file.filename }
+        : null,
       bio,
       socialLinks: {
         instagram,

@@ -76,8 +76,8 @@ const Navbar = ({ url }) => {
           <img
             className="profile"
             src={
-              organizerInfo?.profileImage
-                ? `${url}/uploads/organizers/${organizerInfo.profileImage}`
+              organizerInfo?.profileImage?.url
+                ? organizerInfo.profileImage.url
                 : assets.profile_image
             }
             alt="Profile"
