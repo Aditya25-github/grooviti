@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../../assets/frontend_assets/assets";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,8 @@ const Navbar = ({ setShowLogin }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const profileRef = useRef();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -56,6 +58,18 @@ const Navbar = ({ setShowLogin }) => {
     if (query) {
       setSearchQuery(query);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleInputChange = (value) => {
@@ -164,6 +178,16 @@ const Navbar = ({ setShowLogin }) => {
           Events
         </Link>
         <Link
+          to="/community"
+          onClick={() => {
+            setevent("community");
+            setMenuOpen(false);
+          }}
+          className={event === "community" ? "active" : ""}
+        >
+          Communities
+        </Link>
+        <Link
           to="/about"
           onClick={() => {
             setevent("about");
@@ -249,19 +273,45 @@ const Navbar = ({ setShowLogin }) => {
           {!token ? (
             <button onClick={() => setShowLogin(true)}>Sign Up</button>
           ) : (
-            <div className="navbar-profile">
+            <div
+              className="navbar-profile"
+              ref={profileRef}
+              onMouseEnter={() => setProfileOpen(true)}
+              onMouseLeave={() => {
+                if (!profileOpen) setProfileOpen(false);
+              }}
+              onClick={() => setProfileOpen((prev) => !prev)}
+            >
               <img src={assets.profile_icon} alt="" />
-              <ul className="nav-profile-dropdown">
-                <li onClick={() => navigate("/myorders")}>
-                  <img src={assets.bag_icon} alt="" />
-                  <p>Orders</p>
-                </li>
-                <hr />
-                <li onClick={logout}>
-                  <img src={assets.logout_icon} alt="" />
-                  <p>Logout</p>
-                </li>
-              </ul>
+              {profileOpen && (
+                <ul
+                  className={`nav-profile-dropdown ${
+                    profileOpen ? "show" : ""
+                  }`}
+                >
+                  <li onClick={() => navigate("/profile")}>
+                    <img src={assets.user_icon} alt="" />
+                    <p>My Profile</p>
+                  </li>
+                  <li onClick={() => navigate("/community")}>
+                    <img src={assets.community_icon} alt="" />
+                    <p>Communities</p>
+                  </li>
+                  <li onClick={() => navigate("/myorders")}>
+                    <img src={assets.bag_icon} alt="" />
+                    <p>Orders</p>
+                  </li>
+                  <li onClick={() => navigate("/settings")}>
+                    <img src={assets.settings_icon} alt="" />
+                    <p>Settings</p>
+                  </li>
+                  <hr />
+                  <li onClick={logout}>
+                    <img src={assets.logout_icon} alt="" />
+                    <p>Logout</p>
+                  </li>
+                </ul>
+              )}
             </div>
           )}
         </div>

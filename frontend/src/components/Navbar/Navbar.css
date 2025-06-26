@@ -81,12 +81,26 @@
 }
 .navbar-profile {
   position: relative;
+  padding: 4px;
 }
 .nav-profile-dropdown {
   position: absolute;
   display: none;
   right: 0;
   z-index: 1;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 12px 25px;
+  border-radius: 4px;
+  border: 1px solid tomato;
+  outline: 2px solid white;
+  list-style: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.nav-profile-dropdown.show {
+  display: flex;
 }
 .navbar-profile:hover .nav-profile-dropdown {
   display: flex;
@@ -105,10 +119,12 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .nav-profile-dropdown img {
   width: 20px;
+  cursor: pointer;
 }
 
 .nav-profile-dropdown li:hover {

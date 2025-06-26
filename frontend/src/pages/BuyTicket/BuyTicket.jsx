@@ -18,7 +18,7 @@ const BuyTicket = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
-  const [loading, setLoading] = useState(false); // New state to track button status
+  const [loading, setLoading] = useState(false);
   const [teamSize, setTeamSize] = useState(1);
   const [data, setData] = useState({
     firstName: "",
@@ -328,8 +328,10 @@ const BuyTicket = () => {
                   <img
                     className="event-image"
                     src={
-                      eventData.image
-                        ? `${url}/images/${eventData.image}`
+                      eventData.coverImage?.url?.startsWith(
+                        "https://res.cloudinary.com"
+                      )
+                        ? eventData.coverImage.url
                         : "/default-image.png"
                     }
                     alt={eventData.name || "Event Image"}

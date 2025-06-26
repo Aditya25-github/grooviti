@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import validator from "validator";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import cloudinary from "cloudinary";
 
 // Create Token Function
 const createToken = (id) => {
@@ -178,5 +179,59 @@ const googleLogin = async (req, res) => {
   }
 };
 
+// GET: Fetch user profile
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.body.userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, user });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Error fetching user profile" });
+  }
+};
 
-export { loginUser, registerUser, forgotPassword, resetPassword, googleLogin };
+
+// PUT: Update user profile (name and profileImage)
+const updateUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const { name, email, phone, gender, dob, location, bio } = req.body;
+
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (phone) user.phone = phone;
+    if (gender) user.gender = gender.toLowerCase();
+    if (dob) user.dob = dob;
+    if (location) user.location = location;
+    if (bio) user.bio = bio;
+
+    // If a new image is uploaded
+    if (req.file && req.file.path && req.file.filename) {
+      if (user.profileImage?.public_id) {
+        await cloudinary.uploader.destroy(user.profileImage.public_id);
+      }
+
+      user.profileImage = {
+        url: req.file.path,
+        public_id: req.file.filename,
+      };
+    }
+
+    const updated = await user.save();
+    res.json({ success: true, user: updated });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ success: false, message: "Error updating profile" });
+  }
+};
+export {
+  loginUser, registerUser, forgotPassword, resetPassword, googleLogin, getUserProfile,
+  updateUserProfile
+};

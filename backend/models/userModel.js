@@ -9,9 +9,17 @@ const userSchema = new mongoose.Schema(
     cartData: { type: Object, default: {} },
     resetToken: String,
     resetTokenExpiry: Date,
-
+    profileImage: {
+      url: { type: String, default: "" },
+      public_id: { type: String, default: "" }, // uploaded at cloudinary 
+    },
+    phone: { type: String, default: "" },
+    gender: { type: String, enum: ["male", "female", "other", ""], default: "" },
+    dob: { type: Date },
+    location: { type: String, default: "" },
+    bio: { type: String, default: "" },
   },
-  { minimize: false }
+  { minimize: false, timestamps: true }
 );
 
 const userModel = mongoose.model.user || mongoose.model("user", userSchema);

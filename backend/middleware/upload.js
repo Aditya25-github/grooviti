@@ -15,7 +15,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-
 const organizerStorage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -25,7 +24,21 @@ const organizerStorage = new CloudinaryStorage({
   },
 });
 
+const userStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "grooviti/users",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 400, height: 400, crop: "limit" }],
+  },
+});
+
 export const uploadOrganizerImage = multer({
   storage: organizerStorage,
+  fileFilter,
+});
+
+export const uploadUserProfileImage = multer({
+  storage: userStorage,
   fileFilter,
 });

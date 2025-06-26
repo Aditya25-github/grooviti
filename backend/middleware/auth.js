@@ -14,8 +14,14 @@ const authMiddleware = (req, res, next) => {
     req.body.userId = token_decode.id;
     next();
   } catch (error) {
-    console.log(error);
-    return res.status(401).json({ success: false, message: "Error verifying token" });
+    console.error("JWT Verification Error:", error.message);
+    return res.status(401).json({
+      success: false,
+      message:
+        error.name === "JsonWebTokenError"
+          ? "Invalid or malformed token"
+          : "Error verifying token",
+    });
   }
 };
 

@@ -1,53 +1,104 @@
-import express from "express"
-import cors from "cors"
-import { connectDB } from "./config/db.js"
-import eventRouter from "./routes/EventRoute.js"
-import userRouter from "./routes/userRoute.js"
-import cartRouter from "./routes/CartRoute.js"
-import bookingRouter from "./routes/bookingRoute.js"
-import organizerRoutes from "./routes/organizerRoutes.js";
-import reviewRouter from "./routes/ReviewRoute.js";
-import axios from "axios";
+// ==============================
+// 🌐 Import Modules
+// ==============================
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
-import dotenv from "dotenv";
-dotenv.config();
+import http from "http";
+import axios from "axios";
+import { Server } from "socket.io";
+
+import { connectDB } from "./config/db.js";
+import eventRouter from "./routes/EventRoute.js";
+import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/CartRoute.js";
+import bookingRouter from "./routes/bookingRoute.js";
+import organizerRoutes from "./routes/organizerRoutes.js";
+import reviewRouter from "./routes/ReviewRoute.js";
+import communityRoutes from "./routes/communityRoutes.js";
 import cloudinary from "./utils/cloudinary.js";
 
-//app config
-
-
-const app = express()
+// ==============================
+// 📦 App Configuration
+// ==============================
+dotenv.config();
+const app = express();
 const port = process.env.PORT || 4000;
+
+// Ensure uploads folder exists
 const uploadsPath = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath);
 }
 
+// ==============================
+// 🚀 Create HTTP Server & Socket.io
+// ==============================
+const server = http.createServer(app); // Create HTTP server manually
+const io = new Server(server, {
+  cors: {
+    origin: "https://grooviti.com/", //frontend url to be stored
+    methods: ["GET", "POST"],
+  },
+});
 
-//middle-ware
+// Export io for controller usage
+export { io };
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cors({
-  exposedHeaders: ["x-rtb-fingerprint-id"],
-}))
+// ==============================
+// ⚡ Socket.io Events
+// ==============================
+io.on("connection", (socket) => {
+  socket.on("likePost", (data) => {
+    socket.broadcast.emit("postLiked", data);
+  });
 
-//db connection 
-connectDB()
+  socket.on("newComment", (data) => {
+    socket.broadcast.emit("commentAdded", data);
+  });
 
-// API endpoints
-app.use("/api/event", eventRouter)
-app.use("/uploads", express.static("uploads"))
-app.use("/api/user", userRouter)
-app.use("/api/cart", cartRouter)
-app.use("/api/booking", bookingRouter)
-app.use("/api/reviews", reviewRouter)
+  socket.on("newPost", (data) => {
+    socket.broadcast.emit("postCreated", data);
+  });
+
+  socket.on("disconnect", () => {
+  });
+});
+
+app.set("io", io);
+
+// ==============================
+// 🧩 Middleware
+// ==============================
+app.use(cors({ exposedHeaders: ["x-rtb-fingerprint-id"] }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
+
+// ==============================
+// 🔌 Connect MongoDB
+// ==============================
+connectDB();
+
+// ==============================
+// 🚏 API Routes
+// ==============================
+app.use("/api/event", eventRouter);
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/booking", bookingRouter);
 app.use("/api/organizer", organizerRoutes);
+app.use("/api/reviews", reviewRouter);
+app.use("/api/community", communityRoutes);
 
+// ==============================
+// ✅ Test / Utility Routes
+// ==============================
 app.get("/", (req, res) => {
-  res.send("API Working")
-})
+  res.send("🎉 Grooviti API Working!");
+});
 
 app.get("/api/reverse-geocode", async (req, res) => {
   try {
@@ -61,7 +112,7 @@ app.get("/api/reverse-geocode", async (req, res) => {
       `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
       {
         headers: {
-          "User-Agent": "GroovitiApp/1.0 (contact@yourdomain.com)", // Customize for your app
+          "User-Agent": "GroovitiApp/1.0 (contact@yourdomain.com)",
           "Accept-Language": "en",
         },
       }
@@ -87,9 +138,9 @@ app.get("/test-cloudinary", async (req, res) => {
   }
 });
 
-
-app.listen(port, () => {
-  console.log(`Server Started On http://localhost:${port}`)
-})
-
-//mongodb+srv://adityadivate25:0101196625@cluster0.eyk0n.mongodb.net/?
+// ==============================
+// 🚀 Start Server
+// ==============================
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
