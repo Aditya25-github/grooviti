@@ -92,7 +92,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     // Create reset link
-    const resetUrl = `http://localhost:5174/reset-password/${resetToken}`;
+    const resetUrl = `https://grooviti.com/reset-password/${resetToken}`;
 
     // Send email (basic nodemailer setup)
     const transporter = nodemailer.createTransport({
