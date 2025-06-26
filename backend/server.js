@@ -39,7 +39,7 @@ if (!fs.existsSync(uploadsPath)) {
 const server = http.createServer(app); // Create HTTP server manually
 const io = new Server(server, {
   cors: {
-    origin: "https://grooviti.com/", //frontend url to be stored
+    origin: "https://grooviti.com", //frontend url to be stored
     methods: ["GET", "POST"],
   },
 });
