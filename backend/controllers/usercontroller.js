@@ -6,7 +6,7 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import cloudinary from "cloudinary";
 
-// Create Token Function
+
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
@@ -182,7 +182,8 @@ const googleLogin = async (req, res) => {
 // GET: Fetch user profile
 const getUserProfile = async (req, res) => {
   try {
-    const user = await userModel.findById(req.body.userId).select("-password");
+    const userId = req.user.id; // comes from authMiddleware
+    const user = await userModel.findById(userId).select("-password");
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
@@ -231,7 +232,111 @@ const updateUserProfile = async (req, res) => {
     res.status(500).json({ success: false, message: "Error updating profile" });
   }
 };
+
+// GET: Public User Profile
+const fetchUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params.userId).select("-password").populate("followers", "name profileImage")
+      .populate("following", "name profileImage");
+
+    if (!user) {
+      console.log("❌ User not found in DB");
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("Error in fetchUserProfile:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// POST: Follow a user
+const followUser = async (req, res) => {
+  try {
+    const currentUserId = req.user.id;
+    const targetUserId = req.params.userId;
+
+    if (currentUserId === targetUserId) {
+      return res.status(400).json({ success: false, message: "You cannot follow yourself." });
+    }
+
+    const currentUser = await userModel.findById(currentUserId);
+    const targetUser = await userModel.findById(targetUserId);
+
+    if (!targetUser) return res.status(404).json({ success: false, message: "User not found" });
+
+
+    if (!currentUser.following.includes(targetUserId)) {
+      currentUser.following.push(targetUserId);
+      await currentUser.save();
+    }
+
+    if (!targetUser.followers.includes(currentUserId)) {
+      targetUser.followers.push(currentUserId);
+      await targetUser.save();
+    }
+
+    res.json({ success: true, message: "Followed successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Error following user" });
+  }
+};
+
+// POST: Unfollow a user
+const unfollowUser = async (req, res) => {
+  try {
+    const currentUserId = req.user.id;
+    const targetUserId = req.params.userId;
+
+    const currentUser = await userModel.findById(currentUserId);
+    const targetUser = await userModel.findById(targetUserId);
+
+    if (!targetUser) return res.status(404).json({ success: false, message: "User not found" });
+
+    currentUser.following = currentUser.following.filter(id => id.toString() !== targetUserId);
+    targetUser.followers = targetUser.followers.filter(id => id.toString() !== currentUserId);
+
+    await currentUser.save();
+    await targetUser.save();
+
+    res.json({ success: true, message: "Unfollowed successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Error unfollowing user" });
+  }
+};
+
+// Get Followers List
+const getFollowers = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await userModel.findById(userId).populate("followers", "name profileImage");
+
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    res.status(200).json({ success: true, followers: user.followers });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error fetching followers", error });
+  }
+};
+
+// Get Following List
+const getFollowing = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await userModel.findById(userId).populate("following", "name profileImage");
+
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    res.status(200).json({ success: true, following: user.following });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error fetching following", error });
+  }
+};
+
 export {
   loginUser, registerUser, forgotPassword, resetPassword, googleLogin, getUserProfile,
-  updateUserProfile
+  updateUserProfile, fetchUserProfile, followUser, unfollowUser, getFollowers, getFollowing
 };

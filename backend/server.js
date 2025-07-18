@@ -92,6 +92,7 @@ app.use("/api/booking", bookingRouter);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
+app.use("/api/users", userRouter);
 
 // ==============================
 // ✅ Test / Utility Routes

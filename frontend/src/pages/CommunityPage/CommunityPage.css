@@ -215,3 +215,15 @@
   color: #333;
   margin-bottom: 5px;
 }
+
+.author-name,
+.comment-author {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.author-name:hover,
+.comment-author:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
