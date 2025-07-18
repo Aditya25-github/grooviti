@@ -28,9 +28,6 @@ const EditProfile = () => {
       navigate("/login");
       return;
     }
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
 
     // Initialize form with current user data
     const userData = {
