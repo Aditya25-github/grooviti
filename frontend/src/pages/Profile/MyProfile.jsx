@@ -41,6 +41,10 @@ const MyProfile = () => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (isLoading) {
       return;
     }
@@ -50,10 +54,6 @@ const MyProfile = () => {
       navigate("/");
       return;
     }
-
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
 
     const fetchProfileData = async () => {
       try {
