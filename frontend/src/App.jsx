@@ -32,12 +32,10 @@ import EditProfile from "./pages/Profile/EditProfile";
 import UserProfile from "./pages/Profile/UserProfile";
 import Community from "./pages/Community/Community";
 import CommunityPage from "./pages/CommunityPage/CommunityPage";
-<<<<<<< HEAD
+
 import PccoerLanding from "./pages/pccoer/PccoerLanding";
 import PccoerEventPage from "./pages/pccoer/PccoerEventPage";
-=======
 import MyProfile from "./pages/Profile/MyProfile";
->>>>>>> 90f1ab33003321e4489ed30812b71fef419d71d8
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
