@@ -93,14 +93,18 @@ const VotingZone = () => {
 
       <nav className="gender-switch" aria-label="Select Gender Group">
         <button
-          className={`gender-button${selectedGender === GENDER.MALE ? " selected" : ""}`}
+          className={`gender-button${
+            selectedGender === GENDER.MALE ? " selected" : ""
+          }`}
           onClick={() => setSelectedGender(GENDER.MALE)}
           aria-pressed={selectedGender === GENDER.MALE}
         >
           Male
         </button>
         <button
-          className={`gender-button${selectedGender === GENDER.FEMALE ? " selected" : ""}`}
+          className={`gender-button${
+            selectedGender === GENDER.FEMALE ? " selected" : ""
+          }`}
           onClick={() => setSelectedGender(GENDER.FEMALE)}
           aria-pressed={selectedGender === GENDER.FEMALE}
         >
@@ -114,7 +118,10 @@ const VotingZone = () => {
           <p>Loading candidates...</p>
         </div>
       ) : (
-        <section className="candidates-grid" aria-label={`${selectedGender} candidates`}>
+        <section
+          className="candidates-grid"
+          aria-label={`${selectedGender} candidates`}
+        >
           {filteredCandidates.map((candidate) => {
             const isVotedCandidate = genderVoteId === candidate.id;
             // After voting, only voted card is interactive for that group
@@ -143,7 +150,10 @@ const VotingZone = () => {
                     }}
                   />
                   {isVotedCandidate && (
-                    <div className="voted-badge" aria-label="You voted for this candidate">
+                    <div
+                      className="voted-badge"
+                      aria-label="You voted for this candidate"
+                    >
                       Voted
                     </div>
                   )}
@@ -153,7 +163,9 @@ const VotingZone = () => {
                   <p className="candidate-department">{candidate.department}</p>
                   {!isCardDisabled ? (
                     <button
-                      className={`vote-button${isVotedCandidate ? " voted" : ""}`}
+                      className={`vote-button${
+                        isVotedCandidate ? " voted" : ""
+                      }`}
                       onClick={() => handleVote(candidate)}
                       disabled={isVotedCandidate}
                       aria-label={
