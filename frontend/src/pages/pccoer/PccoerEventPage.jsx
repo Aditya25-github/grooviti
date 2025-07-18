@@ -1,7 +1,7 @@
 // frontend/src/pages/pccoer/PccoerEventPage.jsx
 import React, { useState, useEffect } from "react";
-import GalleryRoom from "./ImageGallery"; // renamed from ChatRoom for clarity
-import VotingZone from "./VotingZone";
+import GalleryRoom from "./ImageGallery";
+import VotingZone from "./VotingZone.jsx";
 import { useNavigate } from "react-router-dom";
 import "./pccoer.css";
 
