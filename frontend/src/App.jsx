@@ -28,14 +28,17 @@ import SearchResults from "./components/SearchResults/SearchResults";
 import EventDetails from "./pages/EventDetails/EventDetails";
 import EventDirection from "./pages/EventDirection/EventDirection";
 import OrganizerInfo from "./pages/OrganizerInfo/OrganizerInfo";
-import Profile from "./pages/Profile/Profile";
+import EditProfile from "./pages/Profile/EditProfile";
+import UserProfile from "./pages/Profile/UserProfile";
 import Community from "./pages/Community/Community";
 import CommunityPage from "./pages/CommunityPage/CommunityPage";
+import MyProfile from "./pages/Profile/MyProfile";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
+  // useLenis();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -60,10 +63,12 @@ const App = () => {
             <Route path="/event/:id/buyticket" element={<BuyTicket />} />
             <Route path="/verify" element={<Verify />} />
             <Route path="/event" element={<Events />} />
-            <Route path="/community" element={<Community />} />;
+            <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityPage />} />
             <Route path="/myorders" element={<MyOrders />} />
-            <Route path="/Profile" element={<Profile />} />
+            <Route path="/myprofile" element={<MyProfile />} />{" "}
+            <Route path="/profile/edit" element={<EditProfile />} />{" "}
+            <Route path="/user/:userId" element={<UserProfile />} />{" "}
             <Route
               path="/ticket-confirmation"
               element={<TicketConfirmation />}

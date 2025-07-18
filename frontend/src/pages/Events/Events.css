@@ -1,0 +1,13 @@
+.events-container {
+  padding-top: 95px;
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+.events.content {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.filters-section {
+  margin-left: 30px;
+  margin-right: 30px;
+}

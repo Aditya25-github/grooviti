@@ -4,7 +4,9 @@ import authMiddleware from "../middleware/auth.js";
 
 import {
   loginUser, registerUser, forgotPassword, resetPassword, googleLogin, getUserProfile,
-  updateUserProfile
+  updateUserProfile, fetchUserProfile, followUser, unfollowUser,
+  getFollowers,
+  getFollowing
 } from "../controllers/usercontroller.js"
 import { uploadUserProfileImage } from "../middleware/upload.js";
 
@@ -22,5 +24,10 @@ userRouter.put(
   uploadUserProfileImage.single("profileImage"),
   updateUserProfile
 );
+userRouter.get("/:userId", fetchUserProfile);
+userRouter.post("/:userId/follow", authMiddleware, followUser);
+userRouter.post("/:userId/unfollow", authMiddleware, unfollowUser);
+userRouter.get("/:userId/followers", getFollowers);
+userRouter.get("/:userId/following", getFollowing);
 
 export default userRouter;

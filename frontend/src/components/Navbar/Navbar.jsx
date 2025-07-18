@@ -289,7 +289,7 @@ const Navbar = ({ setShowLogin }) => {
                     profileOpen ? "show" : ""
                   }`}
                 >
-                  <li onClick={() => navigate("/profile")}>
+                  <li onClick={() => navigate("/myprofile")}>
                     <img src={assets.user_icon} alt="" />
                     <p>My Profile</p>
                   </li>

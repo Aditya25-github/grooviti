@@ -9,6 +9,7 @@ import "./CommunityPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const CommunityPage = () => {
   const { id } = useParams();
@@ -23,6 +24,10 @@ const CommunityPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const currentUserId = user?._id;
   const socket = io(url);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -199,7 +204,9 @@ const CommunityPage = () => {
           posts.map((post) => (
             <div key={post._id} className="post-card">
               <div className="post-header">
-                <strong>{post.author.name}</strong>
+                <Link to={`/user/${post.author._id}`} className="author-name">
+                  <strong>{post.author.name}</strong>
+                </Link>
                 <span>{new Date(post.createdAt).toLocaleString()}</span>
               </div>
               <p>{post.text}</p>
@@ -283,7 +290,13 @@ const CommunityPage = () => {
                 <div className="comments-list">
                   {post.comments.map((cmt, index) => (
                     <div className="comment-item" key={index}>
-                      <strong>{cmt.author?.name || "User"}</strong>: {cmt.text}
+                      <Link
+                        to={`/user/${cmt.author?._id}`}
+                        className="comment-author"
+                      >
+                        <strong>{cmt.author?.name || "User"}</strong>
+                      </Link>{" "}
+                      {cmt.text}
                     </div>
                   ))}
                 </div>

@@ -52,18 +52,6 @@ const teamMembers = [
     image:
       "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/diksha.jpg",
   },
-  {
-    name: "New Employee",
-    role: "--",
-    image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/new.jpg",
-  },
-  {
-    name: "New Employee",
-    role: "--",
-    image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/new.jpg",
-  },
 ];
 
 // Animation Variants

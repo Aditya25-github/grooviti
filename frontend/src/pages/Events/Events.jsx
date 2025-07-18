@@ -3,6 +3,8 @@ import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
 import { motion } from "framer-motion";
 import EventLocationFilter from "../../components/EventLocationFilter/EventLocationFilter";
+import { FiMapPin, FiNavigation, FiAlertCircle } from "react-icons/fi";
+import "./Events.css";
 
 const Events = () => {
   const [category, setCategory] = useState("All");
@@ -10,6 +12,7 @@ const Events = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [customLocations, setCustomLocations] = useState([]);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
   const predefinedLocations = [
     "All",
@@ -43,15 +46,17 @@ const Events = () => {
 
   const fetchUserLocation = () => {
     if (!navigator.geolocation) {
-      setLocationError("Geolocation not supported");
+      setLocationError("Geolocation not supported by your browser");
       return;
     }
+
+    setIsLoadingLocation(true);
+    setLocationError(null);
 
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const { latitude, longitude } = pos.coords;
         setUserLocation({ latitude, longitude });
-        setLocationError(null);
 
         try {
           const res = await fetch(
@@ -67,38 +72,58 @@ const Events = () => {
             data.address.state;
 
           if (cityName) {
-            console.log("Detected city:", cityName);
             setLocation(cityName);
           } else {
-            console.warn("City not found in response");
+            setLocationError("Couldn't determine your city name");
           }
         } catch (err) {
           console.error("Error in reverse geocoding:", err);
+          setLocationError("Error fetching location details");
+        } finally {
+          setIsLoadingLocation(false);
         }
       },
       (error) => {
         console.error("Geolocation error:", error);
-        setLocationError("Permission denied or unable to get location");
+        setLocationError(
+          error.message === "User denied Geolocation"
+            ? "Location permission denied"
+            : "Unable to get your location"
+        );
+        setIsLoadingLocation(false);
       }
     );
   };
 
   return (
     <motion.div
+      className="events-container"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <div style={{ paddingTop: "95px" }}>
-        <EventLocationFilter
-          location={location}
-          setLocation={setLocation}
-          locationList={locationList}
-          fetchUserLocation={fetchUserLocation}
-          locationError={locationError}
-        />
-        <ExploreEvents category={category} setCategory={setCategory} />
+      <div className="events-content">
+        <div className="filters-section">
+          <EventLocationFilter
+            location={location}
+            setLocation={setLocation}
+            locationList={locationList}
+            fetchUserLocation={fetchUserLocation}
+            locationError={locationError}
+            isLoading={isLoadingLocation}
+          />
+
+          <ExploreEvents category={category} setCategory={setCategory} />
+        </div>
+
+        {locationError && (
+          <div className="location-error">
+            <FiAlertCircle className="error-icon" />
+            <span>{locationError}</span>
+          </div>
+        )}
+
         <EventDisplay
           category={category}
           location={location}

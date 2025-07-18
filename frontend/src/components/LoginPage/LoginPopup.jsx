@@ -48,31 +48,35 @@ const LoginPopup = ({ setShowLogin }) => {
     navigate("/forgot-password");
   };
 
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const token = await user.getIdToken();
+  // const handleGoogleLogin = async () => {
+  //   const provider = new GoogleAuthProvider();
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     const token = await user.getIdToken();
 
-      const response = await axios.post(`${url}/api/user/google-login`, {
-        email: user.email,
-        name: user.displayName,
-        token,
-      });
+  //     const response = await axios.post(`${url}/api/user/google-login`, {
+  //       email: user.email,
+  //       name: user.displayName,
+  //       token,
+  //     });
 
-      if (response.data.success) {
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-        setShowLogin(false);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (err) {
-      toast.error("Google sign-in failed");
-      console.error(err);
-    }
-  };
+  //     if (response.data.success) {
+  //       setToken(response.data.token);
+  //       localStorage.setItem("token", response.data.token);
+  //       localStorage.setItem(
+  //         "user",
+  //         JSON.stringify({ _id: user._id, token: user.token })
+  //       );
+  //       setShowLogin(false);
+  //     } else {
+  //       toast.error(response.data.message);
+  //     }
+  //   } catch (err) {
+  //     toast.error("Google sign-in failed");
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div className="Login-Popup">
@@ -125,9 +129,9 @@ const LoginPopup = ({ setShowLogin }) => {
           {currState === "Sign Up" ? "Create account" : "Login"}
         </button>
 
-        <div className="divider">or</div>
+        {/* <div className="divider">or</div> */}
 
-        <button
+        {/* <button
           type="button"
           onClick={handleGoogleLogin}
           className="social-login google"
@@ -141,7 +145,7 @@ const LoginPopup = ({ setShowLogin }) => {
           className="social-login otp"
         >
           Continue with Mobile OTP
-        </button>
+        </button> */}
 
         <div className="login-popup-condition">
           <input type="checkbox" required />

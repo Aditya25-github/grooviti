@@ -18,9 +18,13 @@ const userSchema = new mongoose.Schema(
     dob: { type: Date },
     location: { type: String, default: "" },
     bio: { type: String, default: "" },
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+    communitiesJoined: [{ type: mongoose.Schema.Types.ObjectId, ref: "communities" }],
+
   },
   { minimize: false, timestamps: true }
 );
 
-const userModel = mongoose.model.user || mongoose.model("user", userSchema);
+const userModel = mongoose.models.user || mongoose.model("user", userSchema);
 export default userModel;

@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FiMinus, FiPlus, FiAlertTriangle } from "react-icons/fi";
 
 const BuyTicket = () => {
   const {
@@ -82,7 +83,7 @@ const BuyTicket = () => {
       );
       return;
     }
-    setLoading(true); // Disable button and show loading
+    setLoading(true);
 
     let eventItems = [];
     myevents_list.forEach((item) => {
@@ -103,8 +104,6 @@ const BuyTicket = () => {
     };
 
     try {
-      console.log("Booking orderData:", orderData);
-      console.log("Token used for booking:", token);
       let response = await axios.post(`${url}/api/booking/ticket`, orderData, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -150,13 +149,13 @@ const BuyTicket = () => {
             email: data.email,
             contact: data.phone,
           },
-          theme: { color: "#ff6000" },
+          theme: { color: "#6d28d9" },
         };
 
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
         rzp1.on("payment.failed", function () {
-          setLoading(false); // Enable button if payment fails
+          setLoading(false);
         });
       } else {
         console.error("Booking failed", response.data);
@@ -167,225 +166,258 @@ const BuyTicket = () => {
       alert("An error occurred while booking the ticket.");
     }
   };
+
   const WarningMessage = ({ isLoggedIn }) => {
-    if (isLoggedIn) {
-      console.log("You are good to go!!");
-      return null; // No warning if logged in
-    }
+    if (isLoggedIn) return null;
     return (
-      <div className="warning">
-        <span className="warning-icon">⚠</span> Please sign up before proceeding
-        to payment.
+      <div className="warning-message">
+        <FiAlertTriangle className="warning-icon" />
+        <span>Please sign up before proceeding to payment.</span>
       </div>
     );
   };
+
   return (
     <motion.div
-      className="home-page"
+      className="booking-container"
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
-      <div style={{ paddingTop: "115px" }}>
+      <div className="booking-wrapper">
         <WarningMessage isLoggedIn={token} />
-        <form onSubmit={buyTicket} className="place-order">
-          <div className="place-order-left">
-            <p className="title">Ticket Booking Information</p>
-            <div className="multi-fields">
-              <input
-                name="firstName"
-                onChange={onChangeHandler}
-                value={data.firstName}
-                type="text"
-                placeholder="First Name *"
-                required
-              />
-              <input
-                name="lastName"
-                onChange={onChangeHandler}
-                value={data.lastName}
-                type="text"
-                placeholder="Last Name *"
-                required
-              />
-            </div>
-            <input
-              name="college_name"
-              onChange={onChangeHandler}
-              value={data.college_name}
-              type="text"
-              placeholder="College name *"
-              required
-            />
-            <input
-              name="email"
-              onChange={onChangeHandler}
-              value={data.email}
-              type="email"
-              placeholder="Email address *"
-              required
-            />
-            <div className="multi-fields">
-              <input
-                name="Branch"
-                onChange={onChangeHandler}
-                value={data.Branch}
-                type="text"
-                placeholder="Branch *"
-                required
-              />
-              <input
-                name="Team_name"
-                onChange={onChangeHandler}
-                value={data.Team_name}
-                type="text"
-                placeholder="Team Name *"
-                required
-              />
-            </div>
-            <div className="team-size-counter">
-              <label>Team Size:</label>
-              <select
-                name="Team_size"
-                value={data.Team_size}
-                onChange={(event) => {
-                  const size = parseInt(event.target.value, 10);
-                  setTeamSize(size);
-                  setData((prevData) => ({
-                    ...prevData,
-                    Team_size: size,
-                  }));
-                }}
-              >
-                {[...Array(10).keys()].map((num) => (
-                  <option key={num + 1} value={num + 1}>
-                    {num + 1}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <input
-              name="Team_size"
-              type="text"
-              value={`Team size : ${teamSize}`}
-              readOnly
-              placeholder="Selected Team Size *"
-              required
-            />
-            <div className="team-member-fields">
-              {[...Array(teamSize)].map((_, index) => (
+        <form onSubmit={buyTicket} className="booking-form">
+          <div className="booking-form-left">
+            <h2 className="form-title">Ticket Booking Information</h2>
+            <p className="form-subtitle">Please fill in your details</p>
+
+            <div className="form-group">
+              <div className="form-row">
+                <div className="form-field">
+                  <label>First Name *</label>
+                  <input
+                    name="firstName"
+                    onChange={onChangeHandler}
+                    value={data.firstName}
+                    type="text"
+                    required
+                  />
+                </div>
+                <div className="form-field">
+                  <label>Last Name *</label>
+                  <input
+                    name="lastName"
+                    onChange={onChangeHandler}
+                    value={data.lastName}
+                    type="text"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-field">
+                <label>College Name *</label>
                 <input
-                  key={index}
-                  name={`Team_member_name_${index + 1}`}
+                  name="college_name"
                   onChange={onChangeHandler}
-                  value={data[`Team_member_name_${index + 1}`] || ""}
+                  value={data.college_name}
                   type="text"
-                  placeholder={`Team member name ${index + 1} *`}
                   required
                 />
-              ))}
-            </div>
-            <div className="multi-fields">
-              <input
-                name="Team_leader_name"
-                onChange={onChangeHandler}
-                value={data.Team_leader_name}
-                type="text"
-                placeholder="Team Leader Name *"
-                required
-              />
-            </div>
-            <input
-              name="phone"
-              onChange={onChangeHandler}
-              value={data.phone}
-              type="tel"
-              pattern="[0-9]{10}"
-              inputMode="numeric"
-              maxLength="10"
-              placeholder="Phone ( 989-767-0000) *"
-              onInput={(e) =>
-                (e.target.value = e.target.value.replace(/\D/, ""))
-              }
-              required
-            />
-            <input
-              name="event"
-              onChange={onChangeHandler}
-              value={data.event}
-              type="text"
-              placeholder="Event Name *"
-              required
-            />
-          </div>
-          <div className="cart-total">
-            <h2>Order Summary</h2>
+              </div>
 
-            {eventData && (
-              <>
-                <div className="event-summary">
-                  <img
-                    className="event-image"
-                    src={
-                      eventData.coverImage?.url?.startsWith(
-                        "https://res.cloudinary.com"
-                      )
-                        ? eventData.coverImage.url
-                        : "/default-image.png"
-                    }
-                    alt={eventData.name || "Event Image"}
+              <div className="form-field">
+                <label>Email Address *</label>
+                <input
+                  name="email"
+                  onChange={onChangeHandler}
+                  value={data.email}
+                  type="email"
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-field">
+                  <label>Branch *</label>
+                  <input
+                    name="Branch"
+                    onChange={onChangeHandler}
+                    value={data.Branch}
+                    type="text"
+                    required
                   />
-                  <h3>{eventData.name}</h3>
                 </div>
-
-                <div className="ticket-counter">
-                  <button
-                    type="button"
-                    onClick={() => removeFromCart(eventData._id)}
-                  >
-                    -
-                  </button>
-                  <span>{cartItems[eventData._id] || 0}</span>
-                  <button
-                    type="button"
-                    onClick={() => addToCart(eventData._id)}
-                  >
-                    +
-                  </button>
+                <div className="form-field">
+                  <label>Team Name *</label>
+                  <input
+                    name="Team_name"
+                    onChange={onChangeHandler}
+                    value={data.Team_name}
+                    type="text"
+                    required
+                  />
                 </div>
-              </>
-            )}
+              </div>
 
-            <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>Rs.{getTotalCartAmount()}</p>
+              <div className="form-field">
+                <label>Team Size *</label>
+                <select
+                  name="Team_size"
+                  value={data.Team_size}
+                  onChange={(event) => {
+                    const size = parseInt(event.target.value, 10);
+                    setTeamSize(size);
+                    setData((prevData) => ({
+                      ...prevData,
+                      Team_size: size,
+                    }));
+                  }}
+                  className="team-size-select"
+                >
+                  {[...Array(10).keys()].map((num) => (
+                    <option key={num + 1} value={num + 1}>
+                      {num + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="team-member-fields">
+                {[...Array(teamSize)].map((_, index) => (
+                  <div className="form-field" key={index}>
+                    <label>Team Member {index + 1} *</label>
+                    <input
+                      name={`Team_member_name_${index + 1}`}
+                      onChange={onChangeHandler}
+                      value={data[`Team_member_name_${index + 1}`] || ""}
+                      type="text"
+                      required
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="form-field">
+                <label>Team Leader Name *</label>
+                <input
+                  name="Team_leader_name"
+                  onChange={onChangeHandler}
+                  value={data.Team_leader_name}
+                  type="text"
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Phone Number *</label>
+                <input
+                  name="phone"
+                  onChange={onChangeHandler}
+                  value={data.phone}
+                  type="tel"
+                  pattern="[0-9]{10}"
+                  inputMode="numeric"
+                  maxLength="10"
+                  placeholder="10 digits only"
+                  onInput={(e) =>
+                    (e.target.value = e.target.value.replace(/\D/, ""))
+                  }
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label>Event Name *</label>
+                <input
+                  name="event"
+                  onChange={onChangeHandler}
+                  value={data.event}
+                  type="text"
+                  readOnly
+                  className="read-only"
+                />
+              </div>
             </div>
-            <hr />
-            <div className="cart-total-details">
-              <p>Processing fee</p>
-              <p>Rs.0</p>
-            </div>
-            <hr />
-            <div className="cart-total-details">
-              <b>Total</b>
-              <p>Rs.{getTotalCartAmount()}</p>
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                backgroundColor: loading ? "#ccc" : "#ff6000",
-                cursor: loading ? "not-allowed" : "pointer",
-              }}
-            >
-              {loading ? "Loading..." : "PROCEED TO PAYMENT"}
-            </button>
-            <div className="message">
-              <p>
-                After succesful payment, ticket will be shown on this website
-                itself.
-              </p>
+          </div>
+
+          <div className="booking-summary">
+            <div className="summary-card">
+              <h2 className="summary-title">Order Summary</h2>
+
+              {eventData && (
+                <>
+                  <div className="event-card">
+                    <img
+                      className="event-image"
+                      src={
+                        eventData.coverImage?.url?.startsWith(
+                          "https://res.cloudinary.com"
+                        )
+                          ? eventData.coverImage.url
+                          : "/default-image.png"
+                      }
+                      alt={eventData.name || "Event Image"}
+                    />
+                    <div className="event-details">
+                      <h3>{eventData.name}</h3>
+                      <div className="ticket-counter">
+                        <button
+                          type="button"
+                          onClick={() => removeFromCart(eventData._id)}
+                          className="counter-btn"
+                        >
+                          <FiMinus />
+                        </button>
+                        <span>{cartItems[eventData._id] || 0}</span>
+                        <button
+                          type="button"
+                          onClick={() => addToCart(eventData._id)}
+                          className="counter-btn"
+                        >
+                          <FiPlus />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <div className="price-details">
+                <div className="price-row">
+                  <span>Subtotal</span>
+                  <span>Rs.{getTotalCartAmount()}</span>
+                </div>
+                <div className="price-row">
+                  <span>Processing fee</span>
+                  <span>Rs.0</span>
+                </div>
+                <div className="divider"></div>
+                <div className="price-row total">
+                  <span>Total</span>
+                  <span>Rs.{getTotalCartAmount()}</span>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className={`payment-btn ${loading ? "loading" : ""}`}
+              >
+                {loading ? (
+                  <span className="spinner"></span>
+                ) : (
+                  "PROCEED TO PAYMENT"
+                )}
+              </button>
+
+              <div className="payment-message">
+                <p>
+                  After successful payment, your ticket will be displayed on
+                  this website and emailed to you.
+                </p>
+              </div>
             </div>
           </div>
         </form>
