@@ -6,6 +6,7 @@ import "./VotingZone.css";
 const GENDER = {
   MALE: "male",
   FEMALE: "female",
+  OTHER: "other",
 };
 
 const DUMMY_CANDIDATES = [
