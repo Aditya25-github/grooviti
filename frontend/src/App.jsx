@@ -31,6 +31,8 @@ import OrganizerInfo from "./pages/OrganizerInfo/OrganizerInfo";
 import Profile from "./pages/Profile/Profile";
 import Community from "./pages/Community/Community";
 import CommunityPage from "./pages/CommunityPage/CommunityPage";
+import PccoerLanding from "./pages/pccoer/PccoerLanding";
+import PccoerEventPage from "./pages/pccoer/PccoerEventPage";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -77,6 +79,8 @@ const App = () => {
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/event/:id/direction" element={<EventDirection />} />
             <Route path="/organizer-info" element={<OrganizerInfo />} />
+            <Route path="/pccoer" element={<PccoerLanding />} />
+<Route path="/pccoer/event" element={<PccoerEventPage />} />
           </Routes>
         </AnimatePresence>
       </div>
