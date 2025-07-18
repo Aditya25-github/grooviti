@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <BrowserRouter>
       <StoreContextProvider>
-        <SmoothScrolling>
-          <App />
-        </SmoothScrolling>
+        {/* <SmoothScrolling> */}
+        <App />
+        {/* </SmoothScrolling> */}
       </StoreContextProvider>
     </BrowserRouter>
   </GoogleOAuthProvider>
