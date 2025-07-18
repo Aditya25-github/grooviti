@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { castVote, getVotes } = require('../controllers/voteController');
-const authMiddleware = require('../middleware/authMiddleware');
+// const express = require('express');
+// const router = express.Router();
+// const { castVote, getVotes } = require('../controllers/voteController.js');
+// const authMiddleware = require('../middleware/authMiddleware');
 
-router.post('/vote', authMiddleware, castVote);
-router.get('/votes/:mediaId', getVotes);
+// router.post('/vote', authMiddleware, castVote);
+// router.get('/votes/:mediaId', getVotes);
 
-module.exports = router;
+// module.exports = router;

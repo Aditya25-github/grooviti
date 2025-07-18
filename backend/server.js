@@ -19,7 +19,7 @@ import organizerRoutes from "./routes/organizerRoutes.js";
 import reviewRouter from "./routes/ReviewRoute.js";
 import communityRoutes from "./routes/communityRoutes.js";
 import cloudinary from "./utils/cloudinary.js";
-import voteRoutes from "./routes/voteRoutes.js"
+// import voteRoutes from "./routes/voteRoutes.js"
 import candidateRoutes from "./routes/candidateRoutes.js";
 
 // ==============================
@@ -95,7 +95,7 @@ app.use("/api/organizer", organizerRoutes);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
 app.use("/api/users", userRouter);
-app.use("/api/votes", voteRoutes);
+// app.use("/api/votes", voteRoutes);
 app.use("/api/candidates", candidateRoutes);
 
 // ==============================
