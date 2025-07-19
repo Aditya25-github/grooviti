@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema(
     comments: [
       {
         author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-        text: String,
+        text: { type: String, required: true },
         createdAt: { type: Date, default: Date.now },
       }
     ],

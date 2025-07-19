@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 import cloudinary from "../utils/cloudinary.js";
 import multer from "multer";
 import mongoose from "mongoose";
+import postModel from "../models/postModel.js";
 
 // Get all communities
 export const getAllCommunities = async (req, res) => {
@@ -107,3 +108,32 @@ export const createCommunity = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to create community" });
   }
 };
+
+
+export const deleteCommunity = async (req, res) => {
+  try {
+    const communityId = req.params.id;
+
+    const community = await communityModel.findById(communityId);
+    if (!community) {
+      return res.status(404).json({ success: false, message: "Community not found" });
+    }
+
+    // Check if the logged-in user is the creator
+    if (community.email !== req.user.email) {
+      return res.status(403).json({ success: false, message: "You are not allowed to delete this community" });
+    }
+
+    // Delete all posts in that community
+    await postModel.deleteMany({ community: communityId });
+
+    // Delete the community
+    await communityModel.findByIdAndDelete(communityId);
+
+    res.status(200).json({ success: true, message: "Community and its posts deleted successfully" });
+  } catch (error) {
+    console.error("Delete community error:", error);
+    res.status(500).json({ success: false, message: "Server error while deleting community" });
+  }
+};
+
