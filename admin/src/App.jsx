@@ -14,6 +14,7 @@ import Settings from "./pages/Settings/Settings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
 import { StoreContext } from "./context/StoreContext";
+import ManageEvent from "./pages/ManageEvent/ManageEvent";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
@@ -47,6 +48,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <List url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manage-event"
+            element={
+              <ProtectedRoute>
+                <ManageEvent url={url} />
               </ProtectedRoute>
             }
           />

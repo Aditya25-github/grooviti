@@ -10,7 +10,6 @@ const organizerSchema = new mongoose.Schema({
     url: { type: String },
     public_id: { type: String },
   },
-
   bio: { type: String },
   plan: {
     name: { type: String, required: true },
@@ -31,6 +30,7 @@ const organizerSchema = new mongoose.Schema({
   },
   role: { type: String, default: "host" },
   createdAt: { type: Date, default: Date.now },
+  organizedBy: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
 });
 
 const organizerModel =

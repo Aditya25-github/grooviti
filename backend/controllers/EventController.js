@@ -1,12 +1,12 @@
 import cloudinary from "../utils/cloudinary.js";
 import ticketModel from '../models/ticketModel.js';
 import mongoose from "mongoose";
+import OrganizerModel from '../models/organizerModel.js';
 
 // add Event item
 
 const addEvent = async (req, res) => {
   try {
-    // 1. Parse and validate location
     let parsedLocation = {};
     try {
       parsedLocation = JSON.parse(req.body.location);
@@ -58,11 +58,17 @@ const addEvent = async (req, res) => {
       console.log("Invalid highlights format");
     }
 
+    const organizer = await OrganizerModel.findOne({ email: req.body.organizerEmail });
+    if (!organizer) {
+      return res.status(400).json({ success: false, message: "Organizer not found" });
+    }
+
     // 4. Create event object
     const event = new ticketModel({
       name: req.body.name,
       description: req.body.description,
       organizerEmail: req.body.organizerEmail,
+      organizer: organizer._id,
       price: req.body.price,
       category: req.body.category,
       coverImage,

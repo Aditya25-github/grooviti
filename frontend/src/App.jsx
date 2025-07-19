@@ -32,10 +32,10 @@ import EditProfile from "./pages/Profile/EditProfile";
 import UserProfile from "./pages/Profile/UserProfile";
 import Community from "./pages/Community/Community";
 import CommunityPage from "./pages/CommunityPage/CommunityPage";
-
-import PccoerLanding from "./pages/pccoer/PccoerLanding";
-import PccoerEventPage from "./pages/pccoer/PccoerEventPage";
+import PccoerEventPage from "./pages/pccoer/PccoerPage";
 import MyProfile from "./pages/Profile/MyProfile";
+import OrganizerProfile from "./pages/Profile/OrganizerProfile";
+import PccoerPage from "./pages/pccoer/PccoerPage";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -73,6 +73,10 @@ const App = () => {
             <Route path="/profile/edit" element={<EditProfile />} />{" "}
             <Route path="/user/:userId" element={<UserProfile />} />{" "}
             <Route
+              path="/organizer/:organizerId"
+              element={<OrganizerProfile />}
+            />{" "}
+            <Route
               path="/ticket-confirmation"
               element={<TicketConfirmation />}
             />
@@ -85,8 +89,8 @@ const App = () => {
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/event/:id/direction" element={<EventDirection />} />
             <Route path="/organizer-info" element={<OrganizerInfo />} />
-            <Route path="/pccoer" element={<PccoerLanding />} />
-<Route path="/pccoer/event" element={<PccoerEventPage />} />
+            <Route path="/pccoer" element={<PccoerPage />} />
+            <Route path="/pccoer/event" element={<PccoerEventPage />} />
           </Routes>
         </AnimatePresence>
       </div>
