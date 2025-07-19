@@ -24,6 +24,10 @@ const CommunityPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const currentUserId = user?._id;
   const socket = io(url);
+  const isCreator = community?.createdBy && (community.createdBy._id?.toString() === currentUserId?.toString());
+
+    // UPDATED: Check if current user role is eventHost
+  const isEventHost = user?.role === "eventHost";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -176,7 +180,10 @@ const CommunityPage = () => {
         </div>
       </div>
 
-      <div className="post-form">
+
+
+      {isCreator && (
+        <div className="post-form">
         <textarea
           value={newPost}
           onChange={(e) => setNewPost(e.target.value)}
@@ -196,6 +203,8 @@ const CommunityPage = () => {
           <button onClick={handlePostSubmit}>Post</button>
         </div>
       </div>
+      )}
+      
 
       <div className="community-posts">
         {posts.length === 0 ? (

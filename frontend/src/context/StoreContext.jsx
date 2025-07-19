@@ -94,14 +94,17 @@ const StoreContextProvider = (props) => {
           setUser(res.data.user);
           setIsLoggedIn(true);
           setToken(storedToken); // now safe to update
+          localStorage.setItem("user", JSON.stringify(res.data.user)); // ✅ <--- add this
         } else {
           localStorage.removeItem("token");
+          localStorage.removeItem("user"); // ❌ remove stale user if token fails
           setUser(null);
           setIsLoggedIn(false);
         }
       } catch (err) {
         console.error("Invalid token or failed to fetch user:", err);
         localStorage.removeItem("token");
+        localStorage.removeItem("user"); // ❌ remove stale user if token fails
         setUser(null);
         setIsLoggedIn(false);
       } finally {

@@ -19,7 +19,8 @@ export const getSingleCommunity = async (req, res) => {
   try {
     const community = await communityModel
       .findById(req.params.id)
-      .populate("members", "name email");
+      .populate("members", "name email")
+      .populate("createdBy", "name email _id role"); 
 
     if (!community) {
       return res.status(404).json({ success: false, message: "Community not found" });
