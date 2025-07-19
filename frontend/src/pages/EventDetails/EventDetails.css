@@ -1356,6 +1356,20 @@
     margin-left: 195px;
   }
 }
+@media (max-width: 375px) {
+  .fab-button {
+    min-width: auto;
+    width: 100%;
+    margin-left: 170px;
+  }
+}
+@media (min-width: 425px) {
+  .fab-button {
+    min-width: auto;
+    width: 100%;
+    margin-left: 195px;
+  }
+}
 
 @media (max-width: 480px) {
   .event-title {
