@@ -137,3 +137,41 @@ export const deleteCommunity = async (req, res) => {
   }
 };
 
+
+export const uploadGalleryMedia = async (req, res) => {
+  try {
+    const { comment } = req.body;
+    const community = await communityModel.findById(req.params.id);
+
+    if (!community) {
+      return res.status(404).json({ success: false, message: "Community not found" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "Media file is required" });
+    }
+
+    const uploaded = await cloudinary.uploader.upload(req.file.path, {
+      folder: "community_gallery",
+      resource_type: "auto",
+    });
+
+    const media = {
+      url: uploaded.secure_url,
+      public_id: uploaded.public_id,
+      comment,
+      uploadedBy: req.user.id,
+    };
+
+    community.gallery.push(media);
+    await community.save();
+
+    res.json({ success: true, message: "Media uploaded", media });
+
+  } catch (err) {
+    console.error("Gallery upload error:", err);
+    res.status(500).json({ success: false, message: "Error uploading media" });
+  }
+};
+
+

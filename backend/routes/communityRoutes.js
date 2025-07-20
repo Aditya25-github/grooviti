@@ -8,7 +8,8 @@ import {
   joinCommunity,
   leaveCommunity,
   createCommunity,
-  getSingleCommunity
+  getSingleCommunity,
+  uploadGalleryMedia   // ✅ Added
 } from "../controllers/communityController.js";
 import authMiddleware from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
@@ -31,5 +32,8 @@ router.post("/:id/post/:postId/like", authMiddleware, likePost);
 router.post("/:id/post/:postId/comment", authMiddleware, commentOnPost);
 router.delete("/:id/post/:postId", authMiddleware, deletePost);
 router.delete("/:id", authMiddleware, deleteCommunity);
+
+// ✅ Gallery upload route
+router.post("/:id/gallery/upload", authMiddleware, upload.single("media"), uploadGalleryMedia);
 
 export default router;

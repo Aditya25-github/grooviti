@@ -243,6 +243,50 @@ const handleDeletePost = async (postId) => {
     }
   };
 
+
+
+  const handleGalleryUpload = async () => {
+      if (!newPost.trim() && !image) {
+        return toast.warning("Comment or media is required");
+      }
+  
+      const formData = new FormData();
+      formData.append("comment", newPost);
+      if (image) formData.append("media", image);
+  
+      try {
+        const res = await axios.post(
+          `${url}/api/community/${id}/gallery/upload`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+  
+        if (res.data.success) {
+          setNewPost("");
+          setImage(null);
+          setPreview(null);
+          toast.success("Media uploaded successfully");
+  
+          const updatedCommunity = await axios.get(`${url}/api/community/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (updatedCommunity.data.success) {
+            setCommunity(updatedCommunity.data.community);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Error uploading media");
+      }
+    };
+
+
+
   if (!community) return <div>Loading...</div>;
 
   return (
@@ -455,10 +499,54 @@ const handleDeletePost = async (postId) => {
         )}
       </div>
       )}
-
-      {activeTab === "gallery" && (
+{activeTab === "gallery" && (
         <div className="community-gallery">
-          <p>Gallery feature coming soon...</p>
+          <h3>Event Gallery</h3>
+
+          <div className="gallery-upload-form">
+            <textarea
+              placeholder="Write a comment about this event..."
+              value={newPost}
+              onChange={(e) => setNewPost(e.target.value)}
+            />
+            <input
+              type="file"
+              accept="image/*,video/*"
+              onChange={handleImageChange}
+            />
+            {preview && (
+              <div className="preview-wrapper">
+                {image?.type?.startsWith("video") ? (
+                  <video src={preview} controls />
+                ) : (
+                  <img src={preview} alt="preview" />
+                )}
+              </div>
+            )}
+            <button onClick={handleGalleryUpload}>Upload</button>
+          </div>
+
+          <div className="gallery-grid">
+            {community.gallery && community.gallery.length > 0 ? (
+              community.gallery.map((item, index) => (
+                <div key={index} className="gallery-card">
+                  {item.url.endsWith(".mp4") || item.url.includes("video") ? (
+                    <video src={item.url} controls />
+                  ) : (
+                    <img src={item.url} alt="gallery" />
+                  )}
+                  <div className="gallery-meta">
+                    <p className="comment">{item.comment}</p>
+                    <p className="author">
+                      Uploaded by: {item.uploadedBy?.name || "User"}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No media yet. Be the first to post!</p>
+            )}
+          </div>
         </div>
       )}
     </div>

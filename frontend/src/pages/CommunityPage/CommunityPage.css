@@ -469,3 +469,92 @@
 .delete-community-btn:hover {
   background-color: #c0392b;
 }
+
+
+/* Gallery Styling */
+.community-gallery {
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.gallery-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.gallery-upload-form textarea {
+  resize: none;
+  min-height: 60px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.gallery-upload-form input[type="file"] {
+  font-size: 14px;
+}
+
+.preview-wrapper {
+  max-height: 250px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.preview-wrapper img,
+.preview-wrapper video {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.gallery-upload-form button {
+  align-self: flex-end;
+  padding: 8px 20px;
+  border: none;
+  background: #4caf50;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.gallery-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card img,
+.gallery-card video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.gallery-meta {
+  padding: 10px;
+}
+
+.gallery-meta .comment {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.gallery-meta .author {
+  font-size: 12px;
+  color: #888;
+}
