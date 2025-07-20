@@ -410,7 +410,7 @@ const EventDetails = () => {
           </div>
         </div>
 
-        <div className="hero-content">
+        <div className="hero-coontent">
           <div className="hero-content-inner">
             <div className="event-category">
               <Sparkles className="w-4 h-4 mr-1" />
