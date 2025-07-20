@@ -7,7 +7,7 @@
 }
 
 /* Hero Banner */
-.hero-banner {
+.heroo-banner {
   background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
   color: white;
   padding: 80px 20px;
@@ -15,18 +15,18 @@
   margin-bottom: 40px;
 }
 
-.hero-content {
+.heroo-content {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.hero-banner h1 {
+.heroo-banner h1 {
   font-size: 3rem;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
-.hero-banner p {
+.heroo-banner p {
   font-size: 1.5rem;
   opacity: 0.9;
 }
