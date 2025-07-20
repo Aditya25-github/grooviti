@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer/Footer";
 import { StoreContext } from "./context/StoreContext";
 import ManageEvent from "./pages/ManageEvent/ManageEvent";
+import AddCandidate from "./pages/AddCandidate/AddCandidate";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
@@ -56,6 +57,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ManageEvent url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-candidate"
+            element={
+              <ProtectedRoute>
+                <AddCandidate url={url} />
               </ProtectedRoute>
             }
           />

@@ -36,6 +36,8 @@ import PccoerEventPage from "./pages/pccoer/PccoerPage";
 import MyProfile from "./pages/Profile/MyProfile";
 import OrganizerProfile from "./pages/Profile/OrganizerProfile";
 import PccoerPage from "./pages/pccoer/PccoerPage";
+import FresherVotePage from "./pages/pccoer/FresherVotePage";
+import FresherGalleryPage from "./pages/pccoer/FresherGalleryPage";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -91,6 +93,8 @@ const App = () => {
             <Route path="/organizer-info" element={<OrganizerInfo />} />
             <Route path="/pccoer" element={<PccoerPage />} />
             <Route path="/pccoer/event" element={<PccoerEventPage />} />
+            <Route path="/pccoer/vote" element={<FresherVotePage />} />
+            <Route path="/pccoer/gallery" element={<FresherGalleryPage />} />
           </Routes>
         </AnimatePresence>
       </div>

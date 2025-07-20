@@ -1,0 +1,600 @@
+/* FresherVotePage.css */
+:root {
+  --primary: #4a6cf7;
+  --primary-dark: #3a56d6;
+  --secondary: #ff6000;
+  --secondary-light: #ff8c40;
+  --accent: #ffb400;
+  --light: #f8f9ff;
+  --dark: #1e293b;
+  --gray: #64748b;
+  --light-gray: #f1f5f9;
+  --success: #10b981;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f8f9ff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.fresher-vote-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+}
+
+/* Header Styles */
+.vote-header {
+  text-align: center;
+  margin: 30px 0 50px;
+  padding: 30px 0 40px;
+  position: relative;
+}
+
+.vote-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: var(--dark);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.vote-header p {
+  font-size: 1.2rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.header-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 10px 20px rgba(255, 96, 0, 0.25);
+}
+
+.header-divider {
+  height: 4px;
+  width: 100px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  margin: 20px auto;
+  border-radius: 2px;
+}
+
+/* Winners Section */
+.winners-section {
+  margin-bottom: 60px;
+}
+
+.winners-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 2rem;
+  color: var(--dark);
+}
+
+.winners-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.winner-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  width: 320px;
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(74, 108, 247, 0.1);
+}
+
+.winner-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.winner-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.winner-header::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--primary-dark);
+}
+
+.winner-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.winner-content {
+  padding: 30px 25px;
+  text-align: center;
+}
+
+.winner-image-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.winner-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.winner-badge {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  color: white;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(255, 96, 0, 0.4);
+  z-index: 2;
+}
+
+.winner-content h4 {
+  font-size: 1.6rem;
+  margin: 20px 0 8px;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.department {
+  color: var(--gray);
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.vote-count {
+  background: var(--light);
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--primary);
+  gap: 5px;
+  font-size: 1.1rem;
+  border: 2px dashed rgba(74, 108, 247, 0.3);
+}
+
+.vote-count span {
+  font-size: 1.5rem;
+}
+
+/* Voting Section */
+.voting-section {
+  margin-top: 30px;
+}
+
+.voting-section h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2rem;
+  color: var(--dark);
+}
+
+.category-section {
+  margin-bottom: 60px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(74, 108, 247, 0.1);
+  position: relative;
+}
+
+.category-header h3 {
+  font-size: 1.7rem;
+  color: var(--dark);
+  margin: 0;
+  font-weight: 700;
+}
+
+.category-header .icon {
+  color: var(--primary);
+  font-size: 1.6rem;
+}
+
+.voted-tag {
+  margin-left: auto;
+  background: var(--success);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.candidates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.candidate-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  text-align: center;
+  padding: 30px 25px;
+  border: 1px solid rgba(74, 108, 247, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.candidate-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  border-color: rgba(74, 108, 247, 0.2);
+}
+
+.candidate-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: var(--transition);
+}
+
+.candidate-card:hover .candidate-image {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.candidate-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.candidate-card h4 {
+  font-size: 1.4rem;
+  margin: 15px 0 8px;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.department {
+  color: var(--gray);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.vote-button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px auto 0;
+  transition: var(--transition);
+  width: 100%;
+  max-width: 180px;
+  box-shadow: 0 8px 20px rgba(74, 108, 247, 0.3);
+}
+
+.vote-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(74, 108, 247, 0.4);
+}
+
+/* Voted Confirmation */
+.voted-confirmation {
+  text-align: center;
+  background: white;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  max-width: 700px;
+  margin: 30px auto;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.voted-confirmation h3 {
+  font-size: 1.8rem;
+  color: var(--dark);
+  margin: 25px 0 15px;
+  font-weight: 700;
+}
+
+.voted-confirmation p {
+  color: var(--gray);
+  font-size: 1.15rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  font-size: 4.5rem;
+  color: var(--success);
+  margin-bottom: 20px;
+  filter: drop-shadow(0 5px 15px rgba(16, 185, 129, 0.3));
+}
+
+/* Loading Styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-container p {
+  font-size: 1.2rem;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+/* Skeleton Loading */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-header {
+  height: 60px;
+  background-color: var(--light-gray);
+}
+
+.skeleton-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  margin: 0 auto 20px;
+}
+
+.skeleton-text {
+  height: 25px;
+  width: 70%;
+  background-color: var(--light-gray);
+  margin: 15px auto;
+  border-radius: 4px;
+}
+
+.skeleton-text-sm {
+  height: 20px;
+  width: 50%;
+  background-color: var(--light-gray);
+  margin: 10px auto;
+  border-radius: 4px;
+}
+
+.skeleton-votes {
+  height: 35px;
+  width: 120px;
+  background-color: var(--light-gray);
+  margin: 20px auto;
+  border-radius: 30px;
+}
+
+.skeleton-button {
+  height: 45px;
+  width: 160px;
+  background-color: var(--light-gray);
+  margin: 20px auto;
+  border-radius: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .winners-grid {
+    gap: 30px;
+  }
+
+  .winner-card {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vote-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .voting-section h2,
+  .winners-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .category-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .candidate-card h4 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .fresher-vote-container {
+    padding: 15px;
+  }
+
+  .vote-header {
+    margin: 20px 0 40px;
+    padding: 25px 0 35px;
+  }
+
+  .vote-header h1 {
+    font-size: 2rem;
+  }
+
+  .vote-header p {
+    font-size: 1.1rem;
+  }
+
+  .header-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .winner-card {
+    max-width: 100%;
+  }
+
+  .candidates-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .voted-confirmation {
+    padding: 40px 20px;
+  }
+
+  .voted-confirmation h3 {
+    font-size: 1.5rem;
+  }
+}

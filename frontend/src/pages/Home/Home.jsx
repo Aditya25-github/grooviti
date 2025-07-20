@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./Home.css";
-
-// Components
 import Header from "../../components/Header/Header";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";

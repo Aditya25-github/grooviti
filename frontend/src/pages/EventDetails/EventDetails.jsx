@@ -483,14 +483,6 @@ const EventDetails = () => {
                   </>
                 )}
               </button>
-
-              <button
-                className="btn-secondary"
-                onClick={() => navigate(`/event/${id}/buyticket`)}
-              >
-                <Eye className="w-4 h-4 mr-2" />
-                View Details
-              </button>
             </div>
           </div>
         </div>
