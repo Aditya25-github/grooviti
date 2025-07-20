@@ -1,7 +1,7 @@
 import express from "express";
 import {
   createPost, getCommunityPosts, likePost,
-  commentOnPost,
+  commentOnPost, deletePost
 } from "../controllers/postController.js";
 import {
   getAllCommunities,
@@ -12,6 +12,8 @@ import {
 } from "../controllers/communityController.js";
 import authMiddleware from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
+import { deleteCommunity } from "../controllers/communityController.js";
+
 
 const router = express.Router();
 
@@ -27,5 +29,7 @@ router.post("/:id/post", authMiddleware, upload.single("image"), createPost);
 router.get("/:id/posts", getCommunityPosts);
 router.post("/:id/post/:postId/like", authMiddleware, likePost);
 router.post("/:id/post/:postId/comment", authMiddleware, commentOnPost);
+router.delete("/:id/post/:postId", authMiddleware, deletePost);
+router.delete("/:id", authMiddleware, deleteCommunity);
 
 export default router;

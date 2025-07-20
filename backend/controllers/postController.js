@@ -95,7 +95,7 @@ export const likePost = async (req, res) => {
 // ✅ Comment on a post
 export const commentOnPost = async (req, res) => {
   const { postId } = req.params;
-  const userId = req.body.userId;
+  const userId = req.userId;
   const { text } = req.body;
 
   try {
@@ -129,5 +129,40 @@ export const commentOnPost = async (req, res) => {
   } catch (err) {
     console.error("Comment error:", err);
     res.status(500).json({ success: false, message: "Failed to add comment" });
+  }
+};
+
+// ✅ Delete a post
+export const deletePost = async (req, res) => {
+  const { id, postId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const post = await postModel.findById(postId);
+    if (!post) {
+      return res.status(404).json({ success: false, message: "Post not found" });
+    }
+
+    // Only the author of the post or the community creator can delete
+    const community = await communityModel.findById(post.community).populate("createdBy", "id");
+
+    if (
+      post.author.toString() !== userId &&
+      community.createdBy._id.toString() !== userId
+    ) {
+      return res.status(403).json({ success: false, message: "Unauthorized to delete this post" });
+    }
+
+    // If there's an image, delete it from Cloudinary
+    if (post.image?.public_id) {
+      await cloudinary.uploader.destroy(post.image.public_id);
+    }
+
+    await post.deleteOne();
+
+    res.json({ success: true, message: "Post deleted" });
+  } catch (err) {
+    console.error("Delete post error:", err);
+    res.status(500).json({ success: false, message: "Failed to delete post" });
   }
 };

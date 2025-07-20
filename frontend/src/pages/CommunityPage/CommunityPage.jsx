@@ -1,4 +1,4 @@
-// Updated CommunityPage.jsx
+// Updated CommunityPage.jsx with profile icons in comments
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,7 @@ import "./CommunityPage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const CommunityPage = () => {
@@ -20,14 +21,21 @@ const CommunityPage = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [commentInput, setCommentInput] = useState({});
+  const [showAllComments, setShowAllComments] = useState({});
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
   const currentUserId = user?._id;
   const socket = io(url);
   const isCreator = community?.createdBy && (community.createdBy._id?.toString() === currentUserId?.toString());
+  const [activeTab, setActiveTab] = useState("posts");
+  const [showForm, setShowForm] = useState(false);
 
-    // UPDATED: Check if current user role is eventHost
-  const isEventHost = user?.role === "eventHost";
+  const toggleComments = (postId) => {
+    setShowAllComments(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -96,10 +104,22 @@ const CommunityPage = () => {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
       if (res.data.success) {
         const { userId, liked } = res.data;
         socket.emit("likePost", { postId, userId, liked });
+
+         setPosts((prev) =>
+        prev.map((post) => {
+          if (post._id === postId) {
+            const updatedLikes = liked
+              ? [...post.likes, userId]
+              : post.likes.filter((id) => id !== userId);
+            return { ...post, likes: updatedLikes };
+          }
+          return post;
+        })
+      );
+
       }
     } catch (err) {
       console.error(err);
@@ -167,6 +187,62 @@ const CommunityPage = () => {
     }
   };
 
+
+  const handleDeleteCommunity = async () => {
+  if (!window.confirm("Are you sure you want to delete this community?")) return;
+
+  try {
+    const res = await axios.delete(`${url}/api/community/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.data.success) {
+      toast.success("Community deleted");
+      window.location.href = "/communities"; // or use navigate("/communities")
+    }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete community");
+    }
+  };
+
+const handleDeletePost = async (postId) => {
+  if (!window.confirm("Delete this post?")) return;
+
+  try {
+    const res = await axios.delete(`${url}/api/community/${id}/post/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.data.success) {
+      toast.success("Post deleted");
+      setPosts((prev) => prev.filter((p) => p._id !== postId));
+    }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete post");
+    }
+  };
+
+
+  // Helper function to render profile icon
+  const renderProfileIcon = (author) => {
+    if (author?.profileImage?.url) {
+      return (
+        <img 
+          src={author.profileImage.url} 
+          alt={author.name} 
+          className="comment-profile-icon"
+        />
+      );
+    } else {
+      return (
+        <div className="comment-profile-icon">
+          <FontAwesomeIcon icon={faUser} />
+        </div>
+      );
+    }
+  };
+
   if (!community) return <div>Loading...</div>;
 
   return (
@@ -176,144 +252,215 @@ const CommunityPage = () => {
         <div>
           <h2>{community.name}</h2>
           <p>{community.description}</p>
-          <p>{community.members.length} members</p>
+          {isCreator && (
+            <button
+              className="delete-community-btn"
+              onClick={handleDeleteCommunity}
+            >
+              Delete Community
+            </button>
+          )}
+
+          <div className="stats">
+            <span>{community.members.length} Members</span>
+            <span>{posts.reduce((sum, p) => sum + p.likes.length, 0)} Likes</span>
+          </div>
         </div>
       </div>
-
-
 
       {isCreator && (
-        <div className="post-form">
-        <textarea
-          value={newPost}
-          onChange={(e) => setNewPost(e.target.value)}
-          placeholder="What's on your mind?"
-        />
-        {preview && <img src={preview} alt="preview" className="preview-img" />}
-        <div className="post-form-actions">
-          <label className="upload-label">
-            📷
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleImageChange}
-            />
-          </label>
-          <button onClick={handlePostSubmit}>Post</button>
-        </div>
-      </div>
+        <>
+          <button
+            className="post-toggle-btn"
+            onClick={() => setShowForm((prev) => !prev)}
+          >
+            {showForm ? "Cancel" : "Create Post"}
+          </button>
+          {showForm && (
+            <div className="post-form">
+              <textarea
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+                placeholder="What's on your mind?"
+              />
+              {preview && <img src={preview} alt="preview" className="preview-img" />}
+              <div className="post-form-actions">
+                <label className="upload-label">
+                  📷
+                  <input
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={handleImageChange}
+                  />
+                </label>
+                <button onClick={handlePostSubmit}>Post</button>
+              </div>
+            </div>
+          )}
+        </>
       )}
-      
 
+      <div className="community-tabs">
+        <button
+          className={activeTab === "posts" ? "active" : ""}
+          onClick={() => setActiveTab("posts")}
+        >
+          Posts
+        </button>
+        <button
+          className={activeTab === "gallery" ? "active" : ""}
+          onClick={() => setActiveTab("gallery")}
+        >
+          Gallery
+        </button>
+      </div>
+      
+      {activeTab === "posts" && (
       <div className="community-posts">
         {posts.length === 0 ? (
           <p>No posts yet</p>
         ) : (
           posts.map((post) => (
             <div key={post._id} className="post-card">
-              <div className="post-header">
-                <Link to={`/user/${post.author._id}`} className="author-name">
-                  <strong>{post.author.name}</strong>
-                </Link>
-                <span>{new Date(post.createdAt).toLocaleString()}</span>
+              <div className="post-image-container">
+                {post.image?.url && (
+                  <img src={post.image.url} alt="Post" className="post-img" />
+                )}
               </div>
-              <p>{post.text}</p>
-              {post.image?.url && (
-                <img src={post.image.url} alt="Post" className="post-img" />
-              )}
-              <div className="post-action">
-                <button
-                  onClick={() => handleLike(post._id)}
-                  className={`like-btn ${
-                    post.likes.includes(currentUserId) ? "liked" : ""
-                  }`}
-                >
-                  <FontAwesomeIcon
-                    icon={
-                      post.likes.includes(currentUserId)
-                        ? solidHeart
-                        : regularHeart
-                    }
-                    className="heart-icon"
-                  />
-                  {post.likes.length}
-                </button>
-                <button
-                  onClick={() =>
-                    setCommentInput((prev) => ({
-                      ...prev,
-                      [post._id]: !prev[post._id],
-                    }))
-                  }
-                >
-                  💬 {post.comments.length}
-                </button>
-              </div>
+              
+              <div className="post-content">
+                {(post.author?._id === currentUserId || isCreator) && (
+                  <button
+                    className="delete-post-btn"
+                    onClick={() => handleDeletePost(post._id)}
+                  >
+                    Delete
+                  </button>
+                )}
 
-              {commentInput[post._id] && (
-                <div className="comment-box">
-                  <input
-                    type="text"
-                    placeholder="Add a comment..."
-                    value={commentInput[`${post._id}_text`] || ""}
-                    onChange={(e) =>
+                {post.text && <p className="post-text">{post.text}</p>}
+                <span className="post-time">{new Date(post.createdAt).toLocaleString()}</span>
+                
+                <div className="post-actions">
+                  <button
+                    onClick={() => handleLike(post._id)}
+                    className={`action-btn ${
+                      post.likes.includes(currentUserId) ? "liked" : ""
+                    }`}
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        post.likes.includes(currentUserId)
+                          ? solidHeart
+                          : regularHeart
+                      }
+                      className="heart-icon"
+                    />
+                    {post.likes.length}
+                  </button>
+                  <button className="action-btn"
+                    onClick={() =>
                       setCommentInput((prev) => ({
                         ...prev,
-                        [`${post._id}_text`]: e.target.value,
+                        [post._id]: !prev[post._id],
                       }))
                     }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        const text = commentInput[`${post._id}_text`]?.trim();
-                        if (text) {
-                          handleComment(post._id, text);
-                          setCommentInput((prev) => ({
-                            ...prev,
-                            [`${post._id}_text`]: "",
-                          }));
-                        }
-                      }
-                    }}
-                  />
-                  <button
-                    onClick={() => {
-                      const text = commentInput[`${post._id}_text`]?.trim();
-                      if (text) {
-                        handleComment(post._id, text);
-                        setCommentInput((prev) => ({
-                          ...prev,
-                          [`${post._id}_text`]: "",
-                        }));
-                      }
-                    }}
-                    disabled={!commentInput[`${post._id}_text`]?.trim()}
                   >
-                    Send
+                    💬 {post.comments.length}
                   </button>
                 </div>
-              )}
 
-              {post.comments?.length > 0 && (
-                <div className="comments-list">
-                  {post.comments.map((cmt, index) => (
-                    <div className="comment-item" key={index}>
-                      <Link
-                        to={`/user/${cmt.author?._id}`}
-                        className="comment-author"
-                      >
-                        <strong>{cmt.author?.name || "User"}</strong>
-                      </Link>{" "}
-                      {cmt.text}
+                <div className="comment-section">
+                  {post.comments?.length > 0 && (
+                    <div className="comments-list">
+                      {(showAllComments[post._id] ? post.comments : post.comments.slice(0, 1)).map((cmt, index) => (
+                        <div className="comment-item" key={index}>
+                          {renderProfileIcon(cmt.author)}
+                          <div className="comment-content">
+                            <Link
+                              to={`/user/${cmt.author?._id}`}
+                              className="comment-author"
+                            >
+                              {cmt.author?.name || "User"}
+                            </Link>
+                            <span className="comment-text">{cmt.text}</span>
+                          </div>
+                        </div>
+                      ))}
+                      
+                      {post.comments.length > 1 && (
+                        <button
+                          className="view-comments-btn"
+                          onClick={() => toggleComments(post._id)}
+                        >
+                          {showAllComments[post._id] 
+                            ? "View less comments"
+                            : `View ${post.comments.length - 1} more comment${post.comments.length - 1 === 1 ? '' : 's'}`
+                          }
+                        </button>
+                      )}
                     </div>
-                  ))}
+                  )}
+
+                  {commentInput[post._id] && (
+                    <div className="comment-box">
+                      <input
+                        type="text"
+                        className="comment-input"
+                        placeholder="Add a comment..."
+                        value={commentInput[`${post._id}_text`] || ""}
+                        onChange={(e) =>
+                          setCommentInput((prev) => ({
+                            ...prev,
+                            [`${post._id}_text`]: e.target.value,
+                          }))
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            const text = commentInput[`${post._id}_text`]?.trim();
+                            if (text) {
+                              handleComment(post._id, text);
+                              setCommentInput((prev) => ({
+                                ...prev,
+                                [`${post._id}_text`]: "",
+                              }));
+                            }
+                          }
+                        }}
+                      />
+                      <button
+                        className="comment-btn"
+                        onClick={() => {
+                          const text = commentInput[`${post._id}_text`]?.trim();
+                          if (text) {
+                            handleComment(post._id, text);
+                            setCommentInput((prev) => ({
+                              ...prev,
+                              [`${post._id}_text`]: "",
+                            }));
+                          }
+                        }}
+                        disabled={!commentInput[`${post._id}_text`]?.trim()}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           ))
         )}
       </div>
+      )}
+
+      {activeTab === "gallery" && (
+        <div className="community-gallery">
+          <p>Gallery feature coming soon...</p>
+        </div>
+      )}
     </div>
   );
 };
