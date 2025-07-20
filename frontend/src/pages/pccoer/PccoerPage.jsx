@@ -45,13 +45,6 @@ const PccoerPage = () => {
 
   return (
     <div className="pccoer-page" style={{ paddingTop: "95px" }}>
-      {/* Hero Banner */}
-      <section className="hero-banner">
-        <div className="hero-content">
-          <h1>PCCoER Hub</h1>
-          <p>Discover exciting events and vibrant communities at PCCoER</p>
-        </div>
-      </section>
 
       {/* Navigation Tabs */}
       <div className="tab-container">
@@ -162,7 +155,7 @@ const PccoerPage = () => {
                       navigate("/pccoer/gallery");
                     }}
                   >
-                    <FaImages /> View Gallery
+                    <FaImages /> Gallery
                   </button>
                 </div>
               </div>
