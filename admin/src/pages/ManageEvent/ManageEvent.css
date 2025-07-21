@@ -1,87 +1,91 @@
-/* ManageEvent.css */
-
-/* General page layout */
-.results-page {
-  background: #f8faff;
-  min-height: 100vh;
-  padding-bottom: 48px;
-  font-family: "Segoe UI", Arial, sans-serif;
+.winner-section {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
 }
 
-.ant-typography {
-  color: #273043;
-}
-
-.ant-card {
-  border-radius: 18px !important;
-  box-shadow: 0 4px 24px rgba(44, 128, 254, 0.08);
-}
-
-.ant-spin-dot-item {
-  background-color: #3d77df !important;
-}
-
-/* Winners row */
-.ant-row {
-  margin-bottom: 0;
-}
-
-.ant-card .ant-typography {
-  margin: 0;
-}
-
-.ant-avatar {
-  border: 3px solid #ffffffff;
-  box-shadow: 0 2px 8px rgba(42, 95, 190, 0.12);
-}
-
-.ant-card .ant-typography + .ant-typography {
-  margin-top: 6px;
-}
-
-/* Winner Card custom header */
-.crown-icon {
-  display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 4px;
-}
-
-/* Chart Card */
-.ant-card .recharts-responsive-container {
-  margin-top: 18px;
-}
-
-.recharts-legend-item-text {
-  font-size: 14px !important;
-  color: #374151 !important;
-}
-
-.recharts-tooltip-label {
-  font-weight: 500;
-  color: #3270c6;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .results-page {
-    padding: 8px;
-    max-width: 100vw;
-  }
-  .ant-card {
-    padding: 10px !important;
-    min-width: unset;
-  }
-  .ant-avatar {
-    width: 60px !important;
-    height: 60px !important;
-  }
-}
-
-/* Utility styles */
-.text-center {
+.winner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px 20px; /* reduced bottom padding */
+  border-radius: 20px;
+  background: linear-gradient(145deg, #f9f9f9, #f0f0f0);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
   text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  width: 300px;
+  overflow: hidden;
 }
 
-.bold {
+.winner-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 165, 0, 0.06) 0%, transparent 70%);
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+
+.winner-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
+}
+
+.winner-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  background: rgba(255, 165, 0, 0.08); /* orange tint */
+  color: #ff6011; /* deep orange */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
   font-weight: bold;
+  
+}
+
+.winner-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px; /* reduced space below image */
+  border: 4px solid white;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
+}
+
+.winner-name {
+  font-size: 24px; /* increased font size */
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #222;
+}
+
+.winner-dept {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.winner-votes {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d46b08;
+  background-color: rgba(255, 165, 0, 0.12);
+  padding: 6px 12px;
+  border-radius: 999px;
 }

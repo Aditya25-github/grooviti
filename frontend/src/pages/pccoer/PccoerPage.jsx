@@ -16,7 +16,7 @@ import {
 const PccoerPage = () => {
   const [events, setEvents] = useState([]);
   const [communities, setCommunities] = useState([]);
-  const [activeTab, setActiveTab] = useState("events");
+  const [activeTab, setActiveTab] = useState("communities");
   const { url } = useContext(StoreContext);
   const navigate = useNavigate();
 
@@ -48,12 +48,13 @@ const PccoerPage = () => {
 
       {/* Navigation Tabs */}
       <div className="tab-container">
-        <button
+        {/*<button
           className={`tab-button ${activeTab === "events" ? "active" : ""}`}
           onClick={() => setActiveTab("events")}
         >
           <FaCalendarAlt className="tab-icon" /> Events
         </button>
+        */}
         <button
           className={`tab-button ${
             activeTab === "communities" ? "active" : ""
