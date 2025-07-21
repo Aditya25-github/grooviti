@@ -8,51 +8,52 @@ const teamMembers = [
     name: "Aditya Divate",
     role: "CEO & Founder",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/adi.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/adi.jpg",
   },
   {
     name: "Swaroop Mane",
     role: "CTO",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/swaroop1.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/swaroop1.jpg",
   },
   {
     name: "Saksham Gawande",
     role: "CMO",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/saksham1.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/saksham1.jpg",
   },
   {
     name: "Siddhi Pankhade",
     role: "Lead Developer",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/Siddhi_P.JPG",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/Siddhi_P.JPG",
   },
   {
     name: "Samiksha Ner",
     role: "UI/UX Designer",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/sam.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/sam.jpg",
   },
   {
     name: "Esha Pansare",
     role: "CDO",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/esha.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/esha.jpg",
   },
   {
     name: "Akash Patil",
-    role: "Strategy Head",
+    role: "App Developer",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/akash1.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/akash1.jpg",
   },
   {
     name: "Diksha Waghulde",
     role: "HR",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/refs/heads/main/diksha.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/diksha.jpg",
   },
 ];
+
 
 // Animation Variants
 const containerVariants = {
