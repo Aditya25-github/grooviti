@@ -149,7 +149,6 @@ const Navbar = ({ setShowLogin }) => {
             </div>
           )}
         </div>
-
         <div className="mobile-top-buttons">
           <Link
             to="/cart"
@@ -158,17 +157,18 @@ const Navbar = ({ setShowLogin }) => {
           >
             Go to Cart
           </Link>
+          {token && (
+            <div className="mobile-only">
+              <Link
+                to="/myprofile"
+                onClick={() => setMenuOpen(false)}
+                className={event === "MyProfile" ? "active" : ""}
+              >
+                My Profile
+              </Link>
+            </div>
+          )}
         </div>
-
-        {token && (
-          <Link
-            to="/myprofile"
-            onClick={() => setMenuOpen(false)}
-            className={event === "MyProfile" ? "active" : ""}
-          >
-            My Profile
-          </Link>
-        )}
 
         <Link
           to="/"

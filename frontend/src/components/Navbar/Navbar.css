@@ -442,3 +442,13 @@
   align-items: flex-start;
   gap: 16px;
 }
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-only {
+    display: block;
+  }
+}

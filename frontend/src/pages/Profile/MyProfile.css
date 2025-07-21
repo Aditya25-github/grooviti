@@ -410,26 +410,52 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .profile-container {
+    padding: 10px 2px;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  .profile-header {
+    margin-bottom: 20px;
+  }
+  .cover-photo {
+    height: 120px;
+  }
   .profile-info-section {
     flex-direction: column;
     align-items: flex-start;
-    margin-top: -80px;
+    margin-top: -60px;
+    padding: 0 10px;
   }
-
   .avatar-container {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-right: 0;
   }
-
-  .profile-stats {
-    margin: 20px 0;
+  .profile-avatar {
+    width: 90px;
+    height: 90px;
   }
-
+  .profile-meta h1, .name-input {
+    font-size: 1.2rem;
+  }
   .profile-content {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
-
-  .tabs {
-    overflow-x: auto;
-    white-space: nowrap;
+  .left-column, .right-column {
+    padding: 10px;
+  }
+  .tabs button {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+  }
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  .communities-grid {
+    grid-template-columns: 1fr;
+  }
+  .connections-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }

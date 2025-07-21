@@ -49,12 +49,12 @@ const PccoerPage = () => {
 
       {/* Navigation Tabs */}
       <div className="tab-container">
-        <button
+        {/* <button
           className={`tab-button ${activeTab === "events" ? "active" : ""}`}
           onClick={() => setActiveTab("events")}
         >
           <FaCalendarAlt className="tab-icon" /> Events
-        </button>
+        </button> */}
         <button
           className={`tab-button ${
             activeTab === "communities" ? "active" : ""
