@@ -6,6 +6,11 @@ import { FaVoteYea, FaImages } from "react-icons/fa";
 const OngoingEventDisplay = () => {
   const navigate = useNavigate();
 
+  const handleCardClick = () => {
+    navigate("/pccoer");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   const fresherParty = {
     name: "Freshers Party",
     description: "Vote for Mr. & Mrs. Fresher and celebrate new beginnings!",
@@ -19,11 +24,12 @@ const OngoingEventDisplay = () => {
     <section className="ongoing-event-section">
       <h2>Ongoing Events</h2>
       <div className="ongoing-event-grid">
-        <div className="ongoing-event-card">
+        <div className="ongoing-event-card" >
           <img
             className="ongoing-event-image"
             src={fresherParty.coverImage.url}
             alt={fresherParty.name}
+            onClick={handleCardClick}
           />
           <div className="ongoing-event-details">
             <h3>{fresherParty.name}</h3>
@@ -37,6 +43,7 @@ const OngoingEventDisplay = () => {
               <button
                 className="vote-now-button"
                 onClick={() => {
+                 
                   navigate("/pccoer/vote");
                   window.scrollTo({ top: 0, behavior: "instant" });
                 }}
@@ -46,6 +53,7 @@ const OngoingEventDisplay = () => {
               <button
                 className="gallery-button"
                 onClick={() => {
+                  
                   navigate("/pccoer/gallery");
                   window.scrollTo({ top: 0, behavior: "instant" });
                 }}
