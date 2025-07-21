@@ -14,6 +14,7 @@
 
 .navbar .logo {
   width: 150px;
+  margin-top: 10px;
 }
 
 .navbar-event {
@@ -124,8 +125,9 @@
   cursor: pointer;
   z-index: 101;
   position: fixed;
-  top: 29px;
+  top: 25px;
   right: 30px;
+  margin-bottom: 10px;
 }
 
 .navbar-search-wrapper {
@@ -407,19 +409,36 @@
 
   .mobile-signup-btn {
     position: fixed;
-    top: 20px;
+    top: 18px;
     right: 70px;
     background: tomato;
     color: white;
     border: none;
-    padding: 7px 15px !important;
+    padding: 5px 12px !important;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
   }
 
   .menu-icon {
     right: 20px; /* Adjusted to maintain spacing */
   }
+
+  .navbar-left {
+    gap: 10px;
+  }
+  .menu-icon {
+    margin-bottom: 8px;
+  }
+  .navbar .logo {
+    margin-top: 8px;
+    width: 110px;
+  }
+}
+
+.navbar-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
