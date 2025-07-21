@@ -306,7 +306,7 @@ const Community = () => {
                   </div>
                 </div>
 
-                <div className="card-actions">
+                <div className="cardd-actions">
                   <motion.button
                     className={joined ? "leave-btn" : "join-btn"}
                     onClick={(e) => {

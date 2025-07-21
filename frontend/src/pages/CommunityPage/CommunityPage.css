@@ -18,7 +18,8 @@
 
   --radius-lg: 12px;
   --radius-full: 9999px;
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -1px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
 
   --font-family-base: "FKGroteskNeue", "Inter", sans-serif;
   --font-size-xs: 11px;
@@ -50,7 +51,8 @@
 }
 
 .community-header h2 {
-  font: var(--font-weight-bold) var(--font-size-2xl)/1.2 var(--font-family-base);
+  font: var(--font-weight-bold) var(--font-size-2xl) / 1.2
+    var(--font-family-base);
   margin-top: var(--space-10);
   color: var(--color-black);
 }
@@ -74,8 +76,8 @@
 .community-tabs {
   display: flex;
   justify-content: center;
-  border-top: 1px solid rgba(0,0,0,0.12);
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   margin-top: var(--space-24);
 }
 
@@ -84,7 +86,8 @@
   padding: var(--space-10);
   background: none;
   border: none;
-  font: var(--font-weight-medium) var(--font-size-base)/1 var(--font-family-base);
+  font: var(--font-weight-medium) var(--font-size-base) / 1
+    var(--font-family-base);
   color: var(--color-gray-500);
   cursor: pointer;
   transition: color 0.15s;
@@ -105,7 +108,8 @@
   border: none;
   border-radius: var(--radius-lg);
   cursor: pointer;
-  font: var(--font-weight-medium) var(--font-size-base)/1 var(--font-family-base);
+  font: var(--font-weight-medium) var(--font-size-base) / 1
+    var(--font-family-base);
   transition: background 0.15s;
 }
 
@@ -116,7 +120,7 @@
 /* Post Form */
 .post-form {
   background: var(--color-white);
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   max-width: 600px;
@@ -128,7 +132,7 @@
   width: 100%;
   min-height: 80px;
   padding: var(--space-10) var(--space-12);
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius-lg);
   font-size: var(--font-size-base);
   font-family: var(--font-family-base);
@@ -151,7 +155,8 @@
   padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  font: var(--font-weight-medium) var(--font-size-base)/1 var(--font-family-base);
+  font: var(--font-weight-medium) var(--font-size-base) / 1
+    var(--font-family-base);
   transition: background 0.15s;
 }
 
@@ -166,14 +171,14 @@
   padding: var(--space-8) var(--space-12);
   font-size: var(--font-size-lg);
   cursor: pointer;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius-lg);
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   transition: background 0.25s;
 }
 
 .upload-label:hover {
-  background: rgba(0,0,0,0.08);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .preview-img {
@@ -211,7 +216,7 @@
 /* Post Card */
 .post-card {
   background: var(--color-white);
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   display: flex;
@@ -262,11 +267,11 @@
   align-items: center;
   gap: var(--space-16);
   padding: var(--space-8) 0;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   margin-top: auto;
 }
 
-.action-btn {
+.actioon-btn {
   display: flex;
   align-items: center;
   gap: var(--space-6);
@@ -274,16 +279,17 @@
   background: none;
   border: none;
   cursor: pointer;
-  font: var(--font-weight-semibold) var(--font-size-base)/1 var(--font-family-base);
+  font: var(--font-weight-semibold) var(--font-size-base) / 1
+    var(--font-family-base);
   color: var(--color-black);
   transition: color 0.15s;
 }
 
-.action-btn:hover {
+.actioon-btn:hover {
   color: var(--color-gray-600);
 }
 
-.action-btn.liked {
+.actioon-btn.liked {
   color: #ff3040;
 }
 
@@ -323,7 +329,7 @@
   gap: var(--space-8);
   margin-top: var(--space-8);
   padding-top: var(--space-8);
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .comment-input {
@@ -344,7 +350,8 @@
   background: var(--color-black);
   border: none;
   color: var(--color-white);
-  font: var(--font-weight-semibold) var(--font-size-base)/1 var(--font-family-base);
+  font: var(--font-weight-semibold) var(--font-size-base) / 1
+    var(--font-family-base);
   cursor: pointer;
   padding: var(--space-8);
   border-radius: var(--radius-lg);
@@ -406,48 +413,49 @@
   .community-header {
     padding: var(--space-16);
   }
-  
+
   .community-header img {
     width: 80px;
     height: 80px;
   }
-  
+
   .community-header h2 {
     font-size: var(--font-size-lg);
   }
-  
+
   .community-header p {
     font-size: var(--font-size-sm);
   }
-  
+
   .community-tabs button {
     padding: var(--space-8) var(--space-4);
     font-size: var(--font-size-sm);
   }
-  
+
   .post-content {
     padding: var(--space-8) var(--space-12);
   }
-  
+
   .post-actions {
     gap: var(--space-8);
   }
-  
+
   .comment-box {
     gap: var(--space-4);
   }
-  
+
   .upload-label {
     font-size: var(--font-size-base);
     padding: var(--space-6) var(--space-8);
   }
-  
-  .profile-icon, .default-profile-icon {
+
+  .profile-icon,
+  .default-profile-icon {
     width: 20px;
     height: 20px;
     margin-right: var(--space-6);
   }
-  
+
   .default-profile-icon {
     font-size: var(--space-10);
   }
@@ -470,7 +478,6 @@
   background-color: #c0392b;
 }
 
-
 /* Gallery Styling */
 .community-gallery {
   margin-top: 30px;
@@ -485,7 +492,7 @@
   background: #f8f8f8;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .gallery-upload-form textarea {
@@ -532,7 +539,7 @@
 .gallery-card {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
