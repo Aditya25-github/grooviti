@@ -147,10 +147,10 @@ const LoginPopup = ({ setShowLogin }) => {
           Continue with Mobile OTP
         </button> */}
 
-        <div className="login-popup-condition">
+        {/* <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing, you agree to our Terms and Privacy Policy</p>
-        </div>
+        </div> */}
 
         {currState === "Login" ? (
           <p>

@@ -50,6 +50,11 @@ const App = () => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+
+    // Listen for custom event to open login/signup popup
+    const handleOpenLoginPopup = () => setShowLogin(true);
+    window.addEventListener("open-login-popup", handleOpenLoginPopup);
+    return () => window.removeEventListener("open-login-popup", handleOpenLoginPopup);
   }, []);
 
   return (

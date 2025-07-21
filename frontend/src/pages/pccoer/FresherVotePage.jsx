@@ -28,6 +28,7 @@ const FresherVotePage = () => {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, []);
 
   const fetchData = async () => {
@@ -56,7 +57,7 @@ const FresherVotePage = () => {
 
   const handleVote = async (candidateId, category) => {
     if (!token) {
-      alert("Please login to vote!");
+      window.dispatchEvent(new Event("open-login-popup"));
       return;
     }
 
@@ -76,10 +77,16 @@ const FresherVotePage = () => {
       setSuccessCategory(category);
       setShowSuccess(true);
 
-      // Auto-close success message after 5 seconds
+      // Auto-close success message after 2 seconds
       setTimeout(() => {
         setShowSuccess(false);
-      }, 5000);
+        // Redirect logic after voting
+        if (category === "Mr") {
+          setActiveCategory("Mrs");
+        } else if (category === "Mrs") {
+          setActiveCategory(null);
+        }
+      }, 2000);
     } catch (error) {
       console.error("Error submitting vote:", error);
     }

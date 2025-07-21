@@ -160,6 +160,16 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
         </div>
 
+        {token && (
+          <Link
+            to="/myprofile"
+            onClick={() => setMenuOpen(false)}
+            className={event === "MyProfile" ? "active" : ""}
+          >
+            My Profile
+          </Link>
+        )}
+
         <Link
           to="/"
           onClick={() => {
