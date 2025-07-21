@@ -132,7 +132,7 @@ const PccoerPage = () => {
             {/* Fresher Party Special Card */}
             <div className="fresher-card">
               <div className="card-image-container">
-                <img src="/images/fresher-party.jpg" alt="Fresher Party" />
+                <img src="/images/freshersParty.PNG" alt="Fresher Party" />
               </div>
               <div className="card-content">
                 <h3>
@@ -145,6 +145,7 @@ const PccoerPage = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate("/pccoer/vote");
+                      window.scrollTo({ top: 0, behavior: "instant" });
                     }}
                   >
                     <FaVoteYea /> Vote Now
@@ -154,6 +155,7 @@ const PccoerPage = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate("/pccoer/gallery");
+                      window.scrollTo({ top: 0, behavior: "instant" });
                     }}
                   >
                     <FaImages /> Gallery
