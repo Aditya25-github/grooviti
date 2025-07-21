@@ -6,6 +6,10 @@
   transition: 0.3s;
   animation: fadeIn 1s;
   background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
 }
 
 .event-item:hover {
@@ -15,11 +19,17 @@
 
 .event-item-image {
   width: 100%;
-  border-radius: 15px 0px 0px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
 }
 
 .event-item-info {
   padding: 20px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .event-item-name-rating {
@@ -70,6 +80,7 @@
 
 .event-item-img-container {
   position: relative;
+  flex: 0 0 auto;
 }
 
 .event-item-img-container .add {
@@ -85,7 +96,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: auto;
 }
 .event-item-location {
   font-size: 16px;
