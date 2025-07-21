@@ -8,7 +8,7 @@ const Header = () => {
     navigate("/event");
   };
   return (
-    <div style={{ paddingTop: "102px" }}>
+    <div style={{ paddingTop: "80px" }}>
       <div className="header">
         <div className="header-overlay" />
         <div className="header-contents">

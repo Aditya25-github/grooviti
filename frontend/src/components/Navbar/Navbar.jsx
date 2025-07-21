@@ -101,18 +101,21 @@ const Navbar = ({ setShowLogin }) => {
         </button>
       )}
 
-      <div
-        className={`menu-icon ${menuOpen ? "open" : ""}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <div className="line"></div>
-        <div className="line"></div>
-        <div className="line"></div>
-      </div>
+      {/* Flex container for menu icon and logo for alignment */}
+      <div className="navbar-left">
+        <div
+          className={`menu-icon ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <div className="line"></div>
+          <div className="line"></div>
+          <div className="line"></div>
+        </div>
 
-      <Link to="/">
-        <img src={assets.logo} alt="logo" className="logo" />
-      </Link>
+        <Link to="/">
+          <img src={assets.logo} alt="logo" className="logo" />
+        </Link>
+      </div>
 
       <ul className={`navbar-event ${menuOpen ? "active" : ""}`}>
         <div className="mobile-search-bar">
