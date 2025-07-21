@@ -9,7 +9,7 @@ const OngoingEventDisplay = () => {
   const fresherParty = {
     name: "Freshers Party",
     description: "Vote for Mr. & Mrs. Fresher and celebrate new beginnings!",
-    endDate: "2025-08-10T23:59:59Z",
+    endDate: "2025-07-21T23:59:59Z",
     coverImage: {
       url: "/images/freshersParty.PNG",
     },
@@ -28,7 +28,11 @@ const OngoingEventDisplay = () => {
           <div className="ongoing-event-details">
             <h3>{fresherParty.name}</h3>
             <p>{fresherParty.description}</p>
-            <p>Ends on: {new Date(fresherParty.endDate).toLocaleDateString()}</p>
+            <p>Ends on: {new Date(fresherParty.endDate).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}</p>
             <div className="ongoing-event-buttons">
               <button
                 className="vote-now-button"
