@@ -10,25 +10,26 @@ import {
   Legend,
   Cell,
 } from "recharts";
-import { CrownOutlined } from "@ant-design/icons";
+import Confetti from "react-confetti";
+import { useWindowSize } from "@react-hook/window-size";
 import "./ManageEvent.css";
 
 const { Title, Text } = Typography;
 
 const categoryColors = {
-  Mr: "#4386f4",
-  Mrs: "#f441a5",
+  Mr: "#f98d6f",
+  Mrs: "#ffcc98",
 };
 
 const getCategoryLabel = (cat) =>
   cat === "Mr" ? "Mr. Fresher" : "Ms. Fresher";
 
-// ✅ Accept `url` as prop like in AddCandidate
 const ManageEvent = ({ url }) => {
   const [candidates, setCandidates] = useState([]);
   const [winners, setWinners] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
     async function fetchResults() {
@@ -53,7 +54,7 @@ const ManageEvent = ({ url }) => {
       }
     }
     fetchResults();
-  }, [url]); // Re-run if url changes
+  }, [url]);
 
   const chartData = candidates.map((c) => ({
     name: c.name,
@@ -66,11 +67,27 @@ const ManageEvent = ({ url }) => {
   return (
     <div
       className="results-page"
-      style={{ maxWidth: 900, margin: "32px auto", padding: 24 }}
+      style={{ maxWidth: 900, margin: "32px auto", padding: "24px 16px" }}
     >
-      <Title level={2} style={{ textAlign: "center", marginBottom: 16 }}>
-        Fresher Party Results
-      </Title>
+      {/* 🎉 Confetti on winner load */}
+      {winners.mr && winners.mrs && (
+        <Confetti width={width} height={height} numberOfPieces={300} recycle={false} />
+      )}
+
+      <Title
+  level={2}
+  style={{
+    textAlign: "center",
+    marginBottom: 16,
+    color: "#000000", // Black text
+    fontSize: "33px",
+    fontWeight: 700,
+    fontFamily: "'Poppins', 'Segoe UI', sans-serif",
+  }}
+>
+  Fresher Party Results
+</Title>
+
 
       {loading ? (
         <Spin
@@ -83,55 +100,29 @@ const ManageEvent = ({ url }) => {
       ) : (
         <>
           {/* Winners */}
-          <Row gutter={24} style={{ marginBottom: 32 }}>
-            {["mr", "mrs"].map((key) => {
+          <Row gutter={[24, 24]} className="winner-section">
+            {[
+              { key: "mr", label: "Mr. Fresher" },
+              { key: "mrs", label: "Ms. Fresher" },
+            ].map(({ key, label }) => {
               const winner = winners[key];
+
               return (
-                <Col xs={24} md={12} key={key}>
-                  <Card
-                    bordered={false}
-                    style={{
-                      background:
-                        key === "mr"
-                          ? "linear-gradient(90deg, #e3f0ff 0%, #b2c9ff 100%)"
-                          : "linear-gradient(90deg, #fff0f6 0%, #ffb2c9 100%)",
-                      textAlign: "center",
-                      boxShadow: "0 2px 18px 2px rgba(64,128,254,0.08)",
-                    }}
-                  >
-                    <CrownOutlined
-                      style={{
-                        fontSize: 28,
-                        color: categoryColors[winner?.category || "Mr"],
-                      }}
-                    />
-                    <Title level={4} style={{ margin: "15px 0 5px 0" }}>
-                      {key === "mr"
-                        ? "Mr. Fresher Winner"
-                        : "Ms. Fresher Winner"}
-                    </Title>
+                <Col key={key}>
+                  <Card bordered={false} className="winner-card">
+                    <div className="winner-header">{label}</div>
                     {winner ? (
                       <>
                         <Avatar
                           src={winner.image}
-                          size={84}
-                          style={{ margin: "12px auto" }}
+                          size={120}
+                          className="winner-avatar"
                         />
-                        <Text
-                          style={{
-                            display: "block",
-                            fontSize: 18,
-                            fontWeight: 600,
-                          }}
-                        >
-                          {winner.name}
-                        </Text>
-                        <div style={{ fontSize: 16, color: "#383838" }}>
-                          Votes: <b>{winner.votes}</b>
-                        </div>
-                        <Text type="secondary" style={{ fontSize: 13 }}>
+                        <div className="winner-name">{winner.name}</div>
+                        <div className="winner-dept">
                           Department: {winner.department}
-                        </Text>
+                        </div>
+                        <div className="winner-votes">Votes: {winner.votes}</div>
                       </>
                     ) : (
                       <Text>No winner in this category yet.</Text>
@@ -142,7 +133,7 @@ const ManageEvent = ({ url }) => {
             })}
           </Row>
 
-          {/* Vote Distribution Chart */}
+          {/* Vote Chart */}
           <Card
             style={{
               marginTop: 16,
@@ -157,13 +148,13 @@ const ManageEvent = ({ url }) => {
               <BarChart
                 data={chartData}
                 layout="vertical"
-                margin={{ left: 32 }}
+                margin={{right: 0 }}
               >
                 <XAxis type="number" allowDecimals={false} />
-                <YAxis dataKey="name" type="category" width={130} />
+                <YAxis dataKey="name" type="category" width={90} />
                 <Tooltip formatter={(val) => [val, "Votes"]} />
                 <Legend />
-                <Bar dataKey="votes" name="Votes" isAnimationActive>
+                <Bar dataKey="votes" name="Votes" isAnimationActive radius={[0, 10, 10, 0]}>
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}

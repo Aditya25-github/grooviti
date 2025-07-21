@@ -11,6 +11,7 @@ import ListButton from "../../components/ListButton/ListButton";
 import Feedback from "../../components/Feedback/Feedback";
 import FAQ from "../../components/FAQ/FAQ";
 import AnimateOnScroll from "../../components/AnimateOnScroll/AnimateOnScroll";
+import OngoingEventDisplay from "../../components/OngoingEventDisplay/OngoingEventDisplay";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -82,6 +83,14 @@ const Home = () => {
           animate="visible"
         >
           <ExploreEvents category={category} setCategory={setCategory} />
+        </motion.div>
+
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <OngoingEventDisplay />
         </motion.div>
 
         <motion.div
