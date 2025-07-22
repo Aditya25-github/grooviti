@@ -113,9 +113,8 @@ const ManageEvent = ({ url }) => {
                     <div className="winner-header">{label}</div>
                     {winner ? (
                       <>
-                        <Avatar
+                        <img
                           src={winner.image}
-                          size={120}
                           className="winner-avatar"
                         />
                         <div className="winner-name">{winner.name}</div>
