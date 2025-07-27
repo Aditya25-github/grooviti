@@ -31,8 +31,8 @@ export const createPost = async (req, res) => {
       community: req.params.id,
     });
 
-    const populatedPost = await post.populate("author", "name");
-
+    const populatedPost = await post.populate("author", "_id name profileImage");
+    
     res.status(201).json({ success: true, post: populatedPost });
   } catch (err) {
     console.error("Create post error:", err);
@@ -48,6 +48,7 @@ export const getCommunityPosts = async (req, res) => {
 
     const posts = await postModel.find({ community: id })
       .populate("author", "name profileImage")
+      .populate("comments.author", "name profileImage")
       .sort({ createdAt: -1 });
 
     res.json({ success: true, posts });
@@ -95,8 +96,12 @@ export const likePost = async (req, res) => {
 // ✅ Comment on a post
 export const commentOnPost = async (req, res) => {
   const { postId } = req.params;
-  const userId = req.userId;
+  const userId = req.user?.id;
   const { text } = req.body;
+
+  if (!userId) {
+  return res.status(401).json({ success: false, message: "Unauthorized: Missing userId" });
+}
 
   try {
     const user = await userModel.findById(userId).select("name profileImage");
@@ -106,7 +111,7 @@ export const commentOnPost = async (req, res) => {
     }
 
     const commentObj = {
-      user: user._id,
+      author: user._id,
       text,
       createdAt: new Date(),
     };
@@ -114,8 +119,11 @@ export const commentOnPost = async (req, res) => {
     post.comments.push(commentObj);
     await post.save();
 
+    const savedComment = post.comments[post.comments.length - 1];
+
     // Emit comment with extra author info as expected by frontend
     const formattedComment = {
+      _id: savedComment._id, 
       text,
       createdAt: commentObj.createdAt,
       author: {
@@ -164,5 +172,38 @@ export const deletePost = async (req, res) => {
   } catch (err) {
     console.error("Delete post error:", err);
     res.status(500).json({ success: false, message: "Failed to delete post" });
+  }
+};
+
+
+export const deleteComment = async (req, res) => {
+  const { postId, commentId } = req.params;
+  const userId = req.user?.id;
+  const userEmail = req.user?.email;
+
+  try {
+    const post = await postModel.findById(postId);
+    const community = await communityModel.findById(post.community);
+
+    if (!post) return res.status(404).json({ success: false, message: "Post not found" });
+
+    const comment = post.comments.id(commentId);
+    if (!comment) return res.status(404).json({ success: false, message: "Comment not found" });
+
+    const isCommentCreator = comment.author.toString() === userId;
+    const isCommunityHost = community.createdBy.toString() === userId;
+
+    if (!isCommentCreator && !isCommunityHost) {
+      return res.status(403).json({ success: false, message: "Unauthorized to delete this comment" });
+    }
+
+    post.comments = post.comments.filter(c => c._id.toString() !== commentId);
+    await post.save();
+
+
+    res.json({ success: true, message: "Comment deleted" });
+  } catch (err) {
+    console.error("Delete Comment Error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };

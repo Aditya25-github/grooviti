@@ -11,6 +11,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CommunityPage = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ const CommunityPage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const currentUserId = user?._id;
   const socket = io(url);
+  const navigate = useNavigate();
   const isCreator =
     community?.createdBy &&
     community.createdBy._id?.toString() === currentUserId?.toString();
@@ -137,10 +139,22 @@ const CommunityPage = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (res.data.success) {
+        const newComment = res.data.comment;
+
+        // Update the posts state immediately
+        setPosts((prev) =>
+          prev.map((post) =>
+            post._id === postId
+              ? { ...post, comments: [...post.comments, newComment] }
+              : post
+          )
+        );
+
         socket.emit("newComment", {
           postId,
           comment: res.data.comment,
         });
+        toast.success("Comment added!");
       }
     } catch (err) {
       console.error(err);
@@ -180,6 +194,7 @@ const CommunityPage = () => {
         setImage(null);
         setPreview(null);
         toast.success("Post added");
+        setPosts(prev => [res.data.post, ...prev]);
         socket.emit("newPost", res.data.post);
       }
     } catch (err) {
@@ -198,7 +213,8 @@ const CommunityPage = () => {
       });
       if (res.data.success) {
         toast.success("Community deleted");
-        window.location.href = "/communities"; // or use navigate("/communities")
+        console.log("Navigating to /communities"); // DEBUG
+        navigate("/community");
       }
     } catch (err) {
       console.error(err);
@@ -285,6 +301,34 @@ const CommunityPage = () => {
       toast.error("Error uploading media");
     }
   };
+
+
+  const handleDeleteComment = async (postId, commentId) => {
+  if (!window.confirm("Delete this comment?")) return;
+  try {
+    const res = await axios.delete(
+      `${url}/api/community/${id}/post/${postId}/comment/${commentId}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (res.data.success) {
+      toast.success("Comment deleted");
+      setPosts((prev) =>
+        prev.map((post) =>
+          post._id === postId
+            ? {
+                ...post,
+                comments: post.comments.filter((cmt) => cmt._id !== commentId),
+              }
+            : post
+        )
+      );
+    }
+  } catch (err) {
+    console.error("Delete comment failed",err);
+    toast.error("Failed to delete comment");
+  }
+};
+
 
   if (!community) return <div>Loading...</div>;
 
@@ -377,6 +421,7 @@ const CommunityPage = () => {
                 </div>
 
                 <div className="post-content">
+                
                   {(post.author?._id === currentUserId || isCreator) && (
                     <button
                       className="delete-post-btn"
@@ -438,6 +483,16 @@ const CommunityPage = () => {
                                 {cmt.author?.name || "User"}
                               </Link>
                               <span className="comment-text">{cmt.text}</span>
+                            </div>
+                            <div className="comment-actions">
+                              {(cmt.author?._id === currentUserId || isCreator) && (
+                                <button
+                                  className="delete-comment-btn"
+                                  onClick={() => handleDeleteComment(post._id, cmt._id)}
+                                >
+                                  Delete
+                                </button>
+                              )}
                             </div>
                           </div>
                         ))}

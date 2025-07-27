@@ -1,7 +1,7 @@
 import express from "express";
 import {
   createPost, getCommunityPosts, likePost,
-  commentOnPost, deletePost
+  commentOnPost, deletePost, deleteComment
 } from "../controllers/postController.js";
 import {
   getAllCommunities,
@@ -32,6 +32,12 @@ router.post("/:id/post/:postId/like", authMiddleware, likePost);
 router.post("/:id/post/:postId/comment", authMiddleware, commentOnPost);
 router.delete("/:id/post/:postId", authMiddleware, deletePost);
 router.delete("/:id", authMiddleware, deleteCommunity);
+router.delete(
+  "/:id/post/:postId/comment/:commentId",
+  authMiddleware,
+  deleteComment
+);
+
 
 // ✅ Gallery upload route
 router.post("/:id/gallery/upload", authMiddleware, upload.single("media"), uploadGalleryMedia);
