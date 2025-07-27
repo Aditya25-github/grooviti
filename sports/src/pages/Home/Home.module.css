@@ -1,0 +1,130 @@
+.homepage {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fb;
+    color: #222;
+  }
+  
+  .sportsHeader {
+    padding: 60px 20px 20px;
+    text-align: center;
+  }
+  
+  .sportsHeader h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .sportsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px;
+  }
+  
+  .sportCard {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 160px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .sportCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+  
+  .sportCard img {
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    object-fit: cover;
+  }
+  
+  .sportCard p {
+    padding: 12px 0;
+    font-weight: 600;
+  }
+  
+  /* Footer */
+  .footer {
+    color: #ffffff;
+    background-color: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 8vw;
+    padding-top: 80px;
+    margin-top: 100px;
+  }
+  
+  .footerContent {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 80px;
+  }
+  
+  .footerContentLeft,
+  .footerContentCenter,
+  .footerContentRight {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+  }
+  
+  .footerContentCenter h2,
+  .footerContentRight h2 {
+    color: white;
+  }
+  
+  .logo {
+    width: 150px;
+  }
+  
+  .footerSocialIcons img {
+    width: 40px;
+    margin-right: 15px;
+  }
+  
+  .footerContentCenter li,
+  .footerContentRight li {
+    list-style: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .footerContentRight a,
+  .footerContentRight li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  
+  .footer hr {
+    width: 100%;
+    height: 2px;
+    margin: 20px 0;
+    background-color: #333;
+    border: none;
+  }
+  
+  .footerCopyright {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  /* Responsive */
+  @media (max-width: 750px) {
+    .footerContent {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+  }

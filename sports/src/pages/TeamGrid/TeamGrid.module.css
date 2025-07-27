@@ -1,0 +1,87 @@
+.meetTeam {
+  margin-top: 50px;
+  padding-bottom: 20px;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.teamCard {
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  color: black;
+}
+
+.teamCard:hover {
+  transform: translateY(-10px);
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.teamScrollWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+}
+
+@media screen and (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .teamGrid {
+    display: flex;
+    gap: 1px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .teamCard {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 75%;
+    max-width: 80%;
+  }
+
+  .teamScrollWrapper::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1.2fr;
+  }
+}
+
+.teamCard img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.textSm {
+  color: #ff6347;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.textLg {
+  font-weight: 600;
+  font-size: 20px;
+}
