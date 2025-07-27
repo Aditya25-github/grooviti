@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 
 // Components
+
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import LoginPopup from "./components/LoginPage/LoginPopup";

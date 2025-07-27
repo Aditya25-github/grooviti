@@ -18,5 +18,8 @@ const slotSchema = new mongoose.Schema({
   price: Number,
 });
 
-export const Turf = mongoose.model('Turf', turfSchema);
-export const Slot = mongoose.model('Slot', slotSchema);
+
+export const turf = mongoose.model('Turf', turfSchema);
+export const slot = mongoose.model('Slot', slotSchema);
+
+export default { turf, slot };
