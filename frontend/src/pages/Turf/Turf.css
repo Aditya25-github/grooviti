@@ -1,0 +1,16 @@
+.turf-page {
+    padding: 20px;
+}
+
+.turf-list {
+    margin-top: 20px;
+}
+
+.turf-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.turf-item h2 {
+    margin: 0 0 10px;
+}

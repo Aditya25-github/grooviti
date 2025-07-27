@@ -45,6 +45,8 @@ const App = () => {
   const location = useLocation();
   // useLenis();
 
+  useLenis();
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {

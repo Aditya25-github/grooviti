@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "multer": "^1.4.5-lts.2",
     "sitemap": "^8.0.0"
   }

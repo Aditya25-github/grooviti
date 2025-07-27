@@ -97,6 +97,13 @@ app.use("/api/community", communityRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
 
+/////////////////////////SPORTS////////////////////////
+import turfRouter from "./routes/sports/turfRoute.js";
+import sportsRouter from "./routes/sports/sportsRoute.js"; // Assuming you have a sportsRoute.js file
+
+app.use("/api/sports" , sportsRouter); // Assuming turfRouter is defined in your routes
+app.use("/api/sports/turf", turfRouter); // Use the turfRouter for turf-related routes
+
 // ==============================
 // ✅ Test / Utility Routes
 // ==============================
