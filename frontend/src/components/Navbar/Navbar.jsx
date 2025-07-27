@@ -190,6 +190,9 @@ const Navbar = ({ setShowLogin }) => {
         >
           Events
         </Link>
+        <a href="/sports">
+          Sports
+        </a>
         <Link
           to="/community"
           onClick={() => {
