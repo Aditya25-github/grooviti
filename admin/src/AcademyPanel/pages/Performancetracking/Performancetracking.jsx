@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./PerformanceTracking.module.css";
+import styles from "./Performancetracking.module.css";
 
 const PerformanceTracking = () => {
   const [selectedBatch, setSelectedBatch] = useState("All Students");
