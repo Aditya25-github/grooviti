@@ -46,7 +46,7 @@ const Navbar = () => {
       {/* Rest of your JSX remains exactly the same */}
       <div className={styles.container}>
         <div className={styles.logo}>
-          <a href="/" aria-label="Go to home">
+          <a href="https://grooviti.com/" aria-label="Go to home">
             <img src={logo} alt="Grooviti Logo" className={styles.logo} />
           </a>
         </div>
