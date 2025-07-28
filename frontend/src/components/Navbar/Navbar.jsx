@@ -190,9 +190,7 @@ const Navbar = ({ setShowLogin }) => {
         >
           Events
         </Link>
-        <a href="/sports">
-          Sports
-        </a>
+        <a href="https://grooviti-sports.onrender.com">Sports</a>
         <Link
           to="/community"
           onClick={() => {
