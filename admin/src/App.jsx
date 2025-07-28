@@ -1,46 +1,203 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Add from "./pages/Add/Add";
-import List from "./pages/List/List";
-import Orders from "./pages/Orders/Orders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./components/Navbar/Navbar";
-import Sidebar from "./components/SideBar/SideBar";
-import Login from "./components/Login/Login";
-import Statistics from "./pages/Statistics/Statistics";
-import MyPlan from "./pages/MyPlans/MyPlan";
-import Settings from "./pages/Settings/Settings";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Footer from "./components/Footer/Footer";
+
 import { StoreContext } from "./context/StoreContext";
-import ManageEvent from "./pages/ManageEvent/ManageEvent";
-import AddCandidate from "./pages/AddCandidate/AddCandidate";
+import ProtectedRoute from "./EventOrganizerPanel/components/ProtectedRoute";
+
+// Sidebars
+import SideBar from "./EventOrganizerPanel/components/SideBar/SideBar";
+import AcademySideBar from "./AcademyPanel/components/AcademySideBar/AcademySideBar";
+
+// Navbars (role-specific)
+import AcademyNavbar from "./AcademyPanel/components/AcademyNavbar/AcademyNavbar";
+import EventNavbar from "./EventOrganizerPanel/components/EventNavbar/Navbar";
+import TurfNavbar from "./TurfOwnerPanel/components/TurfNavbar/TurfNavbar";
+
+// Footers (role-specific)
+import AcademyFooter from "./AcademyPanel/components/AcademyFooter/AcademyFooter";
+import Footer from "./EventOrganizerPanel/components/Footer/Footer";
+import TurfFooter from "./TurfOwnerPanel/components/TurfFooter/TurfFooter";
+
+// Public Pages
+import LoginTypeSelector from "./LandingPage/pages/LoginOption/LoginTypeSelector";
+import TurfLogin from "./TurfOwnerPanel/pages/TurfLogin/TurfLogin";
+import EventHostLogin from "./EventOrganizerPanel/components/Login/EventHostLogin";
+import AcademyLogin from "./AcademyPanel/pages/AcademyLogin/AcademyLogin";
+
+// Academy Pages
+import Dashboard from "./AcademyPanel/pages/Dashboard/Dashboard";
+import AttendanceManagement from "./AcademyPanel/pages/AttendanceManagment/AttendanceManagment";
+import FeeCollection from "./AcademyPanel/pages/FeeCollection/FeeCollection";
+import PaymentTracking from "./AcademyPanel/pages/PaymentTracking/PaymentTracking";
+import BatchSchedule from "./AcademyPanel/pages/BatchSchedule/BatchSchedule";
+import CoachStaffRole from "./AcademyPanel/pages/CoachStaffRole/CoachStaffRole";
+import StudentOnboarding from "./AcademyPanel/pages/StudentOnboarding/StudentOnboarding";
+import PerformanceTracking from "./AcademyPanel/pages/Performancetracking/Performancetracking";
+import Reports from "./AcademyPanel/pages/Reports/Reports";
+import AcademySettings from "./AcademyPanel/pages/AcademySettings/AcademySettings";
+
+// Turf Owner Pages
+import DashboardPage from "./EventOrganizerPanel/pages/OwnerDashboard/DashboardPage/DashboardPage";
+import BookingListPage from "./EventOrganizerPanel/pages/OwnerDashboard/BookingListPage/BookingListPage";
+import AddTurf from "./EventOrganizerPanel/pages/AddTurf/AddTurf";
+import List from "./EventOrganizerPanel/pages/List/List";
+
+// Event Host Pages
+import ManageEvent from "./EventOrganizerPanel/pages/ManageEvent/ManageEvent";
+import AddCandidate from "./EventOrganizerPanel/pages/AddCandidate/AddCandidate";
+import Add from "./EventOrganizerPanel/pages/Add/Add";
+import MyPlan from "./EventOrganizerPanel/pages/MyPlans/MyPlan";
+import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
+import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
+import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
   const location = useLocation();
-  const isLoginPage = location.pathname === "/";
-  const { token, admin, loading } = useContext(StoreContext);
+  const { token, userRole, loading } = useContext(StoreContext);
+
+  const isLoginPage =
+    location.pathname === "/" ||
+    location.pathname === "/login/event" ||
+    location.pathname === "/login/turf" ||
+    location.pathname === "/login/academy";
 
   if (loading) return null;
+
+  const renderSideBar = () => {
+    if (isLoginPage) return null;
+    if (userRole === "academy") return <AcademySideBar />;
+    if (userRole === "eventHost") return <SideBar />;
+    return null; // turfOwner or others
+  };
+
+  const renderNavbar = () => {
+    if (isLoginPage) return null;
+    if (userRole === "academy") return <AcademyNavbar url={url} />;
+    if (userRole === "eventHost") return <EventNavbar url={url} />;
+    if (userRole === "turfOwner") return <TurfNavbar url={url} />;
+    return null;
+  };
+
+  const renderFooter = () => {
+    if (isLoginPage) return null;
+    if (userRole === "academy") return <AcademyFooter />;
+    if (userRole === "eventHost") return <Footer />;
+    if (userRole === "turfOwner") return <TurfFooter />;
+    return null;
+  };
 
   return (
     <div>
       <ToastContainer />
-      <Navbar url={url} />
-      <hr />
-
+      {renderNavbar()}
       <div className="app-content">
-        {!isLoginPage && <Sidebar />}
-
+        {renderSideBar()}
         <Routes key={token}>
-          <Route path="/" element={<Login url={url} />} />
+          {/* Public Routes */}
+          <Route path="/" element={<LoginTypeSelector url={url} />} />
+          <Route path="/login/event" element={<EventHostLogin url={url} />} />
+          <Route path="/login/turf" element={<TurfLogin url={url} />} />
+          <Route path="/login/academy" element={<AcademyLogin url={url} />} />
+
+          {/* Academy Owner Routes */}
           <Route
-            path="/add"
+            path="/academy/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <Dashboard url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/attendance"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <AttendanceManagement url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/fee-collection"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <FeeCollection url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/payment-tracking"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <PaymentTracking url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/batch-schedule"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <BatchSchedule url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/coach-staff"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <CoachStaffRole url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/student-onboarding"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <StudentOnboarding url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/performance-tracking"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <PerformanceTracking url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/reports"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <Reports url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/academy/academy-settings"
+            element={
+              <ProtectedRoute allowedRoles={["academy"]}>
+                <AcademySettings url={url} />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Turf Owner Routes */}
+          <Route
+            path="/dashboardpage"
             element={
               <ProtectedRoute>
-                <Add url={url} />
+                <DashboardPage url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addturf"
+            element={
+              <ProtectedRoute>
+                <AddTurf url={url} />
               </ProtectedRoute>
             }
           />
@@ -53,10 +210,28 @@ const App = () => {
             }
           />
           <Route
+            path="/bookinglist"
+            element={
+              <ProtectedRoute>
+                <BookingListPage url={url} />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Event Organizer Routes */}
+          <Route
             path="/manage-event"
             element={
               <ProtectedRoute>
                 <ManageEvent url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <ProtectedRoute>
+                <Add url={url} />
               </ProtectedRoute>
             }
           />
@@ -102,7 +277,7 @@ const App = () => {
           />
         </Routes>
       </div>
-      <Footer />
+      {renderFooter()}
     </div>
   );
 };

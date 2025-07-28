@@ -1,0 +1,82 @@
+.dashboardContainer {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.summaryCards {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  flex: 1;
+  background-color: #f7f9fc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.card:hover {
+  box-shadow: 0 0 14px rgb(0 0 0 / 0.2);
+}
+
+.card h2 {
+  font-size: 2.4rem;
+  margin-bottom: 0.3rem;
+  color: #0a74da;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #444;
+}
+
+.quickLinks {
+  margin-top: 2rem;
+}
+
+.quickLinks h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.linksGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.actionBtn {
+  background-color: #0a74da;
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1 1 180px;
+  transition: background-color 0.3s ease;
+}
+
+.actionBtn:hover {
+  background-color: #065ea8;
+}

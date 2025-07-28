@@ -1,0 +1,338 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f9fc;
+  padding: 20px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Flip Card Setup */
+.flipCard {
+  perspective: 1000px;
+  width: 400px;
+  max-width: 95vw;
+  height: auto;
+  min-height: 600px; /* Ensure consistent height */
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardFace {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+}
+
+.cardFront {
+  transform: rotateY(0deg);
+}
+
+/* Login Card Content */
+.loginCard {
+  background: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 16px 0 12px 0;
+  border-radius: 1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: left;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #ff6000; /* Using your theme color */
+  outline: none;
+  box-shadow: 0 0 4px rgba(255, 96, 0, 0.3);
+}
+
+.rememberForgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 8px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.rememberLabel {
+  cursor: pointer;
+  user-select: none;
+}
+
+.forgotPassword {
+  color: #ff6000;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.forgotPassword:hover {
+  color: #e55a00;
+}
+
+.loginButton {
+  margin-top: 10px;
+  padding: 12px 0;
+  background-color: #ff6000; /* Your theme color */
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  width: 100%;
+}
+
+.loginButton:hover {
+  background-color: #e55a00;
+}
+
+.socialLogin {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.orDivider {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.orDivider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #ddd;
+}
+
+.orText {
+  background: white;
+  padding: 0 12px;
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #ddd;
+  background-color: white;
+  color: #444;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.socialButton:hover {
+  background-color: #fff5f0;
+  border-color: #ff6000;
+  color: #ff6000;
+}
+
+.socialIcon {
+  font-size: 1.2rem;
+}
+
+.footerLinks {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signupText {
+  font-weight: 500;
+}
+
+.signupLink {
+  color: #ff6000;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.signupLink:hover {
+  color: #e55a00;
+  text-decoration: underline;
+}
+
+.backLink {
+  color: #ff6000;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #e55a00;
+  text-decoration: underline;
+}
+
+.backIcon {
+  font-size: 1.3rem;
+  vertical-align: middle;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .flipCard {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .loginCard {
+    padding: 24px 20px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .socialButtons {
+    flex-direction: column;
+  }
+
+  .socialButton {
+    width: 100%;
+  }
+}

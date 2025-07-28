@@ -1,0 +1,384 @@
+.addTurfPage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff8f5 0%, #ffefe8 100%);
+  padding: 2rem;
+  width: 100%;
+}
+
+.addTurfContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(255, 96, 0, 0.1);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6000;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.formGroup label:after {
+  content: " *";
+  color: #ff4d4f;
+  opacity: 0;
+}
+
+.formGroup label[for="name"]:after,
+.formGroup label[for="coverImage"]:after,
+.formGroup label[for="address"]:after {
+  opacity: 1;
+}
+
+input,
+select,
+textarea {
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 100%;
+  transition: all 0.2s ease;
+  background-color: #fafafa;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ff6000;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 96, 0, 0.2);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.featuresGroup {
+  grid-column: 1 / -1;
+}
+
+.featuresBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.featureTag {
+  padding: 0.5rem 1rem;
+  background-color: #fff5f0;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #ffe0d2;
+}
+
+.featureTag:hover {
+  background-color: #ffebe0;
+}
+
+.featureTag.active {
+  background-color: #ff6000;
+  color: white;
+  border-color: #ff6000;
+}
+
+.checkIcon {
+  font-size: 0.8rem;
+}
+
+.dropzone {
+  border: 2px dashed #ffd1b8;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #fffaf7;
+}
+
+.dropzone:hover {
+  border-color: #ff6000;
+  background-color: #fff5f0;
+}
+
+.dropzone p {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.dropzone em {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.uploadIcon {
+  font-size: 1.5rem;
+  color: #ff6000;
+  margin-bottom: 0.5rem;
+}
+
+.hasImage {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.imagePreview {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeImage {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 96, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.removeImage:hover {
+  background-color: rgba(255, 96, 0, 1);
+}
+
+.galleryPreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.galleryThumbnail {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ffe0d2;
+}
+
+.galleryThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mapContainer {
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid #ffe0d2;
+}
+
+.locationDetails {
+  background-color: #fff5f0;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ffd1b8;
+}
+
+.locationDetails p {
+  margin: 0.25rem 0;
+  color: #555;
+}
+
+.submitButton {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #ff6000, #ff8000);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 200px;
+  box-shadow: 0 4px 12px rgba(255, 96, 0, 0.2);
+}
+
+.submitButton:hover {
+  background: linear-gradient(to right, #ff8000, #ff6000);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 96, 0, 0.3);
+}
+
+.submitButton:disabled {
+  background: #ffd1b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.buttonLoader {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.addressInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.addressIcon {
+  position: absolute;
+  left: 1rem;
+  color: #ff6000;
+}
+
+.addressInputContainer input {
+  padding-left: 2.5rem !important;
+}
+
+.locationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.useLocationButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #fff5f0;
+  border: 1px solid #ffd1b8;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ff6000;
+}
+
+.useLocationButton:hover {
+  background-color: #ffebe0;
+}
+
+.useLocationButton:disabled {
+  background-color: #f0f0f0;
+  opacity: 0.7;
+  cursor: not-allowed;
+  color: #999;
+  border-color: #e0e0e0;
+}
+
+.useLocationButton.error {
+  background-color: #ffebee;
+  border-color: #ffcdd2;
+  color: #f44336;
+}
+
+.locationErrorHint {
+  font-size: 0.75rem;
+  color: #f44336;
+  margin-left: 0.5rem;
+}
+
+.formFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.requiredHint {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .addTurfPage {
+    padding: 1rem;
+  }
+
+  .addTurfContainer {
+    padding: 1.5rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}

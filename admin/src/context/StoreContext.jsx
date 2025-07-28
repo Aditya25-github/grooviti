@@ -5,15 +5,27 @@ export const StoreContext = createContext(null);
 export const StoreContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [admin, setAdmin] = useState(false);
+  const [userRole, setUserRole] = useState(""); // NEW
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("adminToken");
-    const storedEmail = localStorage.getItem("eventHost");
+    // Retrieve userType from localStorage (matches frontend login code)
+    const userType = localStorage.getItem("userType");
 
-    if (storedToken && storedEmail) {
+    // Retrieve token based on userType
+    let storedToken = null;
+    if (userType === "academy") {
+      storedToken = localStorage.getItem("academyToken");
+    } else if (userType === "eventHost") {
+      storedToken = localStorage.getItem("eventHostToken");
+    } else if (userType === "turfOwner") {
+      storedToken = localStorage.getItem("turfOwnerToken");
+    }
+
+    if (storedToken && userType) {
       setToken(storedToken);
-      setAdmin(true);
+      setUserRole(userType);
+      setAdmin(userType === "admin"); // if you have an admin userType
     }
 
     setLoading(false);
@@ -21,7 +33,15 @@ export const StoreContextProvider = ({ children }) => {
 
   return (
     <StoreContext.Provider
-      value={{ token, setToken, admin, setAdmin, loading }}
+      value={{
+        token,
+        setToken,
+        admin,
+        setAdmin,
+        loading,
+        userRole,
+        setUserRole,
+      }}
     >
       {!loading && children}
     </StoreContext.Provider>

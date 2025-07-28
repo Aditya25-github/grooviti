@@ -309,7 +309,7 @@ const FresherVotePage = () => {
               <FaCrown />
             </motion.div>
             <h1>Fresher Party 2025</h1>
-            <p>Cast your vote for Mr and Mrs Fresher of PCCOE&R</p>
+            <p>Cast your vote for Mr and Ms Fresher of PCCOE&R</p>
             <div className="header-divider"></div>
           </motion.header>
 
