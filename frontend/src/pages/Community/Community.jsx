@@ -308,7 +308,7 @@ const Community = () => {
 
                 <div className="cardd-actions">
                   <motion.button
-                    className={joined ? "leave-btn" : "join-btn"}
+                    className={joined ? "leave-btn" : "joooin-btn"}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleJoinLeave(community._id, joined);

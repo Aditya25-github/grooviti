@@ -604,3 +604,40 @@
   cursor: pointer;
   margin-left: 10px;
 }
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.post-author-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-author-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-author-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-author-name {
+  font-weight: 600;
+  padding-left: 13px;
+}

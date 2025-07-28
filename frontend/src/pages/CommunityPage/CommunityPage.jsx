@@ -413,7 +413,25 @@ const CommunityPage = () => {
             <p>No posts yet</p>
           ) : (
             posts.map((post) => (
+              
               <div key={post._id} className="post-card">
+                <div className="post-header">
+                  <Link to={`/user/${post.author._id}`} className="post-author-link">
+                    {post.author.profileImage?.url ? (
+                      <img
+                        src={post.author.profileImage.url}
+                        alt={post.author.name}
+                        className="post-author-img"
+                      />
+                    ) : (
+                      <div className="post-author-img">
+                        <FontAwesomeIcon icon={faUser} />
+                      </div>
+                    )}
+                    <span className="post-author-name">{post.author.name}</span>
+                  </Link>
+                </div>
+
                 <div className="post-image-container">
                   {post.image?.url && (
                     <img src={post.image.url} alt="Post" className="post-img" />
