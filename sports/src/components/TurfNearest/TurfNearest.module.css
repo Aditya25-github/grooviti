@@ -1,0 +1,135 @@
+.container {
+    
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+  }
+  
+  .sectionTitle {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-size: 30px;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  .venuesContainer {
+    display: flex;
+    gap: 5rem;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .venuesContainer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .venueCard {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    min-width: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .venueCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .imageContainer {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  .venueImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .venueContent {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .venueName {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  .venueDescription {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  
+  .venueFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+  
+  .venuePrice {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4CAF50;
+  }
+  
+  .bookButton {
+    background-color: #00796B;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+  }
+  
+  .bookButton:hover {
+    background-color: #004D40;
+  }
+  
+  @media (max-width: 768px) {
+    .venuesContainer {
+      gap: 20px;
+    }
+    
+    .venueCard {
+      min-width: 280px;
+    }
+    
+    .imageContainer {
+      height: 160px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .venueCard {
+      min-width: 260px;
+    }
+    
+    .imageContainer {
+      height: 140px;
+    }
+    
+    .sectionTitle {
+      font-size: 22px;
+    }
+  }

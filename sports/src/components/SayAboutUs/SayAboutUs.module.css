@@ -1,0 +1,185 @@
+/* SayAboutUs.module.css */
+
+.section {
+    padding: 2rem 0;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .container {
+    position: relative;
+    width: 1440px;
+    overflow:hidden;
+    padding: 1rem 0;
+  }
+  
+  /* Add to your SayAboutUs.module.css */
+
+/* Add to your SayAboutUs.module.css */
+
+.scrollContainer {
+    display: flex;
+    gap: 2.5rem;
+    padding: 1rem 0;
+    will-change: transform, filter, opacity;
+  }
+  
+  .card {
+    min-width: 150px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+
+  }
+  /* ... (rest of your CSS styles from previous implementation) */
+
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #2e7d32, #2e7d32);
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+  
+  .name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a365d;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 0.3rem;
+  }
+  
+  .starFilled {
+    color: #f59e0b;
+    font-size: 1.3rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .starEmpty {
+    color: #e2e8f0;
+    font-size: 1.3rem;
+  }
+  
+  .comment {
+    color: #4a5568;
+    line-height: 1.7;
+    font-style: italic;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .comment::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -0.5rem;
+    font-size: 2.5rem;
+    color: rgba(46, 125, 50, 0.2);
+    font-family: serif;
+    line-height: 1;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .section {
+      padding: 4rem 0;
+    }
+    
+    .card {
+      min-width: 320px;
+      padding: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .scrollContainer {
+      gap: 2rem;
+    }
+    
+    .card {
+      min-width: 300px;
+      padding: 1.75rem;
+    }
+    
+    .name {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .section {
+      padding: 3.5rem 0;
+    }
+    
+    .title {
+      font-size: 1.75rem;
+    }
+    
+    .card {
+      min-width: 280px;
+      padding: 1.5rem;
+    }
+    
+    .comment {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .scrollContainer {
+      gap: 1.5rem;
+    }
+    
+    .card {
+      min-width: 260px;
+      padding: 1.25rem;
+    }
+    
+    .name {
+      font-size: 1.1rem;
+    }
+    
+    .starFilled,
+    .starEmpty {
+      font-size: 1.1rem;
+    }
+  }

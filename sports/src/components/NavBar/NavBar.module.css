@@ -1,20 +1,28 @@
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  background: rgba(255,255,255,0.18);        /* Glassy effect */
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  padding: 1.5rem 0;
+  transition: all 0.2s ease-out;
+}
+
+.navbar.scrolled {
+  background: transparent;
   backdrop-filter: blur(16px) saturate(186%);
   -webkit-backdrop-filter: blur(16px) saturate(186%);
   border-bottom: 1px solid rgba(220, 220, 220, 0.31);
   box-shadow: 0 8px 32px 0 rgba(27, 38, 44, 0.12);
-  padding: 1rem 0;
-  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  padding: 0.8rem 0;
 }
-.navbar.scrolled {
-  background: rgba(255,255,255,0.26);
-  box-shadow: 0 8px 32px 0 rgba(27, 38, 44, 0.16);
-  padding: 0.6rem 0;
-}
+
+/* Rest of your existing CSS remains the same */
 
 .container {
   display: flex;
@@ -36,15 +44,15 @@
 .logo a {
   display: flex;
   align-items: center;
-  font-size: 1.7rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #3B82F6;
+  color: #ffffff;
   text-decoration: none;
   line-height: 1;
 }
 .logo img {
-  height: 2.5rem;
-  width: auto;
+  height: rem;
+  width: 140px;
   margin-right: 0.45rem;
   display: block;
 }
@@ -58,7 +66,7 @@
   position: relative;
   font-size: 1rem;
   font-weight: 500;
-  color: #4b5563;
+  color: #ffffff;
   background: none;
   border: none;
   text-decoration: none;
@@ -86,7 +94,7 @@
 .navLink:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
 .navLink:hover span:last-child, .navLink:focus span:last-child { width: 100%; }
 .navLink.active, .mobileNavLink.active {
-  color: #2563eb;
+  color: #4b37ff;
   font-weight: 700;
 }
 .navLink.active span:last-child, .mobileNavLink.active { width: 100%; background: #2563eb; }

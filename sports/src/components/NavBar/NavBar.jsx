@@ -18,14 +18,17 @@ const Navbar = () => {
   const [activePath, setActivePath] = useState(getActivePath());
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    const handleHash = () => setActivePath(getActivePath());
-    window.addEventListener('hashchange', handleHash);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hashchange', handleHash);
+    const handleScroll = () => {
+      // Calculate scroll percentage (0-100)
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 10000;
+      
+      // Set visibility threshold (e.g., 10% of page scrolled)
+      const visibilityThreshold = 10; // Percentage of page to scroll before showing navbar
+      setScrolled(scrollPercent > visibilityThreshold);
     };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -33,10 +36,11 @@ const Navbar = () => {
       className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
       role="navigation"
       aria-label="Main Navigation"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2 }}
     >
+      {/* Rest of your JSX remains exactly the same */}
       <div className={styles.container}>
         <div className={styles.logo}>
           <a href="/" aria-label="Go to home">

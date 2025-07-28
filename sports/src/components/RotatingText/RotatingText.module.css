@@ -1,0 +1,98 @@
+/* RotatingText.module.css */
+.rotateContainer {
+  display: inline-flex;
+  align-items: center;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.staticText {
+  display: inline;
+  font-size: inherit;
+}
+
+.rotatingWordContainer {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  height: 1em;
+}
+
+.rotatingWord {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}/* RotatingText.module.css */
+.rotateContainer {
+  display: inline-flex;
+  align-items: center;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.staticText {
+  display: inline;
+  font-size: inherit;
+}
+
+.rotatingWordContainer {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  height: 1em;
+}
+
+.rotatingWord {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+.wordContainer {
+  display: inline-flex;
+}
+
+.linesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.charElement {
+  display: inline-block;
+}
+
+.spaceElement {
+  white-space: pre;
+}

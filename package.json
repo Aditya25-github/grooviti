@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.526.0",
     "multer": "^1.4.5-lts.2",
     "sitemap": "^8.0.0"
   }

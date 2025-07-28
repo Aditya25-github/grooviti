@@ -1,151 +1,59 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import logo from "../../assets/sports_assets/logo.png"; // Directly import the logo
-import { motion } from "framer-motion";
-import {
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-  FaHome,
-  FaFootballBall,
-  FaInfoCircle,
-  FaEnvelope,
-  FaPhone,
-  FaShieldAlt
-} from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <motion.footer
-      className={styles.footer}
-      id="footer"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <div className={styles.footerContent}>
-        <motion.div
-          className={styles.footerContentLeft}
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          <img className={styles.logo} src={logo} alt="Grooviti Logo" /> {/* Use the imported logo */}
-          {/* Rest of your code remains the same */}
-          <p className={styles.tagline}>BOOK IT. GROOVE IT. LIVE IT.</p>
-          <p className={styles.description}>
-            Your premier destination for sports event bookings and unforgettable experiences.
-          </p>
-          <div className={styles.footerSocialIcons}>
-            <motion.a
-              href="https://www.instagram.com/grooviti/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              aria-label="Instagram"
-            >
-              <FaInstagram className={styles.icon} />
-            </motion.a>
-
-            <motion.a
-              href="https://www.linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin className={styles.icon} />
-            </motion.a>
-
-            <motion.a
-              href="https://x.com/Groov_iti"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              aria-label="Twitter"
-            >
-              <FaTwitter className={styles.icon} />
-            </motion.a>
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.brand}>
+            <h1 className={styles.title}>Grooviti</h1>
+            <p className={styles.description}>
+              Your ultimate destination for sports venue booking and academy enrollment.
+            </p>
+            <div className={styles.socials}>
+              <a href="#" className={styles.socialLink} aria-label="Instagram">
+                <FaInstagram className={styles.socialIcon} />
+              </a>
+              <a href="#" className={styles.socialLink} aria-label="LinkedIn">
+                <FaLinkedin className={styles.socialIcon} />
+              </a>
+              <a href="#" className={styles.socialLink} aria-label="Twitter">
+                <FaTwitter className={styles.socialIcon} />
+              </a>
+            </div>
           </div>
-        </motion.div>
 
-        <motion.div
-          className={styles.footerContentCenter}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          <h2 className={styles.sectionTitle}>COMPANY</h2>
-          <ul className={styles.navLinks}>
-            <li>
-              <FaHome className={styles.navIcon} />
-              <span>Home</span>
-            </li>
-            <li>
-              <FaFootballBall className={styles.navIcon} />
-              <span>Sports</span>
-            </li>
-            <li>
-              <FaInfoCircle className={styles.navIcon} />
-              <span>About Us</span>
-            </li>
-            <li>
-              <FaEnvelope className={styles.navIcon} />
-              <span>Contact Us</span>
-            </li>
-            <li>
-              <FaShieldAlt className={styles.navIcon} />
-              <span>Privacy Policy</span>
-            </li>
-          </ul>
-        </motion.div>
-
-        <motion.div
-          className={styles.footerContentRight}
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
-          <h2 className={styles.sectionTitle}>GET IN TOUCH</h2>
-          <ul className={styles.contactInfo}>
-            <li>
-              <FaPhone className={styles.contactIcon} style={{ transform: 'scaleX(-1)' }} />
-              <a href="tel:+919404571327">+91 940-457-1327</a>
-            </li>
-            <li>
-              <FaEnvelope className={styles.contactIcon} />
-              <a href="mailto:groov.iti25@gmail.com">groov.iti25@gmail.com</a>
-            </li>
-          </ul>
-        </motion.div>
-      </div>
-
-      <hr className={styles.divider} />
-      <motion.div
-        className={styles.footerBottom}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-      >
-        <p className={styles.footerCopyright}>
-          Copyright &copy; {new Date().getFullYear()} grooviti.com - All Rights Reserved.
-        </p>
-        <div className={styles.legalLinks}>
-          <a href="#">Terms of Service</a>
-          <span>|</span>
-          <a href="#">Privacy Policy</a>
-          <span>|</span>
-          <a href="#">Cookie Policy</a>
+          <div className={styles.links}>
+            <div className={styles.linksColumn}>
+              <h2 className={styles.linksHeading}>Quick Links</h2>
+              <div className={styles.linkList}>
+                <a href="#" className={styles.linkItem}>Home</a>
+                <a href="Venues" className={styles.linkItem}>Venues</a>
+                <a href="academy" className={styles.linkItem}>Academies</a>
+                <a href="AboutUs" className={styles.linkItem}>About Us</a>
+              </div>
+            </div>
+            <div className={styles.linksColumn}>
+              <h2 className={styles.linksHeading}>&nbsp;</h2>
+              <div className={styles.linkList}>
+                <a href="#" className={styles.linkItem}>Help Center</a>
+                <a href="#" className={styles.linkItem}>Contact Us</a>
+                <a href="#" className={styles.linkItem}>Privacy Policy</a>
+                <a href="#" className={styles.linkItem}>Terms of Service</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </motion.div>
-    </motion.footer>
+
+        <div className={styles.divider}></div>
+
+        <div className={styles.copyright}>
+          © 2024 Grooviti. All rights reserved.
+        </div>
+      </div>
+    </footer>
   );
 };
 

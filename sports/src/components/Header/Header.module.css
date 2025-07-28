@@ -1,0 +1,232 @@
+/* Header Wrapper */
+.headerWrapper {
+    margin-top: 5rem;
+    width: 100%;
+    padding: 20px 0;
+    /* background: linear-gradient(135deg, #00813c 0%, #f1f1f1 100%); */
+    background-color: transparent;
+    position: relative;
+  }
+  
+  /* Carousel Container */
+  .carouselContainer {
+    max-width: 1350px;
+    margin: 0 auto;
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    touch-action: pan-y;
+    background-color: white;
+  }
+  
+  /* Carousel Card */
+  .carouselCard {
+    margin-left: 8rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 0px;
+    background: white;
+    opacity: 0;
+    transition: all 0.5s ease;
+    transform: translateX(100%);
+  }
+  
+  .carouselCard.active {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 1;
+  }
+  
+  .cardContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+  }
+  
+  /* Card Content */
+  .cardTitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    text-align: left;
+  }
+  
+  .cardDescription {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #7f8c8d;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-start;
+   
+
+  }
+  
+  .cardButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 9rem;
+  }
+  
+  .cardButton:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+  }
+  
+  /* Arrows */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .arrow:hover {
+    background-color: white;
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  .arrowLeft {
+    left: 25px;
+  }
+  
+  .arrowRight {
+    right: 25px;
+  }
+  
+  .arrowIcon {
+    color: #2c3e50;
+    font-size: 1.5rem;
+  }
+  
+  /* Indicators */
+  .carouselIndicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+  
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .activeIndicator {
+    background-color: white;
+    transform: scale(1.2);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .carouselContainer {
+      height: 300px;
+    }
+    
+    .carouselCard {
+      padding: 0 60px;
+    }
+    
+    .cardTitle {
+      font-size: 1.8rem;
+    }
+  
+    .cardDescription {
+      font-size: 1rem;
+    }
+    
+    .arrow {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .arrowIcon {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .headerWrapper {
+      padding: 30px 0;
+    }
+    
+    .carouselContainer {
+      height: 250px;
+      border-radius: 0;
+    }
+    
+    .carouselCard {
+      padding: 0 30px;
+    }
+    
+    .cardTitle {
+      font-size: 1.5rem;
+    }
+    
+    .cardDescription {
+      font-size: 0.9rem;
+    }
+    
+    .cardButton {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+    
+    .arrow {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .arrowIcon {
+      font-size: 1rem;
+    }
+    
+    .arrowLeft {
+      left: 15px;
+    }
+    
+    .arrowRight {
+      right: 15px;
+    }
+  }

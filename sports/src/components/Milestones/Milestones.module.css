@@ -1,0 +1,176 @@
+.milestones {
+    background: transparent;
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .milestones::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+    color: #2c3e50;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #a5d6a7, #2e7d32);
+    border-radius: 3px;
+  }
+  
+  .statsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .statCard {
+    background: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 250px;
+    transition: all 0.3s ease;
+    box-shadow: 
+      0 4px 6px rgba(46, 125, 50, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    border-top: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .statCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #a5d6a7, #2e7d32);
+  }
+  
+  .statCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 10px 20px rgba(46, 125, 50, 0.15),
+      0 6px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .statNumber {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2e7d32;
+    line-height: 1;
+  }
+  
+  .statLabel {
+    font-size: 1.1rem;
+    color: #424242;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Minimal animation */
+  .statCard:hover .statNumber {
+    animation: pulse 1.5s ease infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .statsContainer {
+      flex-wrap: wrap;
+    }
+    
+    .statCard {
+      min-width: 180px;
+      max-width: 180px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .milestones {
+      padding: 4rem 0;
+    }
+    
+    .title {
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .statsContainer {
+      gap: 1rem;
+    }
+    
+    .statCard {
+      min-width: 160px;
+      max-width: 160px;
+      padding: 2rem 1rem;
+    }
+    
+    .statNumber {
+      font-size: 2.8rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .statsContainer {
+      grid-template-columns: repeat(2, 1fr);
+      display: grid;
+    }
+    
+    .statCard {
+      min-width: auto;
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.8rem;
+    }
+    
+    .statNumber {
+      font-size: 2.2rem;
+    }
+    
+    .statLabel {
+      font-size: 1rem;
+    }
+  } 

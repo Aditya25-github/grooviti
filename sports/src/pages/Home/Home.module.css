@@ -1,131 +1,192 @@
 .homepage {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fb;
-    color: #222;
-    padding-top: 3rem;
-  }
-  
-  .sportsHeader {
-    padding: 60px 20px 20px;
-    text-align: center;
-  }
-  
-  .sportsHeader h2 {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .sportsContainer {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
     justify-content: center;
-    gap: 24px;
-    padding: 20px;
+    background-color: rgb(11, 0, 26);
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 1440px;
+  height:700px;
+margin-top: 5rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding-top: 0rem;
+  padding-bottom: 1rem;
+  background: transparent;
+}
+
+.heroTitle {
+  color: #fff;
+  margin-top: 9rem;
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  text-align: center;
+  font-family:'Courier New', Courier, monospace;
+  position: relative;
+}
+.heroSubtitle span {
+    display: inline;
+  }
+.heroSubtitle {
+  color: #fff;
+  margin-top: 2rem;
+  font-size: 4.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.shiny-text {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+  }
+
+.heroSlogan {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+  text-align: center;
+  margin-top: 7rem;
+  
+}
+/* Add these new rules at the BOTTOM of your Home.module.css */
+
+.rotatingText {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: inherit;
+    font-family: 'Courier New', Courier, monospace;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    
   }
   
-  .sportCard {
-    background-color: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    width: 160px;
+  .rotatingTextSplit {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  /* Ensure the rotating text inherits heroTitle styles */
+  .heroTitle .rotatingText {
+    font-size: 6rem;
+    font-weight: 800;
+    letter-spacing: 0px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+/* Sports Section */
+.sportsSection {
+    padding: 2rem;
+    margin-top: 2rem;
     text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .sportCard:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  }
-  
-  .sportCard img {
-    width: 100%;
-    height: 200px;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    object-fit: cover;
-  }
-  
-  .sportCard p {
-    padding: 12px 0;
-    font-weight: 600;
-  }
-  
-  /* Footer */
-  .footer {
-    color: #ffffff;
-    background-color: #1e1e1e;
+}
+
+.sportsHeading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.sportsContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5rem;
+    padding: 0 1rem;
+}
+
+.sportCard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 20px 8vw;
-    padding-top: 80px;
-    margin-top: 100px;
-  }
-  
-  .footerContent {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
-    gap: 80px;
-  }
-  
-  .footerContentLeft,
-  .footerContentCenter,
-  .footerContentRight {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 20px;
-  }
-  
-  .footerContentCenter h2,
-  .footerContentRight h2 {
-    color: white;
-  }
-  
-  .logo {
-    width: 150px;
-  }
-  
-  .footerSocialIcons img {
-    width: 40px;
-    margin-right: 15px;
-  }
-  
-  .footerContentCenter li,
-  .footerContentRight li {
-    list-style: none;
-    margin-bottom: 10px;
     cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 120px;
+    height: 120px;
+    background-color: #e0f7fa;
+    justify-content: center;
+}
+
+.sportCard:hover {
+    transform: scale(1.05);
+}
+
+.sportIcon {
+    font-size: 2rem;
+    color: #00796b;
+}
+
+.sportName {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sportsContainer {
+        gap: 1.5rem;
+    }
+    
+    .sportsHeading {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sportsContainer {
+        gap: 1rem;
+    }
+    
+    .sportIcon {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+  .heroSection {
+    min-height: 28vh;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
   }
-  
-  .footerContentRight a,
-  .footerContentRight li a {
-    color: white;
-    text-decoration: none;
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  .heroSlogan {
     font-size: 0.95rem;
   }
-  
-  .footer hr {
-    width: 100%;
-    height: 2px;
-    margin: 20px 0;
-    background-color: #333;
-    border: none;
-  }
-  
-  .footerCopyright {
-    font-size: 0.9rem;
-    text-align: center;
-  }
-  
-  /* Responsive */
-  @media (max-width: 750px) {
-    .footerContent {
-      display: flex;
-      flex-direction: column;
-      gap: 35px;
-    }
-  }
+}
