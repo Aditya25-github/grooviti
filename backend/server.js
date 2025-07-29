@@ -101,7 +101,7 @@ app.use("/api/academy", academyRoutes);
 
 
 /////////////////////////SPORTS////////////////////////
-import turfRoutes from "./routes/Turf/turfRoutes.js";
+import turfRoutes from "./routes/sports/turfRoute.js";
 
 app.use("/api/academy", academyRoutes);
 app.use("/api/turfs", turfRoutes);
