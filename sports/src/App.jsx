@@ -9,6 +9,8 @@ import Aurora from './components/Aurora/Aurora';
 // Pages
 import Home from './pages/Home/Home';
 import AboutUs from './pages/AboutUs/AboutUs';
+import Venues from './pages/Venues/venues';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/Venues" element={<Venues/>}/>
       </Routes>
       <Footer />
     </div>

@@ -4,13 +4,13 @@ import styles from "./NavBar.module.css";
 import logo from "../../assets/sports_assets/logo.png";
 
 const navLinks = [
-  { name: "Home", path: "#" },
-  { name: "Turfs", path: "#turfs" },
-  { name: "Play Together", path: "#communities" },
-  { name: "Academy", path: "#academy" },
+  { name: "Home", path: "/" },
+  { name: "Venues", path: "/Venues" },
+  { name: "Play Together", path: "/communities" },
+  { name: "Academy", path: "/academy" },
 ];
 
-const getActivePath = () => window.location.hash || "#";
+const getActivePath = () => window.location.hash || "/";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
