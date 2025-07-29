@@ -20,6 +20,7 @@ import reviewRouter from "./routes/ReviewRoute.js";
 import communityRoutes from "./routes/communityRoutes.js";
 import cloudinary from "./utils/cloudinary.js";
 import pccoerRoutes from "./routes/pccoerRoutes.js";
+import academyRoutes from "./routes/Academy/academyRoutes.js"
 
 
 // ==============================
@@ -96,12 +97,12 @@ app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
-
+app.use("/api/academy", academyRoutes);
 
 
 /////////////////////////SPORTS////////////////////////
 import sportsRoutes from "./routes/sports/sportsRoute.js";
-app.use ("/api/sports", sportsRoutes )
+app.use("/api/sports", sportsRoutes)
 
 
 
