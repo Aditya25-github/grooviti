@@ -34,7 +34,7 @@ const AcademyLogin = ({ url }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(url + "/api/academy/login", loginData);
+      const response = await axios.post(`${url}/api/academy/login`, loginData);
       if (response.data.success) {
         setToken(response.data.token);
         setUserRole("academy"); // <-- fixed here
@@ -60,7 +60,7 @@ const AcademyLogin = ({ url }) => {
 
     try {
       const response = await axios.post(
-        url + "/api/academy/register",
+        `${url}/api/academy/register`,
         signupData
       );
       if (response.data.success) {
