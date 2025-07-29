@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
 
-const turfSchema = new mongoose.Schema({
-  name: String,
-  location: String,
-  images: { type: [String], maxCount: 5 },
-  description: String,
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-});
+const turfSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    description: { type: String },
+    pricePerHour: { type: String },
+    turfType: { type: String },
+    features: { type: [String], default: [] },
+    address: { type: String },
+    city: { type: String },
+    state: { type: String },
+    latitude: { type: String },
+    longitude: { type: String },
+    image: { type: String, required: true }, // cover image path
+    galleryImages: [{ type: String }],       // array of gallery image paths
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+  },
+  { timestamps: true }
+);
 
 const slotSchema = new mongoose.Schema({
   turf: { type: mongoose.Schema.Types.ObjectId, ref: 'Turf' },
@@ -18,8 +29,7 @@ const slotSchema = new mongoose.Schema({
   price: Number,
 });
 
+export const Turf = mongoose.model("turfs", turfSchema);
+export const Slot = mongoose.model("slots", slotSchema);
 
-export const turf = mongoose.model('Turf', turfSchema);
-export const slot = mongoose.model('Slot', slotSchema);
-
-export default { turf, slot };
+export default { Turf, Slot };

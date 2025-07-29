@@ -33,6 +33,15 @@ const userStorage = new CloudinaryStorage({
   },
 });
 
+const turfStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "grooviti/turfs",
+    allowed_formats: ["jpg", "jpeg", "png", "webp", "heic", "heif"],
+    transformation: [{ width: 800, height: 500, crop: "limit" }],
+  },
+});
+
 export const uploadOrganizerImage = multer({
   storage: organizerStorage,
   fileFilter,
@@ -41,4 +50,9 @@ export const uploadOrganizerImage = multer({
 export const uploadUserProfileImage = multer({
   storage: userStorage,
   fileFilter,
+});
+
+export const uploadTurfImage = multer({
+  storage: turfStorage,
+  fileFilter,
 });

@@ -1,21 +1,40 @@
-import { addTurf, listTurf } from "../../controllers/sports/turfBookingController.js";
+// backend/routes/turfRoutes.js
 import express from "express";
-const turfRoute = express.Router();
-// Define your turf-related routes here
-turfRoute.get("/", (req, res) => {
-  res.send("Turf API");
-});
+import {
+  createTurf,
+  getAllTurfs,
+  getTurfById,
+  updateTurf,
+  deleteTurf,
+} from "../../controllers/sports/turfController.js";
+import authMiddleware from "../../middleware/auth.js";
+import { uploadTurfImage } from "../../middleware/upload.js";
 
-//admin
-turfRoute.post("/add", addTurf); // Assuming you want to add a turf, adjust as necessary
+const router = express.Router();
 
+router.post(
+  "/",
+  authMiddleware,
+  uploadTurfImage.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "galleryImages", maxCount: 10 },
+  ]),
+  createTurf
+);
 
+router.get("/", getAllTurfs);
+router.get("/:id", getTurfById);
 
-//user
+router.put(
+  "/:id",
+  authMiddleware,
+  uploadTurfImage.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "galleryImages", maxCount: 10 },
+  ]),
+  updateTurf
+);
 
+router.delete("/:id", authMiddleware, deleteTurf);
 
-//for both
-turfRoute.post("/list", listTurf);// Assuming you want to list turfs
-
-
-export default turfRoute;
+export default router;
