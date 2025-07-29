@@ -102,7 +102,7 @@ app.use("/api/academy", academyRoutes);
 
 /////////////////////////SPORTS////////////////////////
 import turfRoutes from "./routes/Turf/turfRoutes.js";
-import academyRoutes from "./routes/Academy/academyRoutes.js";
+
 app.use("/api/academy", academyRoutes);
 app.use("/api/turfs", turfRoutes);
 
