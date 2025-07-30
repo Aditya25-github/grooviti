@@ -25,7 +25,7 @@ function App() {
         <Route path="/venues/:id" element={<VenueDetails />} /> {/* Add this route */}
         <Route path="/academy" element={<Academy />} />
         <Route path="/academy/:id" element={<AcademyDetails />} />
-        <Route path="/communities" element={<PlayTogether />} />
+        <Route path="/playtogether" element={<PlayTogether />} />
       </Routes>
       <Footer />
     </div>
