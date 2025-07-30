@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./AcademySideBar.module.css";
+import { useNavigate } from "react-router-dom";
+import { StoreContext } from "../../../context/StoreContext";
 import {
   FaTachometerAlt,
   FaUserFriends,
@@ -16,6 +18,16 @@ import {
 } from "react-icons/fa";
 
 const AcademySideBar = () => {
+  const navigate = useNavigate();
+  const { setToken, setUserRole } = useContext(StoreContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("academyToken");
+    localStorage.removeItem("userType");
+    setToken(null);
+    setUserRole(null);
+    navigate("/academy/login");
+  };
   return (
     <aside className={styles.sidebar}>
       <div className={styles.owner}>
@@ -144,15 +156,10 @@ const AcademySideBar = () => {
           <FaCog className={styles.icon} />
           <span>Settings</span>
         </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
-          }
-        >
+        <button onClick={handleLogout} className={styles.navLink}>
           <FaSignOutAlt className={styles.icon} />
           <span>Logout</span>
-        </NavLink>
+        </button>
       </footer>
     </aside>
   );

@@ -1,0 +1,501 @@
+.container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.saveBtn,
+.exportBtn,
+.loadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveBtn {
+  background: #10b981;
+  color: white;
+}
+
+.saveBtn:hover {
+  background: #059669;
+}
+
+.exportBtn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.exportBtn:hover {
+  background: #e5e7eb;
+}
+
+.loadBtn {
+  background: #3b82f6;
+  color: white;
+}
+
+.loadBtn:hover {
+  background: #2563eb;
+}
+
+.btnIcon {
+  font-size: 14px;
+}
+
+/* Controls */
+.controlsSection {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dateControl,
+.turfControl {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.controlLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.dateInputWrapper {
+  position: relative;
+}
+
+.dateInput {
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  width: 150px;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dateIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.turfSelect {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  min-width: 200px;
+}
+
+.turfSelect:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.colorAvailable {
+  background: #10b981;
+}
+.colorCash {
+  background: #3b82f6;
+}
+.colorGrooviti {
+  background: #8b5cf6;
+}
+.colorPlayo {
+  background: #f59e0b;
+}
+.colorKhelomore {
+  background: #ef4444;
+}
+.colorBlocked {
+  background: #6b7280;
+}
+
+/* Stats */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  text-align: center;
+  padding: 16px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Slots Section */
+.slotsSection {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.slotCard {
+  padding: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.slotCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.slotTime {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.slotDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bookingSource {
+  font-size: 14px;
+  font-weight: 500;
+  color: inherit;
+}
+
+.customerName {
+  font-size: 12px;
+  color: #666;
+}
+
+.slotAction {
+  text-align: center;
+}
+
+.selectSource {
+  font-size: 14px;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.maintenanceBlock {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.removeBlock {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Slot Status Colors */
+.slotAvailable {
+  background: #10b981;
+  border-color: #059669;
+  color: white;
+}
+
+.slotCash {
+  background: #3b82f6;
+  border-color: #2563eb;
+  color: white;
+}
+
+.slotGrooviti {
+  background: #8b5cf6;
+  border-color: #7c3aed;
+  color: white;
+}
+
+.slotPlayo {
+  background: #f59e0b;
+  border-color: #d97706;
+  color: white;
+}
+
+.slotKhelomore {
+  background: #ef4444;
+  border-color: #dc2626;
+  color: white;
+}
+
+.slotBlocked {
+  background: #6b7280;
+  border-color: #4b5563;
+  color: white;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.modalDesc {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.sourceOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sourceBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sourceBtn:hover {
+  background: #f1f3f4;
+}
+
+.sourceColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.cancelBtn {
+  width: 100%;
+  padding: 10px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cancelBtn:hover {
+  background: #e5e7eb;
+}
+
+/* Bulk Actions */
+.bulkActions {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.bulkTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.bulkButtons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.bulkBtn {
+  padding: 8px 16px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.bulkBtn:hover {
+  background: #e5e7eb;
+  border-color: #10b981;
+  color: #10b981;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controlsSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .slotsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bulkButtons {
+    flex-direction: column;
+  }
+}

@@ -17,7 +17,7 @@ const TurfLogin = ({ url }) => {
     confirmPassword: "",
   });
 
-  const { setToken, setUserType } = useContext(StoreContext);
+  const { setToken, setUserRole } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const handleLoginChange = (e) => {
@@ -31,19 +31,21 @@ const TurfLogin = ({ url }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${url}/api/turf/login`, loginData);
+      const response = await axios.post(`${url}/api/turfs/login`, loginData);
       if (response.data.success) {
         setToken(response.data.token);
-        setUserType("turf");
+        setUserRole("turf");
         localStorage.setItem("turfToken", response.data.token);
         localStorage.setItem("userType", "turf");
         toast.success("Login successful");
-        navigate("/dashboardpage");
+        navigate("/turf/dashboard");
       } else {
         toast.error(response.data.message || "Login failed");
       }
     } catch (err) {
-      toast.error("Login failed. Check credentials.");
+      console.error("Login error full:", err);
+      console.error("Response data:", err.response?.data);
+      toast.error(err.response?.data?.message || "Login failed");
     }
   };
 
@@ -55,7 +57,10 @@ const TurfLogin = ({ url }) => {
     }
 
     try {
-      const response = await axios.post(`${url}/api/turf/register`, signupData);
+      const response = await axios.post(
+        `${url}/api/turfs/register`,
+        signupData
+      );
       if (response.data.success) {
         toast.success("Registration successful. Please login.");
         setIsLogin(true);
@@ -69,13 +74,13 @@ const TurfLogin = ({ url }) => {
 
   useEffect(() => {
     const tokenFromStorage = localStorage.getItem("turfToken");
-    const userType = localStorage.getItem("userType");
-    if (tokenFromStorage && userType === "turf") {
+    const roleFromStorage = localStorage.getItem("userType");
+    if (tokenFromStorage && roleFromStorage === "turf") {
       setToken(tokenFromStorage);
-      setUserType(userType);
-      navigate("/dashboardpage");
+      setUserRole(roleFromStorage);
+      navigate("/turf/dashboard");
     }
-  }, [setToken, setUserType, navigate]);
+  }, [setToken, setUserRole, navigate]);
 
   return (
     <div className={styles.container}>

@@ -1,5 +1,61 @@
 // backend/controllers/turfController.js
 import { Turf } from "../../models/sports/turfModel.js";
+import jwt from "jsonwebtoken";
+import { TurfOwner } from "../../models/sports/turfownerModel.js";
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+};
+
+export const registerTurfOwner = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const userExists = await TurfOwner.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    const newOwner = new TurfOwner({ name, email, password });
+    await newOwner.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Turf owner registered successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const loginTurfOwner = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const owner = await TurfOwner.findOne({ email });
+    if (!owner) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await owner.matchPassword(password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const token = generateToken(owner._id);
+    res.status(200).json({
+      success: true,
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 
 export const createTurf = async (req, res) => {
   try {

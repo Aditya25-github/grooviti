@@ -9,9 +9,13 @@ import {
 } from "../../controllers/sports/turfController.js";
 import authMiddleware from "../../middleware/auth.js";
 import { uploadTurfImage } from "../../middleware/upload.js";
+import { loginTurfOwner, registerTurfOwner } from "../../controllers/sports/turfController.js";
+
 
 const router = express.Router();
 
+router.post("/register", registerTurfOwner);
+router.post("/login", loginTurfOwner);
 router.post(
   "/",
   authMiddleware,

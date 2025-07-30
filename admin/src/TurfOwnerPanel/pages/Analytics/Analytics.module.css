@@ -1,0 +1,555 @@
+.container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  background: #059669;
+}
+
+.btnIcon {
+  font-size: 14px;
+}
+
+/* Controls */
+.controlsSection {
+  margin-bottom: 32px;
+}
+
+.timeRangeControl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controlLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.controlSelect {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  min-width: 150px;
+}
+
+.controlSelect:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Metrics Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.metricCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.metricIcon {
+  font-size: 20px;
+  color: #10b981;
+}
+
+.changeIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.changeIndicator.positive {
+  background: #dcfce7;
+  color: #059669;
+}
+
+.changeIndicator.negative {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.changeLabel {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+.metricContent {
+  text-align: left;
+}
+
+.metricValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+}
+
+/* Charts Section */
+.chartsSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.chartCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.chartControls {
+  display: flex;
+  gap: 8px;
+}
+
+.chartSelect {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+}
+
+.chartTabs {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.chartTab {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chartTab.activeTab {
+  background: white;
+  color: #10b981;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chartContainer {
+  height: 200px;
+}
+
+/* Line Chart */
+.lineChart {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartSvg {
+  flex: 1;
+  width: 100%;
+}
+
+.chartXAxis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 25px;
+}
+
+.axisLabel {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Bar Chart */
+.barChart {
+  display: flex;
+  align-items: end;
+  gap: 16px;
+  height: 160px;
+  padding: 0 8px;
+}
+
+.barWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  min-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  transition: all 0.3s ease;
+}
+
+.bar:hover {
+  transform: scale(1.05);
+}
+
+.barValue {
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.barLabel {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* Lower Section */
+.lowerSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.distributionCard,
+.performanceCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.viewDetailsBtn {
+  font-size: 12px;
+  color: #10b981;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.viewDetailsBtn:hover {
+  text-decoration: underline;
+}
+
+/* Area Chart */
+.areaChart {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Performance Metrics */
+.metricsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.performanceMetric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.performanceLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.performanceValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Export Section */
+.exportSection {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.exportCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.exportCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.2s ease;
+}
+
+.exportCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exportHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.exportTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.exportActions {
+  display: flex;
+  gap: 8px;
+}
+
+.exportFormatBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.exportFormatBtn:hover {
+  background: #e5e7eb;
+}
+
+.exportAllBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.exportAllBtn:hover {
+  background: #059669;
+}
+
+.exportIcon {
+  font-size: 10px;
+}
+
+.exportDescription {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.downloadBtn {
+  width: 100%;
+  padding: 8px 12px;
+  background: #f8fafc;
+  color: #10b981;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.downloadBtn:hover {
+  background: #10b981;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .chartsSection {
+    grid-template-columns: 1fr;
+  }
+
+  .lowerSection {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .barChart {
+    gap: 8px;
+  }
+
+  .exportCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .metricValue {
+    font-size: 24px;
+  }
+
+  .chartContainer {
+    height: 150px;
+  }
+}

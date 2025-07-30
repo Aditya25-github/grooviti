@@ -1,0 +1,259 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 16px 24px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 2rem;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #667085;
+  flex: 1;
+  margin-left: 24px;
+}
+
+.addBtn {
+  background: #10b981;
+  color: #fff;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.addBtn:hover {
+  background: #059669;
+}
+
+/* Stats cards */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 22px;
+  margin-bottom: 38px;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.statLabel {
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  display: flex;
+  align-items: center;
+}
+
+.starIcon {
+  margin-left: 6px;
+  font-size: 16px;
+  color: #fbbf24;
+}
+
+/* Turf Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 28px;
+  margin-top: 10px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.18s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.13);
+}
+
+.imageSection {
+  position: relative;
+  height: 170px;
+  background: #f0fdf4;
+  overflow: hidden;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 5px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: #e5e7eb;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+
+.active {
+  background: #dcfce7 !important;
+  color: #059669 !important;
+}
+
+.maintenance {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+}
+
+.cardContent {
+  padding: 18px 20px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  color: #1a1a1a;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.cardType {
+  font-size: 13px;
+  color: #059669;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 7px;
+}
+
+.infoRow,
+.priceRow {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.mapIcon,
+.rupIcon {
+  font-size: 15px;
+  color: #646464;
+  margin-right: 6px;
+}
+
+.priceRow {
+  font-size: 15px;
+  color: #059669;
+  font-weight: 600;
+}
+
+.cardMeta {
+  display: flex;
+  justify-content: space-between;
+  color: #71717a;
+  font-size: 13px;
+  gap: 14px;
+  margin: 10px 0 0;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.editBtn,
+.maintenanceBtn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #f3f4f6;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.17s, color 0.17s;
+}
+
+.editBtn:hover {
+  background: #d1fae5;
+}
+
+.maintenanceBtn {
+  color: #b45309;
+}
+.maintenanceBtn:hover {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .subtitle {
+    margin-left: 0;
+  }
+  .statsSection {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 14px 5px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .statsSection {
+    grid-template-columns: 1fr;
+  }
+}

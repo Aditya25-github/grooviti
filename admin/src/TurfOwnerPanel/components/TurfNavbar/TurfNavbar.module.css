@@ -106,6 +106,10 @@
 }
 
 /* Notifications */
+.notificationWrapper {
+  position: relative;
+}
+
 .iconButton {
   position: relative;
   padding: 8px;
@@ -140,16 +144,23 @@
 }
 
 /* Profile */
-.profile {
+.profileWrapper {
+  position: relative;
+}
+
+.profileButton {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 8px 12px;
+  background: none;
+  border: none;
   border-radius: 8px;
+  cursor: pointer;
   transition: background 0.2s ease;
 }
 
-.profile:hover {
+.profileButton:hover {
   background: #f3f4f6;
 }
 
@@ -164,6 +175,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
 }
 
 .profileName {
@@ -175,6 +187,165 @@
 .profileRole {
   font-size: 12px;
   color: #6b7280;
+}
+
+.chevron {
+  font-size: 12px;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+}
+
+/* Dropdowns */
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  z-index: 1001;
+}
+
+.dropdownHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdownTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.notificationCount {
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.notificationList {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notificationItem {
+  padding: 12px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.2s ease;
+}
+
+.notificationItem:hover {
+  background: #f9fafb;
+}
+
+.notificationItem.unread {
+  background: #f0fdf4;
+}
+
+.notificationText {
+  font-size: 14px;
+  color: #374151;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.notificationTime {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.dropdownFooter {
+  padding: 12px 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.viewAllBtn {
+  width: 100%;
+  padding: 8px;
+  background: #f8fafc;
+  color: #10b981;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.viewAllBtn:hover {
+  background: #f0fdf4;
+}
+
+/* Profile Dropdown */
+.profileDropdown {
+  padding: 20px;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.profileImageLarge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileNameLarge {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.profileEmail {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.profileMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menuItem:hover {
+  background: #f3f4f6;
+}
+
+.menuIcon {
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.menuDivider {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 8px 0;
 }
 
 /* Responsive */

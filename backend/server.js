@@ -20,7 +20,7 @@ import reviewRouter from "./routes/ReviewRoute.js";
 import communityRoutes from "./routes/communityRoutes.js";
 import cloudinary from "./utils/cloudinary.js";
 import pccoerRoutes from "./routes/pccoerRoutes.js";
-import academyRoutes from "./routes/Academy/academyRoutes.js"
+
 
 
 // ==============================
@@ -97,10 +97,9 @@ app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
-app.use("/api/academy", academyRoutes);
-
 
 /////////////////////////SPORTS////////////////////////
+import academyRoutes from "./routes/Academy/academyRoutes.js"
 import turfRoutes from "./routes/sports/turfRoute.js";
 
 app.use("/api/academy", academyRoutes);
@@ -138,23 +137,6 @@ app.get("/api/reverse-geocode", async (req, res) => {
     res.status(500).json({ error: "Reverse geocoding failed" });
   }
 });
-
-app.get("/test-cloudinary", async (req, res) => {
-  try {
-    const result = await cloudinary.uploader.upload(
-      "https://res.cloudinary.com/demo/image/upload/sample.jpg",
-      { folder: "test-folder" }
-    );
-    res.json({ success: true, url: result.secure_url });
-  } catch (err) {
-    console.error("❌ Cloudinary upload failed:", err);
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-// ==============================
-// 🚀 Start Server
-// ==============================
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

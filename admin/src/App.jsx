@@ -39,10 +39,17 @@ import Reports from "./AcademyPanel/pages/Reports/Reports";
 import AcademySettings from "./AcademyPanel/pages/AcademySettings/AcademySettings";
 
 // Turf Owner Pages
-import DashboardPage from "./EventOrganizerPanel/pages/OwnerDashboard/DashboardPage/DashboardPage";
+import TurfDashboard from "./TurfOwnerPanel/pages/Dashboard/TurfDashboard";
 import BookingListPage from "./EventOrganizerPanel/pages/OwnerDashboard/BookingListPage/BookingListPage";
 import AddTurf from "./EventOrganizerPanel/pages/AddTurf/AddTurf";
 import List from "./EventOrganizerPanel/pages/List/List";
+import TurfSideBar from "./TurfOwnerPanel/components/TurfSideBar/TurfSideBar";
+import TurfListing from "./TurfOwnerPanel/pages/TurfListing/TurfListing";
+import TurfBooking from "./TurfOwnerPanel/pages/TurfBooking/TurfBooking";
+import SlotManagement from "./TurfOwnerPanel/pages/SlotManagment/SlotManagment";
+import StaffManagement from "./TurfOwnerPanel/pages/StaffManagment/StaffManagement";
+import RevenueExpenses from "./TurfOwnerPanel/pages/Revenue/RevenueExpenses";
+import Feedback from "./TurfOwnerPanel/pages/FeedBacks/Feedback";
 
 // Event Host Pages
 import ManageEvent from "./EventOrganizerPanel/pages/ManageEvent/ManageEvent";
@@ -52,9 +59,12 @@ import MyPlan from "./EventOrganizerPanel/pages/MyPlans/MyPlan";
 import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
 import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
 import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
+import RefundsManagement from "./TurfOwnerPanel/pages/RefundsManagement/RefundsManagement";
+import Analytics from "./TurfOwnerPanel/pages/Analytics/Analytics";
+import Pricing from "./TurfOwnerPanel/pages/Pricing/Pricing";
 
 const App = () => {
-  const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 
@@ -70,6 +80,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademySideBar />;
     if (userRole === "eventHost") return <SideBar />;
+    if (userRole === "turf") return <TurfSideBar />;
     return null; // turfOwner or others
   };
 
@@ -77,7 +88,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyNavbar url={url} />;
     if (userRole === "eventHost") return <EventNavbar url={url} />;
-    if (userRole === "turfOwner") return <TurfNavbar url={url} />;
+    if (userRole === "turf") return <TurfNavbar url={url} />;
     return null;
   };
 
@@ -85,7 +96,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyFooter />;
     if (userRole === "eventHost") return <Footer />;
-    if (userRole === "turfOwner") return <TurfFooter />;
+    if (userRole === "turf") return <TurfFooter />;
     return null;
   };
 
@@ -186,10 +197,82 @@ const App = () => {
 
           {/* Turf Owner Routes */}
           <Route
-            path="/dashboardpage"
+            path="/turf/dashboard"
             element={
-              <ProtectedRoute>
-                <DashboardPage url={url} />
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <TurfDashboard url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/listings"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <TurfListing url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/bookings"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <TurfBooking url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/slot-management"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <SlotManagement url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/staff"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <StaffManagement url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/revenue"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <RevenueExpenses url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/feedback"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <Feedback url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/refunds"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <RefundsManagement url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/analytics"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <Analytics url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/turf/pricing"
+            element={
+              <ProtectedRoute allowedRoles={["turf"]}>
+                <Pricing url={url} />
               </ProtectedRoute>
             }
           />

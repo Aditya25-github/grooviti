@@ -1,0 +1,527 @@
+.container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  background: #059669;
+}
+
+.btnIcon {
+  font-size: 14px;
+}
+
+/* Controls */
+.controlsSection {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.timePeriodControl,
+.dateRangeControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controlLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.controlSelect {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  min-width: 120px;
+}
+
+.controlSelect:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dateInputWrapper {
+  position: relative;
+}
+
+.dateInput {
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  width: 120px;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dateIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.dateTo {
+  font-size: 14px;
+  color: #666;
+  margin: 0 8px;
+}
+
+.applyFilterBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.applyFilterBtn:hover {
+  background: #2563eb;
+}
+
+/* Summary Sections */
+.summarySection {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.summaryCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.summaryCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cardIcon {
+  font-size: 20px;
+  color: #10b981;
+}
+
+.changeIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.changeIndicator.positive {
+  background: #dcfce7;
+  color: #059669;
+}
+
+.changeIndicator.negative {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.changeLabel {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+.cardContent {
+  text-align: left;
+}
+
+.cardValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.cardLabel {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+}
+
+/* Comparison Section */
+.comparisonSection {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chartTabs {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.chartTab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chartTab.activeTab {
+  background: white;
+  color: #10b981;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chartContainer {
+  height: 280px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.barChart {
+  display: flex;
+  align-items: end;
+  gap: 24px;
+  height: 240px;
+  padding: 0 20px;
+}
+
+.barGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.barWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+}
+
+.revenueBar,
+.expenseBar {
+  width: 40px;
+  border-radius: 4px 4px 0 0;
+  min-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.revenueBar {
+  background: linear-gradient(to top, #10b981, #34d399);
+}
+
+.expenseBar {
+  background: linear-gradient(to top, #ef4444, #f87171);
+}
+
+.revenueBar:hover,
+.expenseBar:hover {
+  transform: scale(1.05);
+}
+
+.barValue {
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.barLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+}
+
+/* Breakdown Section */
+.breakdownSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.revenueBreakdown,
+.expensesBreakdown {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.breakdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.breakdownItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.breakdownItem:last-child {
+  border-bottom: none;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.itemName {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.itemAmount {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Trends Section */
+.trendsSection {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.lineChart {
+  position: relative;
+  height: 350px;
+}
+
+.chartSvg {
+  width: 100%;
+  height: 300px;
+}
+
+.chartLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 0 25px;
+}
+
+.chartLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+}
+
+.chartLegend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .breakdownSection {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controlsSection {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .dateRangeControl {
+    flex-wrap: wrap;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .barChart {
+    gap: 12px;
+  }
+
+  .barWrapper {
+    gap: 4px;
+  }
+
+  .revenueBar,
+  .expenseBar {
+    width: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardValue {
+    font-size: 24px;
+  }
+
+  .chartContainer {
+    height: 200px;
+  }
+
+  .barChart {
+    height: 160px;
+  }
+}

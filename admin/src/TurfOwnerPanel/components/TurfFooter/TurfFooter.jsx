@@ -18,7 +18,7 @@ const TurfFooter = () => {
         <div className={styles.brandSection}>
           <div className={styles.brand}>
             <div className={styles.logoIcon}>⚽</div>
-            <span className={styles.brandText}>TurfManager</span>
+            <span className={styles.brandText}>Grooviti.Sports</span>
           </div>
           <p className={styles.brandDescription}>
             Complete turf management solution for sports facility owners.
