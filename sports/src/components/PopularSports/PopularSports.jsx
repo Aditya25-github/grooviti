@@ -1,6 +1,5 @@
 import React from "react";
 import "./PopularSports.css";
-import { useNavigate } from "react-router-dom";
 import badminton from "../../assets/sports_assets/badminton.jpg.png";
 import football from "../../assets/sports_assets/football.jpg.png";
 import cricket from "../../assets/sports_assets/cricket.jpg.png";
@@ -12,40 +11,34 @@ const sports = [
   {
     name: "Badminton",
     image: badminton,
-    route: "/badminton",
   },
   {
     name: "Football",
     image: football,
-    route: "/football",
   },
   {
     name: "Cricket",
     image: cricket,
-    route: "/cricket",
   },
   {
     name: "Swimming",
     image: swimming,
-    route: "/swimming",
   },
   {
     name: "Tennis",
     image: tennis,
-    route: "/tennis",
   },
   {
     name: "Table Tennis",
     image: tabletennis,
-    route: "/table-tennis",
   },
 ];
 
-const PopularSports = () => {
-  const navigate = useNavigate();
-
-  const handleClick = (route) => {
-    navigate(route);
+const PopularSports = ({ onSportSelect }) => {
+  const handleSportClick = (sportName) => {
+    if (onSportSelect) {
+      onSportSelect(sportName);
+    }
   };
 
   return (
@@ -56,7 +49,7 @@ const PopularSports = () => {
           <div
             key={index}
             className="sport-card"
-            onClick={() => handleClick(sport.route)}
+            onClick={() => handleSportClick(sport.name)}
           >
             <img src={sport.image} alt={sport.name} className="sport-img" />
             <div className="sport-name">{sport.name}</div>
