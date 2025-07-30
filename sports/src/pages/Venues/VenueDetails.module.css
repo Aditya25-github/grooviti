@@ -1,0 +1,631 @@
+.container {
+  min-height: 100vh;
+  background-color: #0B001A;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: white;
+  padding-top: 5rem;
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+  z-index: 2;
+}
+
+.prevBtn {
+  left: 2rem;
+}
+
+.nextBtn {
+  right: 2rem;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.imageIndicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+}
+
+/* Venue Info Overlay */
+.venueInfoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 4rem 2rem 2rem;
+  z-index: 2;
+}
+
+.venueBasicInfo h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.ratingLocation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.stars i {
+  color: #ddd;
+  font-size: 1rem;
+}
+
+.stars i.filled {
+  color: #FFD700;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Sticky Quick Booking Card */
+.stickyQuickBooking {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.quickBookingCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  min-width: 280px;
+  max-width: 320px;
+  color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quickBookingCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+}
+
+.quickBookingCard h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.priceDisplay {
+  margin-bottom: 1.5rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00b894;
+}
+
+.priceUnit {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.startingPrice {
+  display: block;
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+.bookNowBtn {
+  width: 100%;
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+.bookNowBtn:hover {
+  background: #00a085;
+}
+
+.shareActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.shareBtn,
+.corporateBtn {
+  flex: 1;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shareBtn:hover,
+.corporateBtn:hover {
+  background: #f8f9fa;
+  border-color: #00b894;
+  color: #00b894;
+}
+
+/* Main Content */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  padding-right: 380px;
+}
+
+.section {
+  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.sectionTitle i {
+  color: #00b894;
+}
+
+/* Timing Section */
+.timingContainer {
+  display: flex;
+  gap: 3rem;
+}
+
+.timingCategory h4 {
+  margin-bottom: 1rem;
+  color: #00b894;
+}
+
+.timeSlots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeSlot {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timeSlot:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.timeSlot.selected {
+  background: #00b894;
+  border-color: #00b894;
+  color: white;
+}
+
+/* Sports Section */
+.sportsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.sportCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sportCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.sportCard.selectedSport {
+  background: rgba(0, 184, 148, 0.1);
+  border-color: #00b894;
+}
+
+.sportHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sportHeader h4 {
+  color: white;
+  margin: 0;
+}
+
+.sportPrice {
+  color: #00b894;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.sportDescription {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sportFacilities {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* Location Section */
+.locationContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.locationInfo p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.locationDescription {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mapPlaceholder {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.mapPlaceholder:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mapContent {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mapContent i {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.mapContent small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Amenities Section */
+.amenitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.amenityItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  position: relative;
+}
+
+.amenityItem.unavailable {
+  opacity: 0.5;
+}
+
+.amenityIcon {
+  color: #00b894;
+  font-size: 1.2rem;
+  width: 20px;
+  text-align: center;
+}
+
+.amenityItem span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.unavailableLabel {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.7rem;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Reviews Section */
+.reviewsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reviewCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.reviewerInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.reviewerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.reviewerInfo h5 {
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.reviewRating {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.reviewRating i {
+  color: #ddd;
+  font-size: 0.8rem;
+}
+
+.reviewRating i.filled {
+  color: #FFD700;
+}
+
+.reviewDate {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.reviewComment {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.viewAllReviews {
+  background: transparent;
+  color: #00b894;
+  border: 1px solid #00b894;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+.viewAllReviews:hover {
+  background: #00b894;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .mainContent {
+    padding-right: 2rem;
+  }
+  
+  .stickyQuickBooking {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 2rem auto;
+    width: fit-content;
+  }
+  
+  .quickBookingCard {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .venueBasicInfo h1 {
+    font-size: 2rem;
+  }
+
+  .timingContainer {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .locationContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .mainContent {
+    padding: 2rem 1rem;
+  }
+
+  .prevBtn,
+  .nextBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .prevBtn {
+    left: 1rem;
+  }
+
+  .nextBtn {
+    right: 1rem;
+  }
+
+  .stickyQuickBooking {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  .quickBookingCard {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .venueInfoOverlay {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .venueBasicInfo h1 {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 1.5rem 1rem;
+  }
+
+  .amenitiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sportsContainer {
+    grid-template-columns: 1fr;
+  }
+}

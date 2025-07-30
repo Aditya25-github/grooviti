@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Academy.module.css';
 
 const Academy = () => {
+  const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState('All Sports');
   const [sortBy, setSortBy] = useState('Price');
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,7 +16,8 @@ const Academy = () => {
     { name: 'Football' },
     { name: 'Badminton' },
     { name: 'Swimming' },
-    { name: 'Tennis' }
+    { name: 'Tennis' },
+    { name: 'Table Tennis' }
   ];
 
   const sportImages = {
@@ -281,6 +284,11 @@ const Academy = () => {
     }
   ];
 
+  // Handle academy card click navigation
+  const handleAcademyClick = (academyId) => {
+    navigate(`/academy/${academyId}`);
+  };
+
   // Comprehensive search function
   const searchAcademies = (academies, query) => {
     if (!query.trim()) return academies;
@@ -416,7 +424,12 @@ const Academy = () => {
         ) : (
           <div className={styles.academiesGrid}>
             {academiesToDisplay.map((academy) => (
-              <div key={academy.id} className={styles.academyCard}>
+              <div 
+                key={academy.id} 
+                className={styles.academyCard}
+                onClick={() => handleAcademyClick(academy.id)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className={styles.academyImage}>
                   <img src={academy.image} alt={academy.name} />
                   <span 

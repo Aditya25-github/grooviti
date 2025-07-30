@@ -5,9 +5,10 @@ import Footer from "./components/Footer/Footer.jsx";
 import Home from "./pages/Home/Home";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Venues from "./pages/Venues/Venues.jsx";
+import VenueDetails from "./pages/Venues/VenueDetails.jsx"; // Add this import
 import Academy from "./pages/Academy/Academy.jsx";
+import AcademyDetails from "./pages/Academy/AcademyDetails.jsx";
 import PlayTogether from "./pages/PlayTogether/PlayTogether.jsx";
-// Styles
 import "./App.css";
 
 function App() {
@@ -21,8 +22,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/venues" element={<Venues />} />
-        <Route path="/academy" element={<Academy/>} />
-        <Route path="/playtogether" element={<PlayTogether />} />
+        <Route path="/venues/:id" element={<VenueDetails />} /> {/* Add this route */}
+        <Route path="/academy" element={<Academy />} />
+        <Route path="/academy/:id" element={<AcademyDetails />} />
+        <Route path="/communities" element={<PlayTogether />} />
       </Routes>
       <Footer />
     </div>

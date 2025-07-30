@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Venues.module.css';
 import PopularSports from "../../components/PopularSports/PopularSports";
 
 const Venues = () => {
+  const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState('All Sports');
   const [sortBy, setSortBy] = useState('Price');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredVenues, setFilteredVenues] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6); // Start with 6 venues
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const sportImages = {
     'Cricket': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=300&fit=crop',
@@ -237,6 +239,11 @@ const Venues = () => {
     }
   ];
 
+  // Handle venue card click navigation
+  const handleVenueClick = (venueId) => {
+    navigate(`/venues/${venueId}`);
+  };
+
   // Comprehensive search function
   const searchVenues = (venues, query) => {
     if (!query.trim()) return venues;
@@ -347,7 +354,12 @@ const Venues = () => {
         ) : (
           <div className={styles.venuesGrid}>
             {venuesToDisplay.map((venue) => (
-              <div key={venue.id} className={styles.venueCard}>
+              <div 
+                key={venue.id} 
+                className={styles.venueCard}
+                onClick={() => handleVenueClick(venue.id)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className={styles.venueImage}>
                   <img src={venue.image} alt={venue.name} />
                   <span 
