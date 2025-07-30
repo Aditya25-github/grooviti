@@ -2,6 +2,7 @@
 import { Turf } from "../../../models/sports/Turf/turfModel.js";
 import jwt from "jsonwebtoken";
 import { TurfOwner } from "../../../models/sports/Turf/turfownerModel.js";
+import authMiddleware from "../../../middleware/auth.js";
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -111,15 +112,35 @@ export const createTurf = async (req, res) => {
   }
 };
 
+// Will use this when I will give acess to superAdmin Panel
+// export const getAllTurfs = async (req, res) => {
+//   try {
+//     const turfs = await Turf.find().sort({ createdAt: -1 });
+//     res.status(200).json({ success: true, turfs });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
-export const getAllTurfs = async (req, res) => {
+export const getTurfs = async (req, res) => {
   try {
-    const turfs = await Turf.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, turfs });
+    const ownerId = req.user.id; // coming from your authMiddleware
+
+    const turfs = await Turf.find({ createdBy: ownerId }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      data: turfs,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching turfs:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error while fetching turfs",
+    });
   }
 };
+
 
 export const getTurfById = async (req, res) => {
   try {

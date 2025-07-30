@@ -25,14 +25,17 @@ const turfSchema = new mongoose.Schema(
 );
 
 const slotSchema = new mongoose.Schema({
-  turf: { type: mongoose.Schema.Types.ObjectId, ref: 'turfs' },
-  date: Date,
-  startTime: String,
-  endTime: String,
-  totalTickets: Number,
+  turf: { type: mongoose.Schema.Types.ObjectId, ref: "turfs", required: true },
+  date: { type: Date, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+  totalTickets: { type: Number, default: 1 },
   bookedTickets: { type: Number, default: 0 },
-  price: Number,
-});
+  price: { type: Number, required: true },
+  status: { type: String, default: "available" }, // available, booked, blocked
+  source: { type: String, default: null },
+  customerName: { type: String, default: null },
+}, { timestamps: true });
 
 export const Turf = mongoose.model("turfs", turfSchema);
 export const Slot = mongoose.model("slots", slotSchema);

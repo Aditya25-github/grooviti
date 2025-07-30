@@ -102,10 +102,12 @@ app.use("/api/pccoer", pccoerRoutes);
 import academyRoutes from "./routes/Academy/academyRoutes.js"
 import turfRoutes from "./routes/sports/Turf/turfRoute.js";
 import turfbookingRoute from "./routes/sports/Turf/turfbookingRoute.js"
+import slotRoutes from "./routes/sports/Turf/slotRoutes.js";
 
 app.use("/api/academy", academyRoutes);
 app.use("/api/turfs", turfRoutes);
 app.use("/api/turfbookings", turfbookingRoute);
+app.use("/api/slots", slotRoutes);
 
 
 // ==============================
@@ -113,6 +115,10 @@ app.use("/api/turfbookings", turfbookingRoute);
 // ==============================
 app.get("/", (req, res) => {
   res.send("🎉 Grooviti API Working!");
+});
+//     This will keep backend working without sleeping with Inactivit ///
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
 });
 
 app.get("/api/reverse-geocode", async (req, res) => {

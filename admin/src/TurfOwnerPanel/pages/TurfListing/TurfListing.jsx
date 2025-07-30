@@ -24,9 +24,9 @@ const TurfListing = ({ url }) => {
           Authorization: `Bearer ${localStorage.getItem("turfOwnerToken")}`,
         },
       });
-      const turfsArray = Array.isArray(response.data)
-        ? response.data
-        : response.data.turfs || [];
+      const turfsArray = Array.isArray(response.data.data)
+        ? response.data.data
+        : [];
 
       setTurfs(turfsArray);
       setLoading(false);
