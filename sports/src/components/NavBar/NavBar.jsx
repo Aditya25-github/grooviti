@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./NavBar.module.css";
 import logo from "../../assets/sports_assets/logo.png";
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Venues", path: "/Venues" },
-  { name: "Play Together", path: "/communities" },
-  { name: "Academy", path: "/academy" },
+  { name: "Home", to: "/" },
+  { name: "Venues", to: "/venues" },
+  { name: "Play Together", to: "/communities" },
+  { name: "Academy", to: "/academy" },
 ];
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollState, setScrollState] = useState('top');
-  const [activePath, setActivePath] = useState(window.location.pathname);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,19 +29,27 @@ const Navbar = () => {
       }
     };
 
-    const handleRouteChange = () => {
-      setActivePath(window.location.pathname);
-      setIsMenuOpen(false);
-    };
-
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("popstate", handleRouteChange);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("popstate", handleRouteChange);
     };
   }, []);
+
+  // Close mobile menu when location changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+  };
+
+  const handleMobileNavClick = (to) => {
+    setIsMenuOpen(false);
+    navigate(to);
+  };
 
   return (
     <motion.nav
@@ -59,29 +69,32 @@ const Navbar = () => {
           className={styles.logo}
           whileHover={{ scale: 1.05 }}
         >
-          <a href="/" aria-label="Go to home">
+          <Link to="/" aria-label="Go to home" onClick={handleLogoClick}>
             <img src={logo} alt="Grooviti Logo" />
-          </a>
+          </Link>
         </motion.div>
 
         <div className={styles.navLinks}>
           {navLinks.map((link) => (
-            <motion.a
+            <motion.div
               key={link.name}
-              href={link.path}
-              className={`${styles.navLink} ${
-                activePath === link.path ? styles.active : ""
-              }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {link.name}
-              <motion.span 
-                className={styles.underline}
-                initial={{ width: 0 }}
-                animate={{ width: activePath === link.path ? "100%" : 0 }}
-              />
-            </motion.a>
+              <Link
+                to={link.to}
+                className={`${styles.navLink} ${
+                  location.pathname === link.to ? styles.active : ""
+                }`}
+              >
+                {link.name}
+                <motion.span 
+                  className={styles.underline}
+                  initial={{ width: 0 }}
+                  animate={{ width: location.pathname === link.to ? "100%" : 0 }}
+                />
+              </Link>
+            </motion.div>
           ))}
         </div>
 
@@ -137,20 +150,19 @@ const Navbar = () => {
           >
             <div className={styles.mobileMenuContent}>
               {navLinks.map((link) => (
-                <motion.a
+                <motion.button
                   key={link.name}
-                  href={link.path}
+                  onClick={() => handleMobileNavClick(link.to)}
                   className={`${styles.mobileNavLink} ${
-                    activePath === link.path ? styles.active : ""
+                    location.pathname === link.to ? styles.active : ""
                   }`}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => setIsMenuOpen(false)}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 >
                   {link.name}
-                </motion.a>
+                </motion.button>
               ))}
               <div className={styles.mobileAuthButtons}>
                 <motion.button
