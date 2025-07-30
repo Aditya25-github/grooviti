@@ -5,10 +5,11 @@ import Footer from "./components/Footer/Footer.jsx";
 import Home from "./pages/Home/Home";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Venues from "./pages/Venues/Venues.jsx";
-import VenueDetails from "./pages/Venues/VenueDetails.jsx"; // Add this import
+import VenueDetails from "./pages/Venues/VenueDetails.jsx";
 import Academy from "./pages/Academy/Academy.jsx";
 import AcademyDetails from "./pages/Academy/AcademyDetails.jsx";
 import PlayTogether from "./pages/PlayTogether/PlayTogether.jsx";
+import PlayTogetherDetails from "./pages/PlayTogether/PlayTogetherDetails.jsx";
 import "./App.css";
 
 function App() {
@@ -22,10 +23,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/venues" element={<Venues />} />
-        <Route path="/venues/:id" element={<VenueDetails />} /> {/* Add this route */}
+        <Route path="/venues/:id" element={<VenueDetails />} />
         <Route path="/academy" element={<Academy />} />
         <Route path="/academy/:id" element={<AcademyDetails />} />
         <Route path="/playtogether" element={<PlayTogether />} />
+        <Route path="/communities/:id" element={<PlayTogetherDetails />} />
       </Routes>
       <Footer />
     </div>

@@ -461,3 +461,56 @@
     gap: 0.3rem;
   }
 }
+
+/* Update the cardFooter to accommodate enrollment info */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.age {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+.enrollment {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: gray;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.enrollment i {
+  color: grey;
+  font-size: 0.75rem;
+}
+
+.connectBtn {
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.connectBtn:hover {
+  background: #00a085;
+  transform: translateY(-1px);
+}

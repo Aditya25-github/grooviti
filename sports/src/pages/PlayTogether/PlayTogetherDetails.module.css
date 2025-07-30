@@ -1,0 +1,916 @@
+.container {
+  min-height: 100vh;
+  background-color: #0B001A;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: white;
+  padding-top: 5rem;
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+  z-index: 2;
+}
+
+.prevBtn {
+  left: 2rem;
+}
+
+.nextBtn {
+  right: 2rem;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.imageIndicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+}
+
+/* Player Info Overlay */
+.playerInfoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 4rem 2rem 2rem;
+  z-index: 2;
+}
+
+.playerHeader {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  max-width: 800px;
+}
+
+.playerAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.playerIntro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.playerMeta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.age,
+.experience,
+.skillLevel {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+.verifiedBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00b894;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Main Content */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  padding-right: 380px;
+}
+
+.section {
+  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.sectionTitle i {
+  color: #00b894;
+}
+
+/* Player Stats */
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.statNumber {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00b894;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Enrolled Members Section */
+.enrollmentHeader {
+  margin-bottom: 2rem;
+}
+
+.enrollmentInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.teamType {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.spotsAvailable {
+  color: #00b894;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.enrollmentBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.enrollmentFill {
+  height: 100%;
+  background: #00b894;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.memberCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.memberCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.memberAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #00b894;
+  flex-shrink: 0;
+}
+
+.memberInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.memberInfo h4 {
+  color: white;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.memberRole {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.roleTag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.captainTag {
+  background: #00b894;
+  color: white;
+}
+
+.playerTag {
+  background: rgba(0, 184, 148, 0.2);
+  color: #00b894;
+}
+
+.skillBadge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+}
+
+.memberPosition {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.joinedDate {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+}
+
+.emptySlot {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 120px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.emptySlot:hover {
+  border-color: #00b894;
+  background: rgba(0, 184, 148, 0.05);
+  color: #00b894;
+}
+
+.emptySlotIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.emptySlot:hover .emptySlotIcon {
+  background: rgba(0, 184, 148, 0.2);
+}
+
+/* Integrated Location & Venue Section */
+.locationVenueContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.venueInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.venueCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.venueCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.venueDetails h3 {
+  color: white;
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+}
+
+.venueLocation,
+.venueDistance {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.venueLocation i,
+.venueDistance i {
+  color: #00b894;
+  width: 14px;
+}
+
+.venueRating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #00b894;
+  font-weight: bold;
+  margin-top: 0.8rem;
+}
+
+.venueRating i {
+  color: #FFD700;
+}
+
+.playerLocationInfo {
+  background: rgba(0, 184, 148, 0.1);
+  border: 1px solid rgba(0, 184, 148, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.playerLocationInfo h4 {
+  color: #00b894;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.playerLocationInfo p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.mapContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapPlaceholder {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  height: 250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.mapPlaceholder:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mapContent {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mapContent i {
+  font-size: 3.5rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  color: #00b894;
+}
+
+.mapContent p {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.mapContent small {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Achievements */
+.achievementsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.achievementCard {
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  align-items: flex-start;
+}
+
+.achievementYear {
+  background: #00b894;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  min-width: 60px;
+  text-align: center;
+}
+
+.achievementContent h4 {
+  color: white;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.achievementContent p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.achievementCategory {
+  background: rgba(0, 184, 148, 0.2);
+  color: #00b894;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Reviews Section */
+.reviewsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reviewCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.reviewerInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.reviewerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.reviewerInfo h5 {
+  margin: 0 0 0.3rem 0;
+  color: white;
+}
+
+.reviewRating {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.reviewRating i {
+  color: #ddd;
+  font-size: 0.8rem;
+}
+
+.reviewRating i.filled {
+  color: #FFD700;
+}
+
+.matchType {
+  font-size: 0.75rem;
+  color: #00b894;
+  background: rgba(0, 184, 148, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+}
+
+.reviewDate {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.reviewComment {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.viewAllReviews {
+  background: transparent;
+  color: #00b894;
+  border: 1px solid #00b894;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+.viewAllReviews:hover {
+  background: #00b894;
+  color: white;
+}
+
+/* Sticky Quick Connect Card */
+.stickyQuickConnect {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.quickConnectCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  min-width: 280px;
+  max-width: 320px;
+  color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quickConnectCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+}
+
+.quickConnectCard h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.playerQuickInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.quickAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #00b894;
+}
+
+.quickDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.quickName {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.quickSport {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.quickResponse {
+  color: #00b894;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.connectNowBtn {
+  width: 100%;
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+.connectNowBtn:hover {
+  background: #00a085;
+}
+
+.shareActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.shareBtn,
+.messageBtn {
+  flex: 1;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shareBtn:hover,
+.messageBtn:hover {
+  background: #f8f9fa;
+  border-color: #00b894;
+  color: #00b894;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .mainContent {
+    padding-right: 2rem;
+  }
+  
+  .stickyQuickConnect {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 2rem auto;
+    width: fit-content;
+  }
+  
+  .quickConnectCard {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .playerHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .playerIntro h1 {
+    font-size: 2rem;
+  }
+
+  .playerMeta {
+    justify-content: center;
+  }
+
+  .locationVenueContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mapContainer {
+    order: -1;
+  }
+  
+  .mapPlaceholder {
+    height: 200px;
+  }
+  
+  .membersGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .memberCard {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .enrollmentInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .statsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mainContent {
+    padding: 2rem 1rem;
+  }
+
+  .prevBtn,
+  .nextBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .prevBtn {
+    left: 1rem;
+  }
+
+  .nextBtn {
+    right: 1rem;
+  }
+
+  .stickyQuickConnect {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  .quickConnectCard {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .achievementCard {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .achievementYear {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .playerInfoOverlay {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .playerIntro h1 {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 1.5rem 1rem;
+  }
+
+  .statsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .playerAvatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .quickAvatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .venueDetails h3 {
+    font-size: 1.1rem;
+  }
+  
+  .mapContent i {
+    font-size: 2.5rem;
+  }
+  
+  .mapPlaceholder {
+    height: 180px;
+  }
+}

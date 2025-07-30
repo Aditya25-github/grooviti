@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './PlayTogether.module.css';
 
 const PlayTogether = () => {
+  const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState('All Sports');
   const [sortBy, setSortBy] = useState('Recent');
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,7 +40,13 @@ const PlayTogether = () => {
       age: 25,
       experience: '5 years',
       sportColor: '#4CAF50',
-      timePosted: '2 hours ago'
+      timePosted: '2 hours ago',
+      // Added enrollment data
+      enrolled: {
+        current: 4,
+        total: 8,
+        teamType: 'Cricket Team'
+      }
     },
     {
       id: 2,
@@ -53,7 +61,12 @@ const PlayTogether = () => {
       age: 28,
       experience: '8 years',
       sportColor: '#9C27B0',
-      timePosted: '4 hours ago'
+      timePosted: '4 hours ago',
+      enrolled: {
+        current: 1,
+        total: 2,
+        teamType: 'Doubles Team'
+      }
     },
     {
       id: 3,
@@ -68,7 +81,12 @@ const PlayTogether = () => {
       age: 22,
       experience: '6 years',
       sportColor: '#2196F3',
-      timePosted: '6 hours ago'
+      timePosted: '6 hours ago',
+      enrolled: {
+        current: 7,
+        total: 11,
+        teamType: 'Football Team'
+      }
     },
     {
       id: 4,
@@ -83,7 +101,12 @@ const PlayTogether = () => {
       age: 24,
       experience: '10 years',
       sportColor: '#00BCD4',
-      timePosted: '8 hours ago'
+      timePosted: '8 hours ago',
+      enrolled: {
+        current: 2,
+        total: 4,
+        teamType: 'Training Group'
+      }
     },
     {
       id: 5,
@@ -98,7 +121,12 @@ const PlayTogether = () => {
       age: 30,
       experience: '2 years',
       sportColor: '#FF9800',
-      timePosted: '10 hours ago'
+      timePosted: '10 hours ago',
+      enrolled: {
+        current: 1,
+        total: 2,
+        teamType: 'Tennis Pair'
+      }
     },
     {
       id: 6,
@@ -113,7 +141,12 @@ const PlayTogether = () => {
       age: 26,
       experience: '4 years',
       sportColor: '#F44336',
-      timePosted: '12 hours ago'
+      timePosted: '12 hours ago',
+      enrolled: {
+        current: 3,
+        total: 6,
+        teamType: 'Practice Group'
+      }
     },
     {
       id: 7,
@@ -128,7 +161,12 @@ const PlayTogether = () => {
       age: 27,
       experience: '9 years',
       sportColor: '#4CAF50',
-      timePosted: '1 day ago'
+      timePosted: '1 day ago',
+      enrolled: {
+        current: 6,
+        total: 11,
+        teamType: 'Cricket Team'
+      }
     },
     {
       id: 8,
@@ -143,7 +181,12 @@ const PlayTogether = () => {
       age: 21,
       experience: '1 year',
       sportColor: '#9C27B0',
-      timePosted: '1 day ago'
+      timePosted: '1 day ago',
+      enrolled: {
+        current: 1,
+        total: 3,
+        teamType: 'Learning Group'
+      }
     },
     {
       id: 9,
@@ -158,7 +201,12 @@ const PlayTogether = () => {
       age: 29,
       experience: '7 years',
       sportColor: '#2196F3',
-      timePosted: '2 days ago'
+      timePosted: '2 days ago',
+      enrolled: {
+        current: 8,
+        total: 11,
+        teamType: 'Football Team'
+      }
     },
     {
       id: 10,
@@ -173,8 +221,14 @@ const PlayTogether = () => {
       age: 32,
       experience: '5 years',
       sportColor: '#00BCD4',
-      timePosted: '2 days ago'
+      timePosted: '2 days ago',
+      enrolled: {
+        current: 2,
+        total: 4,
+        teamType: 'Swimming Group'
+      }
     },
+    // Continue with remaining players with similar enrollment data...
     {
       id: 11,
       name: 'Amit Agarwal',
@@ -188,7 +242,12 @@ const PlayTogether = () => {
       age: 35,
       experience: '12 years',
       sportColor: '#FF9800',
-      timePosted: '3 days ago'
+      timePosted: '3 days ago',
+      enrolled: {
+        current: 1,
+        total: 2,
+        teamType: 'Doubles Team'
+      }
     },
     {
       id: 12,
@@ -203,99 +262,19 @@ const PlayTogether = () => {
       age: 31,
       experience: '15 years',
       sportColor: '#F44336',
-      timePosted: '3 days ago'
-    },
-    {
-      id: 13,
-      name: 'Neha Kapoor',
-      sport: 'Cricket',
-      profileImage: getDiceBearAvatar('Neha Kapoor'),
-      description: 'All-rounder cricket player seeking women\'s cricket team. Good with both bat and ball.',
-      location: 'Faridabad, Haryana',
-      skillLevel: 'Intermediate',
-      availability: 'Weekends',
-      lookingFor: 'Women\'s Team',
-      age: 24,
-      experience: '4 years',
-      sportColor: '#4CAF50',
-      timePosted: '4 days ago'
-    },
-    {
-      id: 14,
-      name: 'Sanjay Reddy',
-      sport: 'Football',
-      profileImage: getDiceBearAvatar('Sanjay Reddy'),
-      description: 'Striker looking for competitive football team. Fast player with good finishing skills.',
-      location: 'Indirapuram, Ghaziabad',
-      skillLevel: 'Advanced',
-      availability: 'Evenings',
-      lookingFor: 'Competitive Team',
-      age: 26,
-      experience: '8 years',
-      sportColor: '#2196F3',
-      timePosted: '5 days ago'
-    },
-    {
-      id: 15,
-      name: 'Pooja Sharma',
-      sport: 'Swimming',
-      profileImage: getDiceBearAvatar('Pooja Sharma'),
-      description: 'Swimming instructor offering free coaching in exchange for training partnership.',
-      location: 'Mayur Vihar, Delhi',
-      skillLevel: 'Professional',
-      availability: 'Flexible',
-      lookingFor: 'Training Exchange',
-      age: 33,
-      experience: '18 years',
-      sportColor: '#00BCD4',
-      timePosted: '1 week ago'
-    },
-    {
-      id: 16,
-      name: 'Karan Thakur',
-      sport: 'Badminton',
-      profileImage: getDiceBearAvatar('Karan Thakur'),
-      description: 'Singles badminton specialist looking for tournament partner and regular practice opponent.',
-      location: 'Tilak Nagar, Delhi',
-      skillLevel: 'Advanced',
-      availability: 'Evenings',
-      lookingFor: 'Tournament Partner',
-      age: 27,
-      experience: '9 years',
-      sportColor: '#9C27B0',
-      timePosted: '1 week ago'
-    },
-    {
-      id: 17,
-      name: 'Meera Jain',
-      sport: 'Tennis',
-      profileImage: getDiceBearAvatar('Meera Jain'),
-      description: 'Junior tennis player seeking hitting partner and occasional coaching guidance.',
-      location: 'Alaknanda, Delhi',
-      skillLevel: 'Intermediate',
-      availability: 'After School',
-      lookingFor: 'Hitting Partner',
-      age: 18,
-      experience: '3 years',
-      sportColor: '#FF9800',
-      timePosted: '1 week ago'
-    },
-    {
-      id: 18,
-      name: 'Ashwin Nair',
-      sport: 'Table Tennis',
-      profileImage: getDiceBearAvatar('Ashwin Nair'),
-      description: 'Club level table tennis player organizing weekend tournaments. Looking for participants.',
-      location: 'Pragati Maidan, Delhi',
-      skillLevel: 'Intermediate',
-      availability: 'Weekends',
-      lookingFor: 'Tournament Players',
-      age: 28,
-      experience: '6 years',
-      sportColor: '#F44336',
-      timePosted: '2 weeks ago'
+      timePosted: '3 days ago',
+      enrolled: {
+        current: 4,
+        total: 8,
+        teamType: 'Practice League'
+      }
     }
   ];
+
+  // Handle player card click navigation
+  const handlePlayerClick = (playerId) => {
+    navigate(`/communities/${playerId}`);
+  };
 
   // Comprehensive search function
   const searchPlayers = (players, query) => {
@@ -432,7 +411,12 @@ const PlayTogether = () => {
         ) : (
           <div className={styles.playersGrid}>
             {playersToDisplay.map((player) => (
-              <div key={player.id} className={styles.playerCard}>
+              <div 
+                key={player.id} 
+                className={styles.playerCard}
+                onClick={() => handlePlayerClick(player.id)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className={styles.cardHeader}>
                   <div className={styles.profileSection}>
                     <img src={player.profileImage} alt={player.name} className={styles.profileImage} />
@@ -482,8 +466,22 @@ const PlayTogether = () => {
                 </div>
 
                 <div className={styles.cardFooter}>
-                  <span className={styles.age}>Age: {player.age}</span>
-                  <button className={styles.connectBtn}>Connect</button>
+                  <div className={styles.footerLeft}>
+                    <span className={styles.age}>Age: {player.age}</span>
+                    <span className={styles.enrollment}>
+                      <i className="fas fa-users"></i>
+                      {player.enrolled.current}/{player.enrolled.total} enrolled
+                    </span>
+                  </div>
+                  <button 
+                    className={styles.connectBtn}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent card click when button is clicked
+                      handlePlayerClick(player.id);
+                    }}
+                  >
+                    View Profile
+                  </button>
                 </div>
               </div>
             ))}
