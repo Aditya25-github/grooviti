@@ -7,7 +7,7 @@ import logo from "../../assets/sports_assets/logo.png";
 const navLinks = [
   { name: "Home", to: "/" },
   { name: "Venues", to: "/venues" },
-  { name: "Play Together", to: "/communities" },
+  { name: "Play Together", to: "/playtogether" },
   { name: "Academy", to: "/academy" },
 ];
 
