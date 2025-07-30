@@ -80,7 +80,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademySideBar />;
     if (userRole === "eventHost") return <SideBar />;
-    if (userRole === "turf") return <TurfSideBar />;
+    if (userRole === "turfOwner") return <TurfSideBar />;
     return null; // turfOwner or others
   };
 
@@ -88,7 +88,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyNavbar url={url} />;
     if (userRole === "eventHost") return <EventNavbar url={url} />;
-    if (userRole === "turf") return <TurfNavbar url={url} />;
+    if (userRole === "turfOwner") return <TurfNavbar url={url} />;
     return null;
   };
 
@@ -96,7 +96,7 @@ const App = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyFooter />;
     if (userRole === "eventHost") return <Footer />;
-    if (userRole === "turf") return <TurfFooter />;
+    if (userRole === "turfOwner") return <TurfFooter />;
     return null;
   };
 
@@ -199,7 +199,7 @@ const App = () => {
           <Route
             path="/turf/dashboard"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <TurfDashboard url={url} />
               </ProtectedRoute>
             }
@@ -207,7 +207,7 @@ const App = () => {
           <Route
             path="/turf/listings"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <TurfListing url={url} />
               </ProtectedRoute>
             }
@@ -215,7 +215,7 @@ const App = () => {
           <Route
             path="/turf/bookings"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <TurfBooking url={url} />
               </ProtectedRoute>
             }
@@ -223,7 +223,7 @@ const App = () => {
           <Route
             path="/turf/slot-management"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <SlotManagement url={url} />
               </ProtectedRoute>
             }
@@ -231,7 +231,7 @@ const App = () => {
           <Route
             path="/turf/staff"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <StaffManagement url={url} />
               </ProtectedRoute>
             }
@@ -239,7 +239,7 @@ const App = () => {
           <Route
             path="/turf/revenue"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <RevenueExpenses url={url} />
               </ProtectedRoute>
             }
@@ -247,7 +247,7 @@ const App = () => {
           <Route
             path="/turf/feedback"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <Feedback url={url} />
               </ProtectedRoute>
             }
@@ -255,7 +255,7 @@ const App = () => {
           <Route
             path="/turf/refunds"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <RefundsManagement url={url} />
               </ProtectedRoute>
             }
@@ -263,7 +263,7 @@ const App = () => {
           <Route
             path="/turf/analytics"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <Analytics url={url} />
               </ProtectedRoute>
             }
@@ -271,7 +271,7 @@ const App = () => {
           <Route
             path="/turf/pricing"
             element={
-              <ProtectedRoute allowedRoles={["turf"]}>
+              <ProtectedRoute allowedRoles={["turfOwner"]}>
                 <Pricing url={url} />
               </ProtectedRoute>
             }

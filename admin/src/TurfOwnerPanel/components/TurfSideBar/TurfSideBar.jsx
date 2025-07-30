@@ -26,7 +26,7 @@ const TurfSideBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("turfToken");
+    localStorage.removeItem("turfOwnerToken");
     localStorage.removeItem("userType");
     setToken(null);
     setUserRole(null);

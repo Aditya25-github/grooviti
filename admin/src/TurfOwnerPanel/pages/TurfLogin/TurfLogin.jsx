@@ -34,9 +34,9 @@ const TurfLogin = ({ url }) => {
       const response = await axios.post(`${url}/api/turfs/login`, loginData);
       if (response.data.success) {
         setToken(response.data.token);
-        setUserRole("turf");
-        localStorage.setItem("turfToken", response.data.token);
-        localStorage.setItem("userType", "turf");
+        setUserRole("turfOwner");
+        localStorage.setItem("turfOwnerToken", response.data.token);
+        localStorage.setItem("userType", "turfOwner");
         toast.success("Login successful");
         navigate("/turf/dashboard");
       } else {
@@ -73,9 +73,9 @@ const TurfLogin = ({ url }) => {
   };
 
   useEffect(() => {
-    const tokenFromStorage = localStorage.getItem("turfToken");
+    const tokenFromStorage = localStorage.getItem("turfOwnerToken");
     const roleFromStorage = localStorage.getItem("userType");
-    if (tokenFromStorage && roleFromStorage === "turf") {
+    if (tokenFromStorage && roleFromStorage === "turfOwner") {
       setToken(tokenFromStorage);
       setUserRole(roleFromStorage);
       navigate("/turf/dashboard");
