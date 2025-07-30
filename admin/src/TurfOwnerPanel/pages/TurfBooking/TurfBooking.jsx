@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TurfBooking.module.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
   FaCalendarAlt,
   FaClock,
@@ -20,19 +21,62 @@ const TurfBooking = ({ url }) => {
 
   useEffect(() => {
     fetchBookings();
-  }, []);
+  }, [dateRange]);
 
   const fetchBookings = async () => {
+    setLoading(true);
+    let path = "";
+    const today = new Date().toISOString().slice(0, 10);
+
+    switch (dateRange) {
+      case "Today":
+        path = "/today";
+        break;
+      case "Yesterday":
+        const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+        path = `/date/${y}`;
+        break;
+      case "This Week":
+        const startW = new Date();
+        startW.setDate(startW.getDate() - startW.getDay()); // Sunday
+        const endW = new Date(startW);
+        endW.setDate(endW.getDate() + 6);
+        path = `/range?start=${startW.toISOString().slice(0, 10)}&end=${endW
+          .toISOString()
+          .slice(0, 10)}`;
+        break;
+      case "This Month":
+        const d = new Date();
+        const startM = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+          2,
+          "0"
+        )}-01`;
+        const endM = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+          2,
+          "0"
+        )}-${String(
+          new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate()
+        ).padStart(2, "0")}`;
+        path = `/range?start=${startM}&end=${endM}`;
+        break;
+      default:
+        path = "";
+    }
+
     try {
-      const res = await axios.get(`${url}/api/turfbookings`, {
+      const res = await axios.get(`${url}/api/turfbookings${path}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("turfOwnerToken")}`,
         },
       });
-      setBookings(res.data);
+      setBookings(
+        Array.isArray(res.data)
+          ? res.data // if backend returns just an array
+          : res.data.bookings || []
+      );
     } catch (err) {
-      console.error("Failed fetching bookings:", err);
-      // Optionally toast error
+      console.error(err);
+      toast.error("Failed fetching bookings");
     } finally {
       setLoading(false);
     }

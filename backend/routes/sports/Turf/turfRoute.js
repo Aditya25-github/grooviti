@@ -2,7 +2,7 @@
 import express from "express";
 import {
   createTurf,
-  getAllTurfs,
+  getTurfs,
   getTurfById,
   updateTurf,
   deleteTurf,
@@ -26,7 +26,7 @@ router.post(
   createTurf
 );
 
-router.get("/", getAllTurfs);
+router.get("/", authMiddleware, getTurfs);
 router.get("/:id", getTurfById);
 
 router.put(
