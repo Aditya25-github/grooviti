@@ -1,16 +1,23 @@
 import React from 'react';
 import styles from './ShinyText.module.css';
 
-const ShinyText = ({ text, disabled = false, speed = 5, className = '' }) => {
-  const animationDuration = `${speed}s`;
-
+const ShinyText = ({ 
+  text, 
+  disabled = false, 
+  speed = 2.5,  
+  className = '',
+  intensity = 0.9
+}) => {
   return (
-    <div
+    <span
       className={`${styles.shinyText} ${disabled ? styles.disabled : ''} ${className}`}
-      style={{ animationDuration }}
+      style={{ 
+        '--animation-duration': `${speed}s`,
+        '--intensity': intensity
+      }}
     >
       {text}
-    </div>
+    </span>
   );
 };
 

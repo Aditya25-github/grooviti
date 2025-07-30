@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
@@ -40,46 +41,49 @@ const SportsHomepage = () => {
         {/* Hero Content */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           <h1 className={styles.heroTitle}>
-            Want to{' '}
-            <span style={{ display: 'inline-block' }}>
-              <RotatingText
-                texts={[' book ', 'manage', 'handle']}
-                mainClassName={styles.rotatingText}
-                staggerFrom={"last"}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.025}
-                splitLevelClassName={styles.rotatingTextSplit}
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={2000}
-                style={{ fontFamily: "'Courier New', Courier, monospace" }}
-                
-              />
-            </span>{' '}
-            turfs?
-          </h1>
-          <h2 className={styles.heroSubtitle}>
-            <ShinyText 
-              text="Grooviti " 
-              disabled={false} 
-              speed={4} 
-              className={styles.shinyGrooviti}
-            />
-            <span>  is the right place!</span>
-          </h2>
+          Want to{' '}
+          <RotatingText
+            texts={['Book', 'Manage', 'Handle']}
+            mainClassName={styles.rotatingText}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            transition={{ 
+              type: "spring", 
+              damping: 30, 
+              stiffness: 400,
+              mass: 0.5
+            }}
+            rotationInterval={2000}
+            style={{ 
+              // fontFamily: "'Courier New', Courier, monospace",
+              color: '#ffffff',
+              fontWeight: 'bold'
+            }}
+          />{' '}
+          venues?
+              </h1>
+              <h2 className={styles.heroSubtitle}>
+              <ShinyText 
+        text="Grooviti" 
+        speed={2.5} 
+        intensity={0.9}
+        className={styles.brandName}
+      />
+              <span>is the right place!</span>
+            </h2>
           <p className={styles.heroSlogan}>Groove it, Book it, Live it</p>
         </div>
       </div>
       
       {/* Rest of your content */}
-      <Header />
+      {/* <Header /> */}
       <PopularSports />
       <TurfNearest />
       <AcademyNear/>
       <Milestones/>
       <SayAboutUs/>
-      <Feedback/>
+      {/* <Feedback/> */}
     </div>
   );
 };

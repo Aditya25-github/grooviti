@@ -6,12 +6,33 @@
     justify-content: center;
     background-color: rgb(11, 0, 26);
 }
+.rotateContainer {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+}
 
+.wordWrapper {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .heroSection {
   display: flex;
   flex-direction: column;
   width: 1440px;
-  height:700px;
+  height:800px;
 margin-top: 5rem;
   align-items: center;
   justify-content: center;
@@ -23,11 +44,11 @@ margin-top: 5rem;
 
 .heroTitle {
   color: #fff;
-  margin-top: 9rem;
-  font-size: 6rem;
+  margin-top: 11vh;
+  font-size: 6.8rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
-  letter-spacing: 2px;
+  letter-spacing: 0px;
   text-align: center;
   font-family:'Courier New', Courier, monospace;
   position: relative;
@@ -36,16 +57,17 @@ margin-top: 5rem;
     display: inline;
   }
 .heroSubtitle {
-  color: #fff;
-  margin-top: 2rem;
+  color: #cecece;
+  margin-left: 30vh;
+  margin-top: 3.4rem;
   font-size: 4.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   text-align: center;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
 .shiny-text {
     font-size: inherit;
@@ -61,12 +83,12 @@ margin-top: 5rem;
 
 .heroSlogan {
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 2px;
   margin-bottom: 0;
   text-align: center;
-  margin-top: 7rem;
+  margin-top: 25vh;
   
 }
 /* Add these new rules at the BOTTOM of your Home.module.css */
@@ -95,8 +117,9 @@ margin-top: 5rem;
   
   /* Ensure the rotating text inherits heroTitle styles */
   .heroTitle .rotatingText {
-    font-size: 6rem;
-    font-weight: 800;
+    font-size: 6.8rem;
+    margin-bottom: 0px;
+    font-weight: 700;
     letter-spacing: 0px;
     font-family: 'Courier New', Courier, monospace;
   }

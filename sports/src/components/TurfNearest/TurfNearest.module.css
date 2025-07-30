@@ -1,135 +1,249 @@
 .container {
-    
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.titleContainer {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+.titleContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.sectionTitle {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  font-size: 30px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.glassContainer {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  width:100%;
+  max-width: 1200px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.2),
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.glassContainer::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 8s infinite;
+}
+
+@keyframes shine {
+  0% {
+      transform: rotate(30deg) translate(-30%, -30%);
   }
-  
-  .sectionTitle {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    font-size: 30px;
-    font-weight: 600;
-    color: #ffffff;
-    text-align: center;
+  100% {
+      transform: rotate(30deg) translate(30%, 30%);
   }
-  
+}
+
+.venuesContainer {
+  display: flex;
+  gap: 3rem;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 1;
+}
+
+.venuesContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.venueCard {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 300px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.venueCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.venueImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.venueCard:hover .venueImage {
+  transform: scale(1.05);
+}
+
+.venueContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.venueName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.venueDescription {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.venueFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.venuePrice {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.bookButton {
+  background-color: #00796B;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.bookButton:hover {
+  background-color: #004D40;
+  transform: translateY(-2px);
+}
+
+.exploreButton {
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exploreButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
   .venuesContainer {
-    display: flex;
-    gap: 5rem;
-    overflow-x: auto;
-    padding-bottom: 20px;
-    scrollbar-width: none; /* Firefox */
-  }
-  
-  .venuesContainer::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+      gap: 20px;
   }
   
   .venueCard {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    min-width: 300px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .venueCard:hover {
-    transform: translateY(-5px);
+      min-width: 280px;
   }
   
   .imageContainer {
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-  }
-  
-  .venueImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .venueContent {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .venueName {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #2c3e50;
-  }
-  
-  .venueDescription {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    flex-grow: 1;
-  }
-  
-  .venueFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-  }
-  
-  .venuePrice {
-    font-size: 16px;
-    font-weight: 600;
-    color: #4CAF50;
-  }
-  
-  .bookButton {
-    background-color: #00796B;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap;
-  }
-  
-  .bookButton:hover {
-    background-color: #004D40;
-  }
-  
-  @media (max-width: 768px) {
-    .venuesContainer {
-      gap: 20px;
-    }
-    
-    .venueCard {
-      min-width: 280px;
-    }
-    
-    .imageContainer {
       height: 160px;
-    }
+  }
+
+  .glassContainer {
+      padding: 1.5rem;
+  }
+
+  .exploreButton {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      margin-top: 20px;
+      margin-left: auto;
+      display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .venueCard {
+      min-width: 260px;
   }
   
-  @media (max-width: 480px) {
-    .venueCard {
-      min-width: 260px;
-    }
-    
-    .imageContainer {
+  .imageContainer {
       height: 140px;
-    }
-    
-    .sectionTitle {
-      font-size: 22px;
-    }
   }
+  
+  .sectionTitle {
+      font-size: 22px;
+  }
+
+  .glassContainer {
+      padding: 1rem;
+  }
+}

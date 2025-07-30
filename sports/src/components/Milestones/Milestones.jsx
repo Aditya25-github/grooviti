@@ -17,7 +17,7 @@ const Milestones = () => {
   };
 
   useEffect(() => {
-    const duration = 2000; // Animation duration in ms
+    const duration = 700; // Animation duration in ms
     const increment = (target, property) => {
       const start = 0;
       const incrementTime = duration / target;

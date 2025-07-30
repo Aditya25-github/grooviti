@@ -3,6 +3,7 @@ import styles from "./TurfNearest.module.css";
 import turf1 from "../../assets/sports_assets/turf1.png";
 import cricketturf from "../../assets/sports_assets/cricketturf.png";
 import turf3 from "../../assets/sports_assets/turf3.png";
+import { useNavigate } from "react-router-dom";
 
 const Venues = [
   {
@@ -29,29 +30,43 @@ const Venues = [
 ];
 
 const TurfNearest = () => {
+  const navigate = useNavigate();
+
+  const handleExploreMore = () => {
+    navigate('/venues');
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.sectionTitle}>Available Venues</h2>
-      <div className={styles.venuesContainer}>
-        {Venues.map((venue, index) => (
-          <div key={index} className={styles.venueCard}>
-            <div className={styles.imageContainer}>
-              <img 
-                src={venue.image} 
-                alt={venue.name} 
-                className={styles.venueImage}
-              />
-            </div>
-            <div className={styles.venueContent}>
-              <h3 className={styles.venueName}>{venue.name}</h3>
-              <p className={styles.venueDescription}>{venue.description}</p>
-              <div className={styles.venueFooter}>
-                <span className={styles.venuePrice}>{venue.price}</span>
-                <button className={styles.bookButton}>{venue.buttonLabel}</button>
+      <div className={styles.titleContainer}>
+        <h2 className={styles.sectionTitle}>Turfs Near You</h2>
+      </div>
+      
+      <div className={styles.glassContainer}>
+        <div className={styles.venuesContainer}>
+          {Venues.map((venue, index) => (
+            <div key={index} className={styles.venueCard}>
+              <div className={styles.imageContainer}>
+                <img 
+                  src={venue.image} 
+                  alt={venue.name} 
+                  className={styles.venueImage}
+                />
+              </div>
+              <div className={styles.venueContent}>
+                <h3 className={styles.venueName}>{venue.name}</h3>
+                <p className={styles.venueDescription}>{venue.description}</p>
+                <div className={styles.venueFooter}>
+                  <span className={styles.venuePrice}>{venue.price}</span>
+                  <button className={styles.bookButton}>{venue.buttonLabel}</button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <button className={styles.exploreButton} onClick={handleExploreMore}>
+          Explore More →
+        </button>
       </div>
     </div>
   );

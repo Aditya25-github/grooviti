@@ -44,17 +44,19 @@ const PopularSports = ({ onSportSelect }) => {
   return (
     <div className="popular-sports-container">
       <h2 className="heading">Popular Sports</h2>
-      <div className="card-list">
-        {sports.map((sport, index) => (
-          <div
-            key={index}
-            className="sport-card"
-            onClick={() => handleSportClick(sport.name)}
-          >
-            <img src={sport.image} alt={sport.name} className="sport-img" />
-            <div className="sport-name">{sport.name}</div>
-          </div>
-        ))}
+      <div className="glass-container">
+        <div className="card-list">
+          {sports.map((sport, index) => (
+            <div
+              key={index}
+              className="sport-card"
+              onClick={() => handleSportClick(sport.name)}
+            >
+              <img src={sport.image} alt={sport.name} className="sport-img" />
+              <div className="sport-name">{sport.name}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
