@@ -231,29 +231,280 @@
   color: #b45309;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+/* Loading States */
+.loadingContainer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #10b981;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  .subtitle {
-    margin-left: 0;
-  }
-  .statsSection {
-    grid-template-columns: 1fr 1fr;
+  100% {
+    transform: rotate(360deg);
   }
 }
-@media (max-width: 600px) {
-  .container {
-    padding: 14px 5px;
+
+/* No Turfs State */
+.noTurfsContainer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.noTurfsIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.addFirstTurfBtn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.2s ease;
+}
+
+.addFirstTurfBtn:hover {
+  background: #059669;
+}
+
+/* Features */
+.featuresRow {
+  margin: 8px 0;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.featureTag {
+  background: #f0fdf4;
+  color: #059669;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.moreFeatures {
+  background: #f3f4f6;
+  color: #666;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Updated Card Actions */
+/* Updated Card Actions - Modern Design */
+.cardActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.editBtn,
+.maintenanceBtn,
+.deleteBtn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.025em;
+}
+
+.editBtn {
+  background: #6366f1;
+  color: white;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.editBtn:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+.maintenanceBtn {
+  background: #f59e0b;
+  color: white;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.maintenanceBtn:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.activateBtn {
+  background: #10b981;
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.activateBtn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Icons styling */
+.deleteIcon {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.deleteBtn:hover .deleteIcon {
+  transform: scale(1.1);
+}
+
+/* Loading spinner for delete */
+.deletingSpinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Pulse effect for loading state */
+.deleteBtn:disabled {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
   }
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  50% {
+    opacity: 0.8;
   }
-  .statsSection {
-    grid-template-columns: 1fr;
+  100% {
+    opacity: 0.6;
   }
+}
+
+/* Ripple effect on click */
+.editBtn::after,
+.maintenanceBtn::after,
+.deleteBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.editBtn:active::after,
+.maintenanceBtn:active::after,
+.deleteBtn:active::after {
+  width: 100px;
+  height: 100px;
+}
+
+/* Responsive Updates */
+@media (max-width: 768px) {
+  .cardActions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .editBtn,
+  .maintenanceBtn,
+  .deleteBtn {
+    flex: none;
+    min-height: 44px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardActions {
+    gap: 8px;
+  }
+
+  .editBtn,
+  .maintenanceBtn,
+  .deleteBtn {
+    min-height: 40px;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+
+/* Focus states for accessibility */
+.editBtn:focus,
+.maintenanceBtn:focus,
+.deleteBtn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.maintenanceBtn:focus,
+.activateBtn:focus {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}
+
+.deleteBtn:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
 }

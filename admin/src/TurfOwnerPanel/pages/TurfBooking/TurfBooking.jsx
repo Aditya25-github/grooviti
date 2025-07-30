@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TurfBooking.module.css";
+import axios from "axios";
 import {
   FaCalendarAlt,
   FaClock,
@@ -10,92 +11,47 @@ import {
   FaPlus,
 } from "react-icons/fa";
 
-const TurfBooking = () => {
+const TurfBooking = ({ url }) => {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState("Today");
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [turfFilter, setTurfFilter] = useState("All Turfs");
 
-  // Mock booking data
-  const [bookings] = useState([
-    {
-      id: "BK001",
-      customerName: "John Smith",
-      customerPhone: "+91 98765 43210",
-      turfName: "Premier Football Turf",
-      date: "2025-01-30",
-      timeSlot: "6:00 PM - 8:00 PM",
-      duration: "2 hours",
-      status: "Confirmed",
-      amount: 2400,
-      bookingTime: "2 hours ago",
-      paymentStatus: "Paid",
-    },
-    {
-      id: "BK002",
-      customerName: "Sarah Johnson",
-      customerPhone: "+91 87654 32109",
-      turfName: "Elite Cricket Ground",
-      date: "2025-01-30",
-      timeSlot: "10:00 AM - 11:30 AM",
-      duration: "1.5 hours",
-      status: "Pending",
-      amount: 3000,
-      bookingTime: "30 minutes ago",
-      paymentStatus: "Pending",
-    },
-    {
-      id: "BK003",
-      customerName: "Mike Davis",
-      customerPhone: "+91 76543 21098",
-      turfName: "City Multi-sports Arena",
-      date: "2025-01-30",
-      timeSlot: "2:00 PM - 5:00 PM",
-      duration: "3 hours",
-      status: "Confirmed",
-      amount: 4500,
-      bookingTime: "1 hour ago",
-      paymentStatus: "Paid",
-    },
-    {
-      id: "BK004",
-      customerName: "Emma Wilson",
-      customerPhone: "+91 65432 10987",
-      turfName: "Premier Football Turf",
-      date: "2025-01-29",
-      timeSlot: "4:00 PM - 6:00 PM",
-      duration: "2 hours",
-      status: "Cancelled",
-      amount: 2400,
-      bookingTime: "1 day ago",
-      paymentStatus: "Refunded",
-    },
-  ]);
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
-  // Statistics
-  const totalBookings = bookings.length;
-  const todayBookings = bookings.filter((b) => b.date === "2025-01-30").length;
-  const confirmedBookings = bookings.filter(
-    (b) => b.status === "Confirmed"
-  ).length;
-  const pendingBookings = bookings.filter((b) => b.status === "Pending").length;
-  const totalRevenue = bookings
-    .filter((b) => b.status === "Confirmed")
-    .reduce((sum, b) => sum + b.amount, 0);
-
-  const handleViewBooking = (bookingId) => {
-    console.log("View booking:", bookingId);
-    alert(`Opening booking details for ${bookingId}`);
+  const fetchBookings = async () => {
+    try {
+      const res = await axios.get(`${url}/api/turfbookings`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("turfOwnerToken")}`,
+        },
+      });
+      setBookings(res.data);
+    } catch (err) {
+      console.error("Failed fetching bookings:", err);
+      // Optionally toast error
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleEditBooking = (bookingId) => {
-    console.log("Edit booking:", bookingId);
-    alert(`Opening edit form for ${bookingId}`);
-  };
-
-  const handleCancelBooking = (bookingId) => {
-    console.log("Cancel booking:", bookingId);
-    if (window.confirm("Are you sure you want to cancel this booking?")) {
-      alert(`Booking ${bookingId} cancelled`);
+  const handleViewBooking = (id) => alert(`View booking ${id}`);
+  const handleEditBooking = (id) => alert(`Edit booking ${id}`);
+  const handleCancelBooking = (id) => {
+    if (window.confirm("Cancel this booking?")) {
+      axios
+        .delete(`${url}/api/bookings/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("turfOwnerToken")}`,
+          },
+        })
+        .then(() => {
+          setBookings((prev) => prev.filter((b) => b._id !== id));
+        })
+        .catch((err) => console.error("Cancel failed", err));
     }
   };
 
@@ -112,13 +68,27 @@ const TurfBooking = () => {
     }
   };
 
-  const filteredBookings = bookings.filter((booking) => {
+  // Filters
+  const filtered = bookings.filter((b) => {
     const statusMatch =
-      statusFilter === "All Status" || booking.status === statusFilter;
+      statusFilter === "All Status" || b.status === statusFilter;
+    const turfName = b.turf?.name || "";
     const turfMatch =
-      turfFilter === "All Turfs" || booking.turfName.includes(turfFilter);
+      turfFilter === "All Turfs" || turfName.includes(turfFilter);
     return statusMatch && turfMatch;
   });
+
+  // Compute stats
+  const totalBookings = filtered.length;
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const todayCount = bookings.filter((b) => b.date === today).length;
+  const confirmedCount = bookings.filter(
+    (b) => b.status === "Confirmed"
+  ).length;
+  const pendingCount = bookings.filter((b) => b.status === "Pending").length;
+  const totalRevenue = bookings
+    .filter((b) => b.status === "Confirmed")
+    .reduce((sum, b) => sum + b.amount, 0);
 
   return (
     <div className={styles.container}>
@@ -132,26 +102,23 @@ const TurfBooking = () => {
         </div>
         <div className={styles.headerActions}>
           <button className={styles.exportBtn}>
-            <FaDownload className={styles.btnIcon} />
-            Export
+            <FaDownload className={styles.btnIcon} /> Export
           </button>
           <button className={styles.newBookingBtn}>
-            <FaPlus className={styles.btnIcon} />
-            New Booking
+            <FaPlus className={styles.btnIcon} /> New Booking
           </button>
         </div>
       </div>
 
-      {/* Statistics */}
+      {/* Stats */}
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
           <div className={styles.statIcon}>📅</div>
           <div className={styles.statContent}>
-            <div className={styles.statValue}>{todayBookings}</div>
+            <div className={styles.statValue}>{todayCount}</div>
             <div className={styles.statLabel}>Today's Bookings</div>
           </div>
         </div>
-
         <div className={styles.statCard}>
           <div className={styles.statIcon}>📊</div>
           <div className={styles.statContent}>
@@ -159,23 +126,20 @@ const TurfBooking = () => {
             <div className={styles.statLabel}>Total Bookings</div>
           </div>
         </div>
-
         <div className={styles.statCard}>
           <div className={styles.statIcon}>✅</div>
           <div className={styles.statContent}>
-            <div className={styles.statValue}>{confirmedBookings}</div>
+            <div className={styles.statValue}>{confirmedCount}</div>
             <div className={styles.statLabel}>Confirmed</div>
           </div>
         </div>
-
         <div className={styles.statCard}>
           <div className={styles.statIcon}>⏳</div>
           <div className={styles.statContent}>
-            <div className={styles.statValue}>{pendingBookings}</div>
+            <div className={styles.statValue}>{pendingCount}</div>
             <div className={styles.statLabel}>Pending</div>
           </div>
         </div>
-
         <div className={styles.statCard}>
           <div className={styles.statIcon}>💰</div>
           <div className={styles.statContent}>
@@ -196,10 +160,11 @@ const TurfBooking = () => {
             onChange={(e) => setDateRange(e.target.value)}
             className={styles.filterSelect}
           >
-            <option value="Today">Today</option>
-            <option value="Yesterday">Yesterday</option>
-            <option value="This Week">This Week</option>
-            <option value="This Month">This Month</option>
+            {["Today", "Yesterday", "This Week", "This Month"].map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -210,10 +175,11 @@ const TurfBooking = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className={styles.filterSelect}
           >
-            <option value="All Status">All Status</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Pending">Pending</option>
-            <option value="Cancelled">Cancelled</option>
+            {["All Status", "Confirmed", "Pending", "Cancelled"].map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -225,100 +191,99 @@ const TurfBooking = () => {
             className={styles.filterSelect}
           >
             <option value="All Turfs">All Turfs</option>
-            <option value="Premier Football">Premier Football Turf</option>
-            <option value="Elite Cricket">Elite Cricket Ground</option>
-            <option value="Multi-sports">City Multi-sports Arena</option>
+            {bookings
+              .map((b) => b.turf?.name)
+              .filter((v, i, a) => v && a.indexOf(v) === i)
+              .map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
           </select>
         </div>
       </div>
 
-      {/* Bookings List */}
+      {/* Booking List */}
       <div className={styles.bookingsSection}>
         <h2 className={styles.sectionTitle}>All Bookings</h2>
 
         <div className={styles.bookingsList}>
-          {filteredBookings.map((booking) => (
-            <div key={booking.id} className={styles.bookingCard}>
-              <div className={styles.bookingHeader}>
-                <div className={styles.bookingId}>#{booking.id}</div>
-                <div
-                  className={`${styles.bookingStatus} ${getStatusClass(
-                    booking.status
-                  )}`}
-                >
-                  {booking.status}
-                </div>
-              </div>
-
-              <div className={styles.bookingDetails}>
-                <div className={styles.customerInfo}>
-                  <div className={styles.customerName}>
-                    {booking.customerName}
-                  </div>
-                  <div className={styles.customerPhone}>
-                    {booking.customerPhone}
-                  </div>
-                </div>
-
-                <div className={styles.bookingInfo}>
-                  <div className={styles.turfName}>{booking.turfName}</div>
-                  <div className={styles.dateTime}>
-                    <FaCalendarAlt className={styles.icon} />
-                    {booking.date} • {booking.timeSlot}
-                  </div>
-                  <div className={styles.duration}>
-                    <FaClock className={styles.icon} />
-                    {booking.duration}
-                  </div>
-                </div>
-
-                <div className={styles.bookingMeta}>
-                  <div className={styles.amount}>
-                    ₹{booking.amount.toLocaleString()}
-                  </div>
-                  <div className={styles.paymentStatus}>
-                    {booking.paymentStatus}
-                  </div>
-                  <div className={styles.bookingTime}>
-                    {booking.bookingTime}
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.bookingActions}>
-                <button
-                  onClick={() => handleViewBooking(booking.id)}
-                  className={styles.actionBtn}
-                >
-                  <FaEye className={styles.actionIcon} />
-                  View
-                </button>
-                <button
-                  onClick={() => handleEditBooking(booking.id)}
-                  className={styles.actionBtn}
-                >
-                  <FaEdit className={styles.actionIcon} />
-                  Edit
-                </button>
-                {booking.status !== "Cancelled" && (
-                  <button
-                    onClick={() => handleCancelBooking(booking.id)}
-                    className={`${styles.actionBtn} ${styles.cancelBtn}`}
-                  >
-                    <FaTimes className={styles.actionIcon} />
-                    Cancel
-                  </button>
-                )}
-              </div>
+          {loading ? (
+            <p>Loading bookings...</p>
+          ) : filtered.length === 0 ? (
+            <div className={styles.noBookings}>
+              <p>No bookings found matching your filters.</p>
             </div>
-          ))}
-        </div>
+          ) : (
+            filtered.map((b) => (
+              <div key={b._id} className={styles.bookingCard}>
+                <div className={styles.bookingHeader}>
+                  <div className={styles.bookingId}>#{b._id.slice(-6)}</div>
+                  <div
+                    className={`${styles.bookingStatus} ${getStatusClass(
+                      b.status
+                    )}`}
+                  >
+                    {b.status}
+                  </div>
+                </div>
 
-        {filteredBookings.length === 0 && (
-          <div className={styles.noBookings}>
-            <p>No bookings found matching your filters.</p>
-          </div>
-        )}
+                <div className={styles.bookingDetails}>
+                  <div className={styles.customerInfo}>
+                    <div className={styles.customerName}>{b.customerName}</div>
+                    <div className={styles.customerPhone}>
+                      {b.customerPhone}
+                    </div>
+                  </div>
+                  <div className={styles.bookingInfo}>
+                    <div className={styles.turfName}>{b.turf?.name}</div>
+                    <div className={styles.dateTime}>
+                      <FaCalendarAlt className={styles.icon} /> {b.date} •{" "}
+                      {b.timeSlot}
+                    </div>
+                    <div className={styles.duration}>
+                      <FaClock className={styles.icon} /> {b.duration}
+                    </div>
+                  </div>
+                  <div className={styles.bookingMeta}>
+                    <div className={styles.amount}>
+                      ₹{b.amount.toLocaleString()}
+                    </div>
+                    <div className={styles.paymentStatus}>
+                      {b.paymentStatus}
+                    </div>
+                    <div className={styles.bookingTime}>
+                      {new Date(b.createdAt).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.bookingActions}>
+                  <button
+                    onClick={() => handleViewBooking(b._id)}
+                    className={styles.actionBtn}
+                  >
+                    <FaEye className={styles.actionIcon} /> View
+                  </button>
+                  <button
+                    onClick={() => handleEditBooking(b._id)}
+                    className={styles.actionBtn}
+                  >
+                    <FaEdit className={styles.actionIcon} /> Edit
+                  </button>
+                  {b.status !== "Cancelled" && (
+                    <button
+                      onClick={() => handleCancelBooking(b._id)}
+                      className={`${styles.actionBtn} ${styles.cancelBtn}`}
+                    >
+                      <FaTimes className={styles.actionIcon} /> Cancel
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

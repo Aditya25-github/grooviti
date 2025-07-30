@@ -9,6 +9,7 @@ import ProtectedRoute from "./EventOrganizerPanel/components/ProtectedRoute";
 // Sidebars
 import SideBar from "./EventOrganizerPanel/components/SideBar/SideBar";
 import AcademySideBar from "./AcademyPanel/components/AcademySideBar/AcademySideBar";
+import TurfSideBar from "./TurfOwnerPanel/components/TurfSideBar/TurfSideBar";
 
 // Navbars (role-specific)
 import AcademyNavbar from "./AcademyPanel/components/AcademyNavbar/AcademyNavbar";
@@ -43,13 +44,15 @@ import TurfDashboard from "./TurfOwnerPanel/pages/Dashboard/TurfDashboard";
 import BookingListPage from "./EventOrganizerPanel/pages/OwnerDashboard/BookingListPage/BookingListPage";
 import AddTurf from "./EventOrganizerPanel/pages/AddTurf/AddTurf";
 import List from "./EventOrganizerPanel/pages/List/List";
-import TurfSideBar from "./TurfOwnerPanel/components/TurfSideBar/TurfSideBar";
 import TurfListing from "./TurfOwnerPanel/pages/TurfListing/TurfListing";
 import TurfBooking from "./TurfOwnerPanel/pages/TurfBooking/TurfBooking";
 import SlotManagement from "./TurfOwnerPanel/pages/SlotManagment/SlotManagment";
 import StaffManagement from "./TurfOwnerPanel/pages/StaffManagment/StaffManagement";
 import RevenueExpenses from "./TurfOwnerPanel/pages/Revenue/RevenueExpenses";
 import Feedback from "./TurfOwnerPanel/pages/FeedBacks/Feedback";
+import RefundsManagement from "./TurfOwnerPanel/pages/RefundsManagement/RefundsManagement";
+import Analytics from "./TurfOwnerPanel/pages/Analytics/Analytics";
+import Pricing from "./TurfOwnerPanel/pages/Pricing/Pricing";
 
 // Event Host Pages
 import ManageEvent from "./EventOrganizerPanel/pages/ManageEvent/ManageEvent";
@@ -59,12 +62,9 @@ import MyPlan from "./EventOrganizerPanel/pages/MyPlans/MyPlan";
 import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
 import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
 import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
-import RefundsManagement from "./TurfOwnerPanel/pages/RefundsManagement/RefundsManagement";
-import Analytics from "./TurfOwnerPanel/pages/Analytics/Analytics";
-import Pricing from "./TurfOwnerPanel/pages/Pricing/Pricing";
 
 const App = () => {
-  const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 

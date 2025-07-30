@@ -100,10 +100,12 @@ app.use("/api/pccoer", pccoerRoutes);
 
 /////////////////////////SPORTS////////////////////////
 import academyRoutes from "./routes/Academy/academyRoutes.js"
-import turfRoutes from "./routes/sports/turfRoute.js";
+import turfRoutes from "./routes/sports/Turf/turfRoute.js";
+import turfbookingRoute from "./routes/sports/Turf/turfbookingRoute.js"
 
 app.use("/api/academy", academyRoutes);
 app.use("/api/turfs", turfRoutes);
+app.use("/api/turfbookings", turfbookingRoute);
 
 
 // ==============================

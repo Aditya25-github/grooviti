@@ -6,10 +6,10 @@ import {
   getTurfById,
   updateTurf,
   deleteTurf,
-} from "../../controllers/sports/turfController.js";
-import authMiddleware from "../../middleware/auth.js";
-import { uploadTurfImage } from "../../middleware/upload.js";
-import { loginTurfOwner, registerTurfOwner } from "../../controllers/sports/turfController.js";
+} from "../../../controllers/sports/Turf/turfController.js";
+import authMiddleware from "../../../middleware/auth.js";
+import { uploadTurfImage } from "../../../middleware/upload.js";
+import { loginTurfOwner, registerTurfOwner } from "../../../controllers/sports/Turf/turfController.js";
 
 
 const router = express.Router();

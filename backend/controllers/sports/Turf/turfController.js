@@ -1,7 +1,7 @@
 // backend/controllers/turfController.js
-import { Turf } from "../../models/sports/turfModel.js";
+import { Turf } from "../../../models/sports/Turf/turfModel.js";
 import jwt from "jsonwebtoken";
-import { TurfOwner } from "../../models/sports/turfownerModel.js";
+import { TurfOwner } from "../../../models/sports/Turf/turfownerModel.js";
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -141,7 +141,6 @@ export const updateTurf = async (req, res) => {
       return res.status(403).json({ message: "Not authorized" });
     }
 
-    // Parse JSON form data again (if sent as string)
     const formData = req.body.data ? JSON.parse(req.body.data) : req.body;
 
     const {
@@ -193,7 +192,7 @@ export const deleteTurf = async (req, res) => {
       return res.status(403).json({ message: "Not authorized" });
     }
 
-    await turf.remove();
+    await turf.deleteOne();
     res.status(200).json({ success: true, message: "Turf deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
