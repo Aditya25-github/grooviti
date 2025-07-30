@@ -1,0 +1,435 @@
+/* src/components/Login/Login.module.css */
+
+/* Modal Overlay and Content */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #71717a;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  color: #27272a;
+  background: #f4f4f5;
+}
+
+/* Login Card */
+.loginCard {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+.loginHeader {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.iconContainer {
+  display: inline-flex;
+  padding: 0.5rem;
+  background: #f4f4f5;
+  border-radius: 0.375rem;
+  border: 1px solid #e4e4e7;
+  align-self: center;
+}
+
+.userIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #71717a;
+}
+
+.loginTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #18181b;
+  margin: 0;
+}
+
+.loginSubtitle {
+  font-size: 0.875rem;
+  color: #71717a;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Social Buttons */
+.socialButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e4e4e7;
+  background: white;
+  color: #18181b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.socialBtn:hover {
+  background: #f9fafb;
+  color: #18181b;
+}
+
+.socialIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Divider */
+.divider {
+  position: relative;
+}
+
+.dividerLine {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  items: center;
+}
+
+.dividerLine::after {
+  content: '';
+  width: 100%;
+  border-top: 1px solid #e4e4e7;
+}
+
+.dividerText {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.dividerText span {
+  background: white;
+  color: #71717a;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Form */
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #18181b;
+}
+
+.input {
+  display: flex;
+  height: 2.25rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid #e4e4e7;
+  background: white;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #18181b;
+  box-shadow: 0 0 0 1px #18181b;
+}
+
+.input::placeholder {
+  color: #a1a1aa;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordInput {
+  padding-right: 2.5rem;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.eyeIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #71717a;
+}
+
+.eyeButton:hover .eyeIcon {
+  color: #18181b;
+}
+
+.signInButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  height: 2.25rem;
+  padding: 0.5rem 1rem;
+  background: #18181b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.signInButton:hover {
+  background: rgba(24, 24, 27, 0.9);
+}
+
+/* Footer */
+.loginFooter {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footerText {
+  font-size: 0.875rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.footerLink {
+  font-weight: 500;
+  color: #18181b;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: all 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #404040;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .modalContent {
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .loginCard {
+    padding: 1rem;
+  }
+
+  .closeButton {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .loginTitle {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .modalContent {
+    background: #09090b;
+    border-color: #27272a;
+  }
+
+  .iconContainer {
+    background: #18181b;
+    border-color: #27272a;
+  }
+
+  .userIcon {
+    color: #a1a1aa;
+  }
+
+  .loginTitle {
+    color: #fafafa;
+  }
+
+  .loginSubtitle {
+    color: #a1a1aa;
+  }
+
+  .socialBtn {
+    background: #09090b;
+    border-color: #27272a;
+    color: #fafafa;
+  }
+
+  .socialBtn:hover {
+    background: #18181b;
+  }
+
+  .dividerText span {
+    background: #09090b;
+    color: #a1a1aa;
+  }
+
+  .label {
+    color: #fafafa;
+  }
+
+  .input {
+    background: #09090b;
+    border-color: #27272a;
+    color: #fafafa;
+  }
+
+  .signInButton {
+    background: #fafafa;
+    color: #18181b;
+  }
+
+  .signInButton:hover {
+    background: rgba(250, 250, 250, 0.9);
+  }
+
+  .footerText {
+    color: #a1a1aa;
+  }
+
+  .footerLink {
+    color: #fafafa;
+  }
+}
+
+
+/* Forgot Password Link */
+.forgotPasswordContainer {
+  text-align: right;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.forgotPasswordLink {
+  background: none;
+  border: none;
+  color: #00b894;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.forgotPasswordLink:hover {
+  color: #00a085;
+}
+
+/* Loading Spinner */
+.loadingSpinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Disabled Button State */
+.signInButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.signInButton:disabled:hover {
+  background: #18181b;
+  transform: none;
+}
+
+/* Footer Link as Button */
+.footerLink {
+  background: none;
+  border: none;
+  font-weight: 500;
+  color: #00b894;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.footerLink:hover {
+  color: #00a085;
+}
+
+/* Responsive adjustments for form fields */
+@media (max-width: 480px) {
+  .forgotPasswordContainer {
+    text-align: center;
+  }
+}

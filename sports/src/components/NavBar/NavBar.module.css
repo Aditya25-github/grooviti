@@ -218,3 +218,617 @@
     gap: 0.8rem;
   }
 }
+
+/* Login Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modalContent {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: #71717a;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  color: #27272a;
+  background: #f4f4f5;
+}
+
+.loginCard {
+  padding: 1.5rem;
+  space-y: 1.5rem;
+}
+
+.loginHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.iconContainer {
+  display: inline-flex;
+  padding: 0.5rem;
+  background: #f4f4f5;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  margin-bottom: 0.75rem;
+  color: #71717a;
+}
+
+.loginTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #18181b;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.025em;
+}
+
+.loginSubtitle {
+  font-size: 0.875rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.socialButtons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #18181b;
+}
+
+.socialBtn:hover {
+  background: #f9fafb;
+  color: #18181b;
+}
+
+.socialIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e4e4e7;
+}
+
+.divider span {
+  position: relative;
+  background: white;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  color: #71717a;
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #18181b;
+}
+
+.inputGroup input {
+  height: 2.25rem;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  background: white;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #18181b;
+  box-shadow: 0 0 0 1px #18181b;
+}
+
+.inputGroup input::placeholder {
+  color: #a1a1aa;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper input {
+  padding-right: 2.5rem;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #71717a;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.eyeButton:hover {
+  color: #18181b;
+}
+
+.signInButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  height: 2.25rem;
+  padding: 0.625rem 1rem;
+  background: #18181b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.signInButton:hover {
+  background: rgba(24, 24, 27, 0.9);
+}
+
+.loginFooter {
+  text-align: center;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loginFooter p {
+  font-size: 0.875rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.loginFooter a {
+  font-weight: 500;
+  color: #18181b;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.loginFooter a:hover {
+  color: #404040;
+}
+
+/* Dark mode styles (optional) */
+@media (prefers-color-scheme: dark) {
+  .modalContent {
+    background: #09090b;
+    border-color: #27272a;
+  }
+
+  .iconContainer {
+    background: #18181b;
+    border-color: #27272a;
+    color: #a1a1aa;
+  }
+
+  .loginTitle {
+    color: #fafafa;
+  }
+
+  .loginSubtitle {
+    color: #a1a1aa;
+  }
+
+  .socialBtn {
+    background: #09090b;
+    border-color: #27272a;
+    color: #fafafa;
+  }
+
+  .socialBtn:hover {
+    background: #18181b;
+  }
+
+  .inputGroup label {
+    color: #fafafa;
+  }
+
+  .inputGroup input {
+    background: #0c0a09;
+    border-color: #27272a;
+    color: #fafafa;
+  }
+
+  .signInButton {
+    background: #fafafa;
+    color: #18181b;
+  }
+
+  .signInButton:hover {
+    background: rgba(250, 250, 250, 0.9);
+  }
+
+  .divider span {
+    background: #09090b;
+  }
+
+  .loginFooter p {
+    color: #a1a1aa;
+  }
+
+  .loginFooter a {
+    color: #fafafa;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .modalContent {
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+    height: 100vh;
+  }
+
+  .loginCard {
+    padding: 1rem;
+  }
+
+  .closeButton {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* Add these styles to your existing NavBar.module.css */
+
+/* Auth Section */
+.authSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Profile Section */
+.profileSection {
+  position: relative;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profileButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.profileAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #00b894;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileInitials {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.profileName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+/* Profile Dropdown */
+.profileDropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8f9fa;
+}
+
+.dropdownAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #00b894;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dropdownAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dropdownInitials {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.dropdownUserInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdownName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #18181b;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownEmail {
+  font-size: 0.875rem;
+  color: #71717a;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: #e4e4e7;
+  margin: 0;
+}
+
+.dropdownMenu {
+  padding: 0.5rem 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: #18181b;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background: #f4f4f5;
+}
+
+.logoutItem {
+  color: #dc2626;
+}
+
+.logoutItem:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* Mobile Profile Section */
+.mobileProfileSection {
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileProfileHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.mobileProfileAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #00b894;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobileProfileAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobileProfileInitials {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.mobileProfileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileProfileName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobileProfileEmail {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobileProfileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.mobileProfileBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.mobileProfileBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.mobileLogoutBtn {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.mobileLogoutBtn:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .authSection {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobileProfileSection {
+    display: none;
+  }
+}
