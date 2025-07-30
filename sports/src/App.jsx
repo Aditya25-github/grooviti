@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
-import StoreContextProvider from "./context/StoreContext"; // Add StoreContextProvider
+import StoreContextProvider from "./context/StoreContext";
 import Navbar from "./components/NavBar/NavBar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 // Pages
@@ -12,15 +13,21 @@ import Academy from "./pages/Academy/Academy.jsx";
 import AcademyDetails from "./pages/Academy/AcademyDetails.jsx";
 import PlayTogether from "./pages/PlayTogether/PlayTogether.jsx";
 import PlayTogetherDetails from "./pages/PlayTogether/PlayTogetherDetails.jsx";
+import MyProfile from "./pages/Profile/MyProfile.jsx";
 import "./App.css";
-import 'react-toastify/dist/ReactToastify.css'; // Add ToastContainer CSS
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
-    <StoreContextProvider> {/* Wrap everything with StoreContextProvider */}
+    <StoreContextProvider>
       <div className="App">
         <Navbar />
         <Routes>
@@ -32,9 +39,9 @@ function App() {
           <Route path="/academy/:id" element={<AcademyDetails />} />
           <Route path="/playtogether" element={<PlayTogether />} />
           <Route path="/playtogether/:id" element={<PlayTogetherDetails />} />
+          <Route path="/profile" element={<MyProfile />} />
         </Routes>
         <Footer />
-        {/* Add ToastContainer for notifications */}
         <ToastContainer
           position="top-right"
           autoClose={3000}

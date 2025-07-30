@@ -273,7 +273,7 @@ const PlayTogether = () => {
 
   // Handle player card click navigation
   const handlePlayerClick = (playerId) => {
-    navigate(`/communities/${playerId}`);
+    navigate(`/playtogether/${playerId}`);
   };
 
   // Comprehensive search function
