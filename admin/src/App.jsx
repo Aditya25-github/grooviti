@@ -64,7 +64,7 @@ import Analytics from "./TurfOwnerPanel/pages/Analytics/Analytics";
 import Pricing from "./TurfOwnerPanel/pages/Pricing/Pricing";
 
 const App = () => {
-  const url = "http://localhost:4000";
+  const url = "https://grooviti-backend.onrender.com";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 
