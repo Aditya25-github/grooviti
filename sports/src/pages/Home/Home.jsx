@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
-import Header from "../../components/Header/Header";
+// import Header from "../../components/Header/Header";
 import PopularSports from "../../components/PopularSports/PopularSports";
 import TurfNearest from "../../components/TurfNearest/TurfNearest";
 import AcademyNear from "../../components/AcademyNear/AcademyNear";
