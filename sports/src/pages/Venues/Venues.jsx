@@ -6,7 +6,7 @@ import PopularSports from "../../components/PopularSports/PopularSports";
 const Venues = () => {
   const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState('All Sports');
-  const [sortBy, setSortBy] = useState('Price');
+  const [sortBy, setSortBy] = useState('All'); // Changed default
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
@@ -31,6 +31,8 @@ const Venues = () => {
       size: '120m x 80m',
       price: 2500,
       slotsAvailable: 5,
+      rating: 4.5,
+      distance: 2.3,
       sportColor: '#4CAF50'
     },
     {
@@ -43,6 +45,8 @@ const Venues = () => {
       size: '100m x 65m',
       price: 1800,
       slotsAvailable: 3,
+      rating: 4.2,
+      distance: 5.7,
       sportColor: '#2196F3'
     },
     {
@@ -55,6 +59,8 @@ const Venues = () => {
       size: '110m x 75m',
       price: 2200,
       slotsAvailable: 4,
+      rating: 4.7,
+      distance: 3.1,
       sportColor: '#4CAF50'
     },
     {
@@ -67,6 +73,8 @@ const Venues = () => {
       size: '50m x 25m',
       price: 800,
       slotsAvailable: 8,
+      rating: 4.0,
+      distance: 1.8,
       sportColor: '#00BCD4'
     },
     {
@@ -79,6 +87,8 @@ const Venues = () => {
       size: '105m x 68m',
       price: 2000,
       slotsAvailable: 2,
+      rating: 4.3,
+      distance: 4.2,
       sportColor: '#2196F3'
     },
     {
@@ -91,6 +101,8 @@ const Venues = () => {
       size: '13.4m x 6.1m',
       price: 600,
       slotsAvailable: 6,
+      rating: 4.4,
+      distance: 6.5,
       sportColor: '#9C27B0'
     },
     {
@@ -103,6 +115,8 @@ const Venues = () => {
       size: '23.77m x 8.23m',
       price: 1200,
       slotsAvailable: 4,
+      rating: 4.8,
+      distance: 3.7,
       sportColor: '#FF9800'
     },
     {
@@ -115,6 +129,8 @@ const Venues = () => {
       size: '40m x 20m',
       price: 650,
       slotsAvailable: 10,
+      rating: 3.9,
+      distance: 7.2,
       sportColor: '#00BCD4'
     },
     {
@@ -127,6 +143,8 @@ const Venues = () => {
       size: '8 Tables Available',
       price: 300,
       slotsAvailable: 12,
+      rating: 4.1,
+      distance: 2.9,
       sportColor: '#F44336'
     },
     {
@@ -139,6 +157,8 @@ const Venues = () => {
       size: '150m x 120m',
       price: 3500,
       slotsAvailable: 2,
+      rating: 4.9,
+      distance: 4.8,
       sportColor: '#4CAF50'
     },
     {
@@ -151,6 +171,8 @@ const Venues = () => {
       size: '6 Courts Available',
       price: 550,
       slotsAvailable: 8,
+      rating: 4.2,
+      distance: 3.4,
       sportColor: '#9C27B0'
     },
     {
@@ -163,6 +185,8 @@ const Venues = () => {
       size: '4 Courts Available',
       price: 1000,
       slotsAvailable: 6,
+      rating: 4.6,
+      distance: 2.1,
       sportColor: '#FF9800'
     },
     {
@@ -175,6 +199,8 @@ const Venues = () => {
       size: '130m x 90m',
       price: 2800,
       slotsAvailable: 3,
+      rating: 4.4,
+      distance: 8.1,
       sportColor: '#4CAF50'
     },
     {
@@ -187,6 +213,8 @@ const Venues = () => {
       size: '110m x 70m',
       price: 2200,
       slotsAvailable: 4,
+      rating: 4.1,
+      distance: 9.3,
       sportColor: '#2196F3'
     },
     {
@@ -199,6 +227,8 @@ const Venues = () => {
       size: '45m x 20m',
       price: 750,
       slotsAvailable: 6,
+      rating: 4.3,
+      distance: 7.9,
       sportColor: '#00BCD4'
     },
     {
@@ -211,6 +241,8 @@ const Venues = () => {
       size: '10 Courts Available',
       price: 700,
       slotsAvailable: 12,
+      rating: 4.5,
+      distance: 5.2,
       sportColor: '#9C27B0'
     },
     {
@@ -223,6 +255,8 @@ const Venues = () => {
       size: '6 Courts Available',
       price: 1400,
       slotsAvailable: 8,
+      rating: 4.7,
+      distance: 4.6,
       sportColor: '#FF9800'
     },
     {
@@ -235,6 +269,8 @@ const Venues = () => {
       size: '12 Tables Available',
       price: 350,
       slotsAvailable: 15,
+      rating: 4.0,
+      distance: 6.8,
       sportColor: '#F44336'
     }
   ];
@@ -263,7 +299,29 @@ const Venues = () => {
     });
   };
 
-  // Filter and search venues
+  // Updated sorting function with "All" option
+  const sortVenues = (venues, sortOption) => {
+    const sortedVenues = [...venues];
+    
+    switch (sortOption) {
+      case 'All':
+        return sortedVenues; // Return venues in original order
+      
+      case 'Sort by Price':
+        return sortedVenues.sort((a, b) => a.price - b.price); // Low to High
+      
+      case 'Sort by Rating':
+        return sortedVenues.sort((a, b) => b.rating - a.rating); // High to Low
+      
+      case 'Sort by Distance':
+        return sortedVenues.sort((a, b) => a.distance - b.distance); // Near to Far
+      
+      default:
+        return sortedVenues;
+    }
+  };
+
+  // Filter, search, and sort venues
   useEffect(() => {
     let filtered = venues;
     
@@ -275,14 +333,18 @@ const Venues = () => {
     // Then apply search
     filtered = searchVenues(filtered, searchQuery);
     
+    // Finally apply sorting
+    filtered = sortVenues(filtered, sortBy);
+    
     setFilteredVenues(filtered);
     // Reset visible count when filters change
     setVisibleCount(6);
-  }, [selectedSport, searchQuery]);
+  }, [selectedSport, searchQuery, sortBy]);
 
   // Initialize with all venues
   useEffect(() => {
-    setFilteredVenues(venues);
+    const initialVenues = sortVenues(venues, sortBy);
+    setFilteredVenues(initialVenues);
   }, []);
 
   // Function to handle sport selection from PopularSports component
@@ -293,6 +355,11 @@ const Venues = () => {
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  // Handle sort option change
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
   };
 
   // Handle load more venues
@@ -314,7 +381,7 @@ const Venues = () => {
       {/* Available Venues Section */}
       <section className={styles.venuesSection}>
         <div className={styles.venuesHeader}>
-          <h2>
+          <h2 className={styles.venuesTitle}>
             {selectedSport === 'All Sports' 
               ? searchQuery 
                 ? `Search Results (${filteredVenues.length})`
@@ -323,27 +390,42 @@ const Venues = () => {
             }
           </h2>
           <div className={styles.headerRight}>
-            <input 
-              type="text" 
-              placeholder="Search venues, locations, facilities..."
-              className={styles.searchInput}
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
+            <div className={styles.searchContainer}>
+              <input 
+                type="text" 
+                placeholder="Search venues..."
+                className={styles.searchInput}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                aria-label="Search venues"
+              />
+              <button 
+                className={styles.searchButton}
+                aria-label="Search"
+                type="button"
+              >
+                <i className="fas fa-search"></i>
+              </button>
+            </div>
             <select 
               value={sortBy} 
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={handleSortChange}
               className={styles.filterSelect}
+              aria-label="Sort venues"
             >
-              <option>Sort by Price</option>
-              <option>Sort by Rating</option>
-              <option>Sort by Distance</option>
+              <option value="All">All</option>
+              <option value="Sort by Price">Sort by Price</option>
+              <option value="Sort by Rating">Sort by Rating</option>
+              <option value="Sort by Distance">Sort by Distance</option>
             </select>
           </div>
         </div>
 
         {filteredVenues.length === 0 ? (
           <div className={styles.noVenues}>
+            <div className={styles.noVenuesIcon}>
+              <i className="fas fa-search"></i>
+            </div>
             <p>
               {searchQuery 
                 ? `No venues found for "${searchQuery}". Try different keywords.`
@@ -358,16 +440,33 @@ const Venues = () => {
                 key={venue.id} 
                 className={styles.venueCard}
                 onClick={() => handleVenueClick(venue.id)}
-                style={{ cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${venue.name}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleVenueClick(venue.id);
+                  }
+                }}
               >
                 <div className={styles.venueImage}>
-                  <img src={venue.image} alt={venue.name} />
+                  <img 
+                    src={venue.image} 
+                    alt={venue.name}
+                    loading="lazy"
+                  />
                   <span 
                     className={styles.sportTag}
                     style={{ backgroundColor: venue.sportColor }}
                   >
                     {venue.sport}
                   </span>
+                  {venue.rating && (
+                    <div className={styles.ratingBadge}>
+                      <i className="fas fa-star"></i>
+                      {venue.rating}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.venueInfo}>
                   <h3>{venue.name}</h3>
@@ -379,6 +478,11 @@ const Venues = () => {
                     <span className={styles.size}>
                       <i className="fas fa-ruler-combined"></i> {venue.size}
                     </span>
+                    {venue.distance && (
+                      <span className={styles.distance}>
+                        <i className="fas fa-route"></i> {venue.distance} km away
+                      </span>
+                    )}
                   </div>
                   <div className={styles.venueFooter}>
                     <span className={styles.price}>₹{venue.price.toLocaleString()}/hr</span>
@@ -397,8 +501,10 @@ const Venues = () => {
           <button 
             className={styles.loadMoreBtn}
             onClick={loadMoreVenues}
+            aria-label="Load more venues"
           >
             Load More Venues
+            <i className="fas fa-chevron-down"></i>
           </button>
         )}
 

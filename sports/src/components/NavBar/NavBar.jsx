@@ -117,6 +117,22 @@ const Navbar = () => {
     };
   }, []);
 
+  // Body scroll management for mobile menu
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('mobileMenuOpen');
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.classList.remove('mobileMenuOpen');
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.classList.remove('mobileMenuOpen');
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // Close mobile menu when location changes
   useEffect(() => {
     setIsMenuOpen(false);
@@ -150,6 +166,7 @@ const Navbar = () => {
 
   // Login modal handlers
   const handleLoginClick = () => {
+    setIsMenuOpen(false);
     setIsLoginModalOpen(true);
   };
 
@@ -159,6 +176,7 @@ const Navbar = () => {
 
   // Signup modal handlers
   const handleSignupClick = () => {
+    setIsMenuOpen(false);
     setIsSignupModalOpen(true);
   };
 
@@ -189,6 +207,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsProfileDropdownOpen(false);
+    setIsMenuOpen(false);
     
     // Navigate to home page
     navigate('/');
@@ -201,6 +220,7 @@ const Navbar = () => {
 
   const handleProfileNavigation = (path) => {
     setIsProfileDropdownOpen(false);
+    setIsMenuOpen(false);
     navigate(path);
   };
 
@@ -382,64 +402,75 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with Icon Transformation */}
           <motion.button
             className={styles.mobileMenuButton}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <svg viewBox="0 0 24 24" width="28" height="28">
-                <path
-                  fill="currentColor"
-                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" width="28" height="28">
-                <path
-                  fill="currentColor"
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                />
-              </svg>
-            )}
+            {/* Hamburger Icon */}
+            <svg 
+              className={`${styles.hamburgerIcon} ${isMenuOpen ? styles.open : ''}`}
+              viewBox="0 0 24 24" 
+              width="28" 
+              height="28"
+            >
+              <path
+                fill="currentColor"
+                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+              />
+            </svg>
+            
+            {/* Close Icon */}
+            <svg 
+              className={`${styles.closeIcon} ${isMenuOpen ? styles.open : ''}`}
+              viewBox="0 0 24 24" 
+              width="28" 
+              height="28"
+            >
+              <path
+                fill="currentColor"
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
           </motion.button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay and Sidebar */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div
-              className={styles.mobileMenu}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className={styles.mobileMenuContent}>
-                {/* Mobile Navigation Links */}
-                {navLinks.map((link) => (
-                  <motion.button
-                    key={link.name}
-                    onClick={() => handleMobileNavClick(link.to)}
-                    className={`${styles.mobileNavLink} ${
-                      location.pathname === link.to ? styles.active : ""
-                    }`}
-                    whileTap={{ scale: 0.97 }}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {link.name}
-                  </motion.button>
-                ))}
-                
-                {/* Mobile Auth Section */}
-                {isLoggedIn ? (
-                  // Mobile Profile Section
-                  <div className={styles.mobileProfileSection}>
-                    <div className={styles.mobileProfileHeader}>
+            <>
+              {/* Transparent Blurry Background Overlay */}
+              <motion.div
+                className={`${styles.mobileMenuOverlay} ${isMenuOpen ? styles.open : ''}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                onClick={() => setIsMenuOpen(false)}
+              />
+              
+              {/* Sliding Sidebar Menu */}
+              <motion.div
+                className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}
+                initial={{ right: '-100%' }}
+                animate={{ right: 0 }}
+                exit={{ right: '-100%' }}
+                transition={{ 
+                  duration: 0.4, 
+                  ease: [0.25, 0.46, 0.45, 0.94] 
+                }}
+              >
+                <div className={styles.mobileMenuContent}>
+                  {/* Profile Header - Top Section */}
+                  {isLoggedIn && (
+                    <motion.div 
+                      className={styles.mobileProfileHeader}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1, duration: 0.3 }}
+                    >
                       <div className={styles.mobileProfileAvatar}>
                         {user?.profileImage?.url ? (
                           <img src={user.profileImage.url} alt={user.name} />
@@ -453,69 +484,126 @@ const Navbar = () => {
                         <p className={styles.mobileProfileName}>{user?.name || 'User'}</p>
                         <p className={styles.mobileProfileEmail}>{user?.email}</p>
                       </div>
-                    </div>
-                    
-                    <div className={styles.mobileProfileActions}>
+                    </motion.div>
+                  )}
+                  
+                  {/* Navigation Links - Middle Section */}
+                  <motion.div 
+                    className={styles.mobileNavSection}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                  >
+                    {navLinks.map((link, index) => (
                       <motion.button
-                        className={styles.mobileProfileBtn}
+                        key={link.name}
+                        onClick={() => handleMobileNavClick(link.to)}
+                        className={`${styles.mobileNavLink} ${
+                          location.pathname === link.to ? styles.active : ""
+                        }`}
+                        whileTap={{ scale: 0.97 }}
+                        initial={{ x: 50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ 
+                          delay: 0.3 + (index * 0.1), 
+                          duration: 0.3 
+                        }}
+                      >
+                        <div className={styles.mobileNavIcon}>
+                          {/* Add icons based on the link name */}
+                          {link.name === 'Home' && (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                              <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                          )}
+                          {link.name === 'Venues' && (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                              <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                          )}
+                          {link.name === 'Play Together' && (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                              <circle cx="9" cy="7" r="4"/>
+                              <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+                              <path d="M16 3.13a4 4 0 010 7.75"/>
+                            </svg>
+                          )}
+                          {link.name === 'Academy' && (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+                          )}
+                        </div>
+                        <span>{link.name}</span>
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                  
+                  {/* Bottom Actions */}
+                  {isLoggedIn ? (
+                    <motion.div 
+                      className={styles.mobileBottomActions}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4, duration: 0.3 }}
+                    >
+                      <motion.button
+                        className={styles.mobileActionBtn}
                         onClick={() => handleProfileNavigation('/profile')}
                         whileTap={{ scale: 0.95 }}
                       >
                         <ProfileIcon />
-                        <span>View Profile</span>
+                        <span>Profile</span>
                       </motion.button>
                       <motion.button
-                        className={styles.mobileProfileBtn}
-                        onClick={() => handleProfileNavigation('/my-bookings')}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                          <line x1="16" y1="2" x2="16" y2="6"/>
-                          <line x1="8" y1="2" x2="8" y2="6"/>
-                          <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                        <span>My Bookings</span>
-                      </motion.button>
-                      <motion.button
-                        className={styles.mobileProfileBtn}
-                        onClick={() => handleProfileNavigation('/settings')}
+                        className={styles.mobileActionBtn}
+                        onClick={() => handleProfileNavigation('/')}
                         whileTap={{ scale: 0.95 }}
                       >
                         <SettingsIcon />
-                        <span>Settings</span>
+                        <span>Account & Settings</span>
                       </motion.button>
                       <motion.button
-                        className={`${styles.mobileProfileBtn} ${styles.mobileLogoutBtn}`}
+                        className={`${styles.mobileActionBtn} ${styles.mobileLogoutBtn}`}
                         onClick={handleLogout}
                         whileTap={{ scale: 0.95 }}
                       >
                         <LogoutIcon />
                         <span>Logout</span>
                       </motion.button>
-                    </div>
-                  </div>
-                ) : (
-                  // Mobile Auth Buttons
-                  <div className={styles.mobileAuthButtons}>
-                    <motion.button
-                      className={styles.mobileLoginBtn}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleLoginClick}
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      className={styles.mobileAuthSection}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4, duration: 0.3 }}
                     >
-                      Login
-                    </motion.button>
-                    <motion.button
-                      className={styles.mobileSignupBtn}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleSignupClick}
-                    >
-                      Sign Up
-                    </motion.button>
-                  </div>
-                )}
-              </div>
-            </motion.div>
+                      <div className={styles.mobileAuthButtons}>
+                        <motion.button
+                          className={styles.mobileLoginBtn}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={handleLoginClick}
+                        >
+                          Login
+                        </motion.button>
+                        <motion.button
+                          className={styles.mobileSignupBtn}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={handleSignupClick}
+                        >
+                          Sign Up
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </motion.nav>

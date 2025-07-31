@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { format, isToday, isSameDay } from 'date-fns';
 import styles from './VenueDetails.module.css';
+import {
+  MiniCalendar,
+  MiniCalendarNavigation,
+  MiniCalendarDays,
+  MiniCalendarDay,
+} from '../../components/mini-calendar/mini-calendar';
 
 const VenueDetails = () => {
   const { id } = useParams();
   const [venue, setVenue] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const [selectedSport, setSelectedSport] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Complete venues data that matches your Venues.jsx cards
+  // Complete venues data
   const venuesData = {
     1: {
       id: 1,
@@ -328,104 +336,6 @@ const VenueDetails = () => {
           date: '2 days ago'
         }
       ]
-    },
-    7: {
-      id: 7,
-      name: 'Grand Slam Tennis Club',
-      rating: 4.8,
-      totalReviews: 201,
-      location: 'Vasant Kunj, Delhi 110070',
-      images: [
-        'https://images.unsplash.com/photo-1542144582-1ba00456b5e3?w=800&h=500&fit=crop',
-        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=500&fit=crop'
-      ],
-      description: 'Professional tennis courts with clay and hard court options.',
-      
-      timings: {
-        weekdays: {
-          slots: ['6 AM', '7 AM', '8 AM', '6 PM', '7 PM', '8 PM']
-        },
-        weekends: {
-          slots: ['6 AM', '7 AM', '8 AM', '9 AM', '6 PM', '7 PM', '8 PM']
-        }
-      },
-
-      sports: {
-        'Tennis': {
-          price: 1200,
-          duration: 'hour',
-          description: 'Professional tennis courts with clay and hard surfaces',
-          facilities: 'Clay courts, Hard courts, Equipment rental, Professional coaching'
-        }
-      },
-
-      amenities: [
-        { name: 'Parking', icon: 'fas fa-parking', available: true },
-        { name: 'Washrooms', icon: 'fas fa-restroom', available: true },
-        { name: 'Equipment Rental', icon: 'fas fa-tools', available: true },
-        { name: 'Professional Coaching', icon: 'fas fa-chalkboard-teacher', available: true },
-        { name: 'Water Facility', icon: 'fas fa-tint', available: true },
-        { name: 'Changing Rooms', icon: 'fas fa-door-open', available: true }
-      ],
-
-      reviews: [
-        {
-          id: 1,
-          name: 'Amit Agarwal',
-          rating: 5,
-          comment: 'Outstanding tennis facility with professional courts. Best in the city!',
-          date: '1 day ago'
-        }
-      ]
-    },
-    8: {
-      id: 8,
-      name: 'Blue Waters Swimming Pool',
-      rating: 4.2,
-      totalReviews: 178,
-      location: 'Rohini, Delhi 110085',
-      images: [
-        'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&h=500&fit=crop',
-        'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=500&fit=crop'
-      ],
-      description: 'Semi-olympic pool with diving boards and kids section.',
-      
-      timings: {
-        weekdays: {
-          slots: ['6 AM', '7 AM', '8 AM', '6 PM', '7 PM', '8 PM']
-        },
-        weekends: {
-          slots: ['6 AM', '7 AM', '8 AM', '9 AM', '6 PM', '7 PM', '8 PM']
-        }
-      },
-
-      sports: {
-        'Swimming': {
-          price: 650,
-          duration: 'hour',
-          description: 'Semi-olympic pool with diving facility',
-          facilities: 'Semi-olympic pool, Diving boards, Kids section, Changing rooms'
-        }
-      },
-
-      amenities: [
-        { name: 'Parking', icon: 'fas fa-parking', available: true },
-        { name: 'Washrooms', icon: 'fas fa-restroom', available: true },
-        { name: 'Changing Rooms', icon: 'fas fa-door-open', available: true },
-        { name: 'Kids Section', icon: 'fas fa-child', available: true },
-        { name: 'Diving Boards', icon: 'fas fa-swimmer', available: true },
-        { name: 'Lifeguard', icon: 'fas fa-life-ring', available: true }
-      ],
-
-      reviews: [
-        {
-          id: 1,
-          name: 'Deepika Shah',
-          rating: 4,
-          comment: 'Great pool for families with kids section. Clean and well-maintained.',
-          date: '3 days ago'
-        }
-      ]
     }
   };
 
@@ -434,7 +344,6 @@ const VenueDetails = () => {
     const venueData = venuesData[parseInt(id)];
     if (venueData) {
       setVenue(venueData);
-      // Set default selected sport to the first available sport
       const firstSport = Object.keys(venueData.sports)[0];
       setSelectedSport(firstSport);
     }
@@ -444,19 +353,25 @@ const VenueDetails = () => {
   if (!venue) {
     return (
       <div className={styles.container}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '50vh',
-          color: 'white',
-          fontSize: '1.2rem'
-        }}>
-          Loading venue details...
+        <div className={styles.loadingContainer}>
+          <div className={styles.loadingSpinner}></div>
+          <p>Loading venue details...</p>
         </div>
       </div>
     );
   }
+
+  // Helper function to determine if selected date is weekend
+  const isWeekend = (date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6; // Sunday = 0, Saturday = 6
+  };
+
+  // Get available time slots based on selected date
+  const getAvailableSlots = () => {
+    if (!selectedDate) return [];
+    return isWeekend(selectedDate) ? venue.timings.weekends.slots : venue.timings.weekdays.slots;
+  };
 
   // Image navigation functions
   const nextImage = () => {
@@ -479,6 +394,18 @@ const VenueDetails = () => {
     setSelectedSport(sport);
   };
 
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    setSelectedTimeSlot(''); // Reset time slot when date changes
+  };
+
+  const handleBookNow = () => {
+    if (selectedDate && selectedTimeSlot) {
+      console.log('Booking venue:', venue.name, 'Sport:', selectedSport, 'Date:', format(selectedDate, 'yyyy-MM-dd'), 'Time:', selectedTimeSlot);
+      // Add booking logic here
+    }
+  };
+
   return (
     <div className={styles.container}>
       {/* Hero Image Section */}
@@ -488,13 +415,22 @@ const VenueDetails = () => {
             src={venue.images[currentImageIndex]} 
             alt={venue.name}
             className={styles.heroImage}
+            loading="lazy"
           />
           {venue.images.length > 1 && (
             <>
-              <button className={styles.prevBtn} onClick={prevImage}>
+              <button 
+                className={styles.prevBtn} 
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
                 <i className="fas fa-chevron-left"></i>
               </button>
-              <button className={styles.nextBtn} onClick={nextImage}>
+              <button 
+                className={styles.nextBtn} 
+                onClick={nextImage}
+                aria-label="Next image"
+              >
                 <i className="fas fa-chevron-right"></i>
               </button>
               <div className={styles.imageIndicators}>
@@ -505,6 +441,7 @@ const VenueDetails = () => {
                       index === currentImageIndex ? styles.active : ''
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
+                    aria-label={`Go to image ${index + 1}`}
                   />
                 ))}
               </div>
@@ -539,44 +476,75 @@ const VenueDetails = () => {
 
       {/* Main Content */}
       <div className={styles.mainContent}>
+        {/* Date Selection Section */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <i className="fas fa-calendar-alt"></i> Select Date
+          </h2>
+          <div className={styles.calendarWrapper}>
+            <MiniCalendar
+              value={selectedDate}
+              onValueChange={handleDateSelect}
+              days={7}
+              className={styles.miniCalendar}
+            >
+              <MiniCalendarNavigation 
+                direction="prev" 
+                className={styles.calendarNav}
+              />
+              <MiniCalendarDays className={styles.calendarDays}>
+                {(date) => (
+                  <MiniCalendarDay 
+                    key={date.toISOString()} 
+                    date={date}
+                    className={styles.calendarDay}
+                  />
+                )}
+              </MiniCalendarDays>
+              <MiniCalendarNavigation 
+                direction="next" 
+                className={styles.calendarNav}
+              />
+            </MiniCalendar>
+            
+            {selectedDate && (
+              <div className={styles.selectedDateInfo}>
+                <p>
+                  Selected: <strong>{format(selectedDate, 'EEEE, MMMM d, yyyy')}</strong>
+                  {isToday(selectedDate) && <span className={styles.todayBadge}>Today</span>}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Venue Timing Section */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-            <i className="fas fa-clock"></i> Venue Timing
+            <i className="fas fa-clock"></i> Available Time Slots
+            {selectedDate && (
+              <span className={styles.dateContext}>
+                for {format(selectedDate, 'MMM d')} ({isWeekend(selectedDate) ? 'Weekend' : 'Weekday'})
+              </span>
+            )}
           </h2>
           <div className={styles.timingContainer}>
-            <div className={styles.timingCategory}>
-              <h4>Weekdays</h4>
-              <div className={styles.timeSlots}>
-                {venue.timings.weekdays.slots.map((slot, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.timeSlot} ${
-                      selectedTimeSlot === slot ? styles.selected : ''
-                    }`}
-                    onClick={() => handleTimeSlotSelect(slot)}
-                  >
-                    {slot}
-                  </button>
-                ))}
-              </div>
+            <div className={styles.timeSlots}>
+              {getAvailableSlots().map((slot, index) => (
+                <button
+                  key={index}
+                  className={`${styles.timeSlot} ${
+                    selectedTimeSlot === slot ? styles.selected : ''
+                  }`}
+                  onClick={() => handleTimeSlotSelect(slot)}
+                >
+                  {slot}
+                </button>
+              ))}
             </div>
-            <div className={styles.timingCategory}>
-              <h4>Weekends</h4>
-              <div className={styles.timeSlots}>
-                {venue.timings.weekends.slots.map((slot, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.timeSlot} ${
-                      selectedTimeSlot === slot ? styles.selected : ''
-                    }`}
-                    onClick={() => handleTimeSlotSelect(slot)}
-                  >
-                    {slot}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {getAvailableSlots().length === 0 && (
+              <p className={styles.noSlots}>Please select a date to view available time slots.</p>
+            )}
           </div>
         </section>
 
@@ -593,6 +561,13 @@ const VenueDetails = () => {
                   selectedSport === sport ? styles.selectedSport : ''
                 }`}
                 onClick={() => handleSportSelect(sport)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleSportSelect(sport);
+                  }
+                }}
               >
                 <div className={styles.sportHeader}>
                   <h4>{sport}</h4>
@@ -660,6 +635,7 @@ const VenueDetails = () => {
                       src={`https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${review.name}&size=40`}
                       alt={review.name}
                       className={styles.reviewerAvatar}
+                      loading="lazy"
                     />
                     <div>
                       <h5>{review.name}</h5>
@@ -692,13 +668,28 @@ const VenueDetails = () => {
             <span className={styles.priceUnit}>/{venue.sports[selectedSport]?.duration || 'hour'}</span>
             <span className={styles.startingPrice}>Starting price for {selectedSport.toLowerCase()}</span>
           </div>
-          <button className={styles.bookNowBtn}>Book Now</button>
+          {selectedDate && selectedTimeSlot && (
+            <div className={styles.bookingDetails}>
+              <p className={styles.selectedBooking}>
+                {format(selectedDate, 'MMM d')} • {selectedTimeSlot}
+              </p>
+            </div>
+          )}
+          <button 
+            className={styles.bookNowBtn}
+            onClick={handleBookNow}
+            disabled={!selectedDate || !selectedTimeSlot}
+          >
+            {selectedDate && selectedTimeSlot ? 'Book Now' : 'Select Date & Time'}
+          </button>
           <div className={styles.shareActions}>
             <button className={styles.shareBtn}>
-              <i className="fas fa-share-alt"></i> Share
+              <i className="fas fa-share-alt"></i>
+              <span className={styles.buttonText}> Share</span>
             </button>
             <button className={styles.corporateBtn}>
-              <i className="fas fa-building"></i> Corporate
+              <i className="fas fa-building"></i>
+              <span className={styles.buttonText}> Corporate</span>
             </button>
           </div>
         </div>
