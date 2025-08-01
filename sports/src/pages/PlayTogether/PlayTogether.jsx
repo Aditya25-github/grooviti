@@ -41,7 +41,7 @@ const PlayTogether = () => {
       experience: '5 years',
       sportColor: '#4CAF50',
       timePosted: '2 hours ago',
-      // Added enrollment data
+      timePostedValue: 2, // For sorting
       enrolled: {
         current: 4,
         total: 8,
@@ -62,6 +62,7 @@ const PlayTogether = () => {
       experience: '8 years',
       sportColor: '#9C27B0',
       timePosted: '4 hours ago',
+      timePostedValue: 4,
       enrolled: {
         current: 1,
         total: 2,
@@ -82,6 +83,7 @@ const PlayTogether = () => {
       experience: '6 years',
       sportColor: '#2196F3',
       timePosted: '6 hours ago',
+      timePostedValue: 6,
       enrolled: {
         current: 7,
         total: 11,
@@ -102,6 +104,7 @@ const PlayTogether = () => {
       experience: '10 years',
       sportColor: '#00BCD4',
       timePosted: '8 hours ago',
+      timePostedValue: 8,
       enrolled: {
         current: 2,
         total: 4,
@@ -122,6 +125,7 @@ const PlayTogether = () => {
       experience: '2 years',
       sportColor: '#FF9800',
       timePosted: '10 hours ago',
+      timePostedValue: 10,
       enrolled: {
         current: 1,
         total: 2,
@@ -142,6 +146,7 @@ const PlayTogether = () => {
       experience: '4 years',
       sportColor: '#F44336',
       timePosted: '12 hours ago',
+      timePostedValue: 12,
       enrolled: {
         current: 3,
         total: 6,
@@ -162,6 +167,7 @@ const PlayTogether = () => {
       experience: '9 years',
       sportColor: '#4CAF50',
       timePosted: '1 day ago',
+      timePostedValue: 24,
       enrolled: {
         current: 6,
         total: 11,
@@ -182,6 +188,7 @@ const PlayTogether = () => {
       experience: '1 year',
       sportColor: '#9C27B0',
       timePosted: '1 day ago',
+      timePostedValue: 24,
       enrolled: {
         current: 1,
         total: 3,
@@ -202,6 +209,7 @@ const PlayTogether = () => {
       experience: '7 years',
       sportColor: '#2196F3',
       timePosted: '2 days ago',
+      timePostedValue: 48,
       enrolled: {
         current: 8,
         total: 11,
@@ -222,13 +230,13 @@ const PlayTogether = () => {
       experience: '5 years',
       sportColor: '#00BCD4',
       timePosted: '2 days ago',
+      timePostedValue: 48,
       enrolled: {
         current: 2,
         total: 4,
         teamType: 'Swimming Group'
       }
     },
-    // Continue with remaining players with similar enrollment data...
     {
       id: 11,
       name: 'Amit Agarwal',
@@ -243,6 +251,7 @@ const PlayTogether = () => {
       experience: '12 years',
       sportColor: '#FF9800',
       timePosted: '3 days ago',
+      timePostedValue: 72,
       enrolled: {
         current: 1,
         total: 2,
@@ -263,6 +272,7 @@ const PlayTogether = () => {
       experience: '15 years',
       sportColor: '#F44336',
       timePosted: '3 days ago',
+      timePostedValue: 72,
       enrolled: {
         current: 4,
         total: 8,
@@ -297,6 +307,26 @@ const PlayTogether = () => {
     });
   };
 
+  // Sort players function
+  const sortPlayers = (players, sortType) => {
+    const sortedPlayers = [...players];
+    
+    switch (sortType) {
+      case 'Recent':
+        return sortedPlayers.sort((a, b) => a.timePostedValue - b.timePostedValue);
+      
+      case 'Skill Level':
+        const skillOrder = { 'Beginner': 1, 'Intermediate': 2, 'Advanced': 3, 'Professional': 4 };
+        return sortedPlayers.sort((a, b) => skillOrder[a.skillLevel] - skillOrder[b.skillLevel]);
+      
+      case 'Location':
+        return sortedPlayers.sort((a, b) => a.location.localeCompare(b.location));
+      
+      default:
+        return sortedPlayers;
+    }
+  };
+
   // Filter and search players
   useEffect(() => {
     let filtered = players;
@@ -309,14 +339,18 @@ const PlayTogether = () => {
     // Then apply search
     filtered = searchPlayers(filtered, searchQuery);
     
+    // Then apply sorting
+    filtered = sortPlayers(filtered, sortBy);
+    
     setFilteredPlayers(filtered);
     // Reset visible count when filters change
     setVisibleCount(6);
-  }, [selectedSport, searchQuery]);
+  }, [selectedSport, searchQuery, sortBy]);
 
   // Initialize with all players
   useEffect(() => {
-    setFilteredPlayers(players);
+    const initialPlayers = sortPlayers(players, sortBy);
+    setFilteredPlayers(initialPlayers);
   }, []);
 
   // Handle search input change
@@ -327,6 +361,11 @@ const PlayTogether = () => {
   // Handle sport selection
   const handleSportSelect = (sport) => {
     setSelectedSport(sport);
+  };
+
+  // Handle sort change
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
   };
 
   // Handle load more players
@@ -349,14 +388,24 @@ const PlayTogether = () => {
           <p className={styles.subtitle}>Connect with players, find teammates, and join the sports community</p>
           
           <div className={styles.searchContainer}>
-            <input 
-              type="text" 
-              placeholder="Search for players, sports, locations..."
-              className={styles.mainSearchInput}
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <button className={styles.searchButton}>Search</button>
+            <div className={styles.searchInputWrapper}>
+              {/* <i className="fas fa-search" aria-hidden="true"></i> */}
+              <input 
+                type="text" 
+                placeholder="Search for players, sports, locations..."
+                className={styles.mainSearchInput}
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </div>
+            <button 
+              className={styles.searchButton}
+              onClick={() => {}}
+              aria-label="Search players"
+            >
+              <span className={styles.searchButtonText}>Search</span>
+              <i className={styles.searchButtonIcon + " fas fa-search"} aria-hidden="true"></i>
+            </button>
           </div>
 
           <div className={styles.sportsCategories}>
@@ -367,6 +416,7 @@ const PlayTogether = () => {
                   selectedSport === sport.name ? styles.active : ''
                 }`}
                 onClick={() => handleSportSelect(sport.name)}
+                aria-pressed={selectedSport === sport.name}
               >
                 {sport.name}
               </button>
@@ -389,18 +439,23 @@ const PlayTogether = () => {
           <div className={styles.headerRight}>
             <select 
               value={sortBy} 
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={handleSortChange}
               className={styles.filterSelect}
+              aria-label="Sort players by"
             >
-              <option>Sort by Recent</option>
-              <option>Sort by Skill Level</option>
-              <option>Sort by Location</option>
+              <option value="Recent">Sort by Recent</option>
+              <option value="Skill Level">Sort by Skill Level</option>
+              <option value="Location">Sort by Location</option>
             </select>
           </div>
         </div>
 
         {filteredPlayers.length === 0 ? (
           <div className={styles.noPlayers}>
+            <div className={styles.noPlayersIcon}>
+              <i className="fas fa-users-slash"></i>
+            </div>
+            <h3>No Players Found</h3>
             <p>
               {searchQuery 
                 ? `No players found for "${searchQuery}". Try different keywords.`
@@ -411,19 +466,34 @@ const PlayTogether = () => {
         ) : (
           <div className={styles.playersGrid}>
             {playersToDisplay.map((player) => (
-              <div 
+              <article 
                 key={player.id} 
                 className={styles.playerCard}
                 onClick={() => handlePlayerClick(player.id)}
-                style={{ cursor: 'pointer' }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handlePlayerClick(player.id);
+                  }
+                }}
+                aria-label={`View ${player.name}'s profile`}
               >
                 <div className={styles.cardHeader}>
                   <div className={styles.profileSection}>
-                    <img src={player.profileImage} alt={player.name} className={styles.profileImage} />
+                    <img 
+                      src={player.profileImage} 
+                      alt={`${player.name}'s profile`} 
+                      className={styles.profileImage}
+                      loading="lazy"
+                    />
                     <div className={styles.playerBasicInfo}>
                       <h3>{player.name}</h3>
                       <div className={styles.playerMeta}>
-                        <span className={styles.timePosted}>{player.timePosted}</span>
+                        <span className={styles.timePosted}>
+                          <i className="fas fa-clock" aria-hidden="true"></i>
+                          {player.timePosted}
+                        </span>
                         <span 
                           className={styles.sportBadge}
                           style={{ backgroundColor: player.sportColor }}
@@ -444,22 +514,22 @@ const PlayTogether = () => {
                   <div className={styles.playerDetails}>
                     <div className={styles.detailRow}>
                       <span className={styles.detailItem}>
-                        <i className="fas fa-map-marker-alt"></i>
-                        {player.location}
+                        <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <span>{player.location}</span>
                       </span>
                       <span className={styles.detailItem}>
-                        <i className="fas fa-clock"></i>
-                        {player.availability}
+                        <i className="fas fa-clock" aria-hidden="true"></i>
+                        <span>{player.availability}</span>
                       </span>
                     </div>
                     <div className={styles.detailRow}>
                       <span className={styles.detailItem}>
-                        <i className="fas fa-search"></i>
-                        {player.lookingFor}
+                        <i className="fas fa-search" aria-hidden="true"></i>
+                        <span>{player.lookingFor}</span>
                       </span>
                       <span className={styles.detailItem}>
-                        <i className="fas fa-trophy"></i>
-                        {player.experience}
+                        <i className="fas fa-trophy" aria-hidden="true"></i>
+                        <span>{player.experience}</span>
                       </span>
                     </div>
                   </div>
@@ -469,38 +539,45 @@ const PlayTogether = () => {
                   <div className={styles.footerLeft}>
                     <span className={styles.age}>Age: {player.age}</span>
                     <span className={styles.enrollment}>
-                      <i className="fas fa-users"></i>
-                      {player.enrolled.current}/{player.enrolled.total} enrolled
+                      <i className="fas fa-users" aria-hidden="true"></i>
+                      <span>{player.enrolled.current}/{player.enrolled.total} enrolled</span>
                     </span>
                   </div>
                   <button 
                     className={styles.connectBtn}
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent card click when button is clicked
+                      e.stopPropagation();
                       handlePlayerClick(player.id);
                     }}
+                    aria-label={`View ${player.name}'s profile`}
                   >
-                    View Profile
+                    <span className={styles.connectBtnText}>View Profile</span>
+                    <i className={styles.connectBtnIcon + " fas fa-arrow-right"} aria-hidden="true"></i>
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}
 
         {/* Show Load More button only if there are more players to load */}
         {filteredPlayers.length > 0 && hasMorePlayers && (
-          <button 
-            className={styles.loadMoreBtn}
-            onClick={loadMorePlayers}
-          >
-            Load More Players
-          </button>
+          <div className={styles.loadMoreContainer}>
+            <button 
+              className={styles.loadMoreBtn}
+              onClick={loadMorePlayers}
+              aria-label="Load more players"
+            >
+              <span>Load More Players</span>
+              <i className="fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
         )}
 
         {/* Show message when all players are loaded */}
         {filteredPlayers.length > 6 && !hasMorePlayers && (
           <div className={styles.allLoadedMessage}>
+            <i className="fas fa-check-circle"></i>
             <p>All players loaded ({filteredPlayers.length} total)</p>
           </div>
         )}
