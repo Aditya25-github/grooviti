@@ -7,17 +7,21 @@
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  padding-left: max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1rem, 4vw, 3rem), env(safe-area-inset-right));
 }
 
 .heading {
   margin-top: clamp(2rem, 8vw, 6rem);
-  font-size: clamp(1rem, 6vw, 3rem);
+  font-size: clamp(1.25rem, 6vw, 3rem);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: clamp(1rem, 4vw, 3rem);
   text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .glass-container {
@@ -34,7 +38,6 @@
     inset 0 0 20px rgba(49, 28, 111, 0.355);
   position: relative;
   overflow: hidden;
-  /* Ensure container doesn't overflow */
   box-sizing: border-box;
 }
 
@@ -64,10 +67,11 @@
   }
 }
 
+/* SINGLE ROW LAYOUT FOR ALL SCREEN SIZES */
 .card-list {
   display: flex;
   padding: clamp(0.5rem, 2vw, 1.5rem);
-  gap: clamp(1rem, 3vw, 2rem);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: clamp(0.5rem, 2vw, 1.5rem);
@@ -75,11 +79,14 @@
   position: relative;
   z-index: 1;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* Ensure proper containment */
   box-sizing: border-box;
   width: 100%;
+  /* Ensure first card is always visible */
+  padding-left: clamp(0.75rem, 2vw, 1.5rem);
+  padding-right: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .card-list::-webkit-scrollbar {
@@ -87,8 +94,11 @@
 }
 
 .sport-card {
-  min-width: clamp(140px, 35vw, 200px);
-  height: clamp(180px, 45vw, 280px);
+  /* Responsive width that ensures all cards are visible */
+  min-width: clamp(120px, 15vw, 200px);
+  max-width: clamp(140px, 18vw, 220px);
+  width: clamp(130px, 16vw, 210px);
+  height: clamp(160px, 40vw, 280px);
   border-radius: clamp(12px, 3vw, 20px);
   overflow: hidden;
   position: relative;
@@ -100,6 +110,16 @@
   background: rgba(0, 0, 0, 0.3);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  scroll-snap-align: start;
+  min-height: 44px;
+}
+
+.sport-card:first-child {
+  margin-left: 0;
+}
+
+.sport-card:last-child {
+  margin-right: 0;
 }
 
 .sport-card:hover,
@@ -119,6 +139,7 @@
   object-fit: cover;
   opacity: 0.9;
   transition: all 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .sport-card:hover .sport-img,
@@ -127,183 +148,186 @@
   transform: scale(1.05);
 }
 
-/* Updated sport-name with lighter grey background */
 .sport-name {
   position: absolute;
-  bottom: clamp(10px, 2vw, 20px);
-  left: clamp(10px, 2vw, 20px);
+  bottom: clamp(8px, 2vw, 16px);
+  left: clamp(8px, 2vw, 16px);
   color: #fff;
   font-weight: 600;
-  font-size: clamp(0.75rem, 3vw, 1.125rem);
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-  /* Changed to grey with transparency */
-  background: rgba(128, 128, 128, 0.3);
-  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px);
-  border-radius: clamp(12px, 3vw, 24px);
+  background: rgba(0, 0, 0, 0.6);
+  padding: clamp(4px, 1vw, 8px) clamp(6px, 1.5vw, 12px);
+  border-radius: clamp(8px, 2vw, 16px);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   white-space: nowrap;
   line-height: 1.2;
   border: 1px solid rgba(255, 255, 255, 0.15);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile-First Media Queries */
+/* MOBILE OPTIMIZATIONS - SINGLE ROW */
 
-/* Extra Small Devices (320px - 480px) */
-@media (max-width: 480px) {
+/* iPhone SE, 12/13 Mini (375px width) */
+@media (max-width: 414px) {
   .popular-sports-container {
     padding: 1rem 0.5rem;
-  }
-
-  .heading {
-    margin-top: 1.5rem;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 
   .glass-container {
-    border-radius: 12px;
     padding: 0.75rem;
-    margin: 0 0.5rem;
+    margin: 0 0.25rem;
   }
 
   .card-list {
-    gap: 1rem;
+    gap: 0.75rem;
     padding: 0.5rem;
-    justify-content: flex-start;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .sport-card {
-    min-width: 120px;
-    height: 160px;
-    border-radius: 12px;
+    min-width: 110px;
+    width: 115px;
+    max-width: 120px;
+    height: 140px;
   }
 
   .sport-name {
-    font-size: 0.75rem;
-    bottom: 8px;
-    left: 8px;
-    padding: 3px 8px;
-    border-radius: 10px;
-    background: rgba(128, 128, 128, 0.25);
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    bottom: 6px;
+    left: 6px;
   }
 }
 
-/* Small Devices (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .popular-sports-container {
-    padding: 1.5rem 1rem;
+/* iPhone 12/13/14 Standard (390px width) */
+@media (min-width: 415px) and (max-width: 430px) {
+  .card-list {
+    gap: 1rem;
+    padding: 0.75rem;
   }
 
-  .heading {
-    margin-top: 2.5rem;
-    font-size: 1.875rem;
-    margin-bottom: 1.5rem;
+  .sport-card {
+    min-width: 125px;
+    width: 130px;
+    max-width: 135px;
+    height: 160px;
   }
 
-  .glass-container {
-    border-radius: 16px;
-    padding: 1.25rem;
+  .sport-name {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+}
+
+/* iPhone 14 Plus/Pro Max (428px+ width) */
+@media (min-width: 431px) and (max-width: 480px) {
+  .card-list {
+    gap: 1.25rem;
+    padding: 1rem;
   }
 
+  .sport-card {
+    min-width: 140px;
+    width: 145px;
+    max-width: 150px;
+    height: 180px;
+  }
+
+  .sport-name {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Small Tablets (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
   .card-list {
     gap: 1.5rem;
     padding: 1rem;
   }
 
   .sport-card {
-    min-width: 150px;
+    min-width: 160px;
+    width: 165px;
+    max-width: 170px;
     height: 200px;
-    border-radius: 14px;
   }
 
   .sport-name {
-    font-size: 0.875rem;
-    bottom: 12px;
-    left: 12px;
-    padding: 4px 10px;
-    border-radius: 15px;
-    background: rgba(128, 128, 128, 0.28);
+    font-size: 0.9rem;
+    padding: 6px 12px;
   }
 }
 
-/* Medium Devices (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .popular-sports-container {
-    padding: 2rem 1.5rem;
-  }
-
-  .heading {
-    margin-top: 4rem;
-    font-size: 2.25rem;
-    margin-bottom: 2rem;
-  }
-
-  .glass-container {
-    border-radius: 20px;
-    padding: 1.75rem;
-  }
-
+/* iPad Mini to Standard (768px - 834px) */
+@media (min-width: 768px) and (max-width: 834px) {
   .card-list {
     gap: 1.75rem;
     padding: 1.25rem;
-    justify-content: center;
   }
 
   .sport-card {
-    min-width: 170px;
-    height: 240px;
-    border-radius: 16px;
+    min-width: 180px;
+    width: 185px;
+    max-width: 190px;
+    height: 220px;
   }
 
   .sport-name {
     font-size: 1rem;
-    bottom: 15px;
-    left: 15px;
-    padding: 5px 12px;
-    border-radius: 18px;
-    background: rgba(128, 128, 128, 0.3);
+    padding: 7px 14px;
   }
 }
 
-/* Large Devices (1025px - 1440px) - Fixed Desktop Layout */
+/* iPad Pro and Large Tablets (835px - 1024px) */
+@media (min-width: 835px) and (max-width: 1024px) {
+  .card-list {
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .sport-card {
+    min-width: 200px;
+    width: 205px;
+    max-width: 210px;
+    height: 240px;
+  }
+
+  .sport-name {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Desktop and Large Screens (1025px - 1440px) - SINGLE ROW */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .popular-sports-container {
     padding: 3rem 2rem;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .heading {
-    margin-top: 5rem;
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
-    letter-spacing: -0.02em;
   }
 
   .glass-container {
-    border-radius: 24px;
     padding: 2rem;
     max-width: 1400px;
     margin: 0 auto;
   }
 
   .card-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem;
-    padding: 1.5rem 0;
-    justify-items: center;
-    overflow: visible;
-    max-width: 100%;
+    gap: 2rem;
+    padding: 1.5rem;
+    justify-content: center; /* Center the cards on larger screens */
   }
 
   .sport-card {
-    width: 100%;
+    min-width: 180px;
+    width: 190px;
     max-width: 200px;
-    height: 280px;
-    border-radius: 20px;
-    margin: 0;
+    height: 260px;
   }
 
   .sport-card:hover {
@@ -312,53 +336,34 @@
 
   .sport-name {
     font-size: 1.125rem;
-    bottom: 20px;
-    left: 20px;
-    padding: 6px 16px;
-    border-radius: 24px;
+    padding: 8px 16px;
     font-weight: 700;
-    background: rgba(62, 62, 62, 0.3);
   }
 }
 
-/* Extra Large Devices (1441px and up) - Fixed Ultra Desktop */
+/* Ultra Large Screens (1441px and up) - SINGLE ROW */
 @media (min-width: 1441px) {
   .popular-sports-container {
     padding: 3.5rem 2.5rem;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .heading {
-    margin-top: 6rem;
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    letter-spacing: -0.02em;
   }
 
   .glass-container {
-    border-radius: 24px;
     padding: 2.5rem;
     max-width: 1600px;
     margin: 0 auto;
   }
 
   .card-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2rem;
-    padding: 2rem 0;
-    justify-items: center;
-    overflow: visible;
-    max-width: 100%;
+    gap: 2.5rem;
+    padding: 2rem;
+    justify-content: center;
   }
 
   .sport-card {
-    width: 100%;
+    min-width: 200px;
+    width: 210px;
     max-width: 220px;
-    height: 300px;
-    border-radius: 20px;
-    margin: 0;
+    height: 280px;
   }
 
   .sport-card:hover {
@@ -368,12 +373,53 @@
 
   .sport-name {
     font-size: 1.25rem;
-    bottom: 24px;
-    left: 24px;
-    padding: 8px 18px;
-    border-radius: 28px;
+    padding: 10px 20px;
     font-weight: 700;
-    background: rgba(57, 57, 57, 0.32);
+  }
+}
+
+/* Ultra-Wide Screens (1921px and up) - SINGLE ROW */
+@media (min-width: 1921px) {
+  .card-list {
+    gap: 3rem;
+    padding: 2.5rem;
+  }
+
+  .sport-card {
+    min-width: 220px;
+    width: 230px;
+    max-width: 240px;
+    height: 300px;
+  }
+
+  .sport-name {
+    font-size: 1.375rem;
+    padding: 12px 24px;
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .card-list {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+  }
+
+  .sport-card {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+}
+
+/* Landscape mode optimizations */
+@media (orientation: landscape) and (max-height: 430px) {
+  .sport-card {
+    height: clamp(120px, 30vh, 180px);
+  }
+
+  .sport-name {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    padding: clamp(3px, 1vw, 6px) clamp(6px, 2vw, 10px);
   }
 }
 
@@ -398,29 +444,6 @@
   }
 }
 
-/* Landscape orientation for mobile devices */
-@media (orientation: landscape) and (max-height: 600px) {
-  .heading {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-size: clamp(1.25rem, 4vw, 1.75rem);
-  }
-
-  .sport-card {
-    height: clamp(120px, 35vw, 200px);
-  }
-
-  .card-list {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    display: flex;
-  }
-
-  .sport-name {
-    background: rgba(53, 53, 53, 0.28);
-  }
-}
-
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .sport-card,
@@ -439,6 +462,234 @@
   }
 
   .sport-name {
-    background: rgba(128, 128, 128, 0.25);
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Desktop and Large Screens (1025px - 1440px) - SINGLE ROW FIX */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .popular-sports-container {
+    padding: 3rem 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
+
+  .heading {
+    margin-top: 5rem;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .glass-container {
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: calc(100% - 2rem);
+  }
+
+  .card-list {
+    display: flex !important;           /* Keep flex, not grid */
+    flex-wrap: nowrap !important;       /* Prevent wrapping */
+    overflow-x: auto;                   /* Enable horizontal scroll */
+    gap: clamp(1.5rem, 2vw, 2rem);
+    padding: 1.5rem 0;
+    justify-content: flex-start;        /* Align to start */
+    position: relative;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+    width: 100%;
+    /* Ensure first card is visible */
+    padding-left: clamp(1.5rem, 2vw, 2rem) !important;
+    padding-right: clamp(1.5rem, 2vw, 2rem) !important;
+  }
+
+  .card-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sport-card {
+    flex-shrink: 0;                     /* Prevent shrinking */
+    min-width: clamp(180px, 12vw, 200px);
+    max-width: clamp(200px, 14vw, 220px);
+    width: clamp(190px, 13vw, 210px);
+    height: clamp(260px, 20vw, 280px);
+    border-radius: 20px;
+    margin: 0;                          /* Reset margin */
+    scroll-snap-align: start;
+  }
+
+  .sport-card:first-child {
+    margin-left: clamp(0.75rem, 1vw, 1rem) !important; /* Show first card fully */
+  }
+
+  .sport-card:last-child {
+    margin-right: clamp(0.75rem, 1vw, 1rem); /* Show last card fully */
+  }
+
+  .sport-card:hover {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .sport-name {
+    font-size: 1.125rem;
+    bottom: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Ultra Large Screens (1441px and up) - SINGLE ROW FIX */
+@media (min-width: 1441px) {
+  .popular-sports-container {
+    padding: 3.5rem 2.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: max(2.5rem, env(safe-area-inset-left));
+    padding-right: max(2.5rem, env(safe-area-inset-right));
+  }
+
+  .heading {
+    margin-top: 6rem;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .glass-container {
+    border-radius: 28px;
+    padding: 2.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: calc(100% - 3rem);
+  }
+
+  .card-list {
+    display: flex !important;           /* Keep flex, not grid */
+    flex-wrap: nowrap !important;       /* Prevent wrapping */
+    overflow-x: auto;                   /* Enable horizontal scroll */
+    gap: clamp(2rem, 2.5vw, 2.5rem);
+    padding: 2rem 0;
+    justify-content: flex-start;        /* Align to start */
+    position: relative;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    box-sizing: border-box;
+    width: 100%;
+    /* Ensure first card is visible */
+    padding-left: clamp(2rem, 2.5vw, 2.5rem) !important;
+    padding-right: clamp(2rem, 2.5vw, 2.5rem) !important;
+  }
+
+  .card-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sport-card {
+    flex-shrink: 0;                     /* Prevent shrinking */
+    min-width: clamp(200px, 13vw, 220px);
+    max-width: clamp(220px, 15vw, 240px);
+    width: clamp(210px, 14vw, 230px);
+    height: clamp(280px, 22vw, 300px);
+    border-radius: 22px;
+    margin: 0;                          /* Reset margin */
+    scroll-snap-align: start;
+  }
+
+  .sport-card:first-child {
+    margin-left: clamp(1rem, 1.5vw, 1.5rem) !important; /* Show first card fully */
+  }
+
+  .sport-card:last-child {
+    margin-right: clamp(1rem, 1.5vw, 1.5rem); /* Show last card fully */
+  }
+
+  .sport-card:hover {
+    transform: translateY(-15px) scale(1.06);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .sport-name {
+    font-size: 1.25rem;
+    bottom: 24px;
+    left: 24px;
+    padding: 10px 20px;
+    border-radius: 28px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Ultra-Wide Screens (1921px and up) - SINGLE ROW FIX */
+@media (min-width: 1921px) {
+  .popular-sports-container {
+    padding: 4rem 3rem;
+    max-width: 100%;
+  }
+
+  .glass-container {
+    border-radius: 32px;
+    padding: 3rem;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  .card-list {
+    display: flex !important;           /* Keep flex, not grid */
+    flex-wrap: nowrap !important;       /* Prevent wrapping */
+    overflow-x: auto;                   /* Enable horizontal scroll */
+    gap: clamp(2.5rem, 3vw, 3rem);
+    padding: 2.5rem 0;
+    justify-content: flex-start;        /* Align to start */
+    /* Ensure first card is visible */
+    padding-left: clamp(2.5rem, 3vw, 3rem) !important;
+    padding-right: clamp(2.5rem, 3vw, 3rem) !important;
+  }
+
+  .sport-card {
+    flex-shrink: 0;                     /* Prevent shrinking */
+    min-width: clamp(220px, 14vw, 250px);
+    max-width: clamp(250px, 16vw, 280px);
+    width: clamp(235px, 15vw, 265px);
+    height: clamp(300px, 25vw, 340px);
+    border-radius: 24px;
+    margin: 0;
+  }
+
+  .sport-card:first-child {
+    margin-left: clamp(1.5rem, 2vw, 2rem) !important; /* Show first card fully */
+  }
+
+  .sport-card:last-child {
+    margin-right: clamp(1.5rem, 2vw, 2rem); /* Show last card fully */
+  }
+
+  .sport-card:hover {
+    transform: translateY(-18px) scale(1.08);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .sport-name {
+    font-size: 1.375rem;
+    bottom: 28px;
+    left: 28px;
+    padding: 12px 24px;
+    border-radius: 32px;
+    font-weight: 700;
   }
 }

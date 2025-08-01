@@ -56,6 +56,7 @@ const PopularSports = ({ onSportSelect }) => {
               aria-label={`Select ${sport.name}`}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
                   handleSportClick(sport.name);
                 }
               }}
