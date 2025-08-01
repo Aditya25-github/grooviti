@@ -1,11 +1,12 @@
 // backend/routes/turfRoutes.js
 import express from "express";
 import {
+   getAllTurfs,
   createTurf,
   getTurfs,
   getTurfById,
   updateTurf,
-  deleteTurf,
+  deleteTurf
 } from "../../../controllers/sports/Turf/turfController.js";
 import authMiddleware from "../../../middleware/auth.js";
 import { uploadTurfImage } from "../../../middleware/upload.js";
@@ -13,6 +14,8 @@ import { loginTurfOwner, registerTurfOwner } from "../../../controllers/sports/T
 
 
 const router = express.Router();
+
+router.get("/All", getAllTurfs);
 
 router.post("/register", registerTurfOwner);
 router.post("/login", loginTurfOwner);
@@ -25,7 +28,6 @@ router.post(
   ]),
   createTurf
 );
-
 router.get("/", authMiddleware, getTurfs);
 router.get("/:id", getTurfById);
 
