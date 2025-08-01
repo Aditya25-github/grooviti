@@ -3,17 +3,20 @@
   background-color: #0B001A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: white;
-  padding-top: 5rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Header Section */
 .headerSection {
   max-width: 1200px;
-  margin: 0 auto 1rem auto;
-  padding: 2rem 1rem;
+  margin: 0 auto clamp(1rem, 3vw, 2rem) auto;
+  padding: clamp(1rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
   text-align: center;
+  width: 100%;
 }
 
 .headerContent {
@@ -22,36 +25,52 @@
 }
 
 .mainTitle {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 2rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
   line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .searchContainer {
   display: flex;
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
+  max-width: 100%;
+  margin: 0 auto clamp(2rem, 4vw, 3rem) auto;
   background: white;
-  border-radius: 8px;
+  border-radius: clamp(8px, 2vw, 12px);
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.searchContainer:focus-within {
+  box-shadow: 0 8px 35px rgba(0, 184, 148, 0.2);
+  transform: translateY(-2px);
+}
+
+.searchInputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
 }
 
 .mainSearchInput {
   flex: 1;
-  padding: 1rem 1.5rem;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   color: #333;
   background: transparent;
 }
@@ -61,39 +80,86 @@
 }
 
 .searchButton {
-  background: #00b894;
+  background: linear-gradient(135deg, #00b894, #00a085);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-width: clamp(60px, 15vw, 120px);
 }
 
 .searchButton:hover {
-  background: #00a085;
+  background: linear-gradient(135deg, #00a085, #008f73);
+  transform: translateX(-2px);
+}
+
+.searchButton:active {
+  transform: translateX(0);
+}
+
+.searchButtonText {
+  display: block;
+}
+
+.searchButtonIcon {
+  display: none;
 }
 
 .sportsCategories {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 clamp(1rem, 3vw, 2rem) 1rem clamp(1rem, 3vw, 2rem);
+  padding-top: 20px;
+  /* Keep in single row */
+  flex-wrap: nowrap;
+  /* Hide scrollbar on all devices */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.sportsCategories::-webkit-scrollbar {
+  display: none;
 }
 
 .sportButton {
-  padding: 0.75rem 1.5rem;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.25rem, 3vw, 1.75rem);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 25px;
+  border-radius: clamp(25px, 5vw, 30px);
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 100px;
+  min-width: clamp(110px, 25vw, 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent shrinking and ensure complete display */
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+  /* Ensure proper spacing */
+  box-sizing: border-box;
 }
 
 .sportButton:hover {
@@ -101,23 +167,29 @@
   border-color: rgba(255, 255, 255, 0.6);
   color: white;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .sportButton.active {
   background: white;
   border-color: white;
   color: #0B001A;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+.sportButton:focus {
+  outline: 2px solid #00b894;
+  outline-offset: 2px;
 }
 
 /* Players Section */
 .playersSection {
   max-width: 1200px;
-  margin: 1rem auto;
-  padding: 0;
+  margin: clamp(1rem, 3vw, 2rem) auto 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2rem);
   flex: 1;
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 300px);
   width: 100%;
 }
 
@@ -125,35 +197,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding: 0 1rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .playersHeader h2 {
-  font-size: 1.75rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   color: white;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
 }
 
 .headerRight {
   display: flex;
-  gap: 1rem;
+  gap: clamp(0.75rem, 2vw, 1rem);
   align-items: center;
 }
 
 .filterSelect {
-  padding: 0.5rem 1rem;
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
   border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  border-radius: clamp(6px, 1vw, 8px);
   background: rgba(255, 255, 255, 0.05);
   color: white;
   cursor: pointer;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  min-width: clamp(140px, 25vw, 180px);
 }
 
 .filterSelect:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
 }
 
 .filterSelect option {
@@ -163,90 +241,149 @@
 
 .noPlayers {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 3vw, 2rem);
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.1rem;
-}
-
-.playersGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  padding: 0 1rem;
-}
-
-/* Horizontal Card Design */
-.playerCard {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.noPlayersIcon {
+  font-size: clamp(3rem, 8vw, 4rem);
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+}
+
+.noPlayers h3 {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.noPlayers p {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Updated Grid Layout - Properly sized for mobile */
+.playersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 cards on mobile, prevent overflow */
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: clamp(3rem, 6vw, 4rem);
+  width: 100%;
+}
+
+/* Player Card Design */
+.playerCard {
+  background: white;
+  border-radius: clamp(12px, 3vw, 16px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent overflow */
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .playerCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.playerCard:focus {
+  outline: 3px solid #00b894;
+  outline-offset: 2px;
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: clamp(0.5rem, 1vw, 1rem);
 }
 
 .profileSection {
   display: flex;
-  gap: 1rem;
+  gap: clamp(0.4rem, 1vw, 0.75rem);
   align-items: center;
+  flex: 1;
+  min-width: 0;
 }
 
 .profileImage {
-  width: 60px;
-  height: 60px;
+  width: clamp(35px, 8vw, 60px);
+  height: clamp(35px, 8vw, 60px);
   border-radius: 50%;
-  border: 3px solid #f0f0f0;
+  border: 2px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.playerBasicInfo {
+  flex: 1;
+  min-width: 0;
 }
 
 .playerBasicInfo h3 {
-  font-size: 1.2rem;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
   color: #333;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 clamp(0.2rem, 0.5vw, 0.5rem) 0;
   font-weight: 600;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .playerMeta {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  flex-direction: column;
+  gap: clamp(0.2rem, 0.5vw, 0.3rem);
+  align-items: flex-start;
 }
 
 .timePosted {
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.75rem);
   color: #999;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.timePosted i {
+  font-size: clamp(0.6rem, 1.2vw, 0.7rem);
 }
 
 .sportBadge {
   color: white;
-  padding: 0.2rem 0.6rem;
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: clamp(0.1rem, 0.3vw, 0.2rem) clamp(0.3rem, 0.8vw, 0.5rem);
+  border-radius: clamp(8px, 2vw, 12px);
+  font-size: clamp(0.6rem, 1.2vw, 0.7rem);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .skillLevel {
   background: #f8f9fa;
   color: #333;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  padding: clamp(0.2rem, 0.5vw, 0.3rem) clamp(0.4rem, 1vw, 0.6rem);
+  border-radius: clamp(10px, 2vw, 15px);
+  font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+  font-weight: 600;
   border: 1px solid #e9ecef;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cardContent {
@@ -255,144 +392,260 @@
 
 .playerDescription {
   color: #666;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  line-height: 1.4;
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
   display: -webkit-box;
   line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;
 }
 
 .playerDetails {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: clamp(0.3rem, 0.8vw, 0.5rem);
 }
 
 .detailRow {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.8vw, 0.4rem);
 }
 
 .detailItem {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+  gap: clamp(0.25rem, 0.8vw, 0.4rem);
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   color: #777;
-  flex: 1;
+  min-width: 0;
 }
 
 .detailItem i {
-  width: 14px;
+  width: clamp(8px, 2vw, 12px);
   text-align: center;
   color: #999;
   flex-shrink: 0;
+  font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+}
+
+.detailItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .cardFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: clamp(0.5rem, 1.5vw, 1rem);
   border-top: 1px solid #f0f0f0;
+  gap: clamp(0.5rem, 1vw, 1rem);
+}
+
+.footerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.15rem, 0.3vw, 0.3rem);
+  flex: 1;
+  min-width: 0;
 }
 
 .age {
-  font-size: 0.9rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   color: #666;
   font-weight: 500;
 }
 
+.enrollment {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.2rem, 0.3vw, 0.3rem);
+  color: #777;
+  font-size: clamp(0.6rem, 1.2vw, 0.7rem);
+  font-weight: 500;
+}
+
+.enrollment i {
+  color: #999;
+  font-size: clamp(0.55rem, 1vw, 0.65rem);
+}
+
 .connectBtn {
-  background: #00b894;
+  background: linear-gradient(135deg, #00b894, #00a085);
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.6rem, 1.5vw, 1rem);
+  border-radius: clamp(4px, 1vw, 6px);
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.25rem, 0.5vw, 0.4rem);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-width: clamp(60px, 15vw, 100px);
 }
 
 .connectBtn:hover {
-  background: #00a085;
+  background: linear-gradient(135deg, #00a085, #008f73);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+}
+
+.connectBtn:focus {
+  outline: 2px solid #00b894;
+  outline-offset: 2px;
+}
+
+.connectBtnText {
+  display: none;
+}
+
+.connectBtnIcon {
+  display: block;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+}
+
+.loadMoreContainer {
+  text-align: center;
+  margin: clamp(2rem, 4vw, 3rem) 0;
 }
 
 .loadMoreBtn {
-  display: block;
-  margin: 2rem auto 0 auto;
-  background: #00b894;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  background: linear-gradient(135deg, #00b894, #00a085);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 2.5rem);
+  border-radius: clamp(8px, 2vw, 10px);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .loadMoreBtn:hover {
-  background: #00a085;
+  background: linear-gradient(135deg, #00a085, #008f73);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 184, 148, 0.3);
+}
+
+.loadMoreBtn i {
+  transition: transform 0.3s ease;
+}
+
+.loadMoreBtn:hover i {
+  transform: translateY(2px);
 }
 
 .allLoadedMessage {
   text-align: center;
-  padding: 2rem;
+  padding: clamp(2rem, 4vw, 3rem);
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+.allLoadedMessage i {
+  color: #00b894;
+  font-size: clamp(1rem, 2vw, 1.1rem);
 }
 
 .spacer {
   flex: 1;
-  min-height: 100px;
+  min-height: clamp(50px, 10vw, 100px);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .mainTitle {
-    font-size: 2rem;
+/* Mobile Optimizations (≤480px) */
+@media (max-width: 480px) {
+  .container {
+    padding-top: 3rem;
   }
 
-  .subtitle {
-    font-size: 1rem;
+  .headerSection {
+    padding: 1rem 0.75rem;
   }
 
+  /* Keep search button beside text box on mobile */
   .searchContainer {
-    flex-direction: column;
-    max-width: 100%;
+    flex-direction: row; /* Changed from column to row */
+    margin-bottom: 2rem;
   }
 
-  .mainSearchInput {
-    padding: 1rem;
+  .searchInputWrapper {
+    padding: 0.75rem 1rem;
   }
 
   .searchButton {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
+    justify-content: center;
+    border-radius: 0 clamp(8px, 2vw, 12px) clamp(8px, 2vw, 12px) 0; /* Right side rounded */
+    min-width: 60px;
+  }
+
+  .searchButtonText {
+    display: none;
+  }
+
+  .searchButtonIcon {
+    display: block;
+    font-size: 1rem;
   }
 
   .sportsCategories {
-    gap: 0.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 1rem 1rem 1rem;
+    padding-top: 10px;
+    gap: 0.875rem;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    /* Ensure single row */
+    flex-wrap: nowrap;
+    /* Add scroll padding for better UX */
+    scroll-padding-left: 1rem;
+    scroll-padding-right: 1rem;
   }
 
   .sportButton {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    min-width: 80px;
+    flex-shrink: 0;
+    min-width: 110px;
+    padding: 0.75rem 1.25rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 25px;
+    /* Ensure complete display */
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .playersSection {
+    padding: 0 0.75rem;
   }
 
   .playersHeader {
     flex-direction: column;
-    gap: 1rem;
     align-items: flex-start;
-    padding: 0 1rem;
+    gap: 1rem;
   }
 
   .headerRight {
@@ -400,117 +653,272 @@
     justify-content: flex-end;
   }
 
-  .playersGrid {
-    grid-template-columns: 1fr;
-    padding: 0 1rem;
+  .filterSelect {
+    min-width: 160px;
   }
 
-  .detailRow {
+  .playersGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .playerCard {
+    padding: 0.75rem;
+    min-width: 0;
+  }
+
+  .cardHeader {
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 1rem 0 0 0;
-  }
-
-  .headerSection {
-    padding: 1rem 0.5rem;
-  }
-
-  .mainTitle {
-    font-size: 1.75rem;
-  }
-
-  .sportsCategories {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-  }
-
-  .sportButton {
-    flex-shrink: 0;
-  }
-
-  .playersSection {
-    padding: 0;
-  }
-
-  .playersHeader {
-    padding: 0 0.5rem;
-  }
-
-  .playersGrid {
-    padding: 0 0.5rem;
   }
 
   .profileSection {
-    gap: 0.8rem;
+    width: 100%;
+    gap: 0.5rem;
   }
 
-  .profileImage {
-    width: 50px;
-    height: 50px;
+  .skillLevel {
+    align-self: flex-start;
   }
 
   .playerMeta {
-    flex-direction: column;
-    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .detailRow {
     gap: 0.3rem;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .connectBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  .connectBtnText {
+    display: none;
+  }
+
+  .connectBtnIcon {
+    display: block;
   }
 }
 
-/* Update the cardFooter to accommodate enrollment info */
-.cardFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* Small Tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .sportsCategories {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .sportButton {
+    min-width: 100px;
+    padding: 0.65rem 1.2rem;
+  }
+
+  .playersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .playerCard {
+    max-width: none;
+    margin: 0;
+  }
+
+  .cardHeader {
+    gap: 1rem;
+  }
+
+  .detailRow {
+    gap: 1rem;
+  }
 }
 
-.footerLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+/* Large Tablets and Desktop (≥769px) */
+@media (min-width: 769px) {
+  .sportsCategories {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .playersGrid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards on desktop */
+    gap: 1.75rem;
+  }
+
+  .playerCard {
+    padding: 1.5rem;
+  }
+
+  .cardHeader {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .profileSection {
+    gap: 0.75rem;
+  }
+
+  .playerMeta {
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .detailRow {
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+
+  .cardFooter {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .connectBtn {
+    width: auto;
+    min-width: 120px;
+  }
+
+  .connectBtnText {
+    display: block;
+  }
+
+  .connectBtnIcon {
+    display: none;
+  }
 }
 
-.age {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.8rem;
+/* Extra Large Screens (≥1441px) */
+@media (min-width: 1441px) {
+  .container {
+    padding-top: 5rem;
+  }
+
+  .headerSection {
+    max-width: 1400px;
+  }
+
+  .playersSection {
+    max-width: 1400px;
+  }
+
+  .playersGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
 }
 
-.enrollment {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: gray;
-  font-size: 0.8rem;
-  font-weight: 500;
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .sportButton:hover,
+  .playerCard:hover,
+  .connectBtn:hover,
+  .loadMoreBtn:hover {
+    transform: none;
+  }
+
+  .sportButton:active {
+    transform: scale(0.98);
+  }
+
+  .playerCard:active {
+    transform: scale(0.98);
+  }
+
+  .connectBtn:active {
+    transform: scale(0.95);
+  }
+
+  .loadMoreBtn:active {
+    transform: scale(0.98);
+  }
 }
 
-.enrollment i {
-  color: grey;
-  font-size: 0.75rem;
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .sportButton,
+  .filterSelect,
+  .playerCard {
+    border-width: 2px;
+  }
+
+  .sportButton.active {
+    border-width: 3px;
+  }
 }
 
-.connectBtn {
-  background: #00b894;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .sportButton,
+  .playerCard,
+  .connectBtn,
+  .loadMoreBtn,
+  .searchContainer {
+    transition: none;
+  }
+
+  .loadMoreBtn i {
+    transition: none;
+  }
 }
 
-.connectBtn:hover {
-  background: #00a085;
-  transform: translateY(-1px);
+/* Print Styles */
+@media print {
+  .container {
+    background: white;
+    color: black;
+  }
+
+  .headerSection {
+    page-break-after: avoid;
+  }
+
+  .playerCard {
+    page-break-inside: avoid;
+    background: white;
+    border: 1px solid black;
+    box-shadow: none;
+  }
+
+  .searchContainer,
+  .sportsCategories,
+  .loadMoreBtn {
+    display: none;
+  }
+}
+
+/* Focus Management */
+.sportButton:focus-visible,
+.filterSelect:focus-visible,
+.playerCard:focus-visible,
+.connectBtn:focus-visible,
+.loadMoreBtn:focus-visible {
+  outline: 3px solid #00b894;
+  outline-offset: 2px;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Styles */
+::selection {
+  background: rgba(0, 184, 148, 0.2);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: rgba(0, 184, 148, 0.2);
+  color: inherit;
 }
