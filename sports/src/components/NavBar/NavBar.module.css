@@ -335,35 +335,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none; /* Removed background */
-  border: none; /* Removed border */
+  background: none;
+  border: none;
   color: white;
   cursor: pointer;
   padding: clamp(0.5rem, 1.5vw, 0.75rem);
   z-index: 1001;
-  width: clamp(44px, 10vw, 48px); /* Minimum touch target */
+  width: clamp(44px, 10vw, 48px);
   height: clamp(44px, 10vw, 48px);
   position: relative;
   transition: all 0.2s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  border-radius: 0; /* Removed border radius */
+  border-radius: 0;
 }
 
 .mobileMenuButton:hover {
-  background: none; /* Keep clean on hover */
-  transform: scale(1.1); /* Subtle scale effect instead of background */
+  background: none;
+  transform: scale(1.1);
 }
 
 .mobileMenuButton:active {
-  transform: scale(0.95); /* Press effect */
+  transform: scale(0.95);
 }
 
 /* Improved icon containers */
 .mobileMenuButton svg {
   width: clamp(22px, 5vw, 26px);
   height: clamp(22px, 5vw, 26px);
-  stroke-width: 2.5; /* Slightly thicker lines for better visibility */
+  stroke-width: 2.5;
 }
 
 .closeIconContainer {
@@ -403,12 +403,14 @@
   top: 0;
   right: 0;
   width: clamp(280px, 85vw, 350px);
-  height: 100vh;
+  height: 100dvh; /* FIX: dynamic viewport */
+  height: 100vh; /* fallback */
   background: #1a1a1a;
   z-index: 999;
   overflow-y: auto;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: env(safe-area-inset-bottom, 0); /* FIX: for home indicator */
 }
 
 .mobileMenuContent {
@@ -523,6 +525,7 @@
   padding: clamp(1rem, 3vw, 1.5rem) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0)); /* FIX for bottom actions on iPhone */
 }
 
 .mobileActionBtn {
@@ -618,15 +621,12 @@
   .navLinks {
     display: flex;
   }
-
   .authSection {
     display: flex;
   }
-
   .profileSection {
     display: block;
   }
-
   .mobileMenuButton {
     display: none;
   }
@@ -637,11 +637,9 @@
   .container {
     padding: 0 1.5rem;
   }
-
   .mobileMenu {
     width: clamp(300px, 80vw, 320px);
   }
-
   .logo img {
     height: 40px;
   }
@@ -651,16 +649,14 @@
 @media (max-width: 480px) {
   .mobileMenuButton {
     padding: 0.5rem;
-    width: 44px; /* Consistent touch target */
+    width: 44px;
     height: 44px;
   }
-
   .mobileMenuButton svg {
     width: 22px;
     height: 22px;
     stroke-width: 2.5;
   }
-
   .closeIconContainer svg {
     width: 20px;
     height: 20px;
@@ -673,31 +669,25 @@
   .container {
     padding: 0 0.75rem;
   }
-
   .logo img {
     height: 28px;
   }
-
   .mobileMenu {
     width: 90%;
   }
-
   .mobileMenuContent {
     padding: 1rem 0.75rem;
     padding-top: calc(60px + 1rem);
   }
-
   .mobileMenuButton {
     padding: 0.4rem;
     width: 40px;
     height: 40px;
   }
-
   .mobileMenuButton svg {
     width: 20px;
     height: 20px;
   }
-
   .closeIconContainer svg {
     width: 18px;
     height: 18px;
@@ -711,10 +701,9 @@
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
-
   .mobileMenu {
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom, 0);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
@@ -738,7 +727,7 @@
 .mobileMenuButton:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
-  border-radius: 4px; /* Small radius only for focus */
+  border-radius: 4px;
 }
 
 /* Touch Device Optimizations */
@@ -753,15 +742,12 @@
   .mobileSignupBtn:hover {
     transform: none;
   }
-
   .logo a:hover img {
     transform: none;
   }
-
   .mobileMenuButton:hover {
     transform: none;
   }
-
   .mobileMenuButton:active {
     transform: scale(0.9);
   }
@@ -772,14 +758,12 @@
   .navbar {
     border-bottom-width: 2px;
   }
-
   .navLink,
   .loginBtn,
   .signupBtn,
   .profileButton {
     border-width: 2px;
   }
-
   .profileDropdown,
   .mobileMenu {
     border-width: 2px;
@@ -803,7 +787,6 @@
   .logo img {
     transition: none;
   }
-
   .mobileMenu {
     transition: none;
   }
@@ -819,16 +802,13 @@
     backdrop-filter: none;
     border-bottom: 1px solid black;
   }
-
   .authSection,
   .mobileMenuButton {
     display: none;
   }
-
   .navLinks {
     display: flex;
   }
-
   .navLink {
     color: black;
   }

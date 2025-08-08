@@ -16,21 +16,11 @@ const Venues = () => {
     const [venues, setVenues] = useState([]);
   const { url } = useContext(StoreContext);
 
-  const sportImages = {
-    'Cricket': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&h=300&fit=crop',
-    'Football': 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop',
-    'Swimming': 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=400&h=300&fit=crop',
-    'Badminton': 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop',
-    'Tennis': 'https://images.unsplash.com/photo-1542144582-1ba00456b5e3?w=400&h=300&fit=crop',
-    'Table Tennis': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
-  };
-
   // Handle venue card click navigation
   const handleVenueClick = (venueId) => {
     navigate(`/venues/${venueId}`);
   };
 
-  // Comprehensive search function
   const searchVenues = (venues, query) => {
     if (!query.trim()) return venues;
     
@@ -152,13 +142,14 @@ const Venues = () => {
       <section className={styles.venuesSection}>
         <div className={styles.venuesHeader}>
           <h2 className={styles.venuesTitle}>
-            {selectedSport === 'All Sports' 
-              ? searchQuery 
-                ? `Search Results (${filteredVenues.length})`
-                : 'Available Venues'
-              : `${selectedSport} Venues (${filteredVenues.length})`
-            }
-          </h2>
+  {selectedSport === 'All Sports' 
+    ? (searchQuery 
+        ? `Search Results (${filteredVenues.length})` 
+        : 'Available Venues')
+    : `${selectedSport} Venues (${filteredVenues.length})`
+  }
+</h2>
+
           <div className={styles.headerRight}>
             <div className={styles.searchContainer}>
               <input 
@@ -196,26 +187,27 @@ const Venues = () => {
             <div className={styles.noVenuesIcon}>
               <i className="fas fa-search"></i>
             </div>
-            <p>
-              {searchQuery 
-                ? `No venues found for "${searchQuery}". Try different keywords.`
-                : `No venues found for ${selectedSport}. Try selecting a different sport.`
-              }
-            </p>
+           <p>
+  {searchQuery 
+    ? `No venues found for "${searchQuery}". Try different keywords.`
+    : `No venues found for ${selectedSport}. Try selecting a different sport.`
+  }
+</p>
+
           </div>
         ) : (
           <div className={styles.venuesGrid}>
             {venuesToDisplay.map((venue) => (
               <div 
-                key={venue.id} 
+                key={venue._id} 
                 className={styles.venueCard}
-                onClick={() => handleVenueClick(venue.id)}
+                onClick={() => handleVenueClick(venue._id)}
                 role="button"
                 tabIndex={0}
                 aria-label={`View details for ${venue.name}`}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
-                    handleVenueClick(venue.id);
+                    handleVenueClick(venue._id);
                   }
                 }}
               >
