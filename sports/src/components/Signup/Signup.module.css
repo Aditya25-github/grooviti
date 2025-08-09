@@ -257,22 +257,37 @@
   padding-right: clamp(3rem, 10vw, 3.5rem);
 }
 
+/* Eye Button for Password Toggle - FIXED VERSION */
 .eyeButton {
   position: absolute;
-  right: clamp(0.75rem, 2vw, 1rem);
   top: 50%;
+  right: clamp(0.75rem, 2vw, 1rem);
   transform: translateY(-50%);
-  background: transparent;
+  background: none;
   border: none;
+  color: #6b7280;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-radius 0.2s ease, opacity 0.2s ease; /* FIX: Specific transitions only */
   padding: clamp(0.25rem, 1vw, 0.5rem);
   border-radius: clamp(0.25rem, 1vw, 0.375rem);
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 2;
+  transform-origin: center center;
+}
+
+.eyeButton:hover:not(:disabled) {
+  color: #374151;
+  background: rgba(107, 114, 128, 0.1);
+  /* Keep the vertical centering while adding scale */
+  transform: translateY(-50%) scale(1.05);
+}
+
+.eyeButton:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .eyeButton:disabled {
@@ -283,11 +298,7 @@
 .eyeIcon {
   width: clamp(1rem, 3vw, 1.25rem);
   height: clamp(1rem, 3vw, 1.25rem);
-  color: #6b7280;
-}
-
-.eyeButton:hover:not(:disabled) .eyeIcon {
-  color: #374151;
+  stroke-width: 2;
 }
 
 /* Terms Container */
@@ -550,6 +561,14 @@
   .eyeButton {
     right: clamp(0.75rem, 2vw, 0.875rem);
     padding: clamp(0.25rem, 1vw, 0.375rem);
+  }
+
+  .eyeButton:hover:not(:disabled) {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .eyeButton:active:not(:disabled) {
+    transform: translateY(-50%) scale(0.95);
   }
 
   .eyeIcon {
@@ -881,12 +900,14 @@
     color: #94a3b8;
   }
 
-  .eyeIcon {
+  .eyeButton {
     color: #94a3b8;
   }
 
-  .eyeButton:hover:not(:disabled) .eyeIcon {
+  .eyeButton:hover:not(:disabled) {
     color: #cbd5e1;
+    background: rgba(148, 163, 184, 0.1);
+    transform: translateY(-50%) scale(1.05);
   }
 
   .termsLabel {
@@ -935,7 +956,6 @@
 @media (prefers-reduced-motion: reduce) {
   .closeButton,
   .socialBtn,
-  .eyeButton,
   .createAccountButton,
   .footerLink {
     transition: none;
@@ -950,11 +970,11 @@
 .closeButton:focus-visible,
 .socialBtn:focus-visible,
 .input:focus-visible,
-.eyeButton:focus-visible,
 .checkbox:focus-visible,
 .termsLink:focus-visible,
 .createAccountButton:focus-visible,
-.footerLink:focus-visible {
+.footerLink:focus-visible,
+.eyeButton:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
 }
@@ -963,7 +983,6 @@
 @media (hover: none) and (pointer: coarse) {
   .closeButton:hover,
   .socialBtn:hover,
-  .eyeButton:hover,
   .createAccountButton:hover,
   .footerLink:hover {
     transform: none;
@@ -973,6 +992,14 @@
   .socialBtn:active,
   .createAccountButton:active {
     transform: scale(0.95);
+  }
+
+  .eyeButton:hover {
+    transform: translateY(-50%);
+  }
+
+  .eyeButton:active {
+    transform: translateY(-50%) scale(0.95);
   }
 }
 

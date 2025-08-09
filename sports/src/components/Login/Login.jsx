@@ -8,6 +8,43 @@ import { StoreContext } from "../../context/StoreContext";
 import styles from './Login.module.css';
 
 // Icon Components
+const MailIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={styles.inputIcon}
+  >
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+    <polyline points="22,6 12,13 2,6"></polyline>
+  </svg>
+);
+
+const LockIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={styles.inputIcon}
+  >
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+    <circle cx="12" cy="16" r="1"></circle>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+  </svg>
+);
+
 const EyeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -406,34 +443,44 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
+              {/* Email Input with Icon */}
               <div className={styles.inputGroup}>
                 <label htmlFor="email" className={styles.label}>
                   Email
                 </label>
-                <input
-                  ref={emailInputRef}
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={data.email}
-                  onChange={onChangeHandler}
-                  onFocus={() => handleInputFocus('email')}
-                  onBlur={handleInputBlur}
-                  placeholder="name@example.com"
-                  className={styles.input}
-                  required
-                  disabled={isLoading}
-                  autoComplete="email"
-                  autoCapitalize="none"
-                  autoCorrect="off"
-                />
+                <div className={styles.inputWrapper}>
+                  <div className={styles.inputIconContainer}>
+                    <MailIcon />
+                  </div>
+                  <input
+                    ref={emailInputRef}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={data.email}
+                    onChange={onChangeHandler}
+                    onFocus={() => handleInputFocus('email')}
+                    onBlur={handleInputBlur}
+                    placeholder="name@example.com"
+                    className={styles.input}
+                    required
+                    disabled={isLoading}
+                    autoComplete="email"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                  />
+                </div>
               </div>
               
+              {/* Password Input with Icon and Eye Button */}
               <div className={styles.inputGroup}>
                 <label htmlFor="password" className={styles.label}>
                   Password
                 </label>
-                <div className={styles.passwordWrapper}>
+                <div className={styles.inputWrapper}>
+                  <div className={styles.inputIconContainer}>
+                    <LockIcon />
+                  </div>
                   <input
                     ref={passwordInputRef}
                     type={showPassword ? "text" : "password"}
@@ -449,15 +496,15 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
                     disabled={isLoading}
                     autoComplete="current-password"
                   />
-                  <motion.button
+                  <button
                     type="button"
                     className={styles.eyeButton}
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoading}
-                    whileTap={{ scale: 0.9 }}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOffIcon /> : <EyeIcon />}
-                  </motion.button>
+                  </button>
                 </div>
               </div>
 
@@ -492,7 +539,6 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
                       className={styles.loadingContent}
                     >
                       <LoadingSpinner />
-                      {/* <span>Signing in...</span> */}
                     </motion.div>
                   ) : (
                     <motion.span

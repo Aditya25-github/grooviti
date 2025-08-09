@@ -529,7 +529,7 @@ const Signup = ({ isOpen, onClose, onSwitchToLogin }) => {
                 </div>
               </div>
 
-              {/* Password Input */}
+              {/* Password Input with Eye Button */}
               <div className={styles.inputGroup}>
                 <label htmlFor="password" className={styles.label}>
                   Password
@@ -553,15 +553,15 @@ const Signup = ({ isOpen, onClose, onSwitchToLogin }) => {
                     disabled={isLoading}
                     autoComplete="new-password"
                   />
-                  <motion.button
+                  <button
                     type="button"
                     className={styles.eyeButton}
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={isLoading}
-                    whileTap={{ scale: 0.9 }}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOffIcon /> : <EyeIcon />}
-                  </motion.button>
+                  </button>
                 </div>
               </div>
 
@@ -607,7 +607,6 @@ const Signup = ({ isOpen, onClose, onSwitchToLogin }) => {
                       className={styles.loadingContent}
                     >
                       <LoadingSpinner />
-                      {/* <span>Creating account...</span> */}
                     </motion.div>
                   ) : (
                     <motion.span

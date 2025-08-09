@@ -219,7 +219,7 @@
   position: absolute;
   top: calc(100% + clamp(0.5rem, 2vw, 0.75rem));
   right: 0;
-  background: white;
+  background: rgb(38, 38, 38);
   border-radius: clamp(10px, 3vw, 12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   min-width: clamp(260px, 70vw, 300px);
@@ -233,7 +233,7 @@
   align-items: center;
   gap: clamp(0.75rem, 2vw, 1rem);
   padding: clamp(1rem, 3vw, 1.25rem);
-  background: #f8f9fa;
+  background: #131313;
 }
 
 .dropdownAvatar {
@@ -269,7 +269,7 @@
 .dropdownName {
   font-size: clamp(0.95rem, 2.5vw, 1rem);
   font-weight: 600;
-  color: #18181b;
+  color: #ffffff;
   margin: 0 0 clamp(0.2rem, 0.5vw, 0.25rem) 0;
   white-space: nowrap;
   overflow: hidden;
@@ -287,7 +287,7 @@
 
 .dropdownDivider {
   height: 1px;
-  background: #e4e4e7;
+  background: #5b5b5b;
   margin: 0;
 }
 
@@ -303,7 +303,7 @@
   padding: clamp(0.65rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.25rem);
   background: none;
   border: none;
-  color: #18181b;
+  color: #d6d6d6;
   font-size: clamp(0.8rem, 2vw, 0.875rem);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -313,7 +313,7 @@
 }
 
 .dropdownItem:hover {
-  background: #f4f4f5;
+  background: #383838;
 }
 
 .dropdownItem svg {
@@ -327,7 +327,7 @@
 }
 
 .logoutItem:hover {
-  background: #fef2f2;
+  background: #383838;
 }
 
 /* Mobile Menu Button - Clean Design */
@@ -397,43 +397,46 @@
   z-index: 998;
 }
 
-/* Mobile Menu */
+/* Mobile Menu - UPDATED FOR FULL HEIGHT NO SCROLL */
 .mobileMenu {
   position: fixed;
   top: 0;
   right: 0;
   width: clamp(280px, 85vw, 350px);
-  height: 100dvh; /* FIX: dynamic viewport */
-  height: 100vh; /* fallback */
+  height: 100dvh; /* Dynamic viewport height */
+  height: 100vh; /* Fallback for older browsers */
   background: #1a1a1a;
   z-index: 999;
-  overflow-y: auto;
+  overflow-y: hidden; /* FIXED: Remove scrolling */
+  overflow-x: hidden; /* Prevent horizontal overflow */
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: env(safe-area-inset-bottom, 0); /* FIX: for home indicator */
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .mobileMenuContent {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: clamp(1rem, 3vw, 1.5rem);
-  padding-top: calc(clamp(60px, 12vw, 80px) + clamp(1rem, 3vw, 1.5rem));
+  padding: clamp(0.75rem, 2vw, 1rem); /* REDUCED padding */
+  padding-top: calc(clamp(60px, 12vw, 80px) + clamp(0.75rem, 2vw, 1rem)); /* REDUCED top padding */
+  overflow: hidden; /* Prevent content overflow */
 }
 
-/* Mobile Profile Header */
+/* Mobile Profile Header - COMPACT */
 .mobileProfileHeader {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 3vw, 1.25rem);
-  padding: clamp(1rem, 3vw, 1.5rem) clamp(0.5rem, 2vw, 1rem);
-  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  gap: clamp(0.75rem, 2vw, 1rem); /* REDUCED gap */
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(0.5rem, 2vw, 0.75rem); /* REDUCED padding */
+  margin-bottom: clamp(0.75rem, 2vw, 1rem); /* REDUCED margin */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .mobileProfileAvatar {
-  width: clamp(50px, 12vw, 60px);
-  height: clamp(50px, 12vw, 60px);
+  width: clamp(45px, 10vw, 50px); /* REDUCED size */
+  height: clamp(45px, 10vw, 50px); /* REDUCED size */
   border-radius: 50%;
   overflow: hidden;
   background: #3b82f6;
@@ -452,7 +455,7 @@
 
 .mobileProfileInitials {
   color: white;
-  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-size: clamp(1.1rem, 3.5vw, 1.25rem); /* REDUCED size */
   font-weight: 700;
 }
 
@@ -462,7 +465,7 @@
 }
 
 .mobileProfileName {
-  font-size: clamp(1.1rem, 4vw, 1.25rem);
+  font-size: clamp(1rem, 3.5vw, 1.15rem); /* REDUCED size */
   font-weight: 600;
   color: white;
   margin: 0 0 clamp(0.2rem, 1vw, 0.25rem) 0;
@@ -472,7 +475,7 @@
 }
 
 .mobileProfileEmail {
-  font-size: clamp(0.8rem, 2.5vw, 0.875rem);
+  font-size: clamp(0.75rem, 2vw, 0.825rem); /* REDUCED size */
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   white-space: nowrap;
@@ -480,26 +483,28 @@
   text-overflow: ellipsis;
 }
 
-/* Mobile Navigation Section */
+/* Mobile Navigation Section - FLEXIBLE */
 .mobileNavSection {
-  flex: 1;
+  flex: 1; /* Take up remaining space */
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  gap: clamp(0.25rem, 1vw, 0.5rem); /* REDUCED gap */
   padding: 0;
   margin: 0;
   list-style: none;
+  overflow: hidden; /* Prevent overflow */
+  min-height: 0; /* Allow flexbox to work properly */
 }
 
 .mobileNavLink {
   display: flex;
   align-items: center;
-  padding: clamp(1rem, 3vw, 1.25rem);
+  padding: clamp(0.75rem, 2.5vw, 1rem); /* REDUCED padding */
   color: white;
   background: none;
   border: none;
   text-decoration: none;
-  font-size: clamp(1rem, 3vw, 1.1rem);
+  font-size: clamp(0.9rem, 2.5vw, 1rem); /* REDUCED font size */
   font-weight: 500;
   border-radius: clamp(6px, 2vw, 8px);
   transition: all 0.3s ease;
@@ -508,6 +513,7 @@
   text-align: left;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .mobileNavLink:hover {
@@ -520,24 +526,25 @@
   font-weight: 600;
 }
 
-/* Mobile Action Buttons */
+/* Mobile Action Buttons - COMPACT */
 .mobileBottomActions {
-  padding: clamp(1rem, 3vw, 1.5rem) 0;
+  padding: clamp(0.75rem, 2vw, 1rem) 0; /* REDUCED padding */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
-  padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0)); /* FIX for bottom actions on iPhone */
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0)); /* REDUCED bottom padding */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .mobileActionBtn {
   display: flex;
   align-items: center;
-  gap: clamp(0.75rem, 2vw, 1rem);
+  gap: clamp(0.5rem, 1.5vw, 0.75rem); /* REDUCED gap */
   width: 100%;
-  padding: clamp(1rem, 3vw, 1.25rem);
+  padding: clamp(0.75rem, 2.5vw, 1rem); /* REDUCED padding */
   background: none;
   border: none;
   color: white;
-  font-size: clamp(0.95rem, 2.5vw, 1rem);
+  font-size: clamp(0.85rem, 2vw, 0.95rem); /* REDUCED font size */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -551,15 +558,15 @@
 }
 
 .mobileActionBtn svg {
-  width: clamp(18px, 4vw, 20px);
-  height: clamp(18px, 4vw, 20px);
+  width: clamp(16px, 3.5vw, 18px); /* REDUCED size */
+  height: clamp(16px, 3.5vw, 18px); /* REDUCED size */
   flex-shrink: 0;
 }
 
 .mobileLogoutBtn {
   color: #ff6b6b;
   margin-top: clamp(0.5rem, 1vw, 0.75rem);
-  padding-top: clamp(1rem, 3vw, 1.25rem);
+  padding-top: clamp(0.75rem, 2.5vw, 1rem); /* REDUCED padding */
   border-top: 1px solid rgba(255, 107, 107, 0.2);
 }
 
@@ -567,26 +574,27 @@
   background: rgba(255, 107, 107, 0.1);
 }
 
-/* Mobile Auth Section */
+/* Mobile Auth Section - COMPACT */
 .mobileAuthSection {
-  padding: clamp(1rem, 3vw, 1.5rem) 0;
+  padding: clamp(0.75rem, 2vw, 1rem) 0; /* REDUCED padding */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .mobileAuthButtons {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 2vw, 1rem);
+  gap: clamp(0.5rem, 1.5vw, 0.75rem); /* REDUCED gap */
 }
 
 .mobileLoginBtn,
 .mobileSignupBtn {
   width: 100%;
-  padding: clamp(1rem, 3vw, 1.25rem);
+  padding: clamp(0.75rem, 2.5vw, 1rem); /* REDUCED padding */
   border-radius: clamp(6px, 2vw, 8px);
   font-weight: 600;
-  font-size: clamp(0.95rem, 2.5vw, 1rem);
+  font-size: clamp(0.85rem, 2vw, 0.95rem); /* REDUCED font size */
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -676,8 +684,8 @@
     width: 90%;
   }
   .mobileMenuContent {
-    padding: 1rem 0.75rem;
-    padding-top: calc(60px + 1rem);
+    padding: 0.75rem;
+    padding-top: calc(60px + 0.75rem);
   }
   .mobileMenuButton {
     padding: 0.4rem;
