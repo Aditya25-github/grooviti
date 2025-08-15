@@ -284,11 +284,6 @@ const PlayTogetherDetails = () => {
   if (!player) {
     return (
       <div className={styles.container}>
-<<<<<<< HEAD
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner}></div>
-          <p>Loading player details...</p>
-=======
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
@@ -298,7 +293,6 @@ const PlayTogetherDetails = () => {
           fontSize: '1.2rem'
         }}>
           Loading player details...
->>>>>>> 4b3e7842 (too many changes so doing today)
         </div>
       </div>
     );
@@ -326,24 +320,6 @@ const PlayTogetherDetails = () => {
             src={player.coverImages[currentImageIndex]} 
             alt={`${player.name} playing ${player.primarySport}`}
             className={styles.heroImage}
-<<<<<<< HEAD
-            loading="lazy"
-          />
-          {player.coverImages.length > 1 && (
-            <>
-              <button 
-                className={styles.prevBtn} 
-                onClick={prevImage}
-                aria-label="Previous image"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <button 
-                className={styles.nextBtn} 
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-=======
           />
           {player.coverImages.length > 1 && (
             <>
@@ -351,7 +327,6 @@ const PlayTogetherDetails = () => {
                 <i className="fas fa-chevron-left"></i>
               </button>
               <button className={styles.nextBtn} onClick={nextImage}>
->>>>>>> 4b3e7842 (too many changes so doing today)
                 <i className="fas fa-chevron-right"></i>
               </button>
               <div className={styles.imageIndicators}>
@@ -362,10 +337,6 @@ const PlayTogetherDetails = () => {
                       index === currentImageIndex ? styles.active : ''
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
-<<<<<<< HEAD
-                    aria-label={`Go to image ${index + 1}`}
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                   />
                 ))}
               </div>
@@ -379,14 +350,8 @@ const PlayTogetherDetails = () => {
             <div className={styles.playerHeader}>
               <img 
                 src={player.profileImage} 
-<<<<<<< HEAD
-                alt={`${player.name}'s profile`}
-                className={styles.playerAvatar}
-                loading="lazy"
-=======
                 alt={player.name}
                 className={styles.playerAvatar}
->>>>>>> 4b3e7842 (too many changes so doing today)
               />
               <div className={styles.playerIntro}>
                 <h1>{player.name}</h1>
@@ -396,22 +361,13 @@ const PlayTogetherDetails = () => {
                   <span className={styles.skillLevel}>{player.skillLevel}</span>
                 </div>
                 <div className={styles.location}>
-<<<<<<< HEAD
-                  <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-=======
                   <i className="fas fa-map-marker-alt"></i>
->>>>>>> 4b3e7842 (too many changes so doing today)
                   <span>{player.location}</span>
                 </div>
                 {player.socialProof.verified && (
                   <div className={styles.verifiedBadge}>
-<<<<<<< HEAD
-                    <i className="fas fa-check-circle" aria-hidden="true"></i>
-                    <span>Verified Player</span>
-=======
                     <i className="fas fa-check-circle"></i>
                     Verified Player
->>>>>>> 4b3e7842 (too many changes so doing today)
                   </div>
                 )}
               </div>
@@ -425,12 +381,7 @@ const PlayTogetherDetails = () => {
         {/* Player Overview Stats */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-<<<<<<< HEAD
-            <i className="fas fa-chart-line" aria-hidden="true"></i> 
-            <span>Player Stats</span>
-=======
             <i className="fas fa-chart-line"></i> Player Stats
->>>>>>> 4b3e7842 (too many changes so doing today)
           </h2>
           <div className={styles.statsContainer}>
             <div className={styles.statCard}>
@@ -463,12 +414,7 @@ const PlayTogetherDetails = () => {
         {/* Enrolled Members */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-<<<<<<< HEAD
-            <i className="fas fa-users" aria-hidden="true"></i> 
-            <span>Team Members ({player.enrollment.current}/{player.enrollment.total})</span>
-=======
             <i className="fas fa-users"></i> Team Members ({player.enrollment.current}/{player.enrollment.total})
->>>>>>> 4b3e7842 (too many changes so doing today)
           </h2>
           <div className={styles.enrollmentHeader}>
             <div className={styles.enrollmentInfo}>
@@ -490,14 +436,8 @@ const PlayTogetherDetails = () => {
               <div key={member.id} className={styles.memberCard}>
                 <img 
                   src={member.profileImage} 
-<<<<<<< HEAD
-                  alt={`${member.name}'s profile`}
-                  className={styles.memberAvatar}
-                  loading="lazy"
-=======
                   alt={member.name}
                   className={styles.memberAvatar}
->>>>>>> 4b3e7842 (too many changes so doing today)
                 />
                 <div className={styles.memberInfo}>
                   <h4>{member.name}</h4>
@@ -505,11 +445,7 @@ const PlayTogetherDetails = () => {
                     <span className={`${styles.roleTag} ${
                       member.role === 'Team Captain' || member.role === 'Team Creator' 
                         ? styles.captainTag 
-<<<<<<< HEAD
-                        : styles.playerTag  
-=======
                         : styles.playerTag
->>>>>>> 4b3e7842 (too many changes so doing today)
                     }`}>
                       {member.role}
                     </span>
@@ -525,11 +461,7 @@ const PlayTogetherDetails = () => {
             {Array.from({ length: player.enrollment.spotsAvailable }, (_, index) => (
               <div key={`empty-${index}`} className={styles.emptySlot}>
                 <div className={styles.emptySlotIcon}>
-<<<<<<< HEAD
-                  <i className="fas fa-plus" aria-hidden="true"></i>
-=======
                   <i className="fas fa-plus"></i>
->>>>>>> 4b3e7842 (too many changes so doing today)
                 </div>
                 <span>Open Spot</span>
               </div>
@@ -540,12 +472,7 @@ const PlayTogetherDetails = () => {
         {/* Location & Venue - Integrated Section */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-<<<<<<< HEAD
-            <i className="fas fa-map-marker-alt" aria-hidden="true"></i> 
-            <span>Location & Venue</span>
-=======
             <i className="fas fa-map-marker-alt"></i> Location & Venue
->>>>>>> 4b3e7842 (too many changes so doing today)
           </h2>
           <div className={styles.locationVenueContainer}>
             {/* Left side - Venue Info */}
@@ -554,17 +481,6 @@ const PlayTogetherDetails = () => {
                 <div className={styles.venueDetails}>
                   <h3>{player.venue.name}</h3>
                   <div className={styles.venueLocation}>
-<<<<<<< HEAD
-                    <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-                    <span>{player.venue.location}</span>
-                  </div>
-                  <div className={styles.venueDistance}>
-                    <i className="fas fa-route" aria-hidden="true"></i>
-                    <span>{player.venue.distance}</span>
-                  </div>
-                  <div className={styles.venueRating}>
-                    <i className="fas fa-star" aria-hidden="true"></i>
-=======
                     <i className="fas fa-map-marker-alt"></i>
                     <span>{player.venue.location}</span>
                   </div>
@@ -574,7 +490,6 @@ const PlayTogetherDetails = () => {
                   </div>
                   <div className={styles.venueRating}>
                     <i className="fas fa-star"></i>
->>>>>>> 4b3e7842 (too many changes so doing today)
                     <span>{player.venue.rating}</span>
                   </div>
                 </div>
@@ -589,11 +504,7 @@ const PlayTogetherDetails = () => {
             <div className={styles.mapContainer}>
               <div className={styles.mapPlaceholder}>
                 <div className={styles.mapContent}>
-<<<<<<< HEAD
-                  <i className="fas fa-map" aria-hidden="true"></i>
-=======
                   <i className="fas fa-map"></i>
->>>>>>> 4b3e7842 (too many changes so doing today)
                   <p>Interactive Map</p>
                   <small>View venue location on Google Maps</small>
                 </div>
@@ -605,12 +516,7 @@ const PlayTogetherDetails = () => {
         {/* Achievements */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-<<<<<<< HEAD
-            <i className="fas fa-trophy" aria-hidden="true"></i> 
-            <span>Achievements</span>
-=======
             <i className="fas fa-trophy"></i> Achievements
->>>>>>> 4b3e7842 (too many changes so doing today)
           </h2>
           <div className={styles.achievementsContainer}>
             {player.achievements.map((achievement, index) => (
@@ -629,12 +535,7 @@ const PlayTogetherDetails = () => {
         {/* Player Reviews */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
-<<<<<<< HEAD
-            <i className="fas fa-comments" aria-hidden="true"></i> 
-            <span>Player Reviews</span>
-=======
             <i className="fas fa-comments"></i> Player Reviews
->>>>>>> 4b3e7842 (too many changes so doing today)
           </h2>
           <div className={styles.reviewsContainer}>
             {player.playerReviews.map((review) => (
@@ -643,14 +544,8 @@ const PlayTogetherDetails = () => {
                   <div className={styles.reviewerInfo}>
                     <img 
                       src={`https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${review.reviewerName}&size=40`}
-<<<<<<< HEAD
-                      alt={`${review.reviewerName}'s avatar`}
-                      className={styles.reviewerAvatar}
-                      loading="lazy"
-=======
                       alt={review.reviewerName}
                       className={styles.reviewerAvatar}
->>>>>>> 4b3e7842 (too many changes so doing today)
                     />
                     <div>
                       <h5>{review.reviewerName}</h5>
@@ -659,10 +554,6 @@ const PlayTogetherDetails = () => {
                           <i 
                             key={star}
                             className={`fas fa-star ${star <= review.rating ? styles.filled : ''}`}
-<<<<<<< HEAD
-                            aria-hidden="true"
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                           />
                         ))}
                       </div>
@@ -682,17 +573,6 @@ const PlayTogetherDetails = () => {
       {/* Sticky Quick Connect Card */}
       <div className={styles.stickyQuickConnect}>
         <div className={styles.quickConnectCard}>
-<<<<<<< HEAD
-          <button className={styles.connectNowBtn}>Connect Now</button>
-          <div className={styles.shareActions}>
-            <button className={styles.shareBtn}>
-              <i className="fas fa-share-alt" aria-hidden="true"></i>
-              <span className={styles.buttonText}>Share</span>
-            </button>
-            <button className={styles.messageBtn}>
-              <i className="fas fa-envelope" aria-hidden="true"></i>
-              <span className={styles.buttonText}>Message</span>
-=======
           <h3>Connect with {player.name}</h3>
           <div className={styles.playerQuickInfo}>
             <img src={player.profileImage} alt={player.name} className={styles.quickAvatar} />
@@ -709,7 +589,6 @@ const PlayTogetherDetails = () => {
             </button>
             <button className={styles.messageBtn}>
               <i className="fas fa-envelope"></i> Message
->>>>>>> 4b3e7842 (too many changes so doing today)
             </button>
           </div>
         </div>

@@ -6,11 +6,7 @@
   padding-top: 5rem;
 }
 
-<<<<<<< HEAD
-/* Hero Section */
-=======
 /* Hero Section - Same as before */
->>>>>>> 4b3e7842 (too many changes so doing today)
 .heroSection {
   position: relative;
   height: 60vh;
@@ -136,143 +132,11 @@
   font-size: 0.9rem;
 }
 
-<<<<<<< HEAD
-/* Academy Overview Section with Quick Contact Card */
-.academyOverviewSection {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 2rem;
-  align-items: start;
-  margin-bottom: 2rem;
-}
-
-.academyOverviewContent {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 12px;
-}
-
-/* Quick Contact Card Wrapper */
-.quickContactCardWrapper {
-  position: sticky;
-  top: 7rem;
-}
-
-/* Quick Contact Card */
-.quickContactCard {
-  background: white;
-  color: #00b894;
-  border-radius: 18px;
-  padding: 1.5rem 1.5rem 1rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
-  width: 100%;
-  border: 2px solid #00b894;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  cursor: default;
-}
-
-.quickContactCard:hover {
-  box-shadow: 0 14px 45px rgba(0, 184, 148, 0.5);
-  transform: translateY(-4px);
-}
-
-.quickContactCard h3 {
-  margin-bottom: 0.75rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-/* Price Display inside Quick Contact */
-.priceDisplay {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-}
-
-.price {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #00b894;
-}
-
-.priceUnit {
-  font-size: 0.8rem;
-  color: #555;
-}
-
-.startingPrice {
-  margin-left: auto;
-  font-size: 0.8rem;
-  color: #777;
-  font-weight: 500;
-}
-
-/* Contact Now Button */
-.contactNowBtn {
-  width: 100%;
-  background: #00b894;
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 0.8rem;
-  transition: background 0.3s ease;
-}
-
-.contactNowBtn:hover {
-  background: #008f73;
-}
-
-/* Share Actions Buttons */
-.shareActions {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.shareBtn,
-.messageBtn {
-  flex: 1;
-  background: transparent;
-  color: #00b894;
-  border: 1.5px solid #00b894;
-  padding: 0.45rem 0;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3rem;
-  transition: background 0.25s ease, color 0.25s ease;
-}
-
-.shareBtn:hover,
-.messageBtn:hover {
-  background: #00b894;
-  color: white;
-}
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 /* Main Content */
 .mainContent {
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem;
-<<<<<<< HEAD
-  position: relative;
-}
-
-.section {
-  margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-=======
   padding-right: 380px;
 }
 
@@ -280,7 +144,6 @@
   margin-bottom: 3rem;
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -289,13 +152,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-<<<<<<< HEAD
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-=======
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   color: white;
 }
 
@@ -306,25 +164,15 @@
 /* Academy Overview Stats */
 .statsContainer {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-=======
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .statCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-  padding: 1rem;
-=======
   padding: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 10px;
   text-align: center;
   transition: transform 0.3s ease;
@@ -336,16 +184,6 @@
 }
 
 .statNumber {
-<<<<<<< HEAD
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #00b894;
-  margin-bottom: 0.25rem;
-}
-
-.statLabel {
-  font-size: 0.75rem;
-=======
   font-size: 2rem;
   font-weight: bold;
   color: #00b894;
@@ -354,7 +192,6 @@
 
 .statLabel {
   font-size: 0.9rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -362,11 +199,7 @@
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   text-align: center;
-<<<<<<< HEAD
-  font-size: 1rem;
-=======
   font-size: 1.1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Coach Section */
@@ -377,60 +210,35 @@
 
 .coachInfo {
   display: flex;
-<<<<<<< HEAD
-  gap: 1rem;
-=======
   gap: 2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: center;
   max-width: 600px;
 }
 
 .coachAvatar {
-<<<<<<< HEAD
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #00b894;
-=======
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 3px solid #00b894;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .coachDetails h3 {
   color: white;
   margin-bottom: 0.5rem;
-<<<<<<< HEAD
-  font-size: 1.1rem;
-=======
   font-size: 1.4rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .experience {
   color: #00b894;
   font-weight: 500;
   margin-bottom: 0.5rem;
-<<<<<<< HEAD
-  font-size: 0.85rem;
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .specialization,
 .achievements {
   color: rgba(255, 255, 255, 0.8);
-<<<<<<< HEAD
-  margin-bottom: 0.25rem;
-  line-height: 1.5;
-  font-size: 0.8rem;
-=======
   margin-bottom: 0.5rem;
   line-height: 1.5;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Training Programs & Batches */
@@ -449,11 +257,7 @@
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
-<<<<<<< HEAD
-  font-size: 0.85rem;
-=======
   font-size: 0.9rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
 }
 
@@ -479,16 +283,9 @@
 .programDescription p {
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
-<<<<<<< HEAD
-  font-size: 0.9rem;
-}
-
-/* Batches Container */
-=======
   font-size: 1rem;
 }
 
->>>>>>> 4b3e7842 (too many changes so doing today)
 .batchesContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -524,21 +321,13 @@
 .batchHeader h4 {
   color: white;
   margin: 0;
-<<<<<<< HEAD
-  font-size: 1rem;
-=======
   font-size: 1.1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .batchPrice {
   color: #00b894;
   font-weight: bold;
-<<<<<<< HEAD
-  font-size: 1.1rem;
-=======
   font-size: 1.2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .batchDetails {
@@ -561,11 +350,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-<<<<<<< HEAD
-  font-size: 0.8rem;
-=======
   font-size: 0.85rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -598,46 +383,26 @@
   border-radius: 3px;
 }
 
-<<<<<<< HEAD
-/* Coaching Staff - Compact Version */
-.staffGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-=======
 /* Coaching Staff */
 .staffGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .staffCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-  padding: 1rem;
-  border-radius: 10px;
-  display: flex;
-  gap: 0.75rem;
-=======
   padding: 1.5rem;
   border-radius: 10px;
   display: flex;
   gap: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: flex-start;
 }
 
 .staffAvatar {
-<<<<<<< HEAD
-  width: 50px;
-  height: 50px;
-=======
   width: 60px;
   height: 60px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 50%;
   border: 2px solid #00b894;
   flex-shrink: 0;
@@ -646,20 +411,12 @@
 .staffInfo h4 {
   color: white;
   margin: 0 0 0.3rem 0;
-<<<<<<< HEAD
-  font-size: 0.95rem;
-=======
   font-size: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .position {
   color: #00b894;
-<<<<<<< HEAD
-  font-size: 0.8rem;
-=======
   font-size: 0.85rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
   margin: 0 0 0.3rem 0;
 }
@@ -668,11 +425,7 @@
 .staffSpecialization,
 .qualification {
   color: rgba(255, 255, 255, 0.7);
-<<<<<<< HEAD
-  font-size: 0.75rem;
-=======
   font-size: 0.8rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   margin: 0 0 0.2rem 0;
   line-height: 1.3;
 }
@@ -686,17 +439,10 @@
 
 .achievementCard {
   display: flex;
-<<<<<<< HEAD
-  gap: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1rem;
-=======
   gap: 1.5rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 10px;
   align-items: flex-start;
 }
@@ -704,78 +450,45 @@
 .achievementYear {
   background: #00b894;
   color: white;
-<<<<<<< HEAD
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.8rem;
-  flex-shrink: 0;
-  min-width: 50px;
-=======
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-weight: bold;
   font-size: 0.9rem;
   flex-shrink: 0;
   min-width: 60px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   text-align: center;
 }
 
 .achievementContent h4 {
   color: white;
   margin: 0 0 0.5rem 0;
-<<<<<<< HEAD
-  font-size: 1rem;
-=======
   font-size: 1.1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementContent p {
   color: rgba(255, 255, 255, 0.8);
   margin: 0 0 0.5rem 0;
   line-height: 1.5;
-<<<<<<< HEAD
-  font-size: 0.85rem;
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementCategory {
   background: rgba(0, 184, 148, 0.2);
   color: #00b894;
-<<<<<<< HEAD
-  padding: 0.2rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.7rem;
-=======
   padding: 0.2rem 0.6rem;
   border-radius: 12px;
   font-size: 0.75rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
 }
 
 /* Timing Section */
 .timingContainer {
   display: flex;
-<<<<<<< HEAD
-  gap: 2rem;
-}
-
-.timingCategory h4 {
-  margin-bottom: 0.75rem;
-  color: #00b894;
-  font-size: 1rem;
-=======
   gap: 3rem;
 }
 
 .timingCategory h4 {
   margin-bottom: 1rem;
   color: #00b894;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .timeSlots {
@@ -788,18 +501,10 @@
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.3);
-<<<<<<< HEAD
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.8rem;
-=======
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .timeSlot:hover {
@@ -817,32 +522,19 @@
 .locationContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-<<<<<<< HEAD
-  gap: 1.5rem;
-=======
   gap: 2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: center;
 }
 
 .locationInfo p {
   color: rgba(255, 255, 255, 0.8);
-<<<<<<< HEAD
-  font-size: 0.9rem;
-=======
   font-size: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.6;
 }
 
 .locationDescription {
-<<<<<<< HEAD
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-=======
   margin-top: 1rem;
   font-size: 0.9rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -868,11 +560,7 @@
 }
 
 .mapContent i {
-<<<<<<< HEAD
-  font-size: 2.5rem;
-=======
   font-size: 3rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -880,35 +568,21 @@
 .mapContent small {
   display: block;
   margin-top: 0.5rem;
-<<<<<<< HEAD
-  font-size: 0.75rem;
-=======
   font-size: 0.8rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Facilities Section */
 .facilitiesGrid {
   display: grid;
-<<<<<<< HEAD
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.75rem;
-=======
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .facilityItem {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
-  gap: 0.5rem;
-  padding: 0.75rem;
-=======
   gap: 0.75rem;
   padding: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -921,41 +595,23 @@
 
 .facilityIcon {
   color: #00b894;
-<<<<<<< HEAD
-  font-size: 1rem;
-  width: 16px;
-=======
   font-size: 1.2rem;
   width: 20px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   text-align: center;
 }
 
 .facilityItem span {
   color: rgba(255, 255, 255, 0.8);
-<<<<<<< HEAD
-  font-size: 0.7rem;
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .unavailableLabel {
   position: absolute;
-<<<<<<< HEAD
-  top: 0.3rem;
-  right: 0.3rem;
-  font-size: 0.6rem;
-  color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.1);
-  padding: 0.15rem 0.3rem;
-=======
   top: 0.5rem;
   right: 0.5rem;
   font-size: 0.7rem;
   color: #ff6b6b;
   background: rgba(255, 107, 107, 0.1);
   padding: 0.2rem 0.4rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 4px;
 }
 
@@ -963,21 +619,13 @@
 .testimonialsContainer {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  gap: 0.75rem;
-=======
   gap: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-  padding: 1rem;
-=======
   padding: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 10px;
 }
 
@@ -985,62 +633,35 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-<<<<<<< HEAD
-  margin-bottom: 0.75rem;
-=======
   margin-bottom: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .studentInfo {
   display: flex;
-<<<<<<< HEAD
-  gap: 0.75rem;
-=======
   gap: 1rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: center;
 }
 
 .studentAvatar {
-<<<<<<< HEAD
-  width: 32px;
-  height: 32px;
-=======
   width: 40px;
   height: 40px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 50%;
 }
 
 .studentInfo h5 {
-<<<<<<< HEAD
-  margin: 0 0 0.2rem 0;
-  color: white;
-  font-size: 0.9rem;
-=======
   margin: 0 0 0.3rem 0;
   color: white;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialRating {
   display: flex;
   gap: 0.2rem;
-<<<<<<< HEAD
-  margin-bottom: 0.2rem;
-=======
   margin-bottom: 0.3rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialRating i {
   color: #ddd;
-<<<<<<< HEAD
-  font-size: 0.7rem;
-=======
   font-size: 0.8rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialRating i.filled {
@@ -1049,16 +670,6 @@
 
 .programTag,
 .coachTag {
-<<<<<<< HEAD
-  font-size: 0.6rem;
-  color: #00b894;
-  background: rgba(0, 184, 148, 0.1);
-  padding: 0.15rem 0.3rem;
-  border-radius: 8px;
-  margin-right: 0.3rem;
-  display: inline-block;
-  margin-bottom: 0.1rem;
-=======
   font-size: 0.7rem;
   color: #00b894;
   background: rgba(0, 184, 148, 0.1);
@@ -1067,47 +678,28 @@
   margin-right: 0.5rem;
   display: inline-block;
   margin-bottom: 0.2rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialDate {
   color: rgba(255, 255, 255, 0.6);
-<<<<<<< HEAD
-  font-size: 0.7rem;
-=======
   font-size: 0.8rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .testimonialComment {
   color: rgba(255, 255, 255, 0.8);
-<<<<<<< HEAD
-  line-height: 1.5;
-  margin: 0;
-  font-size: 0.8rem;
-=======
   line-height: 1.6;
   margin: 0;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .viewAllTestimonials {
   background: transparent;
   color: #00b894;
   border: 1px solid #00b894;
-<<<<<<< HEAD
-  padding: 0.5rem 1rem;
-=======
   padding: 0.75rem 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 6px;
   cursor: pointer;
   align-self: flex-start;
   transition: all 0.3s ease;
-<<<<<<< HEAD
-  font-size: 0.8rem;
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .viewAllTestimonials:hover {
@@ -1115,29 +707,6 @@
   color: white;
 }
 
-<<<<<<< HEAD
-/* Toggle button */
-.toggleSectionBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #020a12;
-  color: #00b894;
-  border: 1.5px solid #00b894;
-  border-radius: 22px;
-  padding: 0.6rem 1.2rem;
-  margin: 1.4rem auto 0 auto;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  gap: 0.5rem;
-  transition: background 0.15s, color 0.15s;
-  width: max-content;
-}
-.toggleSectionBtn:hover {
-  background: #00b894;
-  color: white;
-=======
 /* Sticky Quick Contact Card */
 .stickyQuickContact {
   position: fixed;
@@ -1244,26 +813,10 @@
   background: #f8f9fa;
   border-color: #00b894;
   color: #00b894;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-<<<<<<< HEAD
-  .academyOverviewSection {
-    grid-template-columns: 1fr;
-  }
-  
-  .quickContactCardWrapper {
-    position: relative;
-    top: auto;
-    margin-top: 2rem;
-  }
-  
-  .mainContent {
-    padding-right: 2rem;
-  }
-=======
   .mainContent {
     padding-right: 2rem;
   }
@@ -1279,62 +832,21 @@
   .quickContactCard {
     min-width: 300px;
   }
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 @media (max-width: 768px) {
   .academyBasicInfo h1 {
     font-size: 2rem;
   }
-<<<<<<< HEAD
-  .statsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.75rem;
-  }
-  .statCard {
-    padding: 0.75rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.07);
-  }
-  .statNumber {
-    font-size: 1.3rem;
-  }
-  .statLabel {
-    font-size: 0.7rem;
-  }
-  .facilitiesGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-=======
 
   .statsContainer {
     grid-template-columns: repeat(2, 1fr);
   }
 
->>>>>>> 4b3e7842 (too many changes so doing today)
   .coachInfo {
     flex-direction: column;
     text-align: center;
   }
-<<<<<<< HEAD
-  .timingContainer {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .locationContainer {
-    grid-template-columns: 1fr;
-  }
-  .batchesContainer {
-    grid-template-columns: 1fr;
-  }
-  .staffGrid {
-    grid-template-columns: 1fr;
-  }
-  .mainContent {
-    padding: 2rem 1rem;
-  }
-=======
 
   .timingContainer {
     flex-direction: column;
@@ -1357,47 +869,12 @@
     padding: 2rem 1rem;
   }
 
->>>>>>> 4b3e7842 (too many changes so doing today)
   .prevBtn,
   .nextBtn {
     width: 40px;
     height: 40px;
     font-size: 1rem;
   }
-<<<<<<< HEAD
-  .prevBtn {
-    left: 1rem;
-  }
-  .nextBtn {
-    right: 1rem;
-  }
-  .quickContactCard {
-    max-width: 100%;
-    border-radius: 14px;
-    padding: 1.25rem 1rem;
-  }
-  .contactNowBtn {
-    padding: 0.65rem;
-    font-size: 0.85rem;
-  }
-  .shareBtn,
-  .messageBtn {
-    font-size: 0.7rem;
-    padding: 0.45rem 0;
-  }
-  .staffGrid,
-  .achievementsContainer,
-  .testimonialsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem !important;
-  }
-  .staffCard,
-  .achievementCard,
-  .testimonialCard {
-    width: 100%;
-    margin: 0;
-=======
 
   .prevBtn {
     left: 1rem;
@@ -1430,7 +907,6 @@
 
   .achievementYear {
     align-self: flex-start;
->>>>>>> 4b3e7842 (too many changes so doing today)
   }
 }
 
@@ -1439,42 +915,6 @@
     height: 50vh;
     min-height: 400px;
   }
-<<<<<<< HEAD
-  .academyInfoOverlay {
-    padding: 2rem 1rem 1rem;
-  }
-  .academyBasicInfo h1 {
-    font-size: 1.5rem;
-  }
-  .statsContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.6rem;
-  }
-  .statCard {
-    padding: 0.6rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
-  }
-  .statNumber {
-    font-size: 1.2rem;
-  }
-  .statLabel {
-    font-size: 0.65rem;
-  }
-  .section {
-    padding: 1.25rem 1rem;
-  }
-  .facilitiesGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .coachInfo {
-    gap: 0.75rem;
-  }
-  .programTabs {
-    flex-direction: column;
-  }
-=======
 
   .academyInfoOverlay {
     padding: 2rem 1rem 1rem;
@@ -1504,61 +944,10 @@
     flex-direction: column;
   }
 
->>>>>>> 4b3e7842 (too many changes so doing today)
   .staffCard {
     flex-direction: column;
     text-align: center;
   }
-<<<<<<< HEAD
-  .testimonialHeader {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .testimonialDate {
-    align-self: flex-start;
-  }
-  .quickContactCardWrapper {
-    margin-top: 3rem;
-    padding: 0 0.8rem;
-  }
-  .quickContactCard {
-    padding: 1rem 0.8rem 1rem 0.8rem;
-    border-radius: 12px;
-  }
-  .contactNowBtn {
-    padding: 0.55rem;
-    font-size: 0.8rem;
-  }
-  .shareBtn,
-  .messageBtn {
-    font-size: 0.65rem;
-    padding: 0.4rem 0;
-  }
-  .toggleSectionBtn {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-  }
-  .staffInfo h4 {
-    font-size: 1rem;
-  }
-  .staffInfo p {
-    font-size: 0.75rem;
-    line-height: 1.3;
-  }
-  .achievementContent h4 {
-    font-size: 1rem;
-  }
-  .achievementContent p {
-    font-size: 0.8rem;
-  }
-  .testimonialComment {
-    font-size: 0.75rem;
-  }
-  .testimonialHeader h5 {
-    font-size: 1rem;
-  }
-}
-=======
 }
 
 /* Replace the existing .shareBtn, .callBtn with this */
@@ -1581,4 +970,3 @@
   border-color: #00b894;
   color: #00b894;
 }
->>>>>>> 4b3e7842 (too many changes so doing today)

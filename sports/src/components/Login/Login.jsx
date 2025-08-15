@@ -1,9 +1,5 @@
 // src/components/Login/Login.jsx
-<<<<<<< HEAD
-import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
-=======
 import React, { useState, useEffect, useContext } from 'react';
->>>>>>> 4b3e7842 (too many changes so doing today)
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,13 +7,8 @@ import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import styles from './Login.module.css';
 
-<<<<<<< HEAD
-// Icon Components
-const MailIcon = () => (
-=======
 // All Icon Components - Define these BEFORE the main Login component
 const UserIcon = () => (
->>>>>>> 4b3e7842 (too many changes so doing today)
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -28,36 +19,10 @@ const UserIcon = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-<<<<<<< HEAD
-    className={styles.inputIcon}
-  >
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-    <polyline points="22,6 12,13 2,6"></polyline>
-  </svg>
-);
-
-const LockIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={styles.inputIcon}
-  >
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-    <circle cx="12" cy="16" r="1"></circle>
-    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-=======
     className={styles.userIcon}
   >
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
->>>>>>> 4b3e7842 (too many changes so doing today)
   </svg>
 );
 
@@ -138,148 +103,18 @@ const XIcon = () => (
   </svg>
 );
 
-<<<<<<< HEAD
-const LoadingSpinner = () => (
-  <svg
-    className={styles.spinnerIcon}
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-  >
-    <circle
-      className={styles.spinnerCircle}
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="4"
-    ></circle>
-    <path
-      className={styles.spinnerPath}
-      fill="currentColor"
-      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-    ></path>
-  </svg>
-);
-
-// Main Login Component with Mobile Keyboard Handling
-=======
 // Main Login Component
->>>>>>> 4b3e7842 (too many changes so doing today)
 const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
   const { url, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  // Refs for keyboard handling
-  const modalRef = useRef(null);
-  const emailInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
-
-  // State
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-  const [activeInput, setActiveInput] = useState(null);
-=======
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
->>>>>>> 4b3e7842 (too many changes so doing today)
   const [data, setData] = useState({
     email: "",
     password: ""
   });
 
-<<<<<<< HEAD
-  // Keyboard detection for mobile
-  useEffect(() => {
-    if (!isOpen) return;
-
-    let initialViewportHeight = window.visualViewport?.height || window.innerHeight;
-    let initialWindowHeight = window.innerHeight;
-
-    const handleViewportChange = () => {
-      if (!window.visualViewport) return;
-
-      const currentHeight = window.visualViewport.height;
-      const heightDifference = initialViewportHeight - currentHeight;
-      
-      const keyboardIsOpen = heightDifference > 150;
-      setIsKeyboardOpen(keyboardIsOpen);
-
-      if (modalRef.current) {
-        if (keyboardIsOpen) {
-          modalRef.current.style.transform = 'translateY(-20vh)';
-          modalRef.current.style.transition = 'transform 0.3s ease-in-out';
-        } else {
-          modalRef.current.style.transform = 'translateY(0)';
-          modalRef.current.style.transition = 'transform 0.3s ease-in-out';
-        }
-      }
-    };
-
-    const handleWindowResize = () => {
-      const currentHeight = window.innerHeight;
-      const heightDifference = initialWindowHeight - currentHeight;
-      const keyboardIsOpen = heightDifference > 150;
-      
-      setIsKeyboardOpen(keyboardIsOpen);
-
-      if (modalRef.current) {
-        if (keyboardIsOpen) {
-          modalRef.current.style.transform = 'translateY(-15vh)';
-          modalRef.current.style.transition = 'transform 0.3s ease-in-out';
-        } else {
-          modalRef.current.style.transform = 'translateY(0)';
-          modalRef.current.style.transition = 'transform 0.3s ease-in-out';
-        }
-      }
-    };
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', handleViewportChange);
-    } else {
-      window.addEventListener('resize', handleWindowResize);
-    }
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', handleViewportChange);
-      } else {
-        window.removeEventListener('resize', handleWindowResize);
-      }
-    };
-  }, [isOpen]);
-
-  // Scroll to active input when keyboard opens
-  useEffect(() => {
-    if (isKeyboardOpen && activeInput && modalRef.current) {
-      setTimeout(() => {
-        const activeElement = activeInput === 'email' ? emailInputRef.current : passwordInputRef.current;
-        if (activeElement) {
-          activeElement.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'center',
-            inline: 'nearest'
-          });
-        }
-      }, 300);
-    }
-  }, [isKeyboardOpen, activeInput]);
-
-  // Input focus handlers
-  const handleInputFocus = useCallback((inputType) => {
-    setActiveInput(inputType);
-  }, []);
-
-  const handleInputBlur = useCallback(() => {
-    setTimeout(() => {
-      setActiveInput(null);
-    }, 100);
-  }, []);
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -334,11 +169,6 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
     if (isOpen) {
       setData({ email: "", password: "" });
       setShowPassword(false);
-<<<<<<< HEAD
-      setIsKeyboardOpen(false);
-      setActiveInput(null);
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
     }
   }, [isOpen]);
 
@@ -355,25 +185,11 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-<<<<<<< HEAD
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      document.body.style.width = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      document.body.style.width = 'unset';
-=======
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => {
       document.body.style.overflow = 'unset';
->>>>>>> 4b3e7842 (too many changes so doing today)
     };
   }, [isOpen]);
 
@@ -382,35 +198,6 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
   return (
     <AnimatePresence>
       <motion.div 
-<<<<<<< HEAD
-        className={`${styles.modalOverlay} ${isKeyboardOpen ? styles.keyboardOpen : ''}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={onClose}
-      >
-        <motion.div 
-          ref={modalRef}
-          className={`${styles.modalContent} ${isKeyboardOpen ? styles.keyboardActive : ''}`}
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{ 
-            duration: 0.3,
-            type: "spring",
-            stiffness: 300,
-            damping: 30
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <motion.button 
-            className={styles.closeButton}
-            onClick={onClose}
-            aria-label="Close modal"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-=======
         className={styles.modalOverlay}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -429,22 +216,10 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
             className={styles.closeButton}
             onClick={onClose}
             aria-label="Close modal"
->>>>>>> 4b3e7842 (too many changes so doing today)
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
-<<<<<<< HEAD
-          </motion.button>
-
-          <div className={styles.loginCard}>
-            <motion.div 
-              className={styles.loginHeader}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-=======
           </button>
 
           <div className={styles.loginCard}>
@@ -452,56 +227,10 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
               <div className={styles.iconContainer}>
                 <UserIcon />
               </div>
->>>>>>> 4b3e7842 (too many changes so doing today)
               <div>
                 <h1 className={styles.loginTitle}>Welcome back</h1>
                 <p className={styles.loginSubtitle}>Enter your credentials to sign in</p>
               </div>
-<<<<<<< HEAD
-            </motion.div>
-
-            <motion.div 
-              className={styles.socialButtons}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <motion.button 
-                className={styles.socialBtn} 
-                onClick={handleAppleLogin} 
-                type="button"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <AppleIcon />
-              </motion.button>
-              <motion.button 
-                className={styles.socialBtn} 
-                onClick={handleGoogleLogin} 
-                type="button"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <GoogleIcon />
-              </motion.button>
-              <motion.button 
-                className={styles.socialBtn} 
-                onClick={handleXLogin} 
-                type="button"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <XIcon />
-              </motion.button>
-            </motion.div>
-
-            <motion.div 
-              className={styles.divider}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-=======
             </div>
 
             <div className={styles.socialButtons}>
@@ -517,58 +246,17 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
             </div>
 
             <div className={styles.divider}>
->>>>>>> 4b3e7842 (too many changes so doing today)
               <div className={styles.dividerLine} />
               <div className={styles.dividerText}>
                 <span>Or continue with email</span>
               </div>
-<<<<<<< HEAD
-            </motion.div>
-
-            <motion.form 
-              className={styles.loginForm} 
-              onSubmit={onLogin}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              {/* Email Input with Icon */}
-=======
             </div>
 
             <form className={styles.loginForm} onSubmit={onLogin}>
->>>>>>> 4b3e7842 (too many changes so doing today)
               <div className={styles.inputGroup}>
                 <label htmlFor="email" className={styles.label}>
                   Email
                 </label>
-<<<<<<< HEAD
-                <div className={styles.inputWrapper}>
-                  <div className={styles.inputIconContainer}>
-                    <MailIcon />
-                  </div>
-                  <input
-                    ref={emailInputRef}
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={data.email}
-                    onChange={onChangeHandler}
-                    onFocus={() => handleInputFocus('email')}
-                    onBlur={handleInputBlur}
-                    placeholder="name@example.com"
-                    className={styles.input}
-                    required
-                    disabled={isLoading}
-                    autoComplete="email"
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                  />
-                </div>
-              </div>
-              
-              {/* Password Input with Icon and Eye Button */}
-=======
                 <input
                   type="email"
                   id="email"
@@ -581,50 +269,25 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
                 />
               </div>
               
->>>>>>> 4b3e7842 (too many changes so doing today)
               <div className={styles.inputGroup}>
                 <label htmlFor="password" className={styles.label}>
                   Password
                 </label>
-<<<<<<< HEAD
-                <div className={styles.inputWrapper}>
-                  <div className={styles.inputIconContainer}>
-                    <LockIcon />
-                  </div>
-                  <input
-                    ref={passwordInputRef}
-=======
                 <div className={styles.passwordWrapper}>
                   <input
->>>>>>> 4b3e7842 (too many changes so doing today)
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     value={data.password}
                     onChange={onChangeHandler}
-<<<<<<< HEAD
-                    onFocus={() => handleInputFocus('password')}
-                    onBlur={handleInputBlur}
                     placeholder="Enter your password"
                     className={`${styles.input} ${styles.passwordInput}`}
                     required
-                    disabled={isLoading}
-                    autoComplete="current-password"
-=======
-                    placeholder="Enter your password"
-                    className={`${styles.input} ${styles.passwordInput}`}
-                    required
->>>>>>> 4b3e7842 (too many changes so doing today)
                   />
                   <button
                     type="button"
                     className={styles.eyeButton}
                     onClick={() => setShowPassword(!showPassword)}
-<<<<<<< HEAD
-                    disabled={isLoading}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                   >
                     {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                   </button>
@@ -632,73 +295,6 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
               </div>
 
               <div className={styles.forgotPasswordContainer}>
-<<<<<<< HEAD
-                <motion.button
-                  type="button"
-                  className={styles.forgotPasswordLink}
-                  onClick={handleForgotPassword}
-                  disabled={isLoading}
-                  whileHover={{ x: 2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Forgot your password?
-                </motion.button>
-              </div>
-
-              <motion.button
-                type="submit"
-                className={`${styles.signInButton} ${isLoading ? styles.loading : ''}`}
-                disabled={isLoading}
-                aria-busy={isLoading}
-                whileHover={!isLoading ? { y: -2 } : {}}
-                whileTap={!isLoading ? { scale: 0.98 } : {}}
-              >
-                <AnimatePresence mode="wait">
-                  {isLoading ? (
-                    <motion.div
-                      key="loading"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className={styles.loadingContent}
-                    >
-                      <LoadingSpinner />
-                    </motion.div>
-                  ) : (
-                    <motion.span
-                      key="signin"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      Sign In
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-            </motion.form>
-
-            <motion.div 
-              className={styles.loginFooter}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <p className={styles.footerText}>
-                Don&apos;t have an account?{' '}
-                <motion.button
-                  type="button"
-                  className={styles.footerLink}
-                  onClick={onSwitchToSignup}
-                  disabled={isLoading}
-                  whileHover={{ x: 2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Sign up here
-                </motion.button>
-              </p>
-            </motion.div>
-=======
                 <button
                   type="button"
                   className={styles.forgotPasswordLink}
@@ -733,7 +329,6 @@ const Login = ({ isOpen, onClose, onSwitchToSignup }) => {
                 </button>
               </p>
             </div>
->>>>>>> 4b3e7842 (too many changes so doing today)
           </div>
         </motion.div>
       </motion.div>

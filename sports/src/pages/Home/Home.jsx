@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 4b3e7842 (too many changes so doing today)
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
@@ -21,53 +17,6 @@ const SportsHomepage = () => {
 
   return (
     <div className={styles.homepage}>
-<<<<<<< HEAD
-      {/* Aurora Background - FILLS ENTIRE VIEWPORT */}
-      <div className={styles.auroraContainer}>
-        <Aurora
-          colorStops={["#7bff67", "#b19eef", "#5227ff"]}
-          blend={0.4}
-          amplitude={2.5}
-          speed={0.5}
-        />
-      </div>
-
-      {/* Hero Section */}
-      <div className={styles.heroSection}>
-        {/* Hero Content */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <h1 className={styles.heroTitle}>
-            Want to{' '}
-            <RotatingText
-              texts={['Book', 'Manage', 'Handle']}
-              mainClassName={styles.rotatingText}
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              transition={{ 
-                type: "spring", 
-                damping: 30, 
-                stiffness: 400,
-                mass: 0.5
-              }}
-              rotationInterval={2000}
-              style={{ 
-                color: '#ffffff',
-                fontWeight: 'bold'
-              }}
-            />{' '}
-            venues?
-          </h1>
-          <h2 className={styles.heroSubtitle}>
-            <ShinyText 
-              text="Grooviti" 
-              speed={2.5} 
-              intensity={0.9}
-              className={styles.brandName}
-            />
-            <span>is the right place!</span>
-          </h2>
-=======
       {/* Hero Section with Aurora Background */}
       <div className={styles.heroSection}>
         {/* Aurora Background */}
@@ -122,22 +71,10 @@ const SportsHomepage = () => {
       />
               <span>is the right place!</span>
             </h2>
->>>>>>> 4b3e7842 (too many changes so doing today)
           <p className={styles.heroSlogan}>Groove it, Book it, Live it</p>
         </div>
       </div>
       
-<<<<<<< HEAD
-      {/* Components Wrapper with Reduced Spacing */}
-      <div className={styles.componentsWrapper}>
-        <PopularSports />
-        <TurfNearest />
-        <AcademyNear />
-        <Milestones />
-        <SayAboutUs />
-        {/* <Feedback/> */}
-      </div>
-=======
       {/* Rest of your content */}
       {/* <Header /> */}
       <PopularSports />
@@ -146,13 +83,8 @@ const SportsHomepage = () => {
       <Milestones/>
       <SayAboutUs/>
       {/* <Feedback/> */}
->>>>>>> 4b3e7842 (too many changes so doing today)
     </div>
   );
 };
 
-<<<<<<< HEAD
 export default SportsHomepage;
-=======
-export default SportsHomepage;
->>>>>>> 4b3e7842 (too many changes so doing today)

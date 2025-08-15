@@ -1,25 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import axios from 'axios';
-import { StoreContext } from "../../context/StoreContext";
-import { useContext } from 'react';
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 import styles from './Venues.module.css';
 import PopularSports from "../../components/PopularSports/PopularSports";
 
 const Venues = () => {
   const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState('All Sports');
-<<<<<<< HEAD
-  const [sortBy, setSortBy] = useState('All'); // Changed default
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredVenues, setFilteredVenues] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
-    const [venues, setVenues] = useState([]);
-  const { url } = useContext(StoreContext);
-=======
   const [sortBy, setSortBy] = useState('Price');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredVenues, setFilteredVenues] = useState([]);
@@ -252,17 +238,13 @@ const Venues = () => {
       sportColor: '#F44336'
     }
   ];
->>>>>>> 4b3e7842 (too many changes so doing today)
 
   // Handle venue card click navigation
   const handleVenueClick = (venueId) => {
     navigate(`/venues/${venueId}`);
   };
 
-<<<<<<< HEAD
-=======
   // Comprehensive search function
->>>>>>> 4b3e7842 (too many changes so doing today)
   const searchVenues = (venues, query) => {
     if (!query.trim()) return venues;
     
@@ -281,53 +263,7 @@ const Venues = () => {
     });
   };
 
-<<<<<<< HEAD
-  // Updated sorting function with "All" option
-  const sortVenues = (venues, sortOption) => {
-    const sortedVenues = [...venues];
-    
-    switch (sortOption) {
-      case 'All':
-        return sortedVenues; // Return venues in original order
-      
-      case 'Sort by Price':
-        return sortedVenues.sort((a, b) => a.price - b.price); // Low to High
-      
-      case 'Sort by Rating':
-        return sortedVenues.sort((a, b) => b.rating - a.rating); // High to Low
-      
-      case 'Sort by Distance':
-        return sortedVenues.sort((a, b) => a.distance - b.distance); // Near to Far
-      
-      default:
-        return sortedVenues;
-    }
-  };
-
-  useEffect(() => {
-  const fetchVenues = async () => {
-    try {
-      const res = await axios.get(`${url}/api/turfs/All`);
-      if (res.data.success && res.data.turfs) {
-        setVenues(res.data.turfs);
-        // Also sort them based on initial sort option
-        const sorted = sortVenues(res.data.turfs, sortBy);
-        setFilteredVenues(sorted);
-      } else {
-        console.warn("Invalid venue response structure");
-      }
-    } catch (err) {
-      console.error("Failed to fetch venues:", err);
-    }
-  };
-
-  fetchVenues();
-}, []);
-
-  // Filter, search, and sort venues
-=======
   // Filter and search venues
->>>>>>> 4b3e7842 (too many changes so doing today)
   useEffect(() => {
     let filtered = venues;
     
@@ -339,20 +275,6 @@ const Venues = () => {
     // Then apply search
     filtered = searchVenues(filtered, searchQuery);
     
-<<<<<<< HEAD
-    // Finally apply sorting
-    filtered = sortVenues(filtered, sortBy);
-    
-    setFilteredVenues(filtered);
-    // Reset visible count when filters change
-    setVisibleCount(6);
-  }, [selectedSport, searchQuery, sortBy]);
-
-  // Initialize with all venues
-  useEffect(() => {
-    const initialVenues = sortVenues(venues, sortBy);
-    setFilteredVenues(initialVenues);
-=======
     setFilteredVenues(filtered);
     // Reset visible count when filters change
     setVisibleCount(6);
@@ -361,7 +283,6 @@ const Venues = () => {
   // Initialize with all venues
   useEffect(() => {
     setFilteredVenues(venues);
->>>>>>> 4b3e7842 (too many changes so doing today)
   }, []);
 
   // Function to handle sport selection from PopularSports component
@@ -374,14 +295,6 @@ const Venues = () => {
     setSearchQuery(e.target.value);
   };
 
-<<<<<<< HEAD
-  // Handle sort option change
-  const handleSortChange = (e) => {
-    setSortBy(e.target.value);
-  };
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
   // Handle load more venues
   const loadMoreVenues = () => {
     setVisibleCount(prevCount => prevCount + 6);
@@ -401,45 +314,6 @@ const Venues = () => {
       {/* Available Venues Section */}
       <section className={styles.venuesSection}>
         <div className={styles.venuesHeader}>
-<<<<<<< HEAD
-          <h2 className={styles.venuesTitle}>
-  {selectedSport === 'All Sports' 
-    ? (searchQuery 
-        ? `Search Results (${filteredVenues.length})` 
-        : 'Available Venues')
-    : `${selectedSport} Venues (${filteredVenues.length})`
-  }
-</h2>
-
-          <div className={styles.headerRight}>
-            <div className={styles.searchContainer}>
-              <input 
-                type="text" 
-                placeholder="Search venues..."
-                className={styles.searchInput}
-                value={searchQuery}
-                onChange={handleSearchChange}
-                aria-label="Search venues"
-              />
-              <button 
-                className={styles.searchButton}
-                aria-label="Search"
-                type="button"
-              >
-                <i className="fas fa-search"></i>
-              </button>
-            </div>
-            <select 
-              value={sortBy} 
-              onChange={handleSortChange}
-              className={styles.filterSelect}
-              aria-label="Sort venues"
-            >
-              <option value="All">All</option>
-              <option value="Sort by Price">Sort by Price</option>
-              <option value="Sort by Rating">Sort by Rating</option>
-              <option value="Sort by Distance">Sort by Distance</option>
-=======
           <h2>
             {selectedSport === 'All Sports' 
               ? searchQuery 
@@ -464,57 +338,23 @@ const Venues = () => {
               <option>Sort by Price</option>
               <option>Sort by Rating</option>
               <option>Sort by Distance</option>
->>>>>>> 4b3e7842 (too many changes so doing today)
             </select>
           </div>
         </div>
 
         {filteredVenues.length === 0 ? (
           <div className={styles.noVenues}>
-<<<<<<< HEAD
-            <div className={styles.noVenuesIcon}>
-              <i className="fas fa-search"></i>
-            </div>
-           <p>
-  {searchQuery 
-    ? `No venues found for "${searchQuery}". Try different keywords.`
-    : `No venues found for ${selectedSport}. Try selecting a different sport.`
-  }
-</p>
-
-=======
             <p>
               {searchQuery 
                 ? `No venues found for "${searchQuery}". Try different keywords.`
                 : `No venues found for ${selectedSport}. Try selecting a different sport.`
               }
             </p>
->>>>>>> 4b3e7842 (too many changes so doing today)
           </div>
         ) : (
           <div className={styles.venuesGrid}>
             {venuesToDisplay.map((venue) => (
               <div 
-<<<<<<< HEAD
-                key={venue._id} 
-                className={styles.venueCard}
-                onClick={() => handleVenueClick(venue._id)}
-                role="button"
-                tabIndex={0}
-                aria-label={`View details for ${venue.name}`}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleVenueClick(venue._id);
-                  }
-                }}
-              >
-                <div className={styles.venueImage}>
-                  <img 
-                    src={venue.image} 
-                    alt={venue.name}
-                    loading="lazy"
-                  />
-=======
                 key={venue.id} 
                 className={styles.venueCard}
                 onClick={() => handleVenueClick(venue.id)}
@@ -522,22 +362,12 @@ const Venues = () => {
               >
                 <div className={styles.venueImage}>
                   <img src={venue.image} alt={venue.name} />
->>>>>>> 4b3e7842 (too many changes so doing today)
                   <span 
                     className={styles.sportTag}
                     style={{ backgroundColor: venue.sportColor }}
                   >
                     {venue.sport}
                   </span>
-<<<<<<< HEAD
-                  {venue.rating && (
-                    <div className={styles.ratingBadge}>
-                      <i className="fas fa-star"></i>
-                      {venue.rating}
-                    </div>
-                  )}
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                 </div>
                 <div className={styles.venueInfo}>
                   <h3>{venue.name}</h3>
@@ -549,20 +379,9 @@ const Venues = () => {
                     <span className={styles.size}>
                       <i className="fas fa-ruler-combined"></i> {venue.size}
                     </span>
-<<<<<<< HEAD
-                    {venue.distance && (
-                      <span className={styles.distance}>
-                        <i className="fas fa-route"></i> {venue.distance} km away
-                      </span>
-                    )}
-                  </div>
-                  <div className={styles.venueFooter}>
-                    <span className={styles.price}>₹{venue.pricePerHour.toLocaleString()}/hr</span>
-=======
                   </div>
                   <div className={styles.venueFooter}>
                     <span className={styles.price}>₹{venue.price.toLocaleString()}/hr</span>
->>>>>>> 4b3e7842 (too many changes so doing today)
                     <span className={styles.availability}>
                       {venue.slotsAvailable} slots available
                     </span>
@@ -578,15 +397,8 @@ const Venues = () => {
           <button 
             className={styles.loadMoreBtn}
             onClick={loadMoreVenues}
-<<<<<<< HEAD
-            aria-label="Load more venues"
           >
             Load More Venues
-            <i className="fas fa-chevron-down"></i>
-=======
-          >
-            Load More Venues
->>>>>>> 4b3e7842 (too many changes so doing today)
           </button>
         )}
 
@@ -604,8 +416,4 @@ const Venues = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Venues;
-=======
-export default Venues;
->>>>>>> 4b3e7842 (too many changes so doing today)

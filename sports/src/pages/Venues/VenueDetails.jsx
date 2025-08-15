@@ -1,33 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-<<<<<<< HEAD
-import { format, isToday, isSameDay } from 'date-fns';
 import styles from './VenueDetails.module.css';
-import {
-  MiniCalendar,
-  MiniCalendarNavigation,
-  MiniCalendarDays,
-  MiniCalendarDay,
-} from '../../components/mini-calendar/mini-calendar';
-=======
-import styles from './VenueDetails.module.css';
->>>>>>> 4b3e7842 (too many changes so doing today)
 
 const VenueDetails = () => {
   const { id } = useParams();
   const [venue, setVenue] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const [selectedSport, setSelectedSport] = useState('');
-<<<<<<< HEAD
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // Complete venues data
-=======
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Complete venues data that matches your Venues.jsx cards
->>>>>>> 4b3e7842 (too many changes so doing today)
   const venuesData = {
     1: {
       id: 1,
@@ -346,8 +328,6 @@ const VenueDetails = () => {
           date: '2 days ago'
         }
       ]
-<<<<<<< HEAD
-=======
     },
     7: {
       id: 7,
@@ -446,7 +426,6 @@ const VenueDetails = () => {
           date: '3 days ago'
         }
       ]
->>>>>>> 4b3e7842 (too many changes so doing today)
     }
   };
 
@@ -455,10 +434,7 @@ const VenueDetails = () => {
     const venueData = venuesData[parseInt(id)];
     if (venueData) {
       setVenue(venueData);
-<<<<<<< HEAD
-=======
       // Set default selected sport to the first available sport
->>>>>>> 4b3e7842 (too many changes so doing today)
       const firstSport = Object.keys(venueData.sports)[0];
       setSelectedSport(firstSport);
     }
@@ -468,11 +444,6 @@ const VenueDetails = () => {
   if (!venue) {
     return (
       <div className={styles.container}>
-<<<<<<< HEAD
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingSpinner}></div>
-          <p>Loading venue details...</p>
-=======
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
@@ -482,27 +453,11 @@ const VenueDetails = () => {
           fontSize: '1.2rem'
         }}>
           Loading venue details...
->>>>>>> 4b3e7842 (too many changes so doing today)
         </div>
       </div>
     );
   }
 
-<<<<<<< HEAD
-  // Helper function to determine if selected date is weekend
-  const isWeekend = (date) => {
-    const day = date.getDay();
-    return day === 0 || day === 6; // Sunday = 0, Saturday = 6
-  };
-
-  // Get available time slots based on selected date
-  const getAvailableSlots = () => {
-    if (!selectedDate) return [];
-    return isWeekend(selectedDate) ? venue.timings.weekends.slots : venue.timings.weekdays.slots;
-  };
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
   // Image navigation functions
   const nextImage = () => {
     setCurrentImageIndex((prev) => 
@@ -524,21 +479,6 @@ const VenueDetails = () => {
     setSelectedSport(sport);
   };
 
-<<<<<<< HEAD
-  const handleDateSelect = (date) => {
-    setSelectedDate(date);
-    setSelectedTimeSlot(''); // Reset time slot when date changes
-  };
-
-  const handleBookNow = () => {
-    if (selectedDate && selectedTimeSlot) {
-      console.log('Booking venue:', venue.name, 'Sport:', selectedSport, 'Date:', format(selectedDate, 'yyyy-MM-dd'), 'Time:', selectedTimeSlot);
-      // Add booking logic here
-    }
-  };
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
   return (
     <div className={styles.container}>
       {/* Hero Image Section */}
@@ -548,24 +488,6 @@ const VenueDetails = () => {
             src={venue.images[currentImageIndex]} 
             alt={venue.name}
             className={styles.heroImage}
-<<<<<<< HEAD
-            loading="lazy"
-          />
-          {venue.images.length > 1 && (
-            <>
-              <button 
-                className={styles.prevBtn} 
-                onClick={prevImage}
-                aria-label="Previous image"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <button 
-                className={styles.nextBtn} 
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-=======
           />
           {venue.images.length > 1 && (
             <>
@@ -573,7 +495,6 @@ const VenueDetails = () => {
                 <i className="fas fa-chevron-left"></i>
               </button>
               <button className={styles.nextBtn} onClick={nextImage}>
->>>>>>> 4b3e7842 (too many changes so doing today)
                 <i className="fas fa-chevron-right"></i>
               </button>
               <div className={styles.imageIndicators}>
@@ -584,10 +505,6 @@ const VenueDetails = () => {
                       index === currentImageIndex ? styles.active : ''
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
-<<<<<<< HEAD
-                    aria-label={`Go to image ${index + 1}`}
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                   />
                 ))}
               </div>
@@ -622,77 +539,6 @@ const VenueDetails = () => {
 
       {/* Main Content */}
       <div className={styles.mainContent}>
-<<<<<<< HEAD
-        {/* Date Selection Section */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>
-            <i className="fas fa-calendar-alt"></i> Select Date
-          </h2>
-          <div className={styles.calendarWrapper}>
-            <MiniCalendar
-              value={selectedDate}
-              onValueChange={handleDateSelect}
-              days={7}
-              className={styles.miniCalendar}
-            >
-              <MiniCalendarNavigation 
-                direction="prev" 
-                className={styles.calendarNav}
-              />
-              <MiniCalendarDays className={styles.calendarDays}>
-                {(date) => (
-                  <MiniCalendarDay 
-                    key={date.toISOString()} 
-                    date={date}
-                    className={styles.calendarDay}
-                  />
-                )}
-              </MiniCalendarDays>
-              <MiniCalendarNavigation 
-                direction="next" 
-                className={styles.calendarNav}
-              />
-            </MiniCalendar>
-            
-            {selectedDate && (
-              <div className={styles.selectedDateInfo}>
-                <p>
-                  Selected: <strong>{format(selectedDate, 'EEEE, MMMM d, yyyy')}</strong>
-                  {isToday(selectedDate) && <span className={styles.todayBadge}>Today</span>}
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Venue Timing Section */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>
-            <i className="fas fa-clock"></i> Available Time Slots
-            {selectedDate && (
-              <span className={styles.dateContext}>
-                for {format(selectedDate, 'MMM d')} ({isWeekend(selectedDate) ? 'Weekend' : 'Weekday'})
-              </span>
-            )}
-          </h2>
-          <div className={styles.timingContainer}>
-            <div className={styles.timeSlots}>
-              {getAvailableSlots().map((slot, index) => (
-                <button
-                  key={index}
-                  className={`${styles.timeSlot} ${
-                    selectedTimeSlot === slot ? styles.selected : ''
-                  }`}
-                  onClick={() => handleTimeSlotSelect(slot)}
-                >
-                  {slot}
-                </button>
-              ))}
-            </div>
-            {getAvailableSlots().length === 0 && (
-              <p className={styles.noSlots}>Please select a date to view available time slots.</p>
-            )}
-=======
         {/* Venue Timing Section */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
@@ -731,7 +577,6 @@ const VenueDetails = () => {
                 ))}
               </div>
             </div>
->>>>>>> 4b3e7842 (too many changes so doing today)
           </div>
         </section>
 
@@ -748,16 +593,6 @@ const VenueDetails = () => {
                   selectedSport === sport ? styles.selectedSport : ''
                 }`}
                 onClick={() => handleSportSelect(sport)}
-<<<<<<< HEAD
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleSportSelect(sport);
-                  }
-                }}
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
               >
                 <div className={styles.sportHeader}>
                   <h4>{sport}</h4>
@@ -825,10 +660,6 @@ const VenueDetails = () => {
                       src={`https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${review.name}&size=40`}
                       alt={review.name}
                       className={styles.reviewerAvatar}
-<<<<<<< HEAD
-                      loading="lazy"
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
                     />
                     <div>
                       <h5>{review.name}</h5>
@@ -861,30 +692,6 @@ const VenueDetails = () => {
             <span className={styles.priceUnit}>/{venue.sports[selectedSport]?.duration || 'hour'}</span>
             <span className={styles.startingPrice}>Starting price for {selectedSport.toLowerCase()}</span>
           </div>
-<<<<<<< HEAD
-          {selectedDate && selectedTimeSlot && (
-            <div className={styles.bookingDetails}>
-              <p className={styles.selectedBooking}>
-                {format(selectedDate, 'MMM d')} • {selectedTimeSlot}
-              </p>
-            </div>
-          )}
-          <button 
-            className={styles.bookNowBtn}
-            onClick={handleBookNow}
-            disabled={!selectedDate || !selectedTimeSlot}
-          >
-            {selectedDate && selectedTimeSlot ? 'Book Now' : 'Select Date & Time'}
-          </button>
-          <div className={styles.shareActions}>
-            <button className={styles.shareBtn}>
-              <i className="fas fa-share-alt"></i>
-              <span className={styles.buttonText}> Share</span>
-            </button>
-            <button className={styles.corporateBtn}>
-              <i className="fas fa-building"></i>
-              <span className={styles.buttonText}> Corporate</span>
-=======
           <button className={styles.bookNowBtn}>Book Now</button>
           <div className={styles.shareActions}>
             <button className={styles.shareBtn}>
@@ -892,7 +699,6 @@ const VenueDetails = () => {
             </button>
             <button className={styles.corporateBtn}>
               <i className="fas fa-building"></i> Corporate
->>>>>>> 4b3e7842 (too many changes so doing today)
             </button>
           </div>
         </div>

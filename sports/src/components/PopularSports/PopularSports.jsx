@@ -51,27 +51,8 @@ const PopularSports = ({ onSportSelect }) => {
               key={index}
               className="sport-card"
               onClick={() => handleSportClick(sport.name)}
-<<<<<<< HEAD
-              role="button"
-              tabIndex={0}
-              aria-label={`Select ${sport.name}`}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleSportClick(sport.name);
-                }
-              }}
-            >
-              <img 
-                src={sport.image} 
-                alt={sport.name} 
-                className="sport-img"
-                loading="lazy"
-              />
-=======
             >
               <img src={sport.image} alt={sport.name} className="sport-img" />
->>>>>>> 4b3e7842 (too many changes so doing today)
               <div className="sport-name">{sport.name}</div>
             </div>
           ))}
@@ -81,8 +62,4 @@ const PopularSports = ({ onSportSelect }) => {
   );
 };
 
-<<<<<<< HEAD
 export default PopularSports;
-=======
-export default PopularSports;
->>>>>>> 4b3e7842 (too many changes so doing today)

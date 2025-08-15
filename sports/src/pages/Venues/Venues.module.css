@@ -3,58 +3,24 @@
   background-color: #0B001A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: white;
-<<<<<<< HEAD
-  padding-top: clamp(1rem, 3vw, 2rem);
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow-x: hidden;
-=======
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Venues Section */
 .venuesSection {
-<<<<<<< HEAD
-  max-width: 1400px;
-  margin: clamp(2rem, 5vw, 4rem) auto;
-  padding: 0 clamp(0.5rem, 2vw, 1rem);
-  flex: 1;
-  min-height: calc(100vh - 200px);
-  width: 100%;
-  box-sizing: border-box;
-=======
   max-width: 1200px;
   margin: 4rem auto;
   padding: 0;
   flex: 1;
   min-height: calc(100vh - 200px);
   width: 100%;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venuesHeader {
   display: flex;
   justify-content: space-between;
-<<<<<<< HEAD
-  align-items: flex-start;
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
-  gap: clamp(1rem, 3vw, 2rem);
-  flex-wrap: wrap;
-}
-
-.venuesTitle {
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  color: white;
-  margin: 0;
-  font-weight: 600;
-  line-height: 1.2;
-  flex: 1;
-  min-width: 200px;
-=======
   align-items: center;
   margin-bottom: 2rem;
   padding: 0 1rem;
@@ -63,37 +29,10 @@
 .venuesHeader h2 {
   font-size: 1.75rem;
   color: white;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .headerRight {
   display: flex;
-<<<<<<< HEAD
-  gap: clamp(0.5rem, 2vw, 1rem);
-  align-items: center;
-  flex-wrap: wrap;
-  min-width: 280px;
-}
-
-.searchContainer {
-  position: relative;
-  flex: 1;
-  min-width: 200px;
-}
-
-.searchInput {
-  width: 100%;
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
-  padding-right: clamp(2.5rem, 8vw, 3rem);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: clamp(6px, 2vw, 8px);
-  font-size: clamp(0.875rem, 2vw, 0.9rem);
-  outline: none;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  box-sizing: border-box;
-=======
   gap: 1rem;
   align-items: center;
 }
@@ -108,76 +47,31 @@
   transition: border-color 0.3s ease;
   background: rgba(255, 255, 255, 0.05);
   color: white;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .searchInput:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .searchInput::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-<<<<<<< HEAD
-.searchButton {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(32px, 8vw, 40px);
-  height: clamp(32px, 8vw, 40px);
-}
-
-.searchButton:hover {
-  color: #00b894;
-}
-
-.filterSelect {
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: clamp(6px, 2vw, 8px);
-=======
 .filterSelect {
   padding: 0.5rem 1rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   background: rgba(255, 255, 255, 0.05);
   color: white;
   cursor: pointer;
   outline: none;
-<<<<<<< HEAD
-  transition: all 0.3s ease;
-  font-size: clamp(0.875rem, 2vw, 0.9rem);
-  min-width: clamp(120px, 25vw, 150px);
-=======
   transition: border-color 0.3s ease;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD
-  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect option {
@@ -187,62 +81,18 @@
 
 .noVenues {
   text-align: center;
-<<<<<<< HEAD
-  padding: clamp(3rem, 8vw, 4rem) clamp(1rem, 4vw, 2rem);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: clamp(1rem, 3vw, 1.1rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.noVenuesIcon {
-  font-size: clamp(2rem, 6vw, 3rem);
-  color: rgba(255, 255, 255, 0.3);
-  margin-bottom: 1rem;
-}
-
-/* Fixed Grid Layout - 2 columns mobile, 3 columns desktop */
-.venuesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Default: 2 columns for mobile */
-  gap: clamp(1rem, 3vw, 1.5rem);
-  margin-bottom: clamp(2rem, 5vw, 3rem);
-  min-height: 400px;
-}
-
-/* Fixed Card Sizes - Increased heights for better desktop visibility */
-.venueCard {
-  background: white;
-  border-radius: clamp(8px, 2vw, 12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  height: 460px; /* Fixed height for all cards */
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.venueCard:hover,
-.venueCard:focus {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-  outline: none;
-}
-
-.venueCard:active {
-  transform: translateY(-2px);
-=======
   padding: 4rem 2rem;
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.1rem;
+  font-style: italic;
 }
 
+.spacer {
+  flex: 1;
+  min-height: 100px;
+}
+
+/* Grid and Cards */
 .venuesGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -267,16 +117,11 @@
 .venueCard:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueImage {
   position: relative;
-<<<<<<< HEAD
-  height: 180px; /* Fixed height for all images */
-=======
   height: 200px;
->>>>>>> 4b3e7842 (too many changes so doing today)
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -294,52 +139,18 @@
 
 .sportTag {
   position: absolute;
-<<<<<<< HEAD
-  top: clamp(0.75rem, 2vw, 1rem);
-  right: clamp(0.75rem, 2vw, 1rem);
-  color: white;
-  padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.5rem, 2vw, 0.75rem);
-  border-radius: 20px;
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-=======
   top: 1rem;
   right: 1rem;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.875rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-<<<<<<< HEAD
-.ratingBadge {
-  position: absolute;
-  top: clamp(0.75rem, 2vw, 1rem);
-  left: clamp(0.75rem, 2vw, 1rem);
-  background: rgba(0, 0, 0, 0.8);
-  color: #FFD700;
-  padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.4rem, 1vw, 0.5rem);
-  border-radius: 12px;
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.ratingBadge i {
-  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
-}
-
-.venueInfo {
-  padding: clamp(1rem, 3vw, 1.5rem);
-=======
 .venueInfo {
   padding: 1.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -347,18 +158,6 @@
 }
 
 .venueInfo h3 {
-<<<<<<< HEAD
-  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
-  color: #333;
-  margin-bottom: clamp(0.5rem, 1vw, 0.5rem);
-  font-weight: 600;
-  line-height: 1.2;
-  height: 2.5rem; /* Fixed height for consistency */
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-=======
   font-size: 1.25rem;
   color: #333;
   margin-bottom: 0.5rem;
@@ -366,64 +165,29 @@
   line-height: 1.2;
   height: 3rem;
   overflow: hidden;
-  /* Modern browsers with standard property */
   display: -webkit-box;
   line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  /* Fallback for older browsers */
->>>>>>> 4b3e7842 (too many changes so doing today)
   text-overflow: ellipsis;
   white-space: normal;
 }
 
 .venueDescription {
   color: #666;
-<<<<<<< HEAD
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  line-height: 1.4;
-  margin-bottom: clamp(0.75rem, 2vw, 1rem);
-  height: 4rem; /* Fixed height for consistency */
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-=======
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 1rem;
   height: 4.5rem;
   overflow: hidden;
   flex-grow: 1;
-  /* Modern browsers with standard property */
   display: -webkit-box;
   line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  /* Fallback for older browsers */
->>>>>>> 4b3e7842 (too many changes so doing today)
   text-overflow: ellipsis;
   white-space: normal;
 }
-
-<<<<<<< HEAD
-.venueDetails {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.25rem, 1vw, 0.5rem);
-  margin-bottom: clamp(0.75rem, 2vw, 1rem);
-  min-height: 3rem; /* Increased for better spacing */
-}
-
-.location,
-.size,
-.distance {
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  color: #777;
-  display: flex;
-  align-items: center;
-  gap: clamp(0.25rem, 1vw, 0.5rem);
-=======
 
 .venueDetails {
   display: flex;
@@ -439,7 +203,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -447,12 +210,7 @@
 }
 
 .location i,
-<<<<<<< HEAD
-.size i,
-.distance i {
-=======
 .size i {
->>>>>>> 4b3e7842 (too many changes so doing today)
   width: 14px;
   text-align: center;
   color: #999;
@@ -463,17 +221,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-<<<<<<< HEAD
-  padding-top: clamp(0.75rem, 2vw, 1rem);
-  border-top: 1px solid #f0f0f0;
-  margin-top: auto;
-  gap: 0.5rem;
-  min-height: 3rem; /* Increased to ensure price visibility */
-}
-
-.price {
-  font-size: clamp(1rem, 3vw, 1.25rem);
-=======
   padding-top: 1rem;
   border-top: 1px solid #f0f0f0;
   margin-top: auto;
@@ -481,52 +228,11 @@
 
 .price {
   font-size: 1.25rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: bold;
   color: #00b894;
 }
 
 .availability {
-<<<<<<< HEAD
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
-  color: #777;
-  background: #f8f9fa;
-  padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.4rem, 1vw, 0.5rem);
-  border-radius: 4px;
-  white-space: nowrap;
-  text-align: center;
-}
-
-.loadMoreBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: clamp(2rem, 5vw, 3rem) auto 0 auto;
-  background: linear-gradient(135deg, #00b894, #00a085);
-  color: white;
-  border: none;
-  padding: clamp(0.75rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
-  border-radius: clamp(6px, 2vw, 8px);
-  font-size: clamp(0.875rem, 2vw, 1rem);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 48px;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
-}
-
-.loadMoreBtn:hover {
-  background: linear-gradient(135deg, #00a085, #008f73);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 184, 148, 0.4);
-}
-
-.loadMoreBtn:active {
-  transform: translateY(0);
-=======
   font-size: 0.875rem;
   color: #777;
   background: #f8f9fa;
@@ -551,67 +257,14 @@
 
 .loadMoreBtn:hover {
   background: #00a085;
->>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .allLoadedMessage {
   text-align: center;
-<<<<<<< HEAD
-  padding: clamp(1.5rem, 4vw, 2rem);
-  color: rgba(255, 255, 255, 0.6);
-  font-size: clamp(0.875rem, 2vw, 0.9rem);
-=======
   padding: 2rem;
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.9rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   font-style: italic;
-}
-
-.spacer {
-  flex: 1;
-<<<<<<< HEAD
-  min-height: clamp(50px, 10vw, 100px);
-}
-
-/* Mobile-First Media Queries */
-
-/* Extra Small Devices (320px - 480px) - 2 Columns */
-@media (max-width: 480px) {
-  .container {
-    padding-top: 1rem;
-  }
-
-  .venuesSection {
-    margin: 1.5rem auto;
-    padding: 0 0.5rem;
-  }
-
-  .venuesHeader {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .venuesTitle {
-    font-size: 1.25rem;
-    text-align: center;
-  }
-
-  .headerRight {
-    flex-direction: column;
-    gap: 0.75rem;
-    min-width: auto;
-  }
-
-  .searchContainer {
-    min-width: auto;
-  }
-
-  .filterSelect {
-    min-width: auto;
-=======
-  min-height: 100px;
 }
 
 /* Responsive Design */
@@ -636,14 +289,10 @@
 
   .filterSelect {
     width: 35%;
->>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .venuesGrid {
     grid-template-columns: repeat(2, 1fr);
-<<<<<<< HEAD
-    gap: 0.75rem;
-=======
     gap: 1rem;
     padding: 0 1rem;
   }
@@ -689,8 +338,8 @@
   }
 
   .venuesGrid {
+    grid-template-columns: repeat(2, 1fr);
     padding: 0 0.5rem;
->>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .venueCard {
@@ -698,162 +347,15 @@
   }
 
   .venueImage {
-<<<<<<< HEAD
-    height: 140px;
-  }
-
-  .venueInfo {
-    padding: 0.75rem;
-  }
-
-  .venueInfo h3 {
-    font-size: 0.9rem;
-    height: 2.25rem;
-  }
-
-  .venueDescription {
-    font-size: 0.75rem;
-    height: 3.5rem;
-  }
-
-  .venueDetails {
-    min-height: 2.5rem;
-  }
-
-  .venueFooter {
-    min-height: 2.5rem;
-  }
-}
-
-/* Small Devices (481px - 768px) - 2 Columns */
-@media (min-width: 481px) and (max-width: 768px) {
-  .venuesHeader {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.25rem;
-  }
-
-  .headerRight {
-    flex-direction: row;
-    justify-content: space-between;
-    min-width: auto;
-  }
-
-  .searchContainer {
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .filterSelect {
-    min-width: 140px;
-  }
-
-  .venuesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .venueCard {
-    height: 470px; /* Increased for tablet */
-  }
-
-  .venueImage {
     height: 160px;
   }
 
-  .venueInfo {
-    padding: 1rem;
-  }
-
-  .venueDetails {
-    min-height: 2.75rem;
-  }
-
-  .venueFooter {
-    min-height: 2.75rem;
-  }
-}
-
-/* Medium Devices (769px - 1024px) - 3 Columns */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .venuesGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-
-  .venueCard {
-    height: 520px; /* Increased for medium desktop */
-  }
-
-  .venueImage {
-    height: 180px;
-  }
-
-  .venueInfo {
-    padding: 1.25rem;
-  }
-
   .venueInfo h3 {
-    height: 2.75rem;
+    height: 2.5rem;
   }
 
   .venueDescription {
-    height: 4.5rem;
-  }
-
-  .venueDetails {
-    min-height: 3.25rem;
-  }
-
-  .venueFooter {
-    min-height: 3.25rem;
-  }
-}
-
-/* Large Devices (1025px and up) - 3 Columns */
-@media (min-width: 1025px) {
-  .venuesGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .venueCard {
-    height: 560px; /* Significantly increased for desktop */
-  }
-
-  .venueImage {
-    height: 200px;
-  }
-
-  .venueInfo {
-    padding: 1.5rem;
-  }
-
-  .venueInfo h3 {
-    font-size: 1.25rem;
-    height: 3rem;
-  }
-
-  .venueDescription {
-    font-size: 0.875rem;
-    height: 5rem; /* More space for description */
-  }
-
-  .venueDetails {
-    min-height: 3.5rem; /* More space for details */
-  }
-
-  .venueFooter {
-    min-height: 3.5rem; /* Ensure price is always visible */
-    padding-top: 1rem;
-  }
-
-  .price {
-    font-size: 1.25rem;
-  }
-
-  .availability {
-    font-size: 0.875rem;
+    height: 3.5rem;
   }
 }
 
@@ -870,12 +372,7 @@
   }
 
   .loadMoreBtn:hover {
-    background: linear-gradient(135deg, #00b894, #00a085);
-    transform: none;
-  }
-
-  .searchButton:hover {
-    color: rgba(255, 255, 255, 0.6);
+    background: #00b894;
   }
 }
 
@@ -939,16 +436,3 @@
 html {
   scroll-behavior: smooth;
 }
-=======
-    height: 160px;
-  }
-
-  .venueInfo h3 {
-    height: 2.5rem;
-  }
-
-  .venueDescription {
-    height: 3.5rem;
-  }
-}
->>>>>>> 4b3e7842 (too many changes so doing today)
