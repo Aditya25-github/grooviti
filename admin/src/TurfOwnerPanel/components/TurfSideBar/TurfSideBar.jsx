@@ -30,7 +30,7 @@ const TurfSideBar = () => {
     localStorage.removeItem("userType");
     setToken(null);
     setUserRole(null);
-    navigate("/turf/login");
+    navigate("/login/turf");
   };
 
   const toggleMobileMenu = () => {

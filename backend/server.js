@@ -103,11 +103,21 @@ import academyRoutes from "./routes/Academy/academyRoutes.js"
 import turfRoutes from "./routes/sports/Turf/turfRoute.js";
 import turfbookingRoute from "./routes/sports/Turf/turfbookingRoute.js"
 import slotRoutes from "./routes/sports/Turf/slotRoutes.js";
+import staffRoutes from "./routes/sports/Turf/turfStaffRoutes.js";
+import academyStudentRoutes from "./routes/Academy/academyStudentRoute.js"
+import attendanceRoutes from "./routes/Academy/studentAttendanceRoute.js";
+import batchRoutes from "./routes/Academy/batchRoutes.js";
+import coachStaffRoutes from "./routes/Academy/coachStaffRoutes.js";
 
 app.use("/api/academy", academyRoutes);
 app.use("/api/turfs", turfRoutes);
 app.use("/api/turfbookings", turfbookingRoute);
 app.use("/api/slots", slotRoutes);
+app.use("/api/staff", staffRoutes);
+app.use("/api/academy-student", academyStudentRoutes);
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/batches", batchRoutes);
+app.use("/api/coach-staff", coachStaffRoutes);
 
 
 // ==============================

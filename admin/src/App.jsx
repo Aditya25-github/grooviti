@@ -64,7 +64,7 @@ import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
 import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
 
 const App = () => {
-  const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 

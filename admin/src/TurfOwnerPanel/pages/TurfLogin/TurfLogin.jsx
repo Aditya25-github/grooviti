@@ -154,7 +154,7 @@ const TurfLogin = ({ url }) => {
                     Sign up here
                   </span>
                 </p>
-                <a href="#" className={styles.backLink}>
+                <a href="/" className={styles.backLink}>
                   <IoArrowBack className={styles.backIcon} />
                   Back to role selection
                 </a>
@@ -238,7 +238,7 @@ const TurfLogin = ({ url }) => {
                     Sign in here
                   </span>
                 </p>
-                <a href="#" className={styles.backLink}>
+                <a href="/" className={styles.backLink}>
                   <IoArrowBack className={styles.backIcon} />
                   Back to role selection
                 </a>

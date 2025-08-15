@@ -158,7 +158,7 @@ const EventHostLogin = ({ url }) => {
               Sign up here
             </a>
           </p>
-          <a href="#" className={styles.backLink}>
+          <a href="/" className={styles.backLink}>
             <IoArrowBack className={styles.backIcon} />
             Back to role selection
           </a>
