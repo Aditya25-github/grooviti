@@ -1,74 +1,5 @@
 // backend/controllers/turfController.js
-import { Turf } from "../../../models/sports/Turf/turfModel.js";
-import jwt from "jsonwebtoken";
-import { TurfOwner } from "../../../models/sports/Turf/turfownerModel.js";
-import authMiddleware from "../../../middleware/auth.js";
-
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
-};
-
-<<<<<<< HEAD
-export const getAllTurfs = async (req, res) => {
-  try {
-    const turfs = await Turf.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, turfs });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
-export const registerTurfOwner = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  try {
-    const userExists = await TurfOwner.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: "Email already registered" });
-    }
-
-    const newOwner = new TurfOwner({ name, email, password });
-    await newOwner.save();
-
-    res.status(201).json({
-      success: true,
-      message: "Turf owner registered successfully",
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const loginTurfOwner = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const owner = await TurfOwner.findOne({ email });
-    if (!owner) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-
-    const isMatch = await owner.matchPassword(password);
-
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-
-    const token = generateToken(owner._id);
-    res.status(200).json({
-      success: true,
-      token,
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
+import { Turf } from "../../models/sports/turfModel.js";
 
 export const createTurf = async (req, res) => {
   try {
@@ -124,39 +55,15 @@ export const createTurf = async (req, res) => {
   }
 };
 
-// Will use this when I will give acess to superAdmin Panel
-<<<<<<< HEAD
 
-=======
-// export const getAllTurfs = async (req, res) => {
-//   try {
-//     const turfs = await Turf.find().sort({ createdAt: -1 });
-//     res.status(200).json({ success: true, turfs });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
->>>>>>> 4b3e7842 (too many changes so doing today)
-
-export const getTurfs = async (req, res) => {
+export const getAllTurfs = async (req, res) => {
   try {
-    const ownerId = req.user.id; // coming from your authMiddleware
-
-    const turfs = await Turf.find({ createdBy: ownerId }).sort({ createdAt: -1 });
-
-    res.status(200).json({
-      success: true,
-      data: turfs,
-    });
+    const turfs = await Turf.find().sort({ createdAt: -1 });
+    res.status(200).json({ success: true, turfs });
   } catch (error) {
-    console.error("Error fetching turfs:", error);
-    res.status(500).json({
-      success: false,
-      message: "Internal Server Error while fetching turfs",
-    });
+    res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getTurfById = async (req, res) => {
   try {
@@ -178,6 +85,7 @@ export const updateTurf = async (req, res) => {
       return res.status(403).json({ message: "Not authorized" });
     }
 
+    // Parse JSON form data again (if sent as string)
     const formData = req.body.data ? JSON.parse(req.body.data) : req.body;
 
     const {
@@ -229,7 +137,7 @@ export const deleteTurf = async (req, res) => {
       return res.status(403).json({ message: "Not authorized" });
     }
 
-    await turf.deleteOne();
+    await turf.remove();
     res.status(200).json({ success: true, message: "Turf deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

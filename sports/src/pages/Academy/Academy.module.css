@@ -3,18 +3,29 @@
   background-color: #0B001A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: white;
+<<<<<<< HEAD
   padding-top: clamp(1rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
+=======
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Header Section */
 .headerSection {
   max-width: 1200px;
+<<<<<<< HEAD
   margin: 0 auto clamp(1rem, 3vw, 2rem) auto;
   padding: clamp(1rem, 3vw, 2rem) clamp(0.5rem, 3vw, 1rem);
+=======
+  margin: 0 auto 1rem auto;
+  padding: 2rem 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   text-align: center;
 }
 
@@ -24,36 +35,62 @@
 }
 
 .mainTitle {
+<<<<<<< HEAD
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 700;
   color: white;
   margin-bottom: clamp(0.75rem, 2vw, 1rem);
+=======
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.2;
 }
 
 .subtitle {
+<<<<<<< HEAD
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: clamp(1.5rem, 4vw, 2rem);
+=======
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.5;
 }
 
 .searchContainer {
   display: flex;
   max-width: 600px;
+<<<<<<< HEAD
   margin: 0 auto clamp(1.5rem, 4vw, 2rem) auto;
   background: white;
   border-radius: clamp(6px, 2vw, 8px);
+=======
+  margin: 0 auto 2rem auto;
+  background: white;
+  border-radius: 8px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .mainSearchInput {
   flex: 1;
+<<<<<<< HEAD
   padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
   border: none;
   outline: none;
   font-size: clamp(0.9rem, 2vw, 1rem);
+=======
+  padding: 1rem 1.5rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   color: #333;
   background: transparent;
 }
@@ -66,12 +103,20 @@
   background: #00b894;
   color: white;
   border: none;
+<<<<<<< HEAD
   padding: 0 clamp(1rem, 3vw, 2rem);
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 500;
   cursor: pointer;
   transition: background 0.3s ease;
   min-width: max-content;
+=======
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .searchButton:hover {
@@ -81,6 +126,7 @@
 .sportsCategories {
   display: flex;
   justify-content: center;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 2vw, 1rem);
   flex-wrap: wrap;
   margin-top: clamp(1rem, 3vw, 2rem);
@@ -88,15 +134,32 @@
 
 .sportButton {
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+=======
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.sportButton {
+  padding: 0.75rem 1.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 25px;
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
+<<<<<<< HEAD
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: clamp(80px, 15vw, 100px);
+=======
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .sportButton:hover {
@@ -117,17 +180,26 @@
 /* Academies Section */
 .academiesSection {
   max-width: 1200px;
+<<<<<<< HEAD
   margin: clamp(1rem, 3vw, 2rem) auto;
   padding: 0 clamp(0.5rem, 3vw, 1rem);
   flex: 1;
   min-height: calc(100vh - 200px);
   width: 100%;
   box-sizing: border-box;
+=======
+  margin: 1rem auto;
+  padding: 0;
+  flex: 1;
+  min-height: calc(100vh - 200px);
+  width: 100%;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .academiesHeader {
   display: flex;
   justify-content: space-between;
+<<<<<<< HEAD
   align-items: flex-start;
   margin-bottom: clamp(1.5rem, 4vw, 2rem);
   gap: clamp(1rem, 3vw, 2rem);
@@ -142,10 +214,21 @@
   line-height: 1.2;
   flex: 1;
   min-width: 200px;
+=======
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.academiesHeader h2 {
+  font-size: 1.75rem;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .headerRight {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 2vw, 1rem);
   align-items: center;
   flex-wrap: wrap;
@@ -156,19 +239,36 @@
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: clamp(6px, 2vw, 8px);
+=======
+  gap: 1rem;
+  align-items: center;
+}
+
+.filterSelect {
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   background: rgba(255, 255, 255, 0.05);
   color: white;
   cursor: pointer;
   outline: none;
+<<<<<<< HEAD
   transition: all 0.3s ease;
   font-size: clamp(0.875rem, 2vw, 0.9rem);
   min-width: clamp(120px, 25vw, 150px);
+=======
+  transition: border-color 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect option {
@@ -178,6 +278,7 @@
 
 .noAcademies {
   text-align: center;
+<<<<<<< HEAD
   padding: clamp(3rem, 8vw, 4rem) clamp(1rem, 4vw, 2rem);
   color: rgba(255, 255, 255, 0.7);
   font-size: clamp(1rem, 3vw, 1.1rem);
@@ -222,11 +323,46 @@
 
 .academyCard:active {
   transform: translateY(-2px);
+=======
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+.academiesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  min-height: 600px;
+  padding: 0 1rem;
+}
+
+.academyCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+.academyCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .academyImage {
   position: relative;
+<<<<<<< HEAD
   height: 140px; /* Fixed height for mobile */
+=======
+  height: 200px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -244,18 +380,28 @@
 
 .sportTag {
   position: absolute;
+<<<<<<< HEAD
   top: clamp(0.75rem, 2vw, 1rem);
   left: clamp(0.75rem, 2vw, 1rem);
   color: white;
   padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.5rem, 2vw, 0.75rem);
   border-radius: 20px;
   font-size: clamp(0.75rem, 2vw, 0.875rem);
+=======
+  top: 1rem;
+  left: 1rem;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .ratingBadge {
   position: absolute;
+<<<<<<< HEAD
   top: clamp(0.75rem, 2vw, 1rem);
   right: clamp(0.75rem, 2vw, 1rem);
   background: rgba(0, 0, 0, 0.8);
@@ -263,10 +409,20 @@
   padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.4rem, 1vw, 0.5rem);
   border-radius: 12px;
   font-size: clamp(0.75rem, 2vw, 0.875rem);
+=======
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: #FFD700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+  font-size: 0.875rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+<<<<<<< HEAD
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -276,6 +432,16 @@
 
 .academyInfo {
   padding: clamp(0.75rem, 3vw, 1rem);
+=======
+}
+
+.ratingBadge i {
+  font-size: 0.75rem;
+}
+
+.academyInfo {
+  padding: 1.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -283,6 +449,7 @@
 }
 
 .academyInfo h3 {
+<<<<<<< HEAD
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   color: #333;
   margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
@@ -293,31 +460,79 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+=======
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  height: 3rem;
+  overflow: hidden;
+  /* Modern browsers with standard property */
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  /* Fallback for older browsers */
+>>>>>>> 4b3e7842 (too many changes so doing today)
   text-overflow: ellipsis;
   white-space: normal;
 }
 
 .academyDescription {
+<<<<<<< HEAD
   display: none; /* Hidden on mobile */
+=======
+  color: #666;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  height: 4rem;
+  overflow: hidden;
+  flex-grow: 1;
+  /* Modern browsers with standard property */
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Fallback for older browsers */
+  text-overflow: ellipsis;
+  white-space: normal;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .academyDetails {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: clamp(0.25rem, 1vw, 0.5rem);
   margin-bottom: clamp(0.5rem, 2vw, 1rem);
   min-height: 2.5rem;
+=======
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .location,
 .coach,
 .coachingType,
+<<<<<<< HEAD
 .students {
   font-size: clamp(0.7rem, 2vw, 0.75rem);
   color: #777;
   display: flex;
   align-items: center;
   gap: clamp(0.25rem, 1vw, 0.5rem);
+=======
+.students,
+.coach {
+  font-size: 0.875rem;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -327,7 +542,12 @@
 .location i,
 .coach i,
 .coachingType i,
+<<<<<<< HEAD
 .students i {
+=======
+.students i,
+.coach i {
+>>>>>>> 4b3e7842 (too many changes so doing today)
   width: 14px;
   text-align: center;
   color: #999;
@@ -338,18 +558,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   padding-top: clamp(0.5rem, 2vw, 0.75rem);
+=======
+  padding-top: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   border-top: 1px solid #f0f0f0;
   margin-top: auto;
 }
 
 .fee {
+<<<<<<< HEAD
   font-size: clamp(1rem, 3vw, 1.1rem);
+=======
+  font-size: 1.25rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: bold;
   color: #00b894;
 }
 
 .loadMoreBtn {
+<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: center;
@@ -378,18 +607,42 @@
 
 .loadMoreBtn:active {
   transform: translateY(0);
+=======
+  display: block;
+  margin: 2rem auto 0 auto;
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.loadMoreBtn:hover {
+  background: #00a085;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .allLoadedMessage {
   text-align: center;
+<<<<<<< HEAD
   padding: clamp(1.5rem, 4vw, 2rem);
   color: rgba(255, 255, 255, 0.6);
   font-size: clamp(0.875rem, 2vw, 0.9rem);
+=======
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-style: italic;
 }
 
 .spacer {
   flex: 1;
+<<<<<<< HEAD
   min-height: clamp(50px, 10vw, 100px);
 }
 
@@ -525,3 +778,131 @@
   outline: 2px solid #00b894;
   outline-offset: 2px;
 }
+=======
+  min-height: 100px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Header Responsive */
+  .mainTitle {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .searchContainer {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .mainSearchInput {
+    padding: 1rem;
+  }
+
+  .searchButton {
+    padding: 1rem;
+  }
+
+  .sportsCategories {
+    gap: 0.5rem;
+  }
+
+  .sportButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    min-width: 80px;
+  }
+
+  /* Academies Responsive */
+  .academiesHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0 1rem;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .academiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .academyCard {
+    height: 520px;
+  }
+
+  .academyImage {
+    height: 180px;
+  }
+
+  .academyInfo h3 {
+    height: 2.5rem;
+  }
+
+  .academyDescription {
+    height: 3.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0 0 0;
+  }
+
+  /* Header Mobile */
+  .headerSection {
+    padding: 1rem 0.5rem;
+  }
+
+  .mainTitle {
+    font-size: 1.75rem;
+  }
+
+  .sportsCategories {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .sportButton {
+    flex-shrink: 0;
+  }
+
+  /* Academies Mobile */
+  .academiesSection {
+    padding: 0;
+  }
+
+  .academiesHeader {
+    padding: 0 0.5rem;
+  }
+
+  .academiesGrid {
+    padding: 0 0.5rem;
+  }
+
+  .academyCard {
+    height: 490px;
+  }
+
+  .academyImage {
+    height: 160px;
+  }
+
+  .academyInfo h3 {
+    height: 2.5rem;
+  }
+
+  .academyDescription {
+    height: 3rem;
+  }
+}
+>>>>>>> 4b3e7842 (too many changes so doing today)

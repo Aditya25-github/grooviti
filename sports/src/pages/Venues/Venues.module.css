@@ -3,15 +3,22 @@
   background-color: #0B001A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: white;
+<<<<<<< HEAD
   padding-top: clamp(1rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-x: hidden;
+=======
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Venues Section */
 .venuesSection {
+<<<<<<< HEAD
   max-width: 1400px;
   margin: clamp(2rem, 5vw, 4rem) auto;
   padding: 0 clamp(0.5rem, 2vw, 1rem);
@@ -19,11 +26,20 @@
   min-height: calc(100vh - 200px);
   width: 100%;
   box-sizing: border-box;
+=======
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0;
+  flex: 1;
+  min-height: calc(100vh - 200px);
+  width: 100%;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venuesHeader {
   display: flex;
   justify-content: space-between;
+<<<<<<< HEAD
   align-items: flex-start;
   margin-bottom: clamp(1.5rem, 4vw, 2rem);
   gap: clamp(1rem, 3vw, 2rem);
@@ -38,10 +54,21 @@
   line-height: 1.2;
   flex: 1;
   min-width: 200px;
+=======
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.venuesHeader h2 {
+  font-size: 1.75rem;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .headerRight {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 2vw, 1rem);
   align-items: center;
   flex-wrap: wrap;
@@ -66,18 +93,38 @@
   background: rgba(255, 255, 255, 0.05);
   color: white;
   box-sizing: border-box;
+=======
+  gap: 1rem;
+  align-items: center;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .searchInput:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .searchInput::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
+<<<<<<< HEAD
 .searchButton {
   position: absolute;
   right: 0.5rem;
@@ -105,19 +152,32 @@
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1rem);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: clamp(6px, 2vw, 8px);
+=======
+.filterSelect {
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   background: rgba(255, 255, 255, 0.05);
   color: white;
   cursor: pointer;
   outline: none;
+<<<<<<< HEAD
   transition: all 0.3s ease;
   font-size: clamp(0.875rem, 2vw, 0.9rem);
   min-width: clamp(120px, 25vw, 150px);
+=======
+  transition: border-color 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect:focus {
   border-color: #00b894;
   background: rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .filterSelect option {
@@ -127,6 +187,7 @@
 
 .noVenues {
   text-align: center;
+<<<<<<< HEAD
   padding: clamp(3rem, 8vw, 4rem) clamp(1rem, 4vw, 2rem);
   color: rgba(255, 255, 255, 0.7);
   font-size: clamp(1rem, 3vw, 1.1rem);
@@ -176,11 +237,46 @@
 
 .venueCard:active {
   transform: translateY(-2px);
+=======
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+.venuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  min-height: 600px;
+  padding: 0 1rem;
+}
+
+.venueCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+.venueCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueImage {
   position: relative;
+<<<<<<< HEAD
   height: 180px; /* Fixed height for all images */
+=======
+  height: 200px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -198,16 +294,26 @@
 
 .sportTag {
   position: absolute;
+<<<<<<< HEAD
   top: clamp(0.75rem, 2vw, 1rem);
   right: clamp(0.75rem, 2vw, 1rem);
   color: white;
   padding: clamp(0.2rem, 1vw, 0.25rem) clamp(0.5rem, 2vw, 0.75rem);
   border-radius: 20px;
   font-size: clamp(0.75rem, 2vw, 0.875rem);
+=======
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+<<<<<<< HEAD
 .ratingBadge {
   position: absolute;
   top: clamp(0.75rem, 2vw, 1rem);
@@ -230,6 +336,10 @@
 
 .venueInfo {
   padding: clamp(1rem, 3vw, 1.5rem);
+=======
+.venueInfo {
+  padding: 1.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -237,6 +347,7 @@
 }
 
 .venueInfo h3 {
+<<<<<<< HEAD
   font-size: clamp(0.9rem, 2.5vw, 1.25rem);
   color: #333;
   margin-bottom: clamp(0.5rem, 1vw, 0.5rem);
@@ -247,12 +358,28 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+=======
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  height: 3rem;
+  overflow: hidden;
+  /* Modern browsers with standard property */
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  /* Fallback for older browsers */
+>>>>>>> 4b3e7842 (too many changes so doing today)
   text-overflow: ellipsis;
   white-space: normal;
 }
 
 .venueDescription {
   color: #666;
+<<<<<<< HEAD
   font-size: clamp(0.75rem, 2vw, 0.875rem);
   line-height: 1.4;
   margin-bottom: clamp(0.75rem, 2vw, 1rem);
@@ -261,10 +388,25 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+=======
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  height: 4.5rem;
+  overflow: hidden;
+  flex-grow: 1;
+  /* Modern browsers with standard property */
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Fallback for older browsers */
+>>>>>>> 4b3e7842 (too many changes so doing today)
   text-overflow: ellipsis;
   white-space: normal;
 }
 
+<<<<<<< HEAD
 .venueDetails {
   display: flex;
   flex-direction: column;
@@ -281,6 +423,23 @@
   display: flex;
   align-items: center;
   gap: clamp(0.25rem, 1vw, 0.5rem);
+=======
+
+.venueDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.location,
+.size {
+  font-size: 0.875rem;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -288,8 +447,12 @@
 }
 
 .location i,
+<<<<<<< HEAD
 .size i,
 .distance i {
+=======
+.size i {
+>>>>>>> 4b3e7842 (too many changes so doing today)
   width: 14px;
   text-align: center;
   color: #999;
@@ -300,6 +463,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+<<<<<<< HEAD
   padding-top: clamp(0.75rem, 2vw, 1rem);
   border-top: 1px solid #f0f0f0;
   margin-top: auto;
@@ -309,11 +473,21 @@
 
 .price {
   font-size: clamp(1rem, 3vw, 1.25rem);
+=======
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  margin-top: auto;
+}
+
+.price {
+  font-size: 1.25rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: bold;
   color: #00b894;
 }
 
 .availability {
+<<<<<<< HEAD
   font-size: clamp(0.75rem, 2vw, 0.875rem);
   color: #777;
   background: #f8f9fa;
@@ -352,18 +526,51 @@
 
 .loadMoreBtn:active {
   transform: translateY(0);
+=======
+  font-size: 0.875rem;
+  color: #777;
+  background: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.loadMoreBtn {
+  display: block;
+  margin: 2rem auto 0 auto;
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.loadMoreBtn:hover {
+  background: #00a085;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .allLoadedMessage {
   text-align: center;
+<<<<<<< HEAD
   padding: clamp(1.5rem, 4vw, 2rem);
   color: rgba(255, 255, 255, 0.6);
   font-size: clamp(0.875rem, 2vw, 0.9rem);
+=======
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-style: italic;
 }
 
 .spacer {
   flex: 1;
+<<<<<<< HEAD
   min-height: clamp(50px, 10vw, 100px);
 }
 
@@ -403,11 +610,87 @@
 
   .filterSelect {
     min-width: auto;
+=======
+  min-height: 100px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .venuesHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0 1rem;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .searchInput {
+    width: 60%;
+  }
+
+  .filterSelect {
+    width: 35%;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .venuesGrid {
     grid-template-columns: repeat(2, 1fr);
+<<<<<<< HEAD
     gap: 0.75rem;
+=======
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .venueCard {
+    height: 450px;
+  }
+
+  .venueImage {
+    height: 180px;
+  }
+
+  .venueInfo h3 {
+    height: 2.5rem;
+  }
+
+  .venueDescription {
+    height: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0 0 0;
+  }
+
+  .venuesSection {
+    padding: 0;
+  }
+
+  .venuesHeader {
+    padding: 0 0.5rem;
+  }
+
+  .headerRight {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .searchInput,
+  .filterSelect {
+    width: 100%;
+  }
+
+  .venuesGrid {
+    padding: 0 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .venueCard {
@@ -415,6 +698,7 @@
   }
 
   .venueImage {
+<<<<<<< HEAD
     height: 140px;
   }
 
@@ -655,3 +939,16 @@
 html {
   scroll-behavior: smooth;
 }
+=======
+    height: 160px;
+  }
+
+  .venueInfo h3 {
+    height: 2.5rem;
+  }
+
+  .venueDescription {
+    height: 3.5rem;
+  }
+}
+>>>>>>> 4b3e7842 (too many changes so doing today)

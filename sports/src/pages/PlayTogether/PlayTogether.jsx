@@ -41,7 +41,11 @@ const PlayTogether = () => {
       experience: '5 years',
       sportColor: '#4CAF50',
       timePosted: '2 hours ago',
+<<<<<<< HEAD
       timePostedValue: 2, // For sorting
+=======
+      // Added enrollment data
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 4,
         total: 8,
@@ -62,7 +66,10 @@ const PlayTogether = () => {
       experience: '8 years',
       sportColor: '#9C27B0',
       timePosted: '4 hours ago',
+<<<<<<< HEAD
       timePostedValue: 4,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 1,
         total: 2,
@@ -83,7 +90,10 @@ const PlayTogether = () => {
       experience: '6 years',
       sportColor: '#2196F3',
       timePosted: '6 hours ago',
+<<<<<<< HEAD
       timePostedValue: 6,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 7,
         total: 11,
@@ -104,7 +114,10 @@ const PlayTogether = () => {
       experience: '10 years',
       sportColor: '#00BCD4',
       timePosted: '8 hours ago',
+<<<<<<< HEAD
       timePostedValue: 8,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 2,
         total: 4,
@@ -125,7 +138,10 @@ const PlayTogether = () => {
       experience: '2 years',
       sportColor: '#FF9800',
       timePosted: '10 hours ago',
+<<<<<<< HEAD
       timePostedValue: 10,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 1,
         total: 2,
@@ -146,7 +162,10 @@ const PlayTogether = () => {
       experience: '4 years',
       sportColor: '#F44336',
       timePosted: '12 hours ago',
+<<<<<<< HEAD
       timePostedValue: 12,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 3,
         total: 6,
@@ -167,7 +186,10 @@ const PlayTogether = () => {
       experience: '9 years',
       sportColor: '#4CAF50',
       timePosted: '1 day ago',
+<<<<<<< HEAD
       timePostedValue: 24,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 6,
         total: 11,
@@ -188,7 +210,10 @@ const PlayTogether = () => {
       experience: '1 year',
       sportColor: '#9C27B0',
       timePosted: '1 day ago',
+<<<<<<< HEAD
       timePostedValue: 24,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 1,
         total: 3,
@@ -209,7 +234,10 @@ const PlayTogether = () => {
       experience: '7 years',
       sportColor: '#2196F3',
       timePosted: '2 days ago',
+<<<<<<< HEAD
       timePostedValue: 48,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 8,
         total: 11,
@@ -230,13 +258,20 @@ const PlayTogether = () => {
       experience: '5 years',
       sportColor: '#00BCD4',
       timePosted: '2 days ago',
+<<<<<<< HEAD
       timePostedValue: 48,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 2,
         total: 4,
         teamType: 'Swimming Group'
       }
     },
+<<<<<<< HEAD
+=======
+    // Continue with remaining players with similar enrollment data...
+>>>>>>> 4b3e7842 (too many changes so doing today)
     {
       id: 11,
       name: 'Amit Agarwal',
@@ -251,7 +286,10 @@ const PlayTogether = () => {
       experience: '12 years',
       sportColor: '#FF9800',
       timePosted: '3 days ago',
+<<<<<<< HEAD
       timePostedValue: 72,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 1,
         total: 2,
@@ -272,7 +310,10 @@ const PlayTogether = () => {
       experience: '15 years',
       sportColor: '#F44336',
       timePosted: '3 days ago',
+<<<<<<< HEAD
       timePostedValue: 72,
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
       enrolled: {
         current: 4,
         total: 8,
@@ -307,6 +348,7 @@ const PlayTogether = () => {
     });
   };
 
+<<<<<<< HEAD
   // Sort players function
   const sortPlayers = (players, sortType) => {
     const sortedPlayers = [...players];
@@ -327,6 +369,8 @@ const PlayTogether = () => {
     }
   };
 
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
   // Filter and search players
   useEffect(() => {
     let filtered = players;
@@ -339,6 +383,7 @@ const PlayTogether = () => {
     // Then apply search
     filtered = searchPlayers(filtered, searchQuery);
     
+<<<<<<< HEAD
     // Then apply sorting
     filtered = sortPlayers(filtered, sortBy);
     
@@ -351,6 +396,16 @@ const PlayTogether = () => {
   useEffect(() => {
     const initialPlayers = sortPlayers(players, sortBy);
     setFilteredPlayers(initialPlayers);
+=======
+    setFilteredPlayers(filtered);
+    // Reset visible count when filters change
+    setVisibleCount(6);
+  }, [selectedSport, searchQuery]);
+
+  // Initialize with all players
+  useEffect(() => {
+    setFilteredPlayers(players);
+>>>>>>> 4b3e7842 (too many changes so doing today)
   }, []);
 
   // Handle search input change
@@ -363,11 +418,14 @@ const PlayTogether = () => {
     setSelectedSport(sport);
   };
 
+<<<<<<< HEAD
   // Handle sort change
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
   };
 
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
   // Handle load more players
   const loadMorePlayers = () => {
     setVisibleCount(prevCount => prevCount + 6);
@@ -388,6 +446,7 @@ const PlayTogether = () => {
           <p className={styles.subtitle}>Connect with players, find teammates, and join the sports community</p>
           
           <div className={styles.searchContainer}>
+<<<<<<< HEAD
             <div className={styles.searchInputWrapper}>
               {/* <i className="fas fa-search" aria-hidden="true"></i> */}
               <input 
@@ -406,6 +465,16 @@ const PlayTogether = () => {
               <span className={styles.searchButtonText}>Search</span>
               <i className={styles.searchButtonIcon + " fas fa-search"} aria-hidden="true"></i>
             </button>
+=======
+            <input 
+              type="text" 
+              placeholder="Search for players, sports, locations..."
+              className={styles.mainSearchInput}
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <button className={styles.searchButton}>Search</button>
+>>>>>>> 4b3e7842 (too many changes so doing today)
           </div>
 
           <div className={styles.sportsCategories}>
@@ -416,7 +485,10 @@ const PlayTogether = () => {
                   selectedSport === sport.name ? styles.active : ''
                 }`}
                 onClick={() => handleSportSelect(sport.name)}
+<<<<<<< HEAD
                 aria-pressed={selectedSport === sport.name}
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
               >
                 {sport.name}
               </button>
@@ -439,6 +511,7 @@ const PlayTogether = () => {
           <div className={styles.headerRight}>
             <select 
               value={sortBy} 
+<<<<<<< HEAD
               onChange={handleSortChange}
               className={styles.filterSelect}
               aria-label="Sort players by"
@@ -446,16 +519,27 @@ const PlayTogether = () => {
               <option value="Recent">Sort by Recent</option>
               <option value="Skill Level">Sort by Skill Level</option>
               <option value="Location">Sort by Location</option>
+=======
+              onChange={(e) => setSortBy(e.target.value)}
+              className={styles.filterSelect}
+            >
+              <option>Sort by Recent</option>
+              <option>Sort by Skill Level</option>
+              <option>Sort by Location</option>
+>>>>>>> 4b3e7842 (too many changes so doing today)
             </select>
           </div>
         </div>
 
         {filteredPlayers.length === 0 ? (
           <div className={styles.noPlayers}>
+<<<<<<< HEAD
             <div className={styles.noPlayersIcon}>
               <i className="fas fa-users-slash"></i>
             </div>
             <h3>No Players Found</h3>
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
             <p>
               {searchQuery 
                 ? `No players found for "${searchQuery}". Try different keywords.`
@@ -466,6 +550,7 @@ const PlayTogether = () => {
         ) : (
           <div className={styles.playersGrid}>
             {playersToDisplay.map((player) => (
+<<<<<<< HEAD
               <article 
                 key={player.id} 
                 className={styles.playerCard}
@@ -494,6 +579,21 @@ const PlayTogether = () => {
                           <i className="fas fa-clock" aria-hidden="true"></i>
                           {player.timePosted}
                         </span>
+=======
+              <div 
+                key={player.id} 
+                className={styles.playerCard}
+                onClick={() => handlePlayerClick(player.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className={styles.cardHeader}>
+                  <div className={styles.profileSection}>
+                    <img src={player.profileImage} alt={player.name} className={styles.profileImage} />
+                    <div className={styles.playerBasicInfo}>
+                      <h3>{player.name}</h3>
+                      <div className={styles.playerMeta}>
+                        <span className={styles.timePosted}>{player.timePosted}</span>
+>>>>>>> 4b3e7842 (too many changes so doing today)
                         <span 
                           className={styles.sportBadge}
                           style={{ backgroundColor: player.sportColor }}
@@ -514,22 +614,40 @@ const PlayTogether = () => {
                   <div className={styles.playerDetails}>
                     <div className={styles.detailRow}>
                       <span className={styles.detailItem}>
+<<<<<<< HEAD
                         <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
                         <span>{player.location}</span>
                       </span>
                       <span className={styles.detailItem}>
                         <i className="fas fa-clock" aria-hidden="true"></i>
                         <span>{player.availability}</span>
+=======
+                        <i className="fas fa-map-marker-alt"></i>
+                        {player.location}
+                      </span>
+                      <span className={styles.detailItem}>
+                        <i className="fas fa-clock"></i>
+                        {player.availability}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                       </span>
                     </div>
                     <div className={styles.detailRow}>
                       <span className={styles.detailItem}>
+<<<<<<< HEAD
                         <i className="fas fa-search" aria-hidden="true"></i>
                         <span>{player.lookingFor}</span>
                       </span>
                       <span className={styles.detailItem}>
                         <i className="fas fa-trophy" aria-hidden="true"></i>
                         <span>{player.experience}</span>
+=======
+                        <i className="fas fa-search"></i>
+                        {player.lookingFor}
+                      </span>
+                      <span className={styles.detailItem}>
+                        <i className="fas fa-trophy"></i>
+                        {player.experience}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                       </span>
                     </div>
                   </div>
@@ -539,13 +657,19 @@ const PlayTogether = () => {
                   <div className={styles.footerLeft}>
                     <span className={styles.age}>Age: {player.age}</span>
                     <span className={styles.enrollment}>
+<<<<<<< HEAD
                       <i className="fas fa-users" aria-hidden="true"></i>
                       <span>{player.enrolled.current}/{player.enrolled.total} enrolled</span>
+=======
+                      <i className="fas fa-users"></i>
+                      {player.enrolled.current}/{player.enrolled.total} enrolled
+>>>>>>> 4b3e7842 (too many changes so doing today)
                     </span>
                   </div>
                   <button 
                     className={styles.connectBtn}
                     onClick={(e) => {
+<<<<<<< HEAD
                       e.stopPropagation();
                       handlePlayerClick(player.id);
                     }}
@@ -556,12 +680,23 @@ const PlayTogether = () => {
                   </button>
                 </div>
               </article>
+=======
+                      e.stopPropagation(); // Prevent card click when button is clicked
+                      handlePlayerClick(player.id);
+                    }}
+                  >
+                    View Profile
+                  </button>
+                </div>
+              </div>
+>>>>>>> 4b3e7842 (too many changes so doing today)
             ))}
           </div>
         )}
 
         {/* Show Load More button only if there are more players to load */}
         {filteredPlayers.length > 0 && hasMorePlayers && (
+<<<<<<< HEAD
           <div className={styles.loadMoreContainer}>
             <button 
               className={styles.loadMoreBtn}
@@ -572,12 +707,23 @@ const PlayTogether = () => {
               <i className="fas fa-chevron-down" aria-hidden="true"></i>
             </button>
           </div>
+=======
+          <button 
+            className={styles.loadMoreBtn}
+            onClick={loadMorePlayers}
+          >
+            Load More Players
+          </button>
+>>>>>>> 4b3e7842 (too many changes so doing today)
         )}
 
         {/* Show message when all players are loaded */}
         {filteredPlayers.length > 6 && !hasMorePlayers && (
           <div className={styles.allLoadedMessage}>
+<<<<<<< HEAD
             <i className="fas fa-check-circle"></i>
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
             <p>All players loaded ({filteredPlayers.length} total)</p>
           </div>
         )}

@@ -3,6 +3,7 @@
   background-color: #0B001A;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: white;
+<<<<<<< HEAD
   padding-top: clamp(3rem, 6vw, 5rem);
   width: 100%;
   overflow-x: hidden;
@@ -32,13 +33,21 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+=======
+  padding-top: 5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Hero Section */
 .heroSection {
   position: relative;
+<<<<<<< HEAD
   height: clamp(50vh, 60vh, 70vh);
   min-height: clamp(400px, 50vh, 500px);
+=======
+  height: 60vh;
+  min-height: 500px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .imageContainer {
@@ -52,7 +61,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+<<<<<<< HEAD
   transition: transform 0.3s ease;
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .prevBtn,
@@ -60,6 +72,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
@@ -83,10 +96,31 @@
 
 .nextBtn {
   right: clamp(1rem, 3vw, 2rem);
+=======
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+  z-index: 2;
+}
+
+.prevBtn {
+  left: 2rem;
+}
+
+.nextBtn {
+  right: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .prevBtn:hover,
 .nextBtn:hover {
+<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
@@ -94,38 +128,61 @@
 .prevBtn:active,
 .nextBtn:active {
   transform: translateY(-50%) scale(0.95);
+=======
+  background: rgba(0, 0, 0, 0.7);
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .imageIndicators {
   position: absolute;
+<<<<<<< HEAD
   bottom: clamp(1rem, 3vw, 2rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: clamp(0.4rem, 1vw, 0.5rem);
+=======
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   z-index: 2;
 }
 
 .indicator {
+<<<<<<< HEAD
   width: clamp(10px, 2vw, 12px);
   height: clamp(10px, 2vw, 12px);
+=======
+  width: 12px;
+  height: 12px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 50%;
   border: 2px solid white;
   background: transparent;
   cursor: pointer;
+<<<<<<< HEAD
   transition: all 0.3s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+=======
+  transition: background 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .indicator.active {
   background: white;
 }
 
+<<<<<<< HEAD
 .indicator:hover {
   transform: scale(1.2);
 }
 
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 /* Player Info Overlay */
 .playerInfoOverlay {
   position: absolute;
@@ -133,12 +190,17 @@
   left: 0;
   right: 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+<<<<<<< HEAD
   padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
+=======
+  padding: 4rem 2rem 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   z-index: 2;
 }
 
 .playerHeader {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(1.5rem, 3vw, 2rem);
   align-items: center;
   max-width: 900px;
@@ -164,12 +226,36 @@
   margin-bottom: clamp(0.5rem, 2vw, 1rem);
   color: white;
   line-height: 1.2;
+=======
+  gap: 2rem;
+  align-items: center;
+  max-width: 800px;
+}
+
+.playerAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.playerIntro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .playerMeta {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 2vw, 1rem);
   margin-bottom: clamp(0.5rem, 2vw, 1rem);
+=======
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   flex-wrap: wrap;
 }
 
@@ -177,17 +263,25 @@
 .experience,
 .skillLevel {
   background: rgba(255, 255, 255, 0.2);
+<<<<<<< HEAD
   padding: clamp(0.3rem, 1vw, 0.4rem) clamp(0.6rem, 2vw, 0.8rem);
   border-radius: clamp(12px, 3vw, 15px);
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   color: white;
   font-weight: 600;
   white-space: nowrap;
+=======
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .location {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: clamp(0.4rem, 1vw, 0.5rem);
   color: rgba(255, 255, 255, 0.9);
   font-size: clamp(0.9rem, 2vw, 1rem);
@@ -196,11 +290,17 @@
 
 .location i {
   color: #00b894;
+=======
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .verifiedBadge {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: clamp(0.4rem, 1vw, 0.5rem);
   color: #00b894;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
@@ -209,12 +309,19 @@
 
 .verifiedBadge i {
   color: #00b894;
+=======
+  gap: 0.5rem;
+  color: #00b894;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Main Content */
 .mainContent {
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
   padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
   padding-bottom: clamp(8rem, 15vw, 12rem);
 }
@@ -227,36 +334,71 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+=======
+  padding: 3rem 2rem;
+  padding-right: 380px;
+}
+
+.section {
+  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .sectionTitle {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 1vw, 0.5rem);
   font-size: clamp(1.25rem, 4vw, 1.5rem);
   margin-bottom: clamp(1rem, 3vw, 1.5rem);
   color: white;
   font-weight: 600;
+=======
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .sectionTitle i {
   color: #00b894;
 }
 
+<<<<<<< HEAD
 /* Stats Container */
 .statsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(140px, 25vw, 160px), 1fr));
   gap: clamp(1rem, 3vw, 1.5rem);
+=======
+/* Player Stats */
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .statCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(6px, 2vw, 10px);
   text-align: center;
   transition: all 0.3s ease;
+=======
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .statCard:hover {
@@ -265,6 +407,7 @@
 }
 
 .statNumber {
+<<<<<<< HEAD
   font-size: clamp(1.5rem, 5vw, 1.8rem);
   font-weight: bold;
   color: #00b894;
@@ -280,34 +423,69 @@
 /* Enrollment Header */
 .enrollmentHeader {
   margin-bottom: clamp(1.5rem, 4vw, 2rem);
+=======
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00b894;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Enrolled Members Section */
+.enrollmentHeader {
+  margin-bottom: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .enrollmentInfo {
   display: flex;
   justify-content: space-between;
   align-items: center;
+<<<<<<< HEAD
   margin-bottom: clamp(0.75rem, 2vw, 1rem);
   gap: clamp(1rem, 2vw, 2rem);
   flex-wrap: wrap;
+=======
+  margin-bottom: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .teamType {
   color: white;
+<<<<<<< HEAD
   font-size: clamp(1rem, 3vw, 1.1rem);
   font-weight: 600;
+=======
+  font-size: 1.1rem;
+  font-weight: 500;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .spotsAvailable {
   color: #00b894;
+<<<<<<< HEAD
   font-size: clamp(0.85rem, 2vw, 0.9rem);
+=======
+  font-size: 0.9rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   font-weight: 500;
 }
 
 .enrollmentBar {
   width: 100%;
+<<<<<<< HEAD
   height: clamp(6px, 1.5vw, 8px);
   background: rgba(255, 255, 255, 0.2);
   border-radius: clamp(3px, 1vw, 4px);
+=======
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   overflow: hidden;
 }
 
@@ -315,6 +493,7 @@
   height: 100%;
   background: #00b894;
   transition: width 0.3s ease;
+<<<<<<< HEAD
   border-radius: clamp(3px, 1vw, 4px);
 }
 
@@ -323,15 +502,31 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(clamp(250px, 45vw, 280px), 1fr));
   gap: clamp(1rem, 3vw, 1.5rem);
+=======
+  border-radius: 4px;
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .memberCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(6px, 2vw, 10px);
   display: flex;
   gap: clamp(0.75rem, 2vw, 1rem);
+=======
+  padding: 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  gap: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: flex-start;
   transition: all 0.3s ease;
 }
@@ -342,8 +537,13 @@
 }
 
 .memberAvatar {
+<<<<<<< HEAD
   width: clamp(50px, 10vw, 60px);
   height: clamp(50px, 10vw, 60px);
+=======
+  width: 60px;
+  height: 60px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 50%;
   border: 2px solid #00b894;
   flex-shrink: 0;
@@ -352,34 +552,54 @@
 .memberInfo {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: clamp(0.2rem, 0.5vw, 0.3rem);
   width: 100%;
   min-width: 0;
+=======
+  gap: 0.3rem;
+  width: 100%;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .memberInfo h4 {
   color: white;
   margin: 0;
+<<<<<<< HEAD
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+=======
+  font-size: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .memberRole {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.3rem, 1vw, 0.5rem);
+=======
+  gap: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   align-items: center;
   flex-wrap: wrap;
 }
 
 .roleTag {
+<<<<<<< HEAD
   padding: clamp(0.1rem, 0.5vw, 0.2rem) clamp(0.4rem, 1vw, 0.6rem);
   border-radius: clamp(8px, 2vw, 12px);
   font-size: clamp(0.65rem, 1.5vw, 0.75rem);
   font-weight: 500;
   white-space: nowrap;
+=======
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .captainTag {
@@ -395,38 +615,64 @@
 .skillBadge {
   background: rgba(255, 255, 255, 0.2);
   color: white;
+<<<<<<< HEAD
   padding: clamp(0.1rem, 0.5vw, 0.2rem) clamp(0.4rem, 1vw, 0.6rem);
   border-radius: clamp(8px, 2vw, 12px);
   font-size: clamp(0.65rem, 1.5vw, 0.75rem);
   font-weight: 500;
   white-space: nowrap;
+=======
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .memberPosition {
   color: rgba(255, 255, 255, 0.8);
+<<<<<<< HEAD
   font-size: clamp(0.75rem, 2vw, 0.85rem);
+=======
+  font-size: 0.85rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   margin: 0;
 }
 
 .joinedDate {
   color: rgba(255, 255, 255, 0.6);
+<<<<<<< HEAD
   font-size: clamp(0.7rem, 1.5vw, 0.75rem);
+=======
+  font-size: 0.75rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .emptySlot {
   background: rgba(255, 255, 255, 0.03);
   border: 2px dashed rgba(255, 255, 255, 0.2);
+<<<<<<< HEAD
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(6px, 2vw, 10px);
+=======
+  padding: 1.5rem;
+  border-radius: 10px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   gap: clamp(0.4rem, 1vw, 0.5rem);
   min-height: clamp(100px, 20vw, 120px);
   color: rgba(255, 255, 255, 0.6);
   transition: all 0.3s ease;
   cursor: pointer;
+=======
+  gap: 0.5rem;
+  min-height: 120px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .emptySlot:hover {
@@ -436,20 +682,30 @@
 }
 
 .emptySlotIcon {
+<<<<<<< HEAD
   width: clamp(30px, 8vw, 40px);
   height: clamp(30px, 8vw, 40px);
+=======
+  width: 40px;
+  height: 40px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   font-size: clamp(1rem, 3vw, 1.2rem);
+=======
+  font-size: 1.2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .emptySlot:hover .emptySlotIcon {
   background: rgba(0, 184, 148, 0.2);
 }
 
+<<<<<<< HEAD
 .emptySlot span {
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   font-weight: 500;
@@ -461,19 +717,36 @@
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 4vw, 2rem);
   align-items: start;
+=======
+/* Integrated Location & Venue Section */
+.locationVenueContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueInfo {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: clamp(1rem, 3vw, 1.5rem);
+=======
+  gap: 1.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(6px, 2vw, 12px);
+=======
+  padding: 1.5rem;
+  border-radius: 12px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   transition: all 0.3s ease;
 }
 
@@ -484,36 +757,59 @@
 
 .venueDetails h3 {
   color: white;
+<<<<<<< HEAD
   margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
   font-size: clamp(1.1rem, 3vw, 1.3rem);
   font-weight: 600;
+=======
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueLocation,
 .venueDistance {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: clamp(0.4rem, 1vw, 0.5rem);
   color: rgba(255, 255, 255, 0.8);
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   margin: clamp(0.4rem, 1vw, 0.5rem) 0;
+=======
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueLocation i,
 .venueDistance i {
   color: #00b894;
+<<<<<<< HEAD
   width: clamp(12px, 3vw, 14px);
   text-align: center;
+=======
+  width: 14px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueRating {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: clamp(0.2rem, 0.5vw, 0.3rem);
   color: #00b894;
   font-weight: bold;
   margin-top: clamp(0.6rem, 2vw, 0.8rem);
   font-size: clamp(0.8rem, 2vw, 0.9rem);
+=======
+  gap: 0.3rem;
+  color: #00b894;
+  font-weight: bold;
+  margin-top: 0.8rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .venueRating i {
@@ -523,21 +819,35 @@
 .playerLocationInfo {
   background: rgba(0, 184, 148, 0.1);
   border: 1px solid rgba(0, 184, 148, 0.3);
+<<<<<<< HEAD
   padding: clamp(0.75rem, 2vw, 1rem);
   border-radius: clamp(6px, 1vw, 8px);
+=======
+  padding: 1rem;
+  border-radius: 8px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .playerLocationInfo h4 {
   color: #00b894;
+<<<<<<< HEAD
   margin: 0 0 clamp(0.3rem, 1vw, 0.5rem) 0;
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
+=======
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .playerLocationInfo p {
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
+<<<<<<< HEAD
   font-size: clamp(0.8rem, 2vw, 0.9rem);
+=======
+  font-size: 0.9rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   line-height: 1.5;
 }
 
@@ -550,19 +860,31 @@
 .mapPlaceholder {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   border-radius: clamp(6px, 2vw, 12px);
   height: clamp(200px, 30vw, 250px);
+=======
+  border-radius: 12px;
+  height: 250px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+<<<<<<< HEAD
   transition: all 0.3s ease;
+=======
+  transition: background 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .mapPlaceholder:hover {
   background: rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   transform: translateY(-2px);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .mapContent {
@@ -571,22 +893,37 @@
 }
 
 .mapContent i {
+<<<<<<< HEAD
   font-size: clamp(2.5rem, 8vw, 3.5rem);
   margin-bottom: clamp(0.5rem, 2vw, 0.8rem);
+=======
+  font-size: 3.5rem;
+  margin-bottom: 0.8rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   display: block;
   color: #00b894;
 }
 
 .mapContent p {
+<<<<<<< HEAD
   font-size: clamp(1rem, 3vw, 1.1rem);
   margin: 0 0 clamp(0.3rem, 1vw, 0.5rem) 0;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
+=======
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .mapContent small {
   display: block;
+<<<<<<< HEAD
   font-size: clamp(0.75rem, 2vw, 0.85rem);
+=======
+  font-size: 0.85rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -594,11 +931,16 @@
 .achievementsContainer {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: clamp(0.75rem, 2vw, 1rem);
+=======
+  gap: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementCard {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(1rem, 3vw, 1.5rem);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -611,54 +953,93 @@
 .achievementCard:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+=======
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  align-items: flex-start;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementYear {
   background: #00b894;
   color: white;
+<<<<<<< HEAD
   padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
   border-radius: clamp(15px, 4vw, 20px);
   font-weight: bold;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
   flex-shrink: 0;
   min-width: clamp(50px, 12vw, 60px);
+=======
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  min-width: 60px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   text-align: center;
 }
 
 .achievementContent h4 {
   color: white;
+<<<<<<< HEAD
   margin: 0 0 clamp(0.3rem, 1vw, 0.5rem) 0;
   font-size: clamp(1rem, 3vw, 1.1rem);
   font-weight: 600;
+=======
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementContent p {
   color: rgba(255, 255, 255, 0.8);
+<<<<<<< HEAD
   margin: 0 0 clamp(0.3rem, 1vw, 0.5rem) 0;
   line-height: 1.5;
   font-size: clamp(0.8rem, 2vw, 0.9rem);
+=======
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .achievementCategory {
   background: rgba(0, 184, 148, 0.2);
   color: #00b894;
+<<<<<<< HEAD
   padding: clamp(0.1rem, 0.5vw, 0.2rem) clamp(0.4rem, 1vw, 0.6rem);
   border-radius: clamp(8px, 2vw, 12px);
   font-size: clamp(0.65rem, 1.5vw, 0.75rem);
   font-weight: 500;
   display: inline-block;
+=======
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Reviews Section */
 .reviewsContainer {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: clamp(0.75rem, 2vw, 1rem);
+=======
+  gap: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewCard {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD
   padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(6px, 2vw, 10px);
   transition: all 0.3s ease;
@@ -666,18 +1047,27 @@
 
 .reviewCard:hover {
   background: rgba(255, 255, 255, 0.1);
+=======
+  padding: 1.5rem;
+  border-radius: 10px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+<<<<<<< HEAD
   margin-bottom: clamp(0.75rem, 2vw, 1rem);
   gap: clamp(0.75rem, 2vw, 1rem);
+=======
+  margin-bottom: 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewerInfo {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.75rem, 2vw, 1rem);
   align-items: center;
   flex: 1;
@@ -695,17 +1085,41 @@
   color: white;
   font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
+=======
+  gap: 1rem;
+  align-items: center;
+}
+
+.reviewerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.reviewerInfo h5 {
+  margin: 0 0 0.3rem 0;
+  color: white;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewRating {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.1rem, 0.3vw, 0.2rem);
   margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem);
+=======
+  gap: 0.2rem;
+  margin-bottom: 0.3rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewRating i {
   color: #ddd;
+<<<<<<< HEAD
   font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+=======
+  font-size: 0.8rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewRating i.filled {
@@ -713,31 +1127,47 @@
 }
 
 .matchType {
+<<<<<<< HEAD
   font-size: clamp(0.65rem, 1.5vw, 0.75rem);
   color: #00b894;
   background: rgba(0, 184, 148, 0.1);
   padding: clamp(0.1rem, 0.3vw, 0.2rem) clamp(0.3rem, 1vw, 0.5rem);
   border-radius: clamp(6px, 1vw, 8px);
   font-weight: 500;
+=======
+  font-size: 0.75rem;
+  color: #00b894;
+  background: rgba(0, 184, 148, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewDate {
   color: rgba(255, 255, 255, 0.6);
+<<<<<<< HEAD
   font-size: clamp(0.7rem, 1.5vw, 0.8rem);
   white-space: nowrap;
+=======
+  font-size: 0.8rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .reviewComment {
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin: 0;
+<<<<<<< HEAD
   font-size: clamp(0.8rem, 2vw, 0.9rem);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .viewAllReviews {
   background: transparent;
   color: #00b894;
   border: 1px solid #00b894;
+<<<<<<< HEAD
   padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   border-radius: clamp(4px, 1vw, 6px);
   cursor: pointer;
@@ -748,19 +1178,34 @@
   margin-top: clamp(0.5rem, 2vw, 1rem);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+=======
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .viewAllReviews:hover {
   background: #00b894;
   color: white;
+<<<<<<< HEAD
   transform: translateY(-2px);
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 /* Sticky Quick Connect Card */
 .stickyQuickConnect {
   position: fixed;
+<<<<<<< HEAD
   bottom: clamp(1rem, 3vw, 2rem);
   right: clamp(1rem, 3vw, 2rem);
+=======
+  bottom: 2rem;
+  right: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   z-index: 1000;
   animation: slideInFromRight 0.5s ease-out;
 }
@@ -778,6 +1223,7 @@
 
 .quickConnectCard {
   background: white;
+<<<<<<< HEAD
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: clamp(1rem, 3vw, 1.5rem);
@@ -791,6 +1237,16 @@
   display: flex;
   flex-direction: column;
   gap: clamp(0.75rem, 2vw, 1rem);
+=======
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  min-width: 280px;
+  max-width: 320px;
+  color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .quickConnectCard:hover {
@@ -798,6 +1254,7 @@
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
 }
 
+<<<<<<< HEAD
 .connectNowBtn {
   width: 100%;
   background: linear-gradient(135deg, #00b894, #00a085);
@@ -818,11 +1275,80 @@
   background: linear-gradient(135deg, #00a085, #008f73);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+=======
+.quickConnectCard h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.playerQuickInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.quickAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #00b894;
+}
+
+.quickDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.quickName {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.quickSport {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.quickResponse {
+  color: #00b894;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.connectNowBtn {
+  width: 100%;
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+.connectNowBtn:hover {
+  background: #00a085;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .shareActions {
   display: flex;
+<<<<<<< HEAD
   gap: clamp(0.5rem, 1vw, 0.75rem);
+=======
+  gap: 0.5rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .shareBtn,
@@ -831,6 +1357,7 @@
   background: transparent;
   color: #666;
   border: 1px solid #ddd;
+<<<<<<< HEAD
   padding: clamp(0.5rem, 1.5vw, 0.75rem);
   border-radius: clamp(4px, 1vw, 6px);
   font-size: clamp(0.75rem, 1.5vw, 0.85rem);
@@ -844,6 +1371,13 @@
   -webkit-tap-highlight-color: transparent;
   min-height: 44px;
   font-weight: 500;
+=======
+  padding: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .shareBtn:hover,
@@ -851,6 +1385,7 @@
   background: #f8f9fa;
   border-color: #00b894;
   color: #00b894;
+<<<<<<< HEAD
   transform: translateY(-1px);
 }
 
@@ -879,28 +1414,61 @@
     padding: 2rem 1rem 1rem;
   }
 
+=======
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .mainContent {
+    padding-right: 2rem;
+  }
+  
+  .stickyQuickConnect {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 2rem auto;
+    width: fit-content;
+  }
+  
+  .quickConnectCard {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+>>>>>>> 4b3e7842 (too many changes so doing today)
   .playerHeader {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
 
+<<<<<<< HEAD
   .playerIntro {
     text-align: center;
+=======
+  .playerIntro h1 {
+    font-size: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .playerMeta {
     justify-content: center;
   }
 
+<<<<<<< HEAD
   .mainContent {
     padding: 2rem 1rem 6rem;
   }
 
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
   .locationVenueContainer {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+<<<<<<< HEAD
 
   .mapContainer {
     order: -1;
@@ -921,18 +1489,76 @@
     align-items: center;
     text-align: center;
     gap: 0.5rem;
+=======
+  
+  .mapContainer {
+    order: -1;
+  }
+  
+  .mapPlaceholder {
+    height: 200px;
+  }
+  
+  .membersGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .memberCard {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .enrollmentInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+>>>>>>> 4b3e7842 (too many changes so doing today)
   }
 
   .statsContainer {
     grid-template-columns: repeat(2, 1fr);
   }
 
+<<<<<<< HEAD
+=======
+  .mainContent {
+    padding: 2rem 1rem;
+  }
+
+  .prevBtn,
+  .nextBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .prevBtn {
+    left: 1rem;
+  }
+
+  .nextBtn {
+    right: 1rem;
+  }
+
+  .stickyQuickConnect {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  .quickConnectCard {
+    min-width: auto;
+    width: 100%;
+  }
+
+>>>>>>> 4b3e7842 (too many changes so doing today)
   .achievementCard {
     flex-direction: column;
     gap: 1rem;
   }
 
   .achievementYear {
+<<<<<<< HEAD
     align-self: center;
   }
 
@@ -1256,3 +1882,53 @@ html {
   background: rgba(0, 184, 148, 0.2);
   color: inherit;
 }
+=======
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroSection {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .playerInfoOverlay {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .playerIntro h1 {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 1.5rem 1rem;
+  }
+
+  .statsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .playerAvatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .quickAvatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .venueDetails h3 {
+    font-size: 1.1rem;
+  }
+  
+  .mapContent i {
+    font-size: 2.5rem;
+  }
+  
+  .mapPlaceholder {
+    height: 180px;
+  }
+}
+>>>>>>> 4b3e7842 (too many changes so doing today)

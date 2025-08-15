@@ -6,7 +6,11 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
+<<<<<<< HEAD
   const url = "https://grooviti-backend.onrender.com"; // Update with your backend URL
+=======
+  const url = "https://grooviti-backend.onrender.com";
+>>>>>>> 4b3e7842 (too many changes so doing today)
   const [token, setToken] = useState(() => localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

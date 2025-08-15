@@ -9,12 +9,16 @@ const AcademyDetails = () => {
   const [selectedBatch, setSelectedBatch] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+<<<<<<< HEAD
   // Toggle states for showing expanded/collapsed content
   const [showAllCoaches, setShowAllCoaches] = useState(false);
   const [showAllAchievements, setShowAllAchievements] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   // Your full detailed academiesData as provided
+=======
+  // Enhanced academies data with detailed information (same as before)
+>>>>>>> 4b3e7842 (too many changes so doing today)
   const academiesData = {
     1: {
       id: 1,
@@ -28,6 +32,11 @@ const AcademyDetails = () => {
         'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop'
       ],
       description: 'Elite Cricket Academy is a premier sports training institute offering world-class coaching across multiple sports disciplines.',
+<<<<<<< HEAD
+=======
+      
+      // Enhanced Academy Stats
+>>>>>>> 4b3e7842 (too many changes so doing today)
       stats: {
         yearsFounded: 2010,
         totalExperience: 15,
@@ -36,6 +45,11 @@ const AcademyDetails = () => {
         successRate: 92,
         championships: 28
       },
+<<<<<<< HEAD
+=======
+
+      // Head Coach Information
+>>>>>>> 4b3e7842 (too many changes so doing today)
       headCoach: {
         name: 'Rahul Sharma',
         experience: '15 years',
@@ -43,8 +57,15 @@ const AcademyDetails = () => {
         achievements: 'Former Ranji Trophy Player, Level 3 Certified Coach',
         avatar: 'https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=RahulSharma&size=100'
       },
+<<<<<<< HEAD
       trainingPrograms: {
         Cricket: {
+=======
+
+      // Training Programs with Batches
+      trainingPrograms: {
+        'Cricket': {
+>>>>>>> 4b3e7842 (too many changes so doing today)
           description: 'Comprehensive cricket training from basics to advanced levels',
           batches: {
             'Morning Batch (6-8 AM)': {
@@ -76,7 +97,11 @@ const AcademyDetails = () => {
             }
           }
         },
+<<<<<<< HEAD
         Football: {
+=======
+        'Football': {
+>>>>>>> 4b3e7842 (too many changes so doing today)
           description: 'Professional football training with tactical development',
           batches: {
             'Kids Batch (5-7 PM)': {
@@ -108,7 +133,11 @@ const AcademyDetails = () => {
             }
           }
         },
+<<<<<<< HEAD
         Badminton: {
+=======
+        'Badminton': {
+>>>>>>> 4b3e7842 (too many changes so doing today)
           description: 'Technical badminton training with tournament preparation',
           batches: {
             'Morning Batch (6-8 AM)': {
@@ -141,6 +170,11 @@ const AcademyDetails = () => {
           }
         }
       },
+<<<<<<< HEAD
+=======
+
+      // Coaching Staff
+>>>>>>> 4b3e7842 (too many changes so doing today)
       coachingStaff: [
         {
           name: 'Rahul Sharma',
@@ -213,6 +247,11 @@ const AcademyDetails = () => {
           qualification: 'BWF Level 3, Former International Player'
         }
       ],
+<<<<<<< HEAD
+=======
+
+      // Achievements
+>>>>>>> 4b3e7842 (too many changes so doing today)
       achievements: [
         {
           year: '2024',
@@ -263,6 +302,10 @@ const AcademyDetails = () => {
           category: 'Innovation'
         }
       ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4b3e7842 (too many changes so doing today)
       facilities: [
         { name: 'Indoor Nets', icon: 'fas fa-home', available: true },
         { name: 'Professional Coaching', icon: 'fas fa-chalkboard-teacher', available: true },
@@ -275,6 +318,10 @@ const AcademyDetails = () => {
         { name: 'Medical Support', icon: 'fas fa-first-aid', available: true },
         { name: 'Air Conditioning', icon: 'fas fa-snowflake', available: true }
       ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4b3e7842 (too many changes so doing today)
       testimonials: [
         {
           id: 1,
@@ -305,13 +352,152 @@ const AcademyDetails = () => {
         }
       ]
     },
+<<<<<<< HEAD
   };
 
   // Load academy data based on ID param
+=======
+    // Add similar detailed data for other academies...
+    2: {
+      id: 2,
+      name: 'Champions Football Academy',
+      rating: 4.7,
+      totalReviews: 156,
+      location: 'Gurgaon, Haryana 122001',
+      images: [
+        'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=500&fit=crop',
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=500&fit=crop'
+      ],
+      description: 'Champions Football Academy specializes in comprehensive football training with FIFA-certified coaching methods.',
+      
+      stats: {
+        yearsFounded: 2015,
+        totalExperience: 10,
+        studentsTrained: 1200,
+        currentStudents: 200,
+        successRate: 88,
+        championships: 15
+      },
+
+      headCoach: {
+        name: 'Sunil Chhetri',
+        experience: '12 years',
+        specialization: 'Football & Tactical Development',
+        achievements: 'Former Indian National Team Player, AFC Pro License',
+        avatar: 'https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=SunilChhetri&size=100'
+      },
+
+      trainingPrograms: {
+        'Football': {
+          description: 'Complete football training from grassroots to professional level',
+          batches: {
+            'Grassroots (4-6 PM)': {
+              coach: 'Ravi Kumar',
+              experience: '5 years',
+              price: 2500,
+              maxStudents: 20,
+              currentStudents: 18,
+              level: 'Ages 6-10, Basic Skills',
+              schedule: 'Mon, Wed, Fri'
+            },
+            'Development (5-7 PM)': {
+              coach: 'Amit Singh',
+              experience: '8 years',
+              price: 3500,
+              maxStudents: 16,
+              currentStudents: 15,
+              level: 'Ages 11-16, Skill Development',
+              schedule: 'Tue, Thu, Sat'
+            },
+            'Elite (6-8 PM)': {
+              coach: 'Sunil Chhetri',
+              experience: '12 years',
+              price: 5000,
+              maxStudents: 12,
+              currentStudents: 10,
+              level: 'Ages 17+, Professional Training',
+              schedule: 'Mon, Wed, Fri'
+            }
+          }
+        }
+      },
+
+      coachingStaff: [
+        {
+          name: 'Sunil Chhetri',
+          position: 'Head Coach & Technical Director',
+          experience: '12 years',
+          specialization: 'Advanced Tactics, Professional Development',
+          qualification: 'AFC Pro License, Former Indian Captain'
+        },
+        {
+          name: 'Ravi Kumar',
+          position: 'Youth Development Coach',
+          experience: '5 years',
+          specialization: 'Grassroots Football, Child Development',
+          qualification: 'AFC C License, Youth Psychology'
+        },
+        {
+          name: 'Amit Singh',
+          position: 'Technical Coach',
+          experience: '8 years',
+          specialization: 'Technical Skills, Fitness Training',
+          qualification: 'AFC B License, Sports Science'
+        }
+      ],
+
+      achievements: [
+        {
+          year: '2024',
+          title: 'UEFA Grassroots Award',
+          description: 'Recognized for excellence in youth football development',
+          category: 'International Recognition'
+        },
+        {
+          year: '2023',
+          title: 'State Football Championship',
+          description: 'Academy team won U-16 state championship',
+          category: 'Team Achievement'
+        },
+        {
+          year: '2023',
+          title: 'Best Football Academy - North India',
+          description: 'All India Football Federation recognition',
+          category: 'Academy Recognition'
+        }
+      ],
+
+      facilities: [
+        { name: 'FIFA Standard Turf', icon: 'fas fa-futbol', available: true },
+        { name: 'Professional Coaching', icon: 'fas fa-chalkboard-teacher', available: true },
+        { name: 'Fitness Training', icon: 'fas fa-dumbbell', available: true },
+        { name: 'Equipment Provided', icon: 'fas fa-tools', available: true },
+        { name: 'Changing Rooms', icon: 'fas fa-door-open', available: true },
+        { name: 'Medical Support', icon: 'fas fa-first-aid', available: true },
+        { name: 'Parking', icon: 'fas fa-parking', available: true }
+      ],
+
+      testimonials: [
+        {
+          id: 1,
+          name: 'Arjun Patel',
+          rating: 5,
+          comment: 'Amazing football training! Coach Sunil\'s methods are excellent for skill development.',
+          date: '3 days ago',
+          program: 'Football - Elite Batch',
+          coach: 'Sunil Chhetri'
+        }
+      ]
+    }
+  };
+
+  // Load academy data based on ID
+>>>>>>> 4b3e7842 (too many changes so doing today)
   useEffect(() => {
     const academyData = academiesData[parseInt(id)];
     if (academyData) {
       setAcademy(academyData);
+<<<<<<< HEAD
       const firstProgram = Object.keys(academyData.trainingPrograms)[0];
       setSelectedProgram(firstProgram);
       const firstBatch = Object.keys(academyData.trainingPrograms[firstProgram].batches)[0];
@@ -321,6 +507,19 @@ const AcademyDetails = () => {
     }
   }, [id]);
 
+=======
+      // Set default selected program to the first available program
+      const firstProgram = Object.keys(academyData.trainingPrograms)[0];
+      setSelectedProgram(firstProgram);
+      if (academyData.trainingPrograms[firstProgram]) {
+        const firstBatch = Object.keys(academyData.trainingPrograms[firstProgram].batches)[0];
+        setSelectedBatch(firstBatch);
+      }
+    }
+  }, [id]);
+
+  // Loading state
+>>>>>>> 4b3e7842 (too many changes so doing today)
   if (!academy) {
     return (
       <div className={styles.container}>
@@ -338,6 +537,7 @@ const AcademyDetails = () => {
     );
   }
 
+<<<<<<< HEAD
   // Image navigation handlers
   const nextImage = () => {
     setCurrentImageIndex(prev => prev === academy.images.length - 1 ? 0 : prev + 1);
@@ -357,12 +557,47 @@ const AcademyDetails = () => {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
+=======
+  // Image navigation functions
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === academy.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? academy.images.length - 1 : prev - 1
+    );
+  };
+
+  const handleProgramSelect = (program) => {
+    setSelectedProgram(program);
+    if (academy.trainingPrograms[program]) {
+      const firstBatch = Object.keys(academy.trainingPrograms[program].batches)[0];
+      setSelectedBatch(firstBatch);
+    }
+  };
+
+  const handleBatchSelect = (batch) => {
+    setSelectedBatch(batch);
+  };
+
+  return (
+    <div className={styles.container}>
+      {/* Hero Image Section */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
       <section className={styles.heroSection}>
         <div className={styles.imageContainer}>
           <img 
             src={academy.images[currentImageIndex]} 
+<<<<<<< HEAD
             alt={academy.name} 
             className={styles.heroImage} 
+=======
+            alt={academy.name}
+            className={styles.heroImage}
+>>>>>>> 4b3e7842 (too many changes so doing today)
           />
           {academy.images.length > 1 && (
             <>
@@ -376,7 +611,13 @@ const AcademyDetails = () => {
                 {academy.images.map((_, index) => (
                   <button
                     key={index}
+<<<<<<< HEAD
                     className={`${styles.indicator} ${index === currentImageIndex ? styles.active : ''}`}
+=======
+                    className={`${styles.indicator} ${
+                      index === currentImageIndex ? styles.active : ''
+                    }`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                     onClick={() => setCurrentImageIndex(index)}
                   />
                 ))}
@@ -384,6 +625,11 @@ const AcademyDetails = () => {
             </>
           )}
         </div>
+<<<<<<< HEAD
+=======
+        
+        {/* Academy Basic Info Overlay */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
         <div className={styles.academyInfoOverlay}>
           <div className={styles.academyBasicInfo}>
             <h1>{academy.name}</h1>
@@ -393,7 +639,11 @@ const AcademyDetails = () => {
                   {[1,2,3,4,5].map(star => (
                     <i 
                       key={star}
+<<<<<<< HEAD
                       className={`fas fa-star ${star <= Math.floor(academy.rating) ? styles.filled : ''}`} 
+=======
+                      className={`fas fa-star ${star <= Math.floor(academy.rating) ? styles.filled : ''}`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                     />
                   ))}
                 </div>
@@ -410,6 +660,7 @@ const AcademyDetails = () => {
 
       {/* Main Content */}
       <div className={styles.mainContent}>
+<<<<<<< HEAD
         {/* Academy Overview Stats with Quick Contact Card */}
         <div className={styles.academyOverviewSection}>
           <div className={styles.academyOverviewContent}>
@@ -472,6 +723,42 @@ const AcademyDetails = () => {
         </div>
 
         {/* Rest of the sections remain exactly the same */}
+=======
+        {/* Academy Overview Stats */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <i className="fas fa-chart-line"></i> Academy Overview
+          </h2>
+          <div className={styles.statsContainer}>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{academy.stats.totalExperience}</div>
+              <div className={styles.statLabel}>Years Experience</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{academy.stats.studentsTrained.toLocaleString()}</div>
+              <div className={styles.statLabel}>Students Trained</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{academy.stats.currentStudents}</div>
+              <div className={styles.statLabel}>Current Students</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{academy.stats.successRate}%</div>
+              <div className={styles.statLabel}>Success Rate</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{academy.stats.championships}</div>
+              <div className={styles.statLabel}>Championships Won</div>
+            </div>
+            <div className={styles.statCard}>
+              <div className={styles.statNumber}>{new Date().getFullYear() - academy.stats.yearsFounded}</div>
+              <div className={styles.statLabel}>Years Established</div>
+            </div>
+          </div>
+          <p className={styles.academyDescription}>{academy.description}</p>
+        </section>
+
+>>>>>>> 4b3e7842 (too many changes so doing today)
         {/* Head Coach Information */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
@@ -494,30 +781,61 @@ const AcademyDetails = () => {
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Training Programs & Batches */}
+=======
+        {/* Training Programs with Batches */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-graduation-cap"></i> Training Programs & Batches
           </h2>
+<<<<<<< HEAD
+=======
+          
+          {/* Program Selection */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
           <div className={styles.programTabs}>
             {Object.keys(academy.trainingPrograms).map((program) => (
               <button
                 key={program}
+<<<<<<< HEAD
                 className={`${styles.programTab} ${selectedProgram === program ? styles.activeTab : ''}`}
+=======
+                className={`${styles.programTab} ${
+                  selectedProgram === program ? styles.activeTab : ''
+                }`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                 onClick={() => handleProgramSelect(program)}
               >
                 {program}
               </button>
             ))}
           </div>
+<<<<<<< HEAD
           <div className={styles.programDescription}>
             <p>{academy.trainingPrograms[selectedProgram]?.description}</p>
           </div>
+=======
+
+          {/* Program Description */}
+          <div className={styles.programDescription}>
+            <p>{academy.trainingPrograms[selectedProgram]?.description}</p>
+          </div>
+
+          {/* Batches */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
           <div className={styles.batchesContainer}>
             {Object.entries(academy.trainingPrograms[selectedProgram]?.batches || {}).map(([batchName, batchDetails]) => (
               <div 
                 key={batchName}
+<<<<<<< HEAD
                 className={`${styles.batchCard} ${selectedBatch === batchName ? styles.selectedBatch : ''}`}
+=======
+                className={`${styles.batchCard} ${
+                  selectedBatch === batchName ? styles.selectedBatch : ''
+                }`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                 onClick={() => handleBatchSelect(batchName)}
               >
                 <div className={styles.batchHeader}>
@@ -569,8 +887,13 @@ const AcademyDetails = () => {
             <i className="fas fa-users"></i> Our Coaching Staff
           </h2>
           <div className={styles.staffGrid}>
+<<<<<<< HEAD
             {(showAllCoaches ? academy.coachingStaff : [academy.coachingStaff[0]]).map((staff, idx) => (
               <div key={idx} className={styles.staffCard}>
+=======
+            {academy.coachingStaff.map((staff, index) => (
+              <div key={index} className={styles.staffCard}>
+>>>>>>> 4b3e7842 (too many changes so doing today)
                 <img 
                   src={`https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${staff.name}&size=60`}
                   alt={staff.name}
@@ -586,12 +909,15 @@ const AcademyDetails = () => {
               </div>
             ))}
           </div>
+<<<<<<< HEAD
           {academy.coachingStaff.length > 1 && (
             <button className={styles.toggleSectionBtn} onClick={() => setShowAllCoaches(prev => !prev)}>
               <i className={`fas fa-chevron-${showAllCoaches ? 'up' : 'down'}`}></i>
               {showAllCoaches ? 'Show Less Coaches' : `Show All Coaches (${academy.coachingStaff.length})`}
             </button>
           )}
+=======
+>>>>>>> 4b3e7842 (too many changes so doing today)
         </section>
 
         {/* Achievements */}
@@ -600,8 +926,13 @@ const AcademyDetails = () => {
             <i className="fas fa-trophy"></i> Achievements & Recognition
           </h2>
           <div className={styles.achievementsContainer}>
+<<<<<<< HEAD
             {(showAllAchievements ? academy.achievements : [academy.achievements[0]]).map((achievement, idx) => (
               <div key={idx} className={styles.achievementCard}>
+=======
+            {academy.achievements.map((achievement, index) => (
+              <div key={index} className={styles.achievementCard}>
+>>>>>>> 4b3e7842 (too many changes so doing today)
                 <div className={styles.achievementYear}>{achievement.year}</div>
                 <div className={styles.achievementContent}>
                   <h4>{achievement.title}</h4>
@@ -611,6 +942,7 @@ const AcademyDetails = () => {
               </div>
             ))}
           </div>
+<<<<<<< HEAD
           {academy.achievements.length > 1 && (
             <button className={styles.toggleSectionBtn} onClick={() => setShowAllAchievements(prev => !prev)}>
               <i className={`fas fa-chevron-${showAllAchievements ? 'up' : 'down'}`}></i>
@@ -620,6 +952,11 @@ const AcademyDetails = () => {
         </section>
 
         {/* Location Section */}
+=======
+        </section>
+
+        {/* Location */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-map-marker-alt"></i> Location
@@ -639,16 +976,29 @@ const AcademyDetails = () => {
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Facilities Section */}
+=======
+        {/* Facilities */}
+>>>>>>> 4b3e7842 (too many changes so doing today)
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-star"></i> Facilities
           </h2>
           <div className={styles.facilitiesGrid}>
+<<<<<<< HEAD
             {academy.facilities.map((facility, idx) => (
               <div 
                 key={idx} 
                 className={`${styles.facilityItem} ${!facility.available ? styles.unavailable : ''}`}
+=======
+            {academy.facilities.map((facility, index) => (
+              <div 
+                key={index} 
+                className={`${styles.facilityItem} ${
+                  !facility.available ? styles.unavailable : ''
+                }`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
               >
                 <i className={`${facility.icon} ${styles.facilityIcon}`}></i>
                 <span>{facility.name}</span>
@@ -664,7 +1014,11 @@ const AcademyDetails = () => {
             <i className="fas fa-comments"></i> Student Testimonials
           </h2>
           <div className={styles.testimonialsContainer}>
+<<<<<<< HEAD
             {(showAllTestimonials ? academy.testimonials : [academy.testimonials[0]]).map(testimonial => (
+=======
+            {academy.testimonials.map((testimonial) => (
+>>>>>>> 4b3e7842 (too many changes so doing today)
               <div key={testimonial.id} className={styles.testimonialCard}>
                 <div className={styles.testimonialHeader}>
                   <div className={styles.studentInfo}>
@@ -678,8 +1032,13 @@ const AcademyDetails = () => {
                       <div className={styles.testimonialRating}>
                         {[1,2,3,4,5].map(star => (
                           <i 
+<<<<<<< HEAD
                             key={star} 
                             className={`fas fa-star ${star <= testimonial.rating ? styles.filled : ''}`} 
+=======
+                            key={star}
+                            className={`fas fa-star ${star <= testimonial.rating ? styles.filled : ''}`}
+>>>>>>> 4b3e7842 (too many changes so doing today)
                           />
                         ))}
                       </div>
@@ -692,6 +1051,7 @@ const AcademyDetails = () => {
                 <p className={styles.testimonialComment}>{testimonial.comment}</p>
               </div>
             ))}
+<<<<<<< HEAD
             {academy.testimonials.length > 1 && (
               <button className={styles.toggleSectionBtn} onClick={() => setShowAllTestimonials(prev => !prev)}>
                 <i className={`fas fa-chevron-${showAllTestimonials ? 'up' : 'down'}`}></i>
@@ -701,8 +1061,41 @@ const AcademyDetails = () => {
           </div>
         </section>
       </div>
+=======
+            <button className={styles.viewAllTestimonials}>View all testimonials</button>
+          </div>
+        </section>
+      </div>
+
+      {/* Sticky Quick Contact Card */}
+      <div className={styles.stickyQuickContact}>
+        <div className={styles.quickContactCard}>
+          <h3>Quick Contact</h3>
+          <div className={styles.priceDisplay}>
+            <span className={styles.price}>₹{academy.trainingPrograms[selectedProgram]?.batches[selectedBatch]?.price || 3000}</span>
+            <span className={styles.priceUnit}>/month</span>
+            <span className={styles.startingPrice}>
+              {selectedBatch ? `${selectedBatch} - ${selectedProgram}` : 'Selected Program'}
+            </span>
+          </div>
+          <button className={styles.contactNowBtn}>Contact Now</button>
+          <div className={styles.shareActions}>
+            <button className={styles.shareBtn}>
+              <i className="fas fa-share-alt"></i> Share
+            </button>
+            <button className={styles.messageBtn}>
+              <i className="fas fa-envelope"></i> Message
+            </button>
+          </div>
+        </div>
+      </div>
+>>>>>>> 4b3e7842 (too many changes so doing today)
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default AcademyDetails;
+=======
+export default AcademyDetails;
+>>>>>>> 4b3e7842 (too many changes so doing today)

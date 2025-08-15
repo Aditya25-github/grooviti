@@ -3,6 +3,7 @@
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
+<<<<<<< HEAD
     justify-content: flex-start;
     background-color: rgb(11, 0, 26);
     position: relative;
@@ -109,6 +110,74 @@
     display: inline;
 }
 
+=======
+    justify-content: center;
+    background-color: rgb(11, 0, 26);
+}
+.rotateContainer {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.wordWrapper {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  width: 1440px;
+  height:800px;
+margin-top: 5rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding-top: 0rem;
+  padding-bottom: 1rem;
+  background: transparent;
+}
+
+.heroTitle {
+  color: #fff;
+  margin-top: 11vh;
+  font-size: 6.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0px;
+  text-align: center;
+  font-family:'Courier New', Courier, monospace;
+  position: relative;
+}
+.heroSubtitle span {
+    display: inline;
+  }
+.heroSubtitle {
+  color: #cecece;
+  margin-left: 30vh;
+  margin-top: 3.4rem;
+  font-size: 4.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+>>>>>>> 4b3e7842 (too many changes so doing today)
 .shiny-text {
     font-size: inherit;
     font-family: inherit;
@@ -119,6 +188,7 @@
     margin: 0;
     padding: 0;
     line-height: inherit;
+<<<<<<< HEAD
 }
 
 .heroSlogan {
@@ -129,57 +199,109 @@
     margin: 3rem 0 0 0;
     text-align: center;
 }
+=======
+  }
+
+.heroSlogan {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+  text-align: center;
+  margin-top: 25vh;
+  
+}
+/* Add these new rules at the BOTTOM of your Home.module.css */
+>>>>>>> 4b3e7842 (too many changes so doing today)
 
 .rotatingText {
     display: inline-block;
     vertical-align: middle;
     font-size: inherit;
     font-family: 'Courier New', Courier, monospace;
+<<<<<<< HEAD
+=======
+    font-family: inherit;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     font-weight: inherit;
     color: inherit;
     background-color: transparent;
     padding: 0;
     margin: 0;
     border-radius: 0;
+<<<<<<< HEAD
 }
 
 .rotatingTextSplit {
+=======
+    
+  }
+  
+  .rotatingTextSplit {
+>>>>>>> 4b3e7842 (too many changes so doing today)
     display: inline-block;
     overflow: hidden;
     padding-bottom: 0;
     font-family: 'Courier New', Courier, monospace;
+<<<<<<< HEAD
 }
 
 .heroTitle .rotatingText {
     font-size: inherit;
+=======
+  }
+  
+  /* Ensure the rotating text inherits heroTitle styles */
+  .heroTitle .rotatingText {
+    font-size: 6.8rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     margin-bottom: 0px;
     font-weight: 700;
     letter-spacing: 0px;
     font-family: 'Courier New', Courier, monospace;
+<<<<<<< HEAD
 }
+=======
+  }
+>>>>>>> 4b3e7842 (too many changes so doing today)
 
 /* Sports Section */
 .sportsSection {
     padding: 2rem;
     margin-top: 2rem;
     text-align: center;
+<<<<<<< HEAD
     width: 100%;
 }
 
 .sportsHeading {
     font-size: clamp(1.5rem, 4vw, 2rem);
+=======
+}
+
+.sportsHeading {
+    font-size: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     margin-bottom: 2rem;
     color: #333;
 }
 
 .sportsContainer {
     display: flex;
+<<<<<<< HEAD
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
     padding: 0 1rem;
     max-width: 1200px;
     margin: 0 auto;
+=======
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5rem;
+    padding: 0 1rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
 }
 
 .sportCard {
@@ -191,8 +313,13 @@
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
     width: clamp(100px, 15vw, 120px);
     height: clamp(100px, 15vw, 120px);
+=======
+    width: 120px;
+    height: 120px;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     background-color: #e0f7fa;
     justify-content: center;
 }
@@ -202,17 +329,26 @@
 }
 
 .sportIcon {
+<<<<<<< HEAD
     font-size: clamp(1.5rem, 4vw, 2rem);
+=======
+    font-size: 2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     color: #00796b;
 }
 
 .sportName {
     margin-top: 0.5rem;
+<<<<<<< HEAD
     font-size: clamp(1rem, 3vw, 1.2rem);
+=======
+    font-size: 1.2rem;
+>>>>>>> 4b3e7842 (too many changes so doing today)
     font-weight: 500;
     color: #333;
 }
 
+<<<<<<< HEAD
 /* Media Queries for Fine-tuning */
 
 /* Extra Small Devices (phones, 320px and up) */
@@ -393,3 +529,42 @@ html {
 .componentsWrapper * {
     scroll-margin-top: 2rem;
 }
+=======
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sportsContainer {
+        gap: 1.5rem;
+    }
+    
+    .sportsHeading {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .sportsContainer {
+        gap: 1rem;
+    }
+    
+    .sportIcon {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+  .heroSection {
+    min-height: 28vh;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  .heroSlogan {
+    font-size: 0.95rem;
+  }
+}
+>>>>>>> 4b3e7842 (too many changes so doing today)
