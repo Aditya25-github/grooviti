@@ -10,18 +10,6 @@ const generateToken = (id) => {
   });
 };
 
-<<<<<<< HEAD
-export const getAllTurfs = async (req, res) => {
-  try {
-    const turfs = await Turf.find().sort({ createdAt: -1 });
-    res.status(200).json({ success: true, turfs });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-=======
->>>>>>> 4b3e7842 (too many changes so doing today)
 export const registerTurfOwner = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -125,9 +113,6 @@ export const createTurf = async (req, res) => {
 };
 
 // Will use this when I will give acess to superAdmin Panel
-<<<<<<< HEAD
-
-=======
 // export const getAllTurfs = async (req, res) => {
 //   try {
 //     const turfs = await Turf.find().sort({ createdAt: -1 });
@@ -136,7 +121,6 @@ export const createTurf = async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // };
->>>>>>> 4b3e7842 (too many changes so doing today)
 
 export const getTurfs = async (req, res) => {
   try {
