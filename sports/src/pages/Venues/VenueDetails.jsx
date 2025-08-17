@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext, useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from './VenueDetails.module.css';
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
@@ -10,15 +10,48 @@ const fallbackImages = [
   'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop'
 ];
 
+// helper: always "YYYY-MM-DD"
+const toLocalYMD = (d) => {
+  const tz = d.getTimezoneOffset();
+  const local = new Date(d.getTime() - tz * 60000);
+  return local.toISOString().split("T")[0];
+};
+
 const VenueDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { url } = useContext(StoreContext);
 
+  // next 7 days
+  const next7Days = useMemo(() => {
+    const days = [];
+    const start = new Date();
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      days.push({
+        value: toLocalYMD(d),
+        label: d.toLocaleDateString("en-US", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        }),
+      });
+    }
+    return days;
+  }, []);
+
+  // state
+  const [selectedDate, setSelectedDate] = useState(() => toLocalYMD(new Date()));
   const [venue, setVenue] = useState(null);
+  const [slots, setSlots] = useState([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [errorSlots, setErrorSlots] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
   const [selectedSport, setSelectedSport] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // fetch venue
   useEffect(() => {
     const fetchVenue = async () => {
       try {
@@ -46,7 +79,38 @@ const VenueDetails = () => {
     fetchVenue();
   }, [id, url]);
 
-  // Prevent OOB errors if images change
+  // fetch slots when venue/date change
+  useEffect(() => {
+    if (!venue?._id || !selectedDate) return;
+    const fetchSlots = async () => {
+      try {
+        setLoadingSlots(true);
+        setErrorSlots("");
+        console.log("Fetching slots with:", {
+          turfId: venue._id,
+          date: selectedDate,
+        });
+        const res = await axios.get(`${url}/api/slots/by-date`, {
+          params: { turfId: venue._id, date: selectedDate },
+        });
+        console.log("Raw slot response:", res.data);
+
+        // handle if backend sends {slots: []}
+        const data = Array.isArray(res.data)
+          ? res.data
+          : res.data.slots || [];
+        setSlots(data);
+      } catch (e) {
+        setErrorSlots("Failed to load slots");
+        console.error("Error fetching slots:", e);
+      } finally {
+        setLoadingSlots(false);
+      }
+    };
+    fetchSlots();
+  }, [venue, selectedDate, url]);
+
+  // reset image index
   useEffect(() => {
     setCurrentImageIndex(0);
   }, [venue]);
@@ -68,17 +132,10 @@ const VenueDetails = () => {
     (venue.galleryImages && venue.galleryImages.length && venue.galleryImages) ||
     (venue.image ? [venue.image] : fallbackImages);
 
-  // Arrow and indicator navigation logic (never breaks with <2 images)
   const numImages = images.length;
   const nextImage = () => setCurrentImageIndex(i => (i + 1) % numImages);
   const prevImage = () => setCurrentImageIndex(i => (i - 1 + numImages) % numImages);
-
   const handleIndicatorClick = (idx) => setCurrentImageIndex(idx);
-
-  const timings = venue.timings || {
-    weekdays: { slots: ['6 AM', '7 AM', '8 AM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM'] },
-    weekends: { slots: ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM'] }
-  };
 
   const sports = venue.sports && Object.keys(venue.sports).length
     ? venue.sports
@@ -95,15 +152,23 @@ const VenueDetails = () => {
   const amenities = venue.amenities && venue.amenities.length ? venue.amenities : [];
   const reviews = venue.reviews && venue.reviews.length ? venue.reviews : [];
 
-  const handleTimeSlotSelect = (slot) => setSelectedTimeSlot(slot);
+  const handleTimeSlotSelect = (slotId) => setSelectedTimeSlot(slotId);
   const handleSportSelect = (sport) => setSelectedSport(sport);
 
-  // Keyboard handlers for image navigation
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") prevImage();
     if (e.key === "ArrowRight") nextImage();
   };
 
+  const handleBookNow = () => {
+    if (!selectedDate || !selectedTimeSlot) {
+      alert("Please select a date and a slot first.");
+      return;
+    }
+    navigate(
+      `/book?turfId=${venue._id}&slotId=${selectedTimeSlot}&date=${selectedDate}&sport=${encodeURIComponent(selectedSport)}`
+    );
+  };
   return (
     <div className={styles.container}>
       {/* Hero Image Section */}
@@ -120,7 +185,6 @@ const VenueDetails = () => {
             className={styles.heroImage}
             draggable={false}
           />
-          {/* True arrow/indicator markup, always shown even if 1 image (but disabled) */}
           <button
             className={styles.prevBtn}
             onClick={prevImage}
@@ -186,36 +250,67 @@ const VenueDetails = () => {
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-clock"></i> Venue Timing
           </h2>
+
+          {/* Date blocks (next 7 days) */}
+          <div>
+            <h4>Select a Date</h4>
+            <div className={styles.timeSlots}>
+              {next7Days.map((d) => (
+                <button
+                  key={d.value}
+                  className={`${styles.timeSlot} ${selectedDate === d.value ? styles.selected : ""}`}
+                  onClick={() => {
+                    setSelectedDate(d.value);
+                    setSelectedTimeSlot("");
+                  }}
+                  type="button"
+                >
+                  {d.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Slots from backend */}
           <div className={styles.timingContainer}>
             <div className={styles.timingCategory}>
-              <h4>Weekdays</h4>
-              <div className={styles.timeSlots}>
-                {timings.weekdays.slots.map((slot, idx) => (
-                  <button
-                    key={idx}
-                    className={`${styles.timeSlot} ${selectedTimeSlot === slot ? styles.selected : ''}`}
-                    onClick={() => handleTimeSlotSelect(slot)}
-                    type="button"
-                  >
-                    {slot}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className={styles.timingCategory}>
-              <h4>Weekends</h4>
-              <div className={styles.timeSlots}>
-                {timings.weekends.slots.map((slot, idx) => (
-                  <button
-                    key={idx}
-                    className={`${styles.timeSlot} ${selectedTimeSlot === slot ? styles.selected : ''}`}
-                    onClick={() => handleTimeSlotSelect(slot)}
-                    type="button"
-                  >
-                    {slot}
-                  </button>
-                ))}
-              </div>
+              <h4>Available Slots</h4>
+              {loadingSlots ? (
+                <p>Loading slots…</p>
+              ) : errorSlots ? (
+                <p>{errorSlots}</p>
+              ) : slots.length === 0 ? (
+                <p>No slots for {selectedDate}. Try another date.</p>
+              ) : (
+                <div className={styles.timeSlots}>
+                  {slots.map((slot) => {
+  const isAvailable =
+    slot.status === "available" &&
+    (slot.bookedTickets ?? 0) < (slot.totalTickets ?? 1);
+
+  // Convert slot times to 24-hour HH:mm
+  const start = new Date(slot.startTime);
+  const end = new Date(slot.endTime);
+  const formatTime = (d) =>
+    `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+
+  return (
+    <button
+      key={slot._id}
+      className={`${styles.timeSlot} ${selectedTimeSlot === slot._id ? styles.selected : ""} ${!isAvailable ? styles.unavailableSlot : ""}`}
+      onClick={() => isAvailable && handleTimeSlotSelect(slot._id)}
+      type="button"
+      disabled={!isAvailable}
+      title={`${formatTime(start)} – ${formatTime(end)}`}
+    >
+      {formatTime(start)} – {formatTime(end)}
+      {!isAvailable ? " (Unavailable)" : ""}
+    </button>
+  );
+})}
+
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -334,7 +429,7 @@ const VenueDetails = () => {
               Starting price for {(selectedSport || venue.turfType || "").toLowerCase()}
             </span>
           </div>
-          <button className={styles.bookNowBtn}>Book Now</button>
+          <button className={styles.bookNowBtn} onClick={handleBookNow}>Book Now</button>
           <div className={styles.shareActions}>
             <button className={styles.shareBtn}>
               <i className="fas fa-share-alt"></i> Share

@@ -5,22 +5,32 @@ import {
   createOrUpdateSlots,
   deleteSlot,
   cancelBooking,
+  bookSlot,
+  generateSlotsForTurf,
 } from "../../../controllers/sports/Turf/slotController.js";
 
 const router = express.Router();
 
-router.use(authMiddleware);
+// ✅ Protect routes if needed
+// router.use(authMiddleware);
 
-// GET /api/slots?turfId=...&date=YYYY-MM-DD
-router.get("/", getSlotsByDateTurf);
+// ✅ Get all slots for a turf on a given date
+// Example: GET /api/slots/by-date?turfId=...&date=2025-08-17
+router.get("/by-date", getSlotsByDateTurf);
 
-// POST /api/slots (for creating/updating multiple slots)
-router.post("/", createOrUpdateSlots);
+// ✅ Generate slots for next 7 days (hourly IST slots for morning/afternoon/evening)
+router.post("/generate-slots", generateSlotsForTurf);
 
-// DELETE /api/slots/:slotId
-router.delete("/:slotId", deleteSlot);
+// ✅ Create or Update custom slots (manual override)
+router.post("/upsert", createOrUpdateSlots);
 
-// PATCH /api/slots/:slotId/cancel
+// ✅ Book a slot
+router.post("/:slotId/book", bookSlot);
+
+// ✅ Cancel booking
 router.patch("/:slotId/cancel", cancelBooking);
+
+// ✅ Delete slot completely
+router.delete("/:slotId", deleteSlot);
 
 export default router;

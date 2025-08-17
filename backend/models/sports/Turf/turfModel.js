@@ -24,20 +24,21 @@ const turfSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const slotSchema = new mongoose.Schema({
-  turf: { type: mongoose.Schema.Types.ObjectId, ref: "turfs", required: true },
-  date: { type: Date, required: true },
-  startTime: { type: String, required: true },
-  endTime: { type: String, required: true },
-  totalTickets: { type: Number, default: 1 },
-  bookedTickets: { type: Number, default: 0 },
-  price: { type: Number, required: true },
-  status: { type: String, default: "available" }, // available, booked, blocked
-  source: { type: String, default: null },
-  customerName: { type: String, default: null },
-}, { timestamps: true });
+  const slotSchema = new mongoose.Schema({
+    turf: { type: mongoose.Schema.Types.ObjectId, ref: "turfs", required: true },
+    date: { type: Date, required: true },
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
+    totalTickets: { type: Number, default: 1 },
+    bookedTickets: { type: Number, default: 0 },
+    price: { type: Number, required: true },
+    status: { type: String, default: "available" }, // available, booked, blocked
+    source: { type: String, default: null },
+    customerName: { type: String, default: null },
+  }, { timestamps: true });
+  slotSchema.index({ turf: 1, date: 1, startTime: 1 }, { unique: true });
 
-export const Turf = mongoose.model("turfs", turfSchema);
-export const Slot = mongoose.model("slots", slotSchema);
+  export const Turf = mongoose.model("turfs", turfSchema);
+  export const Slot = mongoose.model("slots", slotSchema);
 
 export default { Turf, Slot };

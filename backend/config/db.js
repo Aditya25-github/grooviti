@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-
+// import{ Slot } from "../models/sports/Turf/turfModel.js";
 export const connectDB = async () => {
   try {
     await mongoose.connect('mongodb+srv://adityadivate25:0101196625@cluster0.eyk0n.mongodb.net/GROOVITI');
     console.log("✅ MongoDB Connected");
-
+    // await Slot.deleteMany({}); // Clear all slots on startup
     // Keep-alive ping every 5 minutes
     setInterval(async () => {
       try {
