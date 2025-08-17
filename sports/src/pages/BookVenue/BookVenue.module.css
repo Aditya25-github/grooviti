@@ -1,0 +1,307 @@
+.bookingBg {
+  min-height: 100vh;
+  background: #232a3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookingBox {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 18px 44px rgba(20,30,50,0.18);
+  max-width: 660px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(90deg, #1e2747 70%, #41eba8 200%);
+  padding: 2.4rem 2rem 1rem 2rem;
+  text-align: center;
+  border-radius: 22px 22px 0 0;
+}
+
+.headerIcon {
+  font-size: 2.1rem;
+  background: #20d287;
+  display: inline-block;
+  border-radius: 100px;
+  color: white;
+  margin-bottom: 0.7rem;
+  padding: 8px;
+}
+
+.headerTitle {
+  color: white;
+  font-size: 1.48rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.5px;
+}
+.headerDesc {
+  color: #cfe6e7;
+  font-size: 1.02rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+.body {
+  padding: 2.4rem 2.4rem 2.2rem 2.4rem;
+  background: #fff;
+}
+
+.sectionTitle {
+  font-size: 1.15rem;
+  color: #252942;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  margin-bottom: 1.1rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: .42em;
+}
+
+/* Venue Details Layout */
+.flexRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.1rem;
+  margin-bottom: 1.4rem;
+  justify-content: flex-start;
+}
+
+.venueCard {
+  flex: 1 0 210px;
+  background: #f7fafd;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px 0 #181e2907;
+  max-width: 260px;
+  min-width: 200px;
+  min-height: 220px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.venueImg {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.venueInfoBlock {
+  padding: 1.1rem 1.2rem 1.07rem 1.2rem;
+  font-size: 1.06rem;
+}
+
+.venueName {
+  font-weight: 700;
+  font-size: 1.11rem;
+  color: #20243a;
+  margin-bottom: 0.19rem;
+}
+
+.venueAddress,
+.venueCapacity {
+  color: #566173;
+  font-size: 1.01rem;
+  margin-bottom: 0.16rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+}
+.venueCapacity {
+  margin-bottom: 0;
+}
+
+/* Venue Summary */
+.summaryCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 205px;
+  max-width: 275px;
+  flex: 1;
+  font-size: 1.03em;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.51rem;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  background: #f1f8fd;
+  margin-bottom: 0.08rem;
+}
+
+.summaryLabel {
+  color: #8fa5c6;
+  font-weight: 500;
+  font-size: 1.06rem;
+  flex: 1;
+}
+
+.summaryVal {
+  color: #21272e;
+  font-weight: 600;
+  font-size: 1.07rem;
+}
+
+.summaryPrice {
+  color: #282500;
+  background: #f9f7e2;
+  font-weight: 800;
+  font-size: 1.41rem;
+  border-radius: 7px;
+  padding: 0.13rem 1em;
+  margin-left: auto;
+  font-family: inherit;
+  min-width: 88px;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .flexRow {
+    flex-direction: column;
+    gap: 1.3rem;
+    align-items: stretch;
+  }
+  .summaryCol {
+    margin-left: 0;
+    max-width: 100%;
+    min-width: unset;
+  }
+  .bookingBox {
+    max-width: 98vw;
+    padding: 0;
+  }
+}
+
+.inputRow {
+  display: flex;
+  gap: 1.4rem;
+  margin-bottom: 1.35rem;
+}
+.fieldGroup {
+  flex: 1;
+}
+
+.inputIconBox {
+  display: flex;
+  align-items: center;
+  background: #f7fafd;
+  border-radius: 9px;
+  padding: 0.68rem 1.1rem;
+  border: 1.7px solid #e8eaf4;
+}
+
+.inputIcon {
+  color: #b8bccb;
+  font-size: 1.27em;
+  margin-right: 0.65rem;
+}
+
+.input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1.09rem;
+  flex: 1;
+  color: #24292e;
+  padding-right: 5px;
+}
+
+.input:disabled {
+  background: #ededed;
+  color: #bbb;
+}
+
+.errorMsg {
+  color: #fa5555;
+  margin-bottom: 1.2rem;
+  font-size: 1.04rem;
+  font-weight: 500;
+}
+
+.actionRow {
+  display: flex;
+  margin-top: 1.8rem;
+  gap: 1.4rem;
+  justify-content: flex-end;
+}
+
+.cancelBtn {
+  background: #eceef4;
+  color: #2b303b;
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem 2.1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.16s;
+  margin-right: 0.1rem;
+  box-shadow: 0 2px 6px #17192706;
+}
+.cancelBtn:hover {
+  background: #d5dae6;
+}
+
+.confirmBtn {
+  background: #18d77d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem 2.7rem;
+  font-size: 1.13rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px 0 #23c36919;
+  transition: background 0.22s;
+  display: flex;
+  align-items: center;
+  gap: .45em;
+}
+.confirmBtn:disabled {
+  background: #a4dbc7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .bookingBox {
+    max-width: 99vw;
+    padding: 0;
+  }
+  .body {
+    padding: 1.1rem 0.6rem 1rem 0.6rem;
+  }
+  .header {
+    padding: 1.3rem 0.4rem 1rem 0.4rem;
+  }
+  .venueCard {
+    max-width: 100vw;
+    min-width: 0;
+  }
+  .summaryCol {
+    max-width: 100vw;
+    min-width: 0;
+  }
+  .actionRow {
+    flex-direction: column-reverse;
+    gap: 0.8rem;
+    margin-top: 1.1rem;
+  }
+  .cancelBtn, .confirmBtn {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+  .inputRow {
+    flex-direction: column;
+    gap: 0.83rem;
+  }
+}

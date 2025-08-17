@@ -14,6 +14,7 @@ import AcademyDetails from "./pages/Academy/AcademyDetails.jsx";
 import PlayTogether from "./pages/PlayTogether/PlayTogether.jsx";
 import PlayTogetherDetails from "./pages/PlayTogether/PlayTogetherDetails.jsx";
 import MyProfile from "./pages/Profile/MyProfile.jsx";
+import BookVenue from "./pages/BookVenue/BookVenue.jsx";
 import "./App.css";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/playtogether" element={<PlayTogether />} />
           <Route path="/playtogether/:id" element={<PlayTogetherDetails />} />
           <Route path="/profile" element={<MyProfile />} />
+          <Route path="/bookvenue" element={<BookVenue />} />
         </Routes>
         <Footer />
         <ToastContainer

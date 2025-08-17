@@ -164,3 +164,24 @@ export const generateSlotsForTurf = async (req, res) => {
     res.status(500).json({ success: false, message: "Error generating slots", error: err.message });
   }
 };
+
+export const getSlotById = async (req, res) => {
+  try {
+    const { slotId } = req.params;
+    
+    // Safety: Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(slotId)) {
+      return res.status(400).json({ success: false, message: "Invalid slot ID" });
+    }
+
+    const slot = await Slot.findById(slotId);
+    if (!slot) {
+      return res.status(404).json({ success: false, message: "Slot not found" });
+    }
+
+    res.json({ success: true, slot }); // Consistent with your API
+  } catch (err) {
+    console.error("Error fetching slot:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

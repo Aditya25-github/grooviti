@@ -7,6 +7,7 @@ import {
   cancelBooking,
   bookSlot,
   generateSlotsForTurf,
+  getSlotById,
 } from "../../../controllers/sports/Turf/slotController.js";
 
 const router = express.Router();
@@ -24,8 +25,12 @@ router.post("/generate-slots", generateSlotsForTurf);
 // ✅ Create or Update custom slots (manual override)
 router.post("/upsert", createOrUpdateSlots);
 
+router.get("/:slotId", getSlotById);
+
 // ✅ Book a slot
 router.post("/:slotId/book", bookSlot);
+
+
 
 // ✅ Cancel booking
 router.patch("/:slotId/cancel", cancelBooking);

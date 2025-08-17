@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import styles from './VenueDetails.module.css';
+import styles from "./VenueDetails.module.css";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 
@@ -10,7 +10,7 @@ const fallbackImages = [
   'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop'
 ];
 
-// helper: always "YYYY-MM-DD"
+// Helper function to get "YYYY-MM-DD" format date string in local time
 const toLocalYMD = (d) => {
   const tz = d.getTimezoneOffset();
   const local = new Date(d.getTime() - tz * 60000);
@@ -22,7 +22,7 @@ const VenueDetails = () => {
   const navigate = useNavigate();
   const { url } = useContext(StoreContext);
 
-  // next 7 days
+  // Precompute next 7 days for date selection
   const next7Days = useMemo(() => {
     const days = [];
     const start = new Date();
@@ -41,7 +41,7 @@ const VenueDetails = () => {
     return days;
   }, []);
 
-  // state
+  // Component state
   const [selectedDate, setSelectedDate] = useState(() => toLocalYMD(new Date()));
   const [venue, setVenue] = useState(null);
   const [slots, setSlots] = useState([]);
@@ -51,25 +51,25 @@ const VenueDetails = () => {
   const [selectedSport, setSelectedSport] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // fetch venue
+  // Fetch venue details
   useEffect(() => {
     const fetchVenue = async () => {
       try {
-        let backendVenue = null;
+        let fetchedVenue = null;
         try {
           const res = await axios.get(`${url}/api/turfs/${id}`);
-          backendVenue = res.data.turf || res.data;
+          fetchedVenue = res.data.turf || res.data;
         } catch {
           const res = await axios.get(`${url}/api/turfs/all`);
-          backendVenue = res.data.turfs?.find(t => t._id === id);
+          fetchedVenue = res.data.turfs?.find(t => t._id === id);
         }
-        setVenue(backendVenue || null);
+        setVenue(fetchedVenue || null);
 
-        if (backendVenue) {
-          if (backendVenue.sports && Object.keys(backendVenue.sports).length) {
-            setSelectedSport(Object.keys(backendVenue.sports)[0]);
-          } else if (backendVenue.turfType) {
-            setSelectedSport(backendVenue.turfType);
+        if (fetchedVenue) {
+          if (fetchedVenue.sports && Object.keys(fetchedVenue.sports).length) {
+            setSelectedSport(Object.keys(fetchedVenue.sports)[0]);
+          } else if (fetchedVenue.turfType) {
+            setSelectedSport(fetchedVenue.turfType);
           }
         }
       } catch {
@@ -79,30 +79,22 @@ const VenueDetails = () => {
     fetchVenue();
   }, [id, url]);
 
-  // fetch slots when venue/date change
+  // Fetch available slots for selected venue and date
   useEffect(() => {
     if (!venue?._id || !selectedDate) return;
     const fetchSlots = async () => {
       try {
         setLoadingSlots(true);
         setErrorSlots("");
-        console.log("Fetching slots with:", {
-          turfId: venue._id,
-          date: selectedDate,
-        });
         const res = await axios.get(`${url}/api/slots/by-date`, {
           params: { turfId: venue._id, date: selectedDate },
         });
-        console.log("Raw slot response:", res.data);
-
-        // handle if backend sends {slots: []}
         const data = Array.isArray(res.data)
           ? res.data
           : res.data.slots || [];
         setSlots(data);
-      } catch (e) {
+      } catch {
         setErrorSlots("Failed to load slots");
-        console.error("Error fetching slots:", e);
       } finally {
         setLoadingSlots(false);
       }
@@ -110,9 +102,10 @@ const VenueDetails = () => {
     fetchSlots();
   }, [venue, selectedDate, url]);
 
-  // reset image index
+  // Reset image index on venue change
   useEffect(() => {
     setCurrentImageIndex(0);
+    setSelectedTimeSlot('');  // Reset selected slot on venue change for clarity
   }, [venue]);
 
   if (!venue) {
@@ -133,9 +126,11 @@ const VenueDetails = () => {
     (venue.image ? [venue.image] : fallbackImages);
 
   const numImages = images.length;
+
+  // Image navigation with wrapping
   const nextImage = () => setCurrentImageIndex(i => (i + 1) % numImages);
   const prevImage = () => setCurrentImageIndex(i => (i - 1 + numImages) % numImages);
-  const handleIndicatorClick = (idx) => setCurrentImageIndex(idx);
+  const handleIndicatorClick = idx => setCurrentImageIndex(idx);
 
   const sports = venue.sports && Object.keys(venue.sports).length
     ? venue.sports
@@ -155,24 +150,39 @@ const VenueDetails = () => {
   const handleTimeSlotSelect = (slotId) => setSelectedTimeSlot(slotId);
   const handleSportSelect = (sport) => setSelectedSport(sport);
 
+  // Keyboard nav for image slider
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") prevImage();
     if (e.key === "ArrowRight") nextImage();
   };
 
+  // Book Now action: navigate to booking page with selection passed in params
   const handleBookNow = () => {
     if (!selectedDate || !selectedTimeSlot) {
       alert("Please select a date and a slot first.");
       return;
     }
     navigate(
-      `/book?turfId=${venue._id}&slotId=${selectedTimeSlot}&date=${selectedDate}&sport=${encodeURIComponent(selectedSport)}`
+      `/bookvenue?turfId=${venue._id}&slotId=${selectedTimeSlot}&date=${selectedDate}&sport=${encodeURIComponent(selectedSport)}`
     );
   };
+
+  // Slot button helper: check availability
+  const isSlotAvailable = (slot) =>
+    slot.status === "available" && (slot.bookedTickets ?? 0) < (slot.totalTickets ?? 1);
+
+  // Format time helper
+  const formatTime = (dateStr) => {
+    const d = new Date(dateStr);
+    return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className={styles.container}>
-      {/* Hero Image Section */}
-      <section className={styles.heroSection}>
+      {/* Hero Image Section with arrows and indicators */}
+      <section
+        className={styles.heroSection}
+      >
         <div
           className={styles.imageContainer}
           tabIndex={0}
@@ -188,20 +198,18 @@ const VenueDetails = () => {
           <button
             className={styles.prevBtn}
             onClick={prevImage}
-            aria-label="Previous"
+            aria-label="Previous image"
             disabled={numImages < 2}
-            tabIndex={0}
-            style={numImages < 2 ? { opacity: 0.4, pointerEvents:'none' } : undefined}
+            style={numImages < 2 ? { opacity: 0.4, pointerEvents: 'none' } : undefined}
           >
             <i className="fas fa-chevron-left"></i>
           </button>
           <button
             className={styles.nextBtn}
             onClick={nextImage}
-            aria-label="Next"
+            aria-label="Next image"
             disabled={numImages < 2}
-            tabIndex={0}
-            style={numImages < 2 ? { opacity: 0.4, pointerEvents:'none' } : undefined}
+            style={numImages < 2 ? { opacity: 0.4, pointerEvents: 'none' } : undefined}
           >
             <i className="fas fa-chevron-right"></i>
           </button>
@@ -212,8 +220,8 @@ const VenueDetails = () => {
                 className={`${styles.indicator} ${idx === currentImageIndex ? styles.active : ''}`}
                 onClick={() => handleIndicatorClick(idx)}
                 aria-label={`Go to image ${idx + 1}`}
-                tabIndex={0}
-                style={numImages < 2 ? { opacity: 0.4, pointerEvents:'none' } : undefined}
+                disabled={numImages < 2}
+                style={numImages < 2 ? { opacity: 0.4, pointerEvents: 'none' } : undefined}
               />
             ))}
           </div>
@@ -245,23 +253,23 @@ const VenueDetails = () => {
         </div>
       </section>
 
+      {/* Main Content Section */}
       <div className={styles.mainContent}>
+        {/* Date selection */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-clock"></i> Venue Timing
           </h2>
-
-          {/* Date blocks (next 7 days) */}
           <div>
             <h4>Select a Date</h4>
             <div className={styles.timeSlots}>
-              {next7Days.map((d) => (
+              {next7Days.map(d => (
                 <button
                   key={d.value}
-                  className={`${styles.timeSlot} ${selectedDate === d.value ? styles.selected : ""}`}
+                  className={`${styles.timeSlot} ${selectedDate === d.value ? styles.selected : ''}`}
                   onClick={() => {
                     setSelectedDate(d.value);
-                    setSelectedTimeSlot("");
+                    setSelectedTimeSlot('');
                   }}
                   type="button"
                 >
@@ -271,7 +279,7 @@ const VenueDetails = () => {
             </div>
           </div>
 
-          {/* Slots from backend */}
+          {/* Slots for selected date */}
           <div className={styles.timingContainer}>
             <div className={styles.timingCategory}>
               <h4>Available Slots</h4>
@@ -283,38 +291,31 @@ const VenueDetails = () => {
                 <p>No slots for {selectedDate}. Try another date.</p>
               ) : (
                 <div className={styles.timeSlots}>
-                  {slots.map((slot) => {
-  const isAvailable =
-    slot.status === "available" &&
-    (slot.bookedTickets ?? 0) < (slot.totalTickets ?? 1);
-
-  // Convert slot times to 24-hour HH:mm
-  const start = new Date(slot.startTime);
-  const end = new Date(slot.endTime);
-  const formatTime = (d) =>
-    `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
-
-  return (
-    <button
-      key={slot._id}
-      className={`${styles.timeSlot} ${selectedTimeSlot === slot._id ? styles.selected : ""} ${!isAvailable ? styles.unavailableSlot : ""}`}
-      onClick={() => isAvailable && handleTimeSlotSelect(slot._id)}
-      type="button"
-      disabled={!isAvailable}
-      title={`${formatTime(start)} – ${formatTime(end)}`}
-    >
-      {formatTime(start)} – {formatTime(end)}
-      {!isAvailable ? " (Unavailable)" : ""}
-    </button>
-  );
-})}
-
+                  {slots.map(slot => {
+                    const available = isSlotAvailable(slot);
+                    const startTimeFormatted = formatTime(slot.startTime);
+                    const endTimeFormatted = formatTime(slot.endTime);
+                    return (
+                      <button
+                        key={slot._id}
+                        className={`${styles.timeSlot} ${selectedTimeSlot === slot._id ? styles.selected : ''} ${!available ? styles.unavailableSlot : ''}`}
+                        onClick={() => available && handleTimeSlotSelect(slot._id)}
+                        disabled={!available}
+                        title={`${startTimeFormatted} – ${endTimeFormatted}`}
+                        type="button"
+                      >
+                        {startTimeFormatted} – {endTimeFormatted}
+                        {!available ? " (Unavailable)" : ""}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
           </div>
         </section>
 
+        {/* Sports & Pricing */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-futbol"></i> Available Sports & Pricing
@@ -344,6 +345,7 @@ const VenueDetails = () => {
           </div>
         </section>
 
+        {/* Location */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-map-marker-alt"></i> Location
@@ -363,14 +365,15 @@ const VenueDetails = () => {
           </div>
         </section>
 
+        {/* Amenities */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-star"></i> Amenities
           </h2>
           <div className={styles.amenitiesGrid}>
-            {amenities.map((amenity, index) => (
+            {amenities.map((amenity, idx) => (
               <div
-                key={index}
+                key={idx}
                 className={`${styles.amenityItem} ${!amenity.available ? styles.unavailable : ''}`}
               >
                 <i className={`${amenity.icon} ${styles.amenityIcon}`}></i>
@@ -381,6 +384,7 @@ const VenueDetails = () => {
           </div>
         </section>
 
+        {/* Reviews & Ratings */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>
             <i className="fas fa-star"></i> Reviews & Ratings
@@ -417,6 +421,7 @@ const VenueDetails = () => {
         </section>
       </div>
 
+      {/* Sticky Quick Booking Card */}
       <div className={styles.stickyQuickBooking}>
         <div className={styles.quickBookingCard}>
           <h3>Quick Book</h3>
