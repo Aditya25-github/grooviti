@@ -14,30 +14,54 @@ const TIMEZONE = "Asia/Kolkata"; // IST
 // --- Book a slot ---
 export const bookSlot = async (req, res) => {
   const { slotId } = req.params;
-  const { customerName, source = "web" } = req.body;
+
+  // The userId should come from req.user.id (your auth middleware sets req.user = { id: ... })
+  const userId = req.user?.id;
+
+  const { customerName, source = "web", phone } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(slotId)) {
     return res.status(400).json({ success: false, message: "Invalid slotId" });
   }
-
-  const updated = await Slot.findOneAndUpdate(
-    {
-      _id: slotId,
-      status: "available",
-      $expr: { $lt: ["$bookedTickets", "$totalTickets"] },
-    },
-    {
-      $inc: { bookedTickets: 1 },
-      $set: { status: "booked", customerName: customerName ?? null, source },
-    },
-    { new: true }
-  );
-
-  if (!updated) {
-    return res.status(409).json({ success: false, message: "Slot no longer available" });
+  if (!userId) {
+    return res.status(401).json({ success: false, message: "User is not authenticated" });
   }
 
-  return res.json({ success: true, slot: updated });
+  // For extra safety, check required fields
+  if (!customerName) {
+    return res.status(400).json({ success: false, message: "customerName is required" });
+  }
+
+  try {
+    const updated = await Slot.findOneAndUpdate(
+      {
+        _id: slotId,
+        status: "available",
+        $expr: { $lt: ["$bookedTickets", "$totalTickets"] },
+        // Remove "userId: null" — you want to update the slot with the booking user!
+      },
+      {
+        $inc: { bookedTickets: 1 },
+        $set: {
+          status: "booked",
+          customerName: customerName ?? null,
+          source,
+          userId, // Store the current user's ID
+          phone: phone ?? null,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(409).json({ success: false, message: "Slot no longer available" });
+    }
+
+    return res.json({ success: true, slot: updated });
+  } catch (err) {
+    console.error("bookSlot error:", err);
+    return res.status(500).json({ success: false, message: "Server error", error: err.message });
+  }
 };
 
 // --- Get slots by Turf & Date (IST) ---

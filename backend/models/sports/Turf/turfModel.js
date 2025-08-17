@@ -25,18 +25,20 @@ const turfSchema = new mongoose.Schema(
 );
 
   const slotSchema = new mongoose.Schema({
-    turf: { type: mongoose.Schema.Types.ObjectId, ref: "turfs", required: true },
-    date: { type: Date, required: true },
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
-    totalTickets: { type: Number, default: 1 },
-    bookedTickets: { type: Number, default: 0 },
-    price: { type: Number, required: true },
-    status: { type: String, default: "available" }, // available, booked, blocked
-    source: { type: String, default: null },
-    customerName: { type: String, default: null },
-  }, { timestamps: true });
-  slotSchema.index({ turf: 1, date: 1, startTime: 1 }, { unique: true });
+  turf: { type: mongoose.Schema.Types.ObjectId, ref: "turfs", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "users", required: false }, // NOT required for open slots!
+  date: { type: Date, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
+  totalTickets: { type: Number, default: 1 },
+  bookedTickets: { type: Number, default: 0 },
+  price: { type: Number, required: true },
+  status: { type: String, default: "available" },
+  source: { type: String, default: null },
+  customerName: { type: String, default: null },
+  phone: { type: String, default: null }, // add this if desired
+}, { timestamps: true });
+slotSchema.index({ turf: 1, date: 1, startTime: 1 }, { unique: true });
 
   export const Turf = mongoose.model("turfs", turfSchema);
   export const Slot = mongoose.model("slots", slotSchema);

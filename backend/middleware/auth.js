@@ -7,7 +7,7 @@ const authMiddleware = async (req, res, next) => {
     if (!authHeader?.startsWith('Bearer ')) {
       return res.status(401).json({
         success: false,
-        message: "No token provided or malformed authorization header"
+        message: "!!No token provided or malformed authorization header!!"
       });
     }
 

@@ -23,19 +23,19 @@ router.get("/by-date", getSlotsByDateTurf);
 router.post("/generate-slots", generateSlotsForTurf);
 
 // ✅ Create or Update custom slots (manual override)
-router.post("/upsert", createOrUpdateSlots);
+router.post("/upsert", authMiddleware, createOrUpdateSlots);
 
 router.get("/:slotId", getSlotById);
 
 // ✅ Book a slot
-router.post("/:slotId/book", bookSlot);
+router.post("/:slotId/book",authMiddleware, bookSlot);
 
 
 
 // ✅ Cancel booking
-router.patch("/:slotId/cancel", cancelBooking);
+router.patch("/:slotId/cancel", authMiddleware, cancelBooking);
 
 // ✅ Delete slot completely
-router.delete("/:slotId", deleteSlot);
+router.delete("/:slotId", authMiddleware, deleteSlot);
 
 export default router;

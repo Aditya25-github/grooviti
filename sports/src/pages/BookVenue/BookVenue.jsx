@@ -13,12 +13,12 @@ export default function BookVenue() {
   const navigate = useNavigate();
   const { url } = useContext(StoreContext);
 
+  const token = localStorage.getItem("token");
   const turfId = params.get("turfId");
   const slotId = params.get("slotId");
   const date = params.get("date");
   const sport = params.get("sport");
-
-  // Optionally: fetch venue details by turfId 
+  // Optionally: fetch venue details by turfId
   const [venue, setVenue] = useState(null);
   useEffect(() => {
     if (!turfId) return;
@@ -71,11 +71,11 @@ export default function BookVenue() {
     setErr("");
     setSubmitting(true);
     try {
-      const res = await axios.post(`${url}/api/slots/${slotId}/book`, {
-        customerName,
-        phone,
-        source: "web",
-      });
+      const res = await axios.post(
+        `${url}/api/slots/${slotId}/book`,
+        { customerName, phone, source: "web" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       if (res.data?.success) {
         alert("Booking confirmed!");
         // navigate(`/confirmation?slotId=${slotId}`);
