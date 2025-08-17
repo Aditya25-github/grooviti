@@ -1,39 +1,33 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./TurfNearest.module.css";
-import turf1 from "../../assets/sports_assets/turf1.png";
-import cricketturf from "../../assets/sports_assets/cricketturf.png";
-import turf3 from "../../assets/sports_assets/turf3.png";
 import { useNavigate } from "react-router-dom";
-
-const Venues = [
-  {
-    name: "Elite Cricket Ground",
-    description: "Professional cricket turf with modern facilities",
-    price: "₹800/hr",
-    buttonLabel: "Book Now",
-    image: turf3
-  },
-  {
-    name: "Aqua Sports Complex",
-    description: "Olympic-size swimming pool with changing rooms",
-    price: "₹200/hr",
-    buttonLabel: "Book Now",
-    image: cricketturf
-  },
-  {
-    name: "Shuttle Pro Courts",
-    description: "Air-conditioned badminton courts with equipment",
-    price: "₹400/hr",
-    buttonLabel: "Book Now",
-    image: turf3
-  }
-];
-
+import axios from "axios";
+import { StoreContext } from "../../context/StoreContext";
 const TurfNearest = () => {
   const navigate = useNavigate();
-
+  const [turfs, setTurfs] = useState([]);
+  const { url } = useContext(StoreContext);
+  useEffect(() => {
+    const fetchTurfs = async () => {
+      try {
+        const res = await axios.get(`${url}/api/turfs/all`);
+        if (res.data.success && Array.isArray(res.data.turfs)) {
+          // Only take first 3 turfs
+          setTurfs(res.data.turfs.slice(0, 3));
+        } else {
+          setTurfs([]);
+        }
+      } catch {
+        setTurfs([]);
+      }
+    };
+    fetchTurfs();
+  }, [url]);
+  const handleVenueClick = (venueId) => {
+    navigate(`/venues/${venueId}`);
+  };
   const handleExploreMore = () => {
-    navigate('/venues');
+    navigate("/venues");
   };
 
   return (
@@ -41,24 +35,24 @@ const TurfNearest = () => {
       <div className={styles.titleContainer}>
         <h2 className={styles.sectionTitle}>Turfs Near You</h2>
       </div>
-      
+
       <div className={styles.glassContainer}>
         <div className={styles.venuesContainer}>
-          {Venues.map((venue, index) => (
-            <div key={index} className={styles.venueCard}>
+          {turfs.map((turf) => (
+            <div key={turf._id} className={styles.venueCard}>
               <div className={styles.imageContainer}>
-                <img 
-                  src={venue.image} 
-                  alt={venue.name} 
+                <img
+                  src={turf.image || "https://via.placeholder.com/400x300?text=Venue"}
+                  alt={turf.name}
                   className={styles.venueImage}
                 />
               </div>
-              <div className={styles.venueContent}>
-                <h3 className={styles.venueName}>{venue.name}</h3>
-                <p className={styles.venueDescription}>{venue.description}</p>
+              <div className={styles.venueContent} onClick={() => handleVenueClick(turf._id)}>
+                <h3 className={styles.venueName}>{turf.name}</h3>
+                <p className={styles.venueDescription}>{turf.description}</p>
                 <div className={styles.venueFooter}>
-                  <span className={styles.venuePrice}>{venue.price}</span>
-                  <button className={styles.bookButton}>{venue.buttonLabel}</button>
+                  <span className={styles.venuePrice}>₹{turf.pricePerHour || "N/A"}/hr</span>
+                  <button className={styles.bookButton} onClick={() => handleVenueClick(turf._id)}>Book Now</button>
                 </div>
               </div>
             </div>

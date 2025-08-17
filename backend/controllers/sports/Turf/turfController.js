@@ -113,14 +113,14 @@ export const createTurf = async (req, res) => {
 };
 
 // Will use this when I will give acess to superAdmin Panel
-// export const getAllTurfs = async (req, res) => {
-//   try {
-//     const turfs = await Turf.find().sort({ createdAt: -1 });
-//     res.status(200).json({ success: true, turfs });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+export const getAllTurfs = async (req, res) => {
+  try {
+    const turfs = await Turf.find().sort({ createdAt: -1 });
+    res.status(200).json({ success: true, turfs });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const getTurfs = async (req, res) => {
   try {

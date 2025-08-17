@@ -6,6 +6,7 @@ import {
   getTurfById,
   updateTurf,
   deleteTurf,
+  getAllTurfs,
 } from "../../../controllers/sports/Turf/turfController.js";
 import authMiddleware from "../../../middleware/auth.js";
 import { uploadTurfImage } from "../../../middleware/upload.js";
@@ -26,6 +27,7 @@ router.post(
   createTurf
 );
 router.get("/", authMiddleware, getTurfs);
+router.get("/all", getAllTurfs);
 router.get("/:id", getTurfById);
 
 router.put(
