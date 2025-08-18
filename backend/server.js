@@ -27,6 +27,8 @@ import pccoerRoutes from "./routes/pccoerRoutes.js";
 // 📦 App Configuration
 // ==============================
 dotenv.config();
+
+
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -35,6 +37,8 @@ const uploadsPath = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath);
 }
+
+
 
 // ==============================
 // 🚀 Create HTTP Server & Socket.io
@@ -84,6 +88,43 @@ app.use("/uploads", express.static("uploads"));
 // 🔌 Connect MongoDB
 // ==============================
 connectDB();
+
+import { Slot } from "./models/sports/Turf/turfModel.js";
+const SLOT_EXPIRY_INTERVAL = 60 * 5 * 1000; // Check every 5 minutes
+
+const releaseExpiredSlots = async () => {
+  try {
+    const now = new Date();
+    console.log(`Checking for expired slots at ${now.toISOString()}`);
+    const expiredSlots = await Slot.updateMany(
+      {
+        status: "confirming",
+        paymentExpiresAt: { $lt: now }
+      },
+      {
+        $set: {
+          status: "available",
+          userId: null,
+          paymentOrderId: null,
+          paymentExpiresAt: null,
+          confirmingStartedAt: null,
+          customerName: null,
+          phone: null,
+          source: null,
+          bookedTickets: 0
+        }
+      }
+    );
+    if (expiredSlots.modifiedCount > 0) {
+      console.log(`Released ${expiredSlots.modifiedCount} expired slots back to available`);
+    }
+  } catch (err) {
+    console.error("Error releasing expired slots:", err);
+  }
+};
+
+// Run the cleanup every minute
+setInterval(releaseExpiredSlots, SLOT_EXPIRY_INTERVAL);
 
 // ==============================
 // 🚏 API Routes
@@ -155,6 +196,9 @@ app.get("/api/reverse-geocode", async (req, res) => {
     res.status(500).json({ error: "Reverse geocoding failed" });
   }
 });
+
+
+
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

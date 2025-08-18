@@ -8,6 +8,8 @@ import {
   bookSlot,
   generateSlotsForTurf,
   getSlotById,
+  holdSlotForPayment,
+  confirmPayment,
 } from "../../../controllers/sports/Turf/slotController.js";
 
 const router = express.Router();
@@ -27,10 +29,14 @@ router.post("/upsert", authMiddleware, createOrUpdateSlots);
 
 router.get("/:slotId", getSlotById);
 
+// ✅ Hold a slot for payment
+router.post("/:slotId/hold", authMiddleware, holdSlotForPayment);
+
 // ✅ Book a slot
 router.post("/:slotId/book",authMiddleware, bookSlot);
 
-
+// ✅ Confirm payment
+router.post("/:slotId/confirmPayment", authMiddleware, confirmPayment);
 
 // ✅ Cancel booking
 router.patch("/:slotId/cancel", authMiddleware, cancelBooking);

@@ -64,31 +64,89 @@ export default function BookVenue() {
   };
 
   const handleConfirm = async () => {
-    if (!customerName.trim() || !phone.trim()) {
-      setErr("Please enter your full name and phone.");
-      return;
-    }
-    setErr("");
-    setSubmitting(true);
-    try {
-      const res = await axios.post(
-        `${url}/api/slots/${slotId}/book`,
-        { customerName, phone, source: "web" },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (res.data?.success) {
-        alert("Booking confirmed!");
-        // navigate(`/confirmation?slotId=${slotId}`);
-        navigate(`/venues/${turfId}`);
-      } else {
-        setErr(res.data?.message || "Booking failed");
+  if (!customerName.trim() || !phone.trim()) {
+    setErr("Please enter your full name and phone.");
+    return;
+  }
+  setErr("");
+  setSubmitting(true);
+
+  try {
+    // Step 1: Hold slot, get Razorpay order from backend
+    const holdRes = await axios.post(
+      `${url}/api/slots/${slotId}/hold`,
+      { customerName, phone },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (!holdRes.data.success) throw new Error("Unable to hold slot.");
+
+    const { order } = holdRes.data;
+
+    // Step 2: Open Razorpay modal
+    const options = {
+      key: "rzp_live_46Ch3IQvMWEQnp", // <-- Use your Razorpay PUBLIC KEY here
+      amount: order.amount,
+      currency: order.currency,
+      name: "Venue Booking",
+      description: "Venue booking payment",
+      order_id: order.id,
+      handler: async function (paymentResponse) {
+        clearTimeout(autoCloseTimer); // Clear timer on payment success
+        try {
+          const confirmRes = await axios.post(
+            `${url}/api/slots/${slotId}/confirmPayment`,
+            {
+              paymentId: paymentResponse.razorpay_payment_id,
+              orderId: paymentResponse.razorpay_order_id,
+              signature: paymentResponse.razorpay_signature,
+              customerName,
+              phone,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (confirmRes.data.success) {
+            alert("Booking confirmed!");
+            navigate(`/booking-confirmed/${slotId}`);
+          } else {
+            setErr(confirmRes.data.message || "Payment not confirmed.");
+          }
+        } catch (e) {
+          setErr("Payment confirmation failed.");
+          console.error("Payment confirmation error:", e);
+        } finally {
+          setSubmitting(false);
+        }
+      },
+      prefill: {
+        name: customerName,
+        contact: phone,
+      },
+      theme: { color: "#18d77d" },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+    // Set up timer to auto-close Razorpay modal after 5 minutes
+    const autoCloseTimer = setTimeout(() => {
+      if (rzp.close) {
+        rzp.close();
+        alert("Payment session expired. Please rebook your slot.");
+        setSubmitting(false);
       }
-    } catch (e) {
-      setErr(e?.response?.data?.message || "Something went wrong. Please try again.");
-    } finally {
+    }, 5 * 60 * 1000); // 5 minutes in ms
+
+    // Clear timer and handle error on payment failure
+    rzp.on('payment.failed', function (response) {
+      clearTimeout(autoCloseTimer);
+      setErr("Payment failed: " + response.error.description);
       setSubmitting(false);
-    }
-  };
+    });
+  } catch (e) {
+    setErr("Could not initiate payment. " + (e.message || ""));
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className={styles.bookingBg}>

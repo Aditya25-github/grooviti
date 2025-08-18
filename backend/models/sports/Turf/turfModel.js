@@ -37,6 +37,9 @@ const turfSchema = new mongoose.Schema(
   source: { type: String, default: null },
   customerName: { type: String, default: null },
   phone: { type: String, default: null }, // add this if desired
+  paymentOrderId: { type: String, default: null },
+  paymentExpiresAt: { type: Date, default: null },
+  confirmingStartedAt: { type: Date, default: null },
 }, { timestamps: true });
 slotSchema.index({ turf: 1, date: 1, startTime: 1 }, { unique: true });
 
