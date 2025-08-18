@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { StoreContext } from "../../context/StoreContext";
 import { useParams } from "react-router-dom";
 import styles from "./BookingConfirmed.module.css";
 
@@ -7,16 +8,17 @@ import styles from "./BookingConfirmed.module.css";
 const qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=SampleTicketVerificationCode";
 
 const BookingConfirmedPage = () => {
+   const { url } = useContext(StoreContext);
   const { slotId } = useParams();
   const [slot, setSlot] = useState(null);
-
+  console.log("BookingConfirmedPage - slotId:", slotId);
   useEffect(() => {
     // Fetch slot booking details
     axios
-      .get(`/api/slots/${slotId}`)
+      .get(`${url}/api/slots/${slotId}`)
       .then((res) => setSlot(res.data.slot))
       .catch(() => setSlot(null));
-  }, [slotId]);
+  }, [slotId, url]);
 
   if (!slot)
     return (
@@ -102,9 +104,9 @@ const BookingConfirmedPage = () => {
           <div className={styles.infoBox}>
             <b>Important Information</b>
             <ul>
-              <li>Please arrive 30 minutes before your scheduled time</li>
+              <li>Please arrive 15 minutes before your scheduled time</li>
               <li>Present this ticket and valid ID for entry</li>
-              <li>Cancellation policy: 48 hours advance notice required</li>
+              <li>Cancellation policy: 24 hours advance notice required</li>
             </ul>
           </div>
 
