@@ -1,215 +1,155 @@
+/* Wrapper */
 .homepage {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(11, 0, 26);
-}
-.rotateContainer {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-}
-
-.wordWrapper {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-.heroSection {
   display: flex;
   flex-direction: column;
-  width: 1440px;
-  height:800px;
-margin-top: 5rem;
-  align-items: center;
-  justify-content: center;
-  min-height: 40vh;
-  padding-top: 0rem;
-  padding-bottom: 1rem;
-  background: transparent;
+  min-height: 100vh;
+  width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+  background-color: rgb(11, 0, 26);
+  overflow-x: hidden;
+  padding-inline: clamp(1rem, 3vw, 2rem);
 }
 
+/* Hero */
+.heroSection {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100vh;
+  min-height: 80vh;
+  background: transparent;
+  /* IMPORTANT: allow text to render fully at edges */
+  overflow: visible;
+}
+
+/* Floating ornaments (unchanged) */
+.floatingElements { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.floatingCircle1, .floatingCircle2, .floatingCircle3 {
+  position: absolute; border-radius: 50%; opacity: 0.12; filter: blur(2px);
+}
+.floatingCircle1 { width: clamp(180px, 18vw, 300px); height: clamp(180px, 18vw, 300px);
+  background: linear-gradient(45deg, #7bff67, #5227ff); top: 10%; left: 10%;
+  animation: float 15s ease-in-out infinite; }
+.floatingCircle2 { width: clamp(140px, 14vw, 220px); height: clamp(140px, 14vw, 220px);
+  background: linear-gradient(45deg, #b19eef, #7bff67); top: 60%; right: 15%;
+  animation: float 12s ease-in-out infinite reverse; }
+.floatingCircle3 { width: clamp(120px, 12vw, 180px); height: clamp(120px, 12vw, 180px);
+  background: linear-gradient(45deg, #5227ff, #b19eef); bottom: 20%; left: 20%;
+  animation: float 18s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform: translateY(0) translateX(0) rotate(0deg);} 50%{transform: translateY(-26px) translateX(18px) rotate(8deg);} }
+
+/* Content container must not clip lines */
+.heroContent {
+  z-index: 1;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  overflow: visible; /* prevent right-edge clipping */
+}
+.heroContent.visible { opacity: 1; transform: translateY(0); }
+
+/* Title fixes: allow wrapping and no clipping */
 .heroTitle {
   color: #fff;
-  margin-top: 11vh;
-  font-size: 6.8rem;
+  margin: clamp(0.5rem, 2vh, 1rem) 0 0;
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
   font-weight: 800;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0px;
+  letter-spacing: -0.01em;
   text-align: center;
-  font-family:'Courier New', Courier, monospace;
-  position: relative;
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  line-height: 1.05;
+  overflow: visible;          /* key: show final characters fully */
+  text-overflow: clip;        /* explicit */
+  white-space: normal;        /* allow line wrap */
+  word-break: normal;
+  overflow-wrap: anywhere;    /* soft wrap if space gets tight */
+  hyphens: auto;              /* optional hyphenation */
+} /* prevents truncation of last word [2][1][3] */
+
+/* Rotating word should not be clipped by its own wrapper */
+.rotatingText {
+  display: inline-block;
+  vertical-align: middle;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  line-height: 1.05;          /* match title line height */
+  overflow: visible;          /* avoid clipping during animation */
+  white-space: nowrap;        /* keep single word intact */
 }
-.heroSubtitle span {
-    display: inline;
-  }
+.rotatingTextSplit {
+  display: inline-block;
+  overflow: visible;          /* avoid hidden clipping windows */
+  padding-bottom: 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .heroSubtitle {
   color: #cecece;
-  margin-left: 30vh;
-  margin-top: 3.4rem;
-  font-size: 4.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  margin-top: clamp(0.75rem, 2.5vh, 1.5rem);
+  font-size: clamp(1.25rem, 3.2vw, 2.4rem);
+  font-weight: 650;
   display: inline-flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.shiny-text {
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    color: inherit;
-    letter-spacing: inherit;
-    display: inline;
-    margin: 0;
-    padding: 0;
-    line-height: inherit;
-  }
+.heroSubtitle span { display: inline; }
+.shiny-text { font: inherit; color: inherit; letter-spacing: inherit; line-height: inherit; display: inline; }
 
 .heroSlogan {
   color: #fff;
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  letter-spacing: 0.08em;
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
   margin-bottom: 0;
-  text-align: center;
-  margin-top: 25vh;
-  
-}
-/* Add these new rules at the BOTTOM of your Home.module.css */
-
-.rotatingText {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: inherit;
-    font-family: 'Courier New', Courier, monospace;
-    font-family: inherit;
-    font-weight: inherit;
-    color: inherit;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    
-  }
-  
-  .rotatingTextSplit {
-    display: inline-block;
-    overflow: hidden;
-    padding-bottom: 0;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  /* Ensure the rotating text inherits heroTitle styles */
-  .heroTitle .rotatingText {
-    font-size: 6.8rem;
-    margin-bottom: 0px;
-    font-weight: 700;
-    letter-spacing: 0px;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-/* Sports Section */
-.sportsSection {
-    padding: 2rem;
-    margin-top: 2rem;
-    text-align: center;
+  opacity: 0.9;
 }
 
-.sportsHeading {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #333;
+/* CTA */
+.ctaContainer { display: flex; justify-content: center; margin-top: clamp(1rem, 3vh, 1.5rem); }
+.ctaPrimary {
+  background: linear-gradient(45deg, #7bff67, #5227ff);
+  color: #ffffff;
+  border: none;
+  padding: clamp(0.9rem, 2.2vw, 1.1rem) clamp(1.6rem, 3.2vw, 2.4rem);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 180ms ease, filter 160ms ease;
+  box-shadow: 0 8px 24px rgba(82, 39, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
 }
-
-.sportsContainer {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 5rem;
-    padding: 0 1rem;
+.ctaPrimary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(82,39,255,0.45); filter: brightness(1.05); }
+.ctaPrimary:before {
+  content: "";
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: 500ms;
 }
+.ctaPrimary:hover:before { left: 100%; }
+.buttonSparkle { position: absolute; top: -10px; right: -10px; width: 20px; height: 20px; background: #fff; border-radius: 50%; filter: blur(2px); opacity: 0.8; animation: sparkle 2s infinite; }
+@keyframes sparkle { 0%,100%{transform:scale(0.8);opacity:0.8;} 50%{transform:scale(1.2);opacity:1;} }
 
-.sportCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 120px;
-    height: 120px;
-    background-color: #e0f7fa;
-    justify-content: center;
-}
+/* Scroll indicator */
+.scrollIndicator { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 1;
+  color: rgba(255,255,255,0.75); font-size: 0.9rem; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.mouse { width: 26px; height: 40px; border: 2px solid rgba(255,255,255,0.7); border-radius: 15px; position: relative; }
+.wheel { width: 4px; height: 8px; background: rgba(255,255,255,0.7); border-radius: 2px; position: absolute; top: 8px; left: calc(50% - 2px); animation: scroll 2s infinite; }
+@keyframes scroll { 0%{opacity:0;transform:translateY(0);} 50%{opacity:1;} 100%{opacity:0;transform:translateY(16px);} }
 
-.sportCard:hover {
-    transform: scale(1.05);
-}
-
-.sportIcon {
-    font-size: 2rem;
-    color: #00796b;
-}
-
-.sportName {
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #333;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .sportsContainer {
-        gap: 1.5rem;
-    }
-    
-    .sportsHeading {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .sportsContainer {
-        gap: 1rem;
-    }
-    
-    .sportIcon {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 600px) {
-  .heroSection {
-    min-height: 28vh;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-  }
-  .heroTitle {
-    font-size: 1.5rem;
-  }
-  .heroSubtitle {
-    font-size: 1.1rem;
-  }
-  .heroSlogan {
-    font-size: 0.95rem;
-  }
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floatingCircle1, .floatingCircle2, .floatingCircle3 { animation: none !important; }
+  .wheel { animation: none !important; }
+  .ctaPrimary { transition: none !important; }
 }

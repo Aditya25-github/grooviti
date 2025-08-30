@@ -1,11 +1,13 @@
-s.popular-sports-container {
-  padding: 2rem;
+/* Base styles for the component container */
+.popular-sports-container {
+  padding: 2rem 1rem; /* Adjusted for better mobile padding */
   font-family: "Arial", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center; 
 }
 
+/* Heading styles */
 .heading {
   margin-top: 5rem;
   font-size: 30px;
@@ -16,13 +18,15 @@ s.popular-sports-container {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Glass effect container */
 .glass-container {
   background: rgba(33, 0, 79, 0.1);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-radius: 20px;
-  border: 1px solid rgba(180, 32, 32, 0.2);
-  padding: 1.5rem;
+  /* Corrected the border color to match the design theme */
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  padding: 1rem;
   width: 100%;
   max-width: 1440px;
   box-shadow: 
@@ -32,6 +36,7 @@ s.popular-sports-container {
   overflow: hidden;
 }
 
+/* Shine effect on the glass container */
 .glass-container::before {
   content: '';
   position: absolute;
@@ -58,23 +63,29 @@ s.popular-sports-container {
   }
 }
 
+/* --- Mobile First: Horizontal Scroll Layout --- */
 .card-list {
   display: flex;
-  padding-top: 1rem;
-  padding-left: 1rem;
-  gap: 2.5rem;
+  gap: 1.5rem; /* Adjusted gap for better mobile spacing */
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-bottom: 1rem;
+  padding: 0.5rem;
   justify-content: flex-start;
   position: relative;
   z-index: 1;
+  /* Hides the scrollbar but keeps functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Webkit scrollbar customization */
+.card-list::-webkit-scrollbar {
+  display: none;
 }
 
 .sport-card {
   min-width: 170px;
   height: 250px;
-  margin-right: 1rem;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
@@ -115,4 +126,96 @@ s.popular-sports-container {
   padding: 4px 12px;
   border-radius: 20px;
   backdrop-filter: blur(4px);
+}
+
+/* Minimal Progress Line indicator - Slimmer version */
+.progress-indicator-wrapper {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  padding: 0 30px;
+}
+
+.progress-indicator-wrapper.scrolling {
+  opacity: 0.8;
+}
+
+.progress-track {
+  width: 100%;
+  max-width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-line {
+  height: 100%;
+  background: linear-gradient(90deg, #7b2ff7, #9d4dff);
+  border-radius: 1px;
+  transition: width 0.1s ease;
+  position: relative;
+}
+
+/* Subtle glow effect */
+.progress-track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  transform: translateY(-50%);
+  background: transparent;
+  z-index: -1;
+}
+
+/* Hide progress indicator on larger screens */
+@media (min-width: 768px) {
+  .progress-indicator-wrapper {
+    display: none;
+  }
+  
+  .popular-sports-container {
+    padding: 2rem 2rem;
+  }
+  
+  .card-list {
+    /* Changes to a wrapping grid layout */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    overflow-x: hidden; /* Hides the horizontal scrollbar */
+    justify-items: center;
+  }
+
+  .sport-card {
+    min-width: auto;
+    width: 100%; /* Allows cards to fill the grid columns */
+    height: 250px;
+  }
+}
+
+/* Large desktop screens (1024px and up) */
+@media (min-width: 1024px) {
+  .popular-sports-container {
+    padding: 3rem 4rem;
+  }
+  
+  .card-list {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2.5rem; /* Adjust gap for wider screens */
+  }
+
+  .sport-card {
+    height: 250px; /* Maintains card height */
+  }
 }
