@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styles from "./AcademyNear.module.css";
 import cricketAcademy from "../../assets/sports_assets/cricket-academy.avif";
 import swimmingAcademy from "../../assets/sports_assets/swimming-academy.avif";
@@ -43,6 +43,10 @@ const Academies = [
 
 const AcademyNear = () => {
   const navigate = useNavigate();
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollContainerRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
 
   const handleExploreMore = () => {
     navigate('/academy');
@@ -52,6 +56,44 @@ const AcademyNear = () => {
     navigate(`/academies/${academyId}`);
   };
 
+  // Calculate scroll progress
+  const updateScrollProgress = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+      setScrollProgress(progress);
+      
+      // Show scrolling state
+      setIsScrolling(true);
+      
+      // Clear previous timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      // Set timeout to hide scrolling state
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 500);
+    }
+  };
+
+  // Add scroll event listener
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', updateScrollProgress);
+      updateScrollProgress();
+      
+      return () => {
+        scrollContainer.removeEventListener('scroll', updateScrollProgress);
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+      };
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
@@ -59,7 +101,10 @@ const AcademyNear = () => {
       </div>
       
       <div className={styles.glassContainer}>
-        <div className={styles.academiesRow}>
+        <div 
+          className={styles.academiesRow}
+          ref={scrollContainerRef}
+        >
           {Academies.map((academy) => (
             <div 
               key={academy.id} 
@@ -95,9 +140,22 @@ const AcademyNear = () => {
             </div>
           ))}
         </div>
-        <button className={styles.exploreButton} onClick={handleExploreMore}>
-          Explore More Academies →
-        </button>
+        
+        {/* Progress Line - exactly like PopularSports */}
+        <div className={`${styles.progressIndicatorWrapper} ${isScrolling ? styles.scrolling : ''}`}>
+          <div className={styles.progressTrack}>
+            <div 
+              className={styles.progressLine} 
+              style={{ width: `${scrollProgress}%` }}
+            ></div>
+          </div>
+        </div>
+        
+        <div className={styles.buttonContainer}>
+          <button className={styles.exploreButton} onClick={handleExploreMore}>
+            Explore More →
+          </button>
+        </div>
       </div>
     </div>
   );

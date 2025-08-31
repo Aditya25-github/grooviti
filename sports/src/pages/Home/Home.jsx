@@ -13,13 +13,16 @@ const SportsHomepage = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => { setIsVisible(true); }, []);
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   const exploreVenues = () => navigate("/venues");
 
   return (
     <div className={styles.homepage}>
       <section className={styles.heroSection} aria-label="Grooviti hero">
-        {/* Floating ornaments only */}
+        {/* Floating ornaments */}
         <div className={styles.floatingElements} aria-hidden="true">
           <div className={styles.floatingCircle1}></div>
           <div className={styles.floatingCircle2}></div>
@@ -27,39 +30,50 @@ const SportsHomepage = () => {
         </div>
 
         {/* Hero Content */}
-        <div className={`${styles.heroContent} ${isVisible ? styles.visible : ""}`}>
+        <div
+          className={`${styles.heroContent} ${isVisible ? styles.visible : ""}`}
+        >
           <h1 className={styles.heroTitle}>
-            Find perfect{" "}
+            Book your next{" "}
             <RotatingText
-              texts={["sports", "event", "training"]}
+              texts={["game", "event", "training"]}
               mainClassName={styles.rotatingText}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-120%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 400, mass: 0.5 }}
+              transition={{
+                type: "spring",
+                damping: 30,
+                stiffness: 400,
+                mass: 0.5,
+              }}
               rotationInterval={2000}
               style={{ color: "inherit", fontWeight: 800 }}
             />{" "}
-            venues in minutes
+            in minutes
           </h1>
 
           <h2 className={styles.heroSubtitle}>
-            <ShinyText text="Grooviti" speed={2.5} intensity={0.9} className={styles.brandName} />
-            <span>makes booking effortless</span>
+            <ShinyText
+              text="Grooviti"
+              speed={2.5}
+              intensity={0.9}
+              className={styles.brandName}
+            />
           </h2>
 
-          <p className={styles.heroSlogan}>Groove it, Book it, Live it</p>
+          <p className={styles.heroSlogan}>Book it. Groove it. Live it.</p>
 
           <div className={styles.ctaContainer}>
             <button className={styles.ctaPrimary} onClick={exploreVenues}>
-              Explore Venues
+              Explore Now
               <span className={styles.buttonSparkle}></span>
             </button>
           </div>
         </div>
 
         <div className={styles.scrollIndicator}>
-          <span>Scroll to explore</span>
+          <span>Discover more</span>
           <div className={styles.mouse} aria-hidden="true">
             <div className={styles.wheel}></div>
           </div>

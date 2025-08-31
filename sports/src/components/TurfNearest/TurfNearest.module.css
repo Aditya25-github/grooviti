@@ -1,8 +1,9 @@
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1rem;
   position: relative;
+  box-sizing: border-box;
 }
 
 .titleContainer {
@@ -23,9 +24,9 @@
 }
 
 .sectionTitle {
-  margin-top: 4rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
-  font-size: 30px;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: 600;
   color: #ffffff;
   text-align: center;
@@ -37,16 +38,16 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  width:100%;
-  max-width: 1200px;
+  width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.2),
       inset 0 0 20px rgba(255, 255, 255, 0.05);
   position: relative;
   overflow: hidden;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 .glassContainer::before {
@@ -75,18 +76,14 @@
   }
 }
 
+/* Desktop layout - grid */
 .venuesContainer {
-  display: flex;
-  gap: 3rem;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
   padding-bottom: 20px;
-  scrollbar-width: none;
   position: relative;
   z-index: 1;
-}
-
-.venuesContainer::-webkit-scrollbar {
-  display: none;
 }
 
 .venueCard {
@@ -94,7 +91,6 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 300px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -125,25 +121,30 @@
 }
 
 .venueContent {
-  padding: 20px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .venueName {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   color: #2c3e50;
 }
 
 .venueDescription {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #555;
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .venueFooter {
@@ -154,7 +155,7 @@
 }
 
 .venuePrice {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: #4CAF50;
 }
@@ -163,9 +164,9 @@
   background-color: #00796B;
   color: white;
   border: none;
-  padding: 8px 20px;
+  padding: 0.5rem 1.25rem;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
@@ -177,24 +178,28 @@
   transform: translateY(-2px);
 }
 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
 .exploreButton {
-  position: absolute;
-  right: 30px;
-  bottom: 10px;
   background: transparent;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 20px;
+  padding: 0.5rem 1.25rem;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
-  z-index: 2;
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.3125rem;
 }
 
 .exploreButton:hover {
@@ -203,47 +208,147 @@
   transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+/* Progress Line styles - exactly matching PopularSports.css */
+.progressIndicatorWrapper {
+  position: relative; /* Changed from absolute to relative */
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  padding: 0 30px;
+  margin-top: 1rem; /* Added margin to separate from content above */
+  margin-bottom: 1rem; /* Added margin to separate from button below */
+}
+
+.progressIndicatorWrapper.scrolling {
+  opacity: 0.8;
+}
+
+.progressTrack {
+  width: 100%;
+  max-width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressLine {
+  height: 100%;
+  background: linear-gradient(90deg, #7b2ff7, #9d4dff);
+  border-radius: 1px;
+  transition: width 0.1s ease;
+  position: relative;
+}
+
+/* Subtle glow effect */
+.progressTrack::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  transform: translateY(-50%);
+  background: transparent;
+  z-index: -1;
+}
+
+/* Hide progress indicator on larger screens */
+@media (min-width: 768px) {
+  .progressIndicatorWrapper {
+    display: none;
+  }
+}
+
+/* Media Queries for specific adjustments */
+@media (max-width: 1024px) {
   .venuesContainer {
-      gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .glassContainer {
+    padding: 1.25rem;
   }
   
-  .venueCard {
-      min-width: 280px;
+  .venuesContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
   
   .imageContainer {
-      height: 160px;
+    height: 160px;
   }
-
-  .glassContainer {
-      padding: 1.5rem;
+  
+  .venueContent {
+    padding: 1rem;
   }
+}
 
-  .exploreButton {
-      position: relative;
-      right: auto;
-      bottom: auto;
-      margin-top: 20px;
-      margin-left: auto;
-      display: block;
+/* Mobile layout - horizontal scroll */
+@media (max-width: 640px) {
+  .venuesContainer {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    grid-template-columns: unset;
+    -ms-overflow-style: none;
+  }
+  
+  .venuesContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .venueCard {
+    min-width: 280px;
+    flex-shrink: 0;
+  }
+  
+  /* Show progress indicator only on mobile */
+  .progressIndicatorWrapper {
+    display: flex;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .glassContainer {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+  
+  .venuesContainer {
+    gap: 0.875rem;
+  }
+  
   .venueCard {
-      min-width: 260px;
+    min-width: 260px;
   }
   
   .imageContainer {
-      height: 140px;
+    height: 140px;
   }
   
   .sectionTitle {
-      font-size: 22px;
+    margin-top: 1.5rem;
   }
-
-  .glassContainer {
-      padding: 1rem;
+  
+  .bookButton {
+    padding: 0.5rem 1rem;
+  }
+  
+  .progressIndicatorWrapper {
+    padding: 0 20px;
   }
 }
