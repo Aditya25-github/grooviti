@@ -220,14 +220,14 @@
   animation: sparkle 2s infinite; 
 }
 @keyframes sparkle { 
-  0%,100%{transform:scale(0.8);opacity:0.8;} 
-  50%{transform:scale(1.2);opacity:1;} 
+ 0%,100%{transform:scale(0.8);opacity:0.8;} 
+ 50%{transform:scale(1.2);opacity:1;} 
 }
 
-/* Scroll indicator - Positioned for long devices */
+/* Scroll indicator - Positioned higher for long devices */
 .scrollIndicator { 
   position: absolute; 
-  bottom: 2rem; 
+  bottom: 4rem; /* Positioned higher than before */
   left: 50%; 
   transform: translateX(-50%); 
   z-index: 1;
@@ -304,7 +304,7 @@
   }
   
   .scrollIndicator {
-    bottom: 1.5rem;
+    bottom: 2.5rem; /* Higher position on mobile */
   }
 }
 
@@ -317,6 +317,10 @@
   .heroSubtitle {
     font-size: clamp(2rem, 5vw, 2.8rem);
   }
+  
+  .scrollIndicator {
+    bottom: 3.5rem; /* Higher position on tablets */
+  }
 }
 
 /* Tablets and small laptops */
@@ -327,6 +331,10 @@
   
   .heroSubtitle {
     font-size: clamp(2.5rem, 4.5vw, 3rem);
+  }
+  
+  .scrollIndicator {
+    bottom: 3.5rem; /* Higher position on larger tablets */
   }
 }
 
@@ -369,6 +377,10 @@
   .floatingCircle3 {
     bottom: 20%;
   }
+  
+  .scrollIndicator {
+    bottom: 5rem; /* Much higher position on long devices */
+  }
 }
 
 /* Very long devices (height > 1200px) */
@@ -407,7 +419,7 @@
   }
   
   .scrollIndicator {
-    bottom: 3rem;
+    bottom: 6rem; /* Even higher position on very long devices */
   }
 }
 
@@ -471,5 +483,9 @@
   
   .heroSubtitle {
     font-size: 3.5rem;
+  }
+  
+  .scrollIndicator {
+    bottom: 5rem; /* Adjusted for large screens */
   }
 }
