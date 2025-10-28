@@ -210,11 +210,14 @@ export const deleteGalleryItem = async (req, res) => {
     community.gallery.pull({ _id: itemId });
     await community.save();
 
-    res.json({ success: true, message: "Gallery item deleted successfully" });
+    return res.json({ success: true, message: "Gallery item deleted successfully" });
   } catch (error) {
-    console.error("Error deleting gallery item:", error);
-    res.status(500).json({ error: "Server error" });
-  }
-
+  console.error("Error deleting gallery item:", error);
+  return res.status(500).json({
+    success: false,
+    message: "Failed to delete gallery item",
+    error: error.message,
+  });
+}
 
 };
