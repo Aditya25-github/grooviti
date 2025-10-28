@@ -256,6 +256,7 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  color: black;
 }
 
 .form-group input:focus,
