@@ -9,11 +9,12 @@ import {
   leaveCommunity,
   createCommunity,
   getSingleCommunity,
-  uploadGalleryMedia   // ✅ Added
+  uploadGalleryMedia,  // ✅ Added
+  deleteCommunity,
+  deleteGalleryItem,
 } from "../controllers/communityController.js";
 import authMiddleware from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
-import { deleteCommunity } from "../controllers/communityController.js";
 
 
 const router = express.Router();
@@ -37,6 +38,8 @@ router.delete(
   authMiddleware,
   deleteComment
 );
+router.delete("/:id/gallery/:itemId", authMiddleware, deleteGalleryItem);
+
 
 
 // ✅ Gallery upload route

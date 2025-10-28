@@ -4,6 +4,8 @@ import cloudinary from "../utils/cloudinary.js";
 import multer from "multer";
 import mongoose from "mongoose";
 import postModel from "../models/postModel.js";
+import Community from "../models/communityModel.js";
+
 
 // Get all communities
 export const getAllCommunities = async (req, res) => {
@@ -160,11 +162,17 @@ export const uploadGalleryMedia = async (req, res) => {
       url: uploaded.secure_url,
       public_id: uploaded.public_id,
       comment,
-      uploadedBy: req.user.id,
+      uploadedBy: new mongoose.Types.ObjectId(req.user.id || req.user._id), // ✅ ensure proper type
     };
 
     community.gallery.push(media);
     await community.save();
+
+        // ✅ Populate uploadedBy field for the latest gallery item
+    await community.populate("gallery.uploadedBy", "name email");
+
+    // Get the most recent uploaded item (last element in array)
+    const newMedia = community.gallery[community.gallery.length - 1];
 
     res.json({ success: true, message: "Media uploaded", media });
 
@@ -174,4 +182,39 @@ export const uploadGalleryMedia = async (req, res) => {
   }
 };
 
+export const deleteGalleryItem = async (req, res) => {
+  const { id, itemId } = req.params;
 
+  try {
+
+    console.log("DELETE request received for gallery:", req.params);
+  
+    const community = await Community.findById(id);
+    if (!community)
+      return res.status(404).json({ error: "Community not found" });
+
+    const galleryItem = community.gallery.id(itemId);
+    if (!galleryItem)
+      return res.status(404).json({ error: "Gallery item not found" });
+
+    // Remove the image from Cloudinary if needed
+    try {
+      if (galleryItem.public_id) {
+        await cloudinary.uploader.destroy(galleryItem.public_id);
+      }
+    } catch (cloudErr) {
+      console.warn("Cloudinary delete error:", cloudErr.message);
+    }
+
+    // Simply delete it without checking who uploaded it
+    community.gallery.pull({ _id: itemId });
+    await community.save();
+
+    res.json({ success: true, message: "Gallery item deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting gallery item:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+
+
+};
