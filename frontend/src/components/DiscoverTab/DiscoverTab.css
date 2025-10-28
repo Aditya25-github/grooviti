@@ -1,0 +1,166 @@
+.discover-container {
+  padding: 20px;
+  color: #fff;
+  background: #0f0f0f;
+  border-radius: 10px;
+}
+
+.discover-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.discover-search input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: #1a1a1a;
+  border: 1px solid #2b2b2b;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.discover-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.discover-tabs button {
+  flex: 1;
+  padding: 10px;
+  background: #1a1a1a;
+  color: #aaa;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.discover-tabs button.active {
+  background: #6a0dad;
+  color: #fff;
+}
+
+.discover-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.discover-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1a1a1a;
+  border: 1px solid #2b2b2b;
+  border-radius: 12px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.discover-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.discover-info {
+  flex: 1;
+}
+
+.discover-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.discover-desc {
+  color: #aaa;
+  margin: 5px 0;
+}
+
+.discover-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 5px;
+}
+
+.discover-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.join-btn {
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.match-chip {
+  background: rgba(138, 43, 226, 0.2);
+  color: #b27cff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.no-communities {
+  color: #888;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* --- JOIN BUTTON --- */
+.jooiin-btn {
+  background: linear-gradient(135deg, #6a5acd, #8a2be2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.jooiin-btn:hover {
+  background: linear-gradient(135deg, #7b68ee, #9b30ff);
+  transform: scale(1.03);
+}
+
+/* --- LEAVE BUTTON (from before) --- */
+.leeeave-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.leeeave-btn:hover {
+  background-color: #ff3333;
+  transform: scale(1.03);
+}
+
+/* --- MATCH CHIP --- */
+.match-chip {
+  background-color: rgba(106, 90, 205, 0.2);
+  color: #8a2be2;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: 10px;
+  align-self: center;
+}

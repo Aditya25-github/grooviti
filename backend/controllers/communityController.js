@@ -10,7 +10,10 @@ import Community from "../models/communityModel.js";
 // Get all communities
 export const getAllCommunities = async (req, res) => {
   try {
-    const communities = await communityModel.find().populate("members", "name");
+    const communities = await communityModel
+  .find()
+  .populate("members", "name profileImage");
+
     res.json({ success: true, communities });
   } catch (err) {
     res.status(500).json({ success: false, message: "Error fetching communities" });
@@ -22,8 +25,9 @@ export const getSingleCommunity = async (req, res) => {
   try {
     const community = await communityModel
       .findById(req.params.id)
-      .populate("members", "name email")
-      .populate("createdBy", "name email _id role"); 
+      .populate("members", "name email profileImage")
+      .populate("createdBy", "name email _id role") 
+      .populate("gallery.uploadedBy", "name profileImage");
 
     if (!community) {
       return res.status(404).json({ success: false, message: "Community not found" });

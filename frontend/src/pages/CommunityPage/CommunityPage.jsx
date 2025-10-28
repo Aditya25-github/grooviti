@@ -13,6 +13,8 @@ import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import Community from "../Community/Community"
+import DiscoverTab from "../../components/DiscoverTab/DiscoverTab"
 
 const CommunityPage = () => {
   const { id } = useParams()
@@ -681,36 +683,35 @@ const handleDeleteGalleryItem = async (itemId) => {
                 </button>
               </div>
 
-              <div className="gallery-grid">
-                {community.gallery && community.gallery.length > 0 ? (
-                  community.gallery.map((item, index) => (
-                    <div key={index} className="gallery-card">
-                      {item.url.endsWith(".mp4") || item.url.includes("video") ? (
-                        <video src={item.url} controls />
-                      ) : (
-                        <img src={item.url || "/placeholder.svg"} alt="gallery" />
-                      )}
-                      <div className="gallery-meta">
-                        <p className="comment">{item.comment}</p>
-                        <p className="author">Uploaded by: {item.uploadedBy?.name || "User"}</p>
+              {/* Gallery grid */}
+            <div className="gallery-grid">
+              {community.gallery && community.gallery.length > 0 ? (
+                community.gallery.map((item, index) => (
+                  <div key={index} className="gallery-item">
+                    {item.url.endsWith(".mp4") || item.url.includes("video") ? (
+                      <video src={item.url} className="gallery-media" controls />
+                    ) : (
+                      <img src={item.url || "/placeholder.svg"} alt="gallery" className="gallery-media" />
+                    )}
 
-                        {/* ✅ Delete button visible to uploader or community admin */}
-                        {/* {(item.uploadedBy?._id === currentUserId || isCreator) && ( */}
-                          <button
-                            className="gallery-delete-btn"
-                            onClick={() => handleDeleteGalleryItem(item._id)}
-                          >
-                            Delete
-                          </button>
-                        
-
-                      </div>
+                    {/* Hover overlay */}
+                    <div className="gallery-overlay">
+                      <span className="uploader-name">
+                        {item.uploadedBy?.name || "Unknown User"}
+                      </span>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteGalleryItem(item._id)}
+                      >
+                        🗑️
+                      </button>
                     </div>
-                  ))
-                ) : (
-                  <p className="no-gallery">No media yet. Be the first to post!</p>
-                )}
-              </div>
+                  </div>
+                ))
+              ) : (
+                <p className="no-gallery">No media yet. Be the first to post!</p>
+              )}
+            </div>
             </div>
           )}
 
@@ -761,10 +762,11 @@ const handleDeleteGalleryItem = async (itemId) => {
                   </div>
                 ))}
               </div> */}
-              <div className="chat-placeholder">
+              {/* <div className="chat-placeholder">
                 <p> This feature is coming soon ! </p>
                 <p> Stay Tuned </p>
-              </div>
+              </div> */}
+              <DiscoverTab />
             </div>
           )}
         </div>
