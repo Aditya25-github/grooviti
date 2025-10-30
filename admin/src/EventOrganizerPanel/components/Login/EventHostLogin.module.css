@@ -66,13 +66,21 @@
   border-radius: 6px;
   border: 1.8px solid #ccc;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  color: #111827;
 }
 
+/* focus/keyboard accessibility */
 .input:focus {
   outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.input:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
 .rememberForgot {
@@ -82,6 +90,7 @@
   font-size: 0.9rem;
   color: #555;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .rememberMe {
@@ -94,6 +103,7 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+  accent-color: #3b82f6;
 }
 
 .rememberLabel {
@@ -105,10 +115,17 @@
   color: #3b82f6;
   text-decoration: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .forgotPassword:hover {
   text-decoration: underline;
+}
+
+.forgotPassword:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .loginButton {
@@ -120,13 +137,24 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.25s;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+  touch-action: manipulation;
 }
 
 .loginButton:hover {
   background-color: #2563eb;
 }
 
+.loginButton:active {
+  transform: translateY(1px);
+}
+
+.loginButton:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* Social login */
 .socialLogin {
   display: flex;
   flex-direction: column;
@@ -138,6 +166,8 @@
   color: #999;
   font-size: 0.85rem;
   position: relative;
+  line-height: 1;
+  margin-top: 2px;
 }
 
 .orDivider::before,
@@ -182,13 +212,24 @@
   border-radius: 7px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.05s ease;
+  color: #111827;
 }
 
 .socialButton:hover {
   background-color: #e0e7ff;
   border-color: #3b82f6;
   color: #3b82f6;
+}
+
+.socialButton:active {
+  transform: translateY(1px);
+}
+
+.socialButton:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
 .socialIcon {
@@ -213,10 +254,17 @@
   color: #3b82f6;
   cursor: pointer;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .signupLink:hover {
   text-decoration: underline;
+}
+
+.signupLink:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .backLink {
@@ -228,13 +276,34 @@
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.2s ease, transform 0.05s ease;
 }
 
 .backLink:hover {
   color: #3b82f6;
 }
 
+.backLink:active {
+  transform: translateY(1px);
+}
+
+.backLink:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 .backIcon {
   font-size: 1.3rem;
+}
+
+/* Small screens */
+@media (max-width: 400px) {
+  .loginCard {
+    padding: 26px 22px;
+  }
+
+  .divider {
+    margin: 0 -22px 18px -22px;
+  }
 }

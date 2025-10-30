@@ -42,7 +42,6 @@ import AcademySettings from "./AcademyPanel/pages/AcademySettings/AcademySetting
 // Turf Owner Pages
 import TurfDashboard from "./TurfOwnerPanel/pages/Dashboard/TurfDashboard";
 import BookingListPage from "./EventOrganizerPanel/pages/OwnerDashboard/BookingListPage/BookingListPage";
-import AddTurf from "./EventOrganizerPanel/pages/AddTurf/AddTurf";
 import List from "./EventOrganizerPanel/pages/List/List";
 import TurfListing from "./TurfOwnerPanel/pages/TurfListing/TurfListing";
 import TurfBooking from "./TurfOwnerPanel/pages/TurfBooking/TurfBooking";
@@ -79,7 +78,7 @@ const App = () => {
   const renderSideBar = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademySideBar />;
-    if (userRole === "eventHost") return <SideBar />;
+    if (userRole === "event") return <SideBar />;
     if (userRole === "turfOwner") return <TurfSideBar />;
     return null; // turfOwner or others
   };
@@ -87,7 +86,7 @@ const App = () => {
   const renderNavbar = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyNavbar url={url} />;
-    if (userRole === "eventHost") return <EventNavbar url={url} />;
+    if (userRole === "event") return <EventNavbar url={url} />;
     if (userRole === "turfOwner") return <TurfNavbar url={url} />;
     return null;
   };
@@ -95,7 +94,7 @@ const App = () => {
   const renderFooter = () => {
     if (isLoginPage) return null;
     if (userRole === "academy") return <AcademyFooter />;
-    if (userRole === "eventHost") return <Footer />;
+    if (userRole === "event") return <Footer />;
     if (userRole === "turfOwner") return <TurfFooter />;
     return null;
   };
@@ -277,15 +276,7 @@ const App = () => {
             }
           />
           <Route
-            path="/addturf"
-            element={
-              <ProtectedRoute>
-                <AddTurf url={url} />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/list"
+            path="/event/list"
             element={
               <ProtectedRoute>
                 <List url={url} />
@@ -303,7 +294,7 @@ const App = () => {
 
           {/* Event Organizer Routes */}
           <Route
-            path="/manage-event"
+            path="/event/manage-event"
             element={
               <ProtectedRoute>
                 <ManageEvent url={url} />
@@ -311,7 +302,7 @@ const App = () => {
             }
           />
           <Route
-            path="/add"
+            path="/event/add"
             element={
               <ProtectedRoute>
                 <Add url={url} />
@@ -319,7 +310,7 @@ const App = () => {
             }
           />
           <Route
-            path="/add-candidate"
+            path="/event/add-candidate"
             element={
               <ProtectedRoute>
                 <AddCandidate url={url} />
@@ -327,7 +318,7 @@ const App = () => {
             }
           />
           <Route
-            path="/my-plan"
+            path="/event/my-plan"
             element={
               <ProtectedRoute>
                 <MyPlan />
@@ -335,7 +326,7 @@ const App = () => {
             }
           />
           <Route
-            path="/settings"
+            path="/event/settings"
             element={
               <ProtectedRoute>
                 <Settings url={url} />
@@ -343,7 +334,7 @@ const App = () => {
             }
           />
           <Route
-            path="/orders"
+            path="/event/orders"
             element={
               <ProtectedRoute>
                 <Orders url={url} />
@@ -351,7 +342,7 @@ const App = () => {
             }
           />
           <Route
-            path="/statistics"
+            path="/event/statistics"
             element={
               <ProtectedRoute>
                 <Statistics url={url} />

@@ -1,12 +1,23 @@
+// routes/eventRouter.js
 import express from "express";
-import { addEvent, listEvent, RemoveEvent, getEventById, getEventsByOrganizer } from "../controllers/EventController.js";
+import {
+  addEvent,
+  listEvent,
+  RemoveEvent,
+  getEventById,
+  getEventsByOrganizer,
+  organizerLogin,
+  organizerRegister,
+} from "../controllers/EventController.js";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../utils/cloudinary.js";
 
-
-
 const eventRouter = express.Router();
+
+// ---- Auth endpoints (no multer here) ----
+eventRouter.post("/login", organizerLogin);
+eventRouter.post("/register", organizerRegister);
 
 // Image Storage Engine
 const storage = new CloudinaryStorage({
@@ -18,7 +29,6 @@ const storage = new CloudinaryStorage({
     } else if (file.fieldname === "otherImages") {
       folder = "grooviti/events/gallery";
     }
-
     return {
       folder,
       allowed_formats: ["jpg", "jpeg", "png", "webp"],
@@ -42,7 +52,7 @@ const upload = multer({
   },
 });
 
-
+// Event routes
 eventRouter.get("/my-events", getEventsByOrganizer);
 eventRouter.post(
   "/add",
@@ -52,9 +62,8 @@ eventRouter.post(
   ]),
   addEvent
 );
-eventRouter.get("/list", listEvent)
+eventRouter.get("/list", listEvent);
 eventRouter.post("/remove", RemoveEvent);
 eventRouter.get("/:id", getEventById);
-
 
 export default eventRouter;

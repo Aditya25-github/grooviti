@@ -39,14 +39,13 @@ import OrganizerProfile from "./pages/Profile/OrganizerProfile";
 import PccoerPage from "./pages/pccoer/PccoerPage";
 import FresherVotePage from "./pages/pccoer/FresherVotePage";
 import FresherGalleryPage from "./pages/pccoer/FresherGalleryPage";
+import HalloweenVotePage from "./pages/pccoer/HalloweenVotePage";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
   // useLenis();
-
-
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -104,6 +103,7 @@ const App = () => {
             <Route path="/pccoer/event" element={<PccoerEventPage />} />
             <Route path="/pccoer/vote" element={<FresherVotePage />} />
             <Route path="/pccoer/gallery" element={<FresherGalleryPage />} />
+            <Route path="/pccoer/halloween" element={<HalloweenVotePage />} />
           </Routes>
         </AnimatePresence>
       </div>

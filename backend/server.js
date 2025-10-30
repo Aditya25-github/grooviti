@@ -129,6 +129,9 @@ setInterval(releaseExpiredSlots, SLOT_EXPIRY_INTERVAL);
 // ==============================
 // 🚏 API Routes
 // ==============================
+import HalloweenRoutes from "./routes/HalloweenRoutes.js"
+
+
 app.use("/api/event", eventRouter);
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
@@ -138,6 +141,7 @@ app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
+app.use("/api/pccoer", HalloweenRoutes)
 
 /////////////////////////SPORTS////////////////////////
 import academyRoutes from "./routes/Academy/academyRoutes.js"

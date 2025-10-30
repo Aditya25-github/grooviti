@@ -17,27 +17,27 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-options">
-        <NavLink to="/add" className="sidebar-option">
+        <NavLink to="/event/add" className="sidebar-option">
           <img src={assets.add_icon} alt="" />
           <p>Add Event</p>
         </NavLink>
-        <NavLink to="/list" className="sidebar-option">
+        <NavLink to="/event/list" className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>List Events</p>
         </NavLink>
-        <NavLink to="/manage-event" className="sidebar-option">
+        <NavLink to="/event/manage-event" className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Manage Event</p>
         </NavLink>
-        <NavLink to="/add-candidate" className="sidebar-option">
+        <NavLink to="/event/add-candidate" className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Add Candidate</p>
         </NavLink>
-        <NavLink to="/orders" className="sidebar-option">
+        <NavLink to="/event/orders" className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Bookings</p>
         </NavLink>
-        <NavLink to="/statistics" className="sidebar-option">
+        <NavLink to="/event/statistics" className="sidebar-option">
           <img src={assets.order_icon} alt="" />
           <p>Statistics</p>
         </NavLink>

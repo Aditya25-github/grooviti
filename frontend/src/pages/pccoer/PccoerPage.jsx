@@ -46,7 +46,6 @@ const PccoerPage = () => {
 
   return (
     <div className="pccoer-page" style={{ paddingTop: "95px" }}>
-
       {/* Navigation Tabs */}
       <div className="tab-container">
         {/* <button
@@ -131,7 +130,10 @@ const PccoerPage = () => {
 
             {/* Fresher Party Special Card */}
             <div className="fresher-card">
-              <div className="card-image-container">
+              <div
+                className="card-image-container"
+                onClick={() => navigate("/pccoer")}
+              >
                 <img src="/images/freshersParty.PNG" alt="Fresher Party" />
               </div>
               <div className="card-content">
@@ -163,6 +165,48 @@ const PccoerPage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Halloween Special Card */}
+            <div className="fresher-card">
+              <div
+                className="card-image-container"
+                onClick={() => navigate("/pccoer/halloween")}
+              >
+                <img
+                  src="/images/halloween.png"
+                  alt="Halloween Costume Contest"
+                />
+              </div>
+              <div className="card-content">
+                <h3>
+                  <FaRegSmile /> Halloween Costume Contest
+                </h3>
+                <p>Vote for the best costumes and browse spooky moments!</p>
+                <div className="action-buttons">
+                  <button
+                    className="vote-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/pccoer/halloween/vote");
+                      window.scrollTo({ top: 0, behavior: "instant" });
+                    }}
+                  >
+                    <FaVoteYea /> Vote Now
+                  </button>
+                  <button
+                    className="gallery-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/pccoer/halloween/gallery");
+                      window.scrollTo({ top: 0, behavior: "instant" });
+                    }}
+                  >
+                    <FaImages /> Gallery
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* End Halloween Special Card */}
           </div>
         </section>
       )}

@@ -46,3 +46,41 @@
 .add-candidate-form button:hover {
   background-color: #357ab9;
 }
+
+.add-candidate-container {
+  max-width: 520px;
+  margin: 30px auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
+}
+
+.cards-toggle {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.toggle-btn {
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  color: #111827;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: #e5e7eb;
+}
+
+.toggle-btn.active {
+  border-color: #3b82f6;
+  background: #e0e7ff;
+  color: #1d4ed8;
+}
