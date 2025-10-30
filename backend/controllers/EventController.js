@@ -205,22 +205,65 @@ const listEvent = async (req, res) => {
   }
 };
 
+// const RemoveEvent = async (req, res) => {
+//   try {
+//     const event = await ticketModel.findById(req.body.id);
+//     if (!event) {
+//       return res.json({ success: false, message: "Event not found" });
+//     }
+//     await ticketModel.findByIdAndDelete(req.body.id);
+
+//     // Helper to extract public_id from URL if needed
+//     const getPublicId = (url) => {
+//       const match = url?.url
+//         ? url.url.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/)
+//         : String(url).match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/);
+//       return match ? match[1] : null;
+//     };
+
+//     if (event.coverImage) {
+//       try {
+//         const publicId = getPublicId(event.coverImage);
+//         if (publicId) await cloudinary.uploader.destroy(publicId);
+//       } catch (err) {
+//         console.error("Cloudinary cover image delete error:", err);
+//       }
+//     }
+
+//     if (event.otherImages && event.otherImages.length > 0) {
+//       for (const img of event.otherImages) {
+//         try {
+//           const publicId = getPublicId(img);
+//           if (publicId) await cloudinary.uploader.destroy(publicId);
+//         } catch (err) {
+//           console.error("Cloudinary image delete error:", err);
+//         }
+//       }
+//     }
+
+//     res.json({ success: true, message: "Event Removed" });
+//   } catch (error) {
+//     console.error(error);
+//     res.json({ success: false, message: "Error while deleting event" });
+//   }
+// };
+
 const RemoveEvent = async (req, res) => {
   try {
     const event = await ticketModel.findById(req.body.id);
     if (!event) {
       return res.json({ success: false, message: "Event not found" });
     }
-    await ticketModel.findByIdAndDelete(req.body.id);
 
-    // Helper to extract public_id from URL if needed
+    // Helper to extract public_id from Cloudinary URL
     const getPublicId = (url) => {
-      const match = url?.url
-        ? url.url.match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/)
-        : String(url).match(/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/);
+      const match = typeof url === "string"
+        ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
+        : url?.url?.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/);
       return match ? match[1] : null;
     };
 
+    // Delete cover image
     if (event.coverImage) {
       try {
         const publicId = getPublicId(event.coverImage);
@@ -230,23 +273,29 @@ const RemoveEvent = async (req, res) => {
       }
     }
 
-    if (event.otherImages && event.otherImages.length > 0) {
-      for (const img of event.otherImages) {
+    // Delete other images (parallel deletion)
+    if (event.otherImages?.length > 0) {
+      const deletePromises = event.otherImages.map(async (img) => {
         try {
           const publicId = getPublicId(img);
           if (publicId) await cloudinary.uploader.destroy(publicId);
         } catch (err) {
           console.error("Cloudinary image delete error:", err);
         }
-      }
+      });
+      await Promise.all(deletePromises);
     }
 
-    res.json({ success: true, message: "Event Removed" });
+    // Now delete the event from DB
+    await ticketModel.findByIdAndDelete(req.body.id);
+
+    res.json({ success: true, message: "Event and images deleted successfully" });
   } catch (error) {
     console.error(error);
     res.json({ success: false, message: "Error while deleting event" });
   }
 };
+
 
 const getEventById = async (req, res) => {
   const { id } = req.params;
