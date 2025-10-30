@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Add.css";
-import { assets } from "../../../assets/assets.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +11,7 @@ const Add = ({ url }) => {
   const [coverPreview, setCoverPreview] = useState(null);
   const navigate = useNavigate();
   const [otherPreviews, setOtherPreviews] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -40,26 +40,29 @@ const Add = ({ url }) => {
 
   useEffect(() => {
     if (otherImages.length > 0) {
-      const urls = otherImages.map((img) => URL.createObjectURL(img));
+      const urls = otherImages.map((img) =>
+        img ? URL.createObjectURL(img) : null
+      );
       setOtherPreviews(urls);
-      return () => urls.forEach((url) => URL.revokeObjectURL(url));
+      return () => urls.forEach((url) => url && URL.revokeObjectURL(url));
     }
   }, [otherImages]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-
     if (
-      ["city", "state", "country", "latitude", "longitude", "address"].includes(
-        name
-      )
+      [
+        "city",
+        "state",
+        "country",
+        "latitude",
+        "longitude",
+        "address",
+      ].includes(name)
     ) {
       setData((prevData) => ({
         ...prevData,
-        location: {
-          ...prevData.location,
-          [name]: value,
-        },
+        location: { ...prevData.location, [name]: value },
       }));
     } else {
       setData((prevData) => ({ ...prevData, [name]: value }));
@@ -68,31 +71,25 @@ const Add = ({ url }) => {
 
   const fetchUserLocation = () => {
     if (!navigator.geolocation) {
-      toast.error("Geolocation is not supported");
+      toast.error("Geolocation is not supported by your browser");
       return;
     }
+    toast.info("Detecting your current location...");
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-
         setData((prev) => ({
           ...prev,
-          location: {
-            ...prev.location,
-            latitude,
-            longitude,
-          },
+          location: { ...prev.location, latitude, longitude },
         }));
 
         try {
           const res = await axios.get(
             `${url}/api/reverse-geocode?lat=${latitude}&lon=${longitude}`
           );
-
           const addr = res.data.address;
           const fullAddress = res.data.display_name;
-
           const cityName =
             addr.city ||
             addr.town ||
@@ -118,45 +115,45 @@ const Add = ({ url }) => {
           if (cityName) {
             toast.success(`Location detected: ${cityName}`);
           } else {
-            toast.warn("City not found, but coordinates and address set");
+            toast.warn("City name not found in location data");
           }
         } catch (err) {
           console.error("Error in reverse geocoding:", err);
-          toast.error("Failed to get address from coordinates.");
+          toast.error("Failed to retrieve address from coordinates");
         }
       },
       (error) => {
-        toast.error("Permission denied or location unavailable.");
+        toast.error("Location access denied or unavailable");
       }
     );
   };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
     if (
       !data.name ||
       !data.description ||
       !data.price ||
       !data.totalTickets ||
-      !data.location.city
+      !data.location.city ||
+      !coverImage
     ) {
-      toast.error(
-        "Please fill all required fields including city and upload an image."
-      );
+      toast.error("Please fill all required fields and upload a cover image");
+      setIsSubmitting(false);
       return;
     }
-
     if (Number(data.price) <= 0) {
-      toast.error("Price must be greater than zero.");
+      toast.error("Price must be greater than zero");
+      setIsSubmitting(false);
       return;
     }
-
     if (Number(data.totalTickets) <= 0) {
-      toast.error("Total Tickets must be a positive number.");
+      toast.error("Total tickets must be a positive number");
+      setIsSubmitting(false);
       return;
     }
-
     try {
       const organizerEmail = localStorage.getItem("eventHost");
       const formData = new FormData();
@@ -168,9 +165,8 @@ const Add = ({ url }) => {
       formData.append("coverImage", coverImage);
       formData.append("organizerEmail", organizerEmail);
       otherImages.forEach((img) => {
-        formData.append("otherImages", img);
+        if (img) formData.append("otherImages", img);
       });
-
       formData.append("totalTickets", data.totalTickets);
       formData.append(
         "location",
@@ -193,6 +189,7 @@ const Add = ({ url }) => {
           price: "",
           category: "Cultural",
           totalTickets: "",
+          highlights: [],
           location: {
             city: "",
             state: "",
@@ -207,252 +204,403 @@ const Add = ({ url }) => {
         setOtherImages([]);
         setOtherPreviews([]);
 
-        toast.success(response.data.message);
+        toast.success("Event created successfully");
         setTimeout(() => {
           navigate("/list");
-        }, 200);
+        }, 1500);
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error("Failed to add event. Please try again.");
+      toast.error("Failed to create event. Please try again");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Drag-and-drop for cover image (basic implementation)
+  const [coverDragActive, setCoverDragActive] = useState(false);
+  const handleCoverDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setCoverDragActive(true);
+    } else if (e.type === "dragleave") {
+      setCoverDragActive(false);
+    }
+  };
+  const handleCoverDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCoverDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setCoverImage(e.dataTransfer.files[0]);
+    }
+  };
+
+  // Drag-and-drop for additional images (basic implementation)
+  const handleThumbDrop = (index, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const files = [...otherImages];
+      files[index] = e.dataTransfer.files[0];
+      setOtherImages(files);
+
+      const previews = [...otherPreviews];
+      previews[index] = URL.createObjectURL(e.dataTransfer.files[0]);
+      setOtherPreviews(previews);
     }
   };
 
   return (
     <div className="add">
-      <form className="flex-col" onSubmit={onSubmitHandler}>
-        {/* Cover Image */}
-        <div className="add-img-upload flex-col">
-          <p>Upload Cover Image</p>
-          <label htmlFor="coverImage">
-            <img
-              className="image"
-              src={coverPreview || assets.upload_area}
-              alt="Cover Preview"
-            />
-          </label>
-          <input
-            type="file"
-            id="coverImage"
-            accept="image/*"
-            hidden
-            required
-            onChange={(e) => setCoverImage(e.target.files[0])}
-          />
-        </div>
-        {/* Other Images Upload with Preview Click */}
-        <div className="add-img-upload flex-col">
-          <p>Upload Other Event Images (3-4)</p>
-          <div className="other-images-wrapper">
-            {Array(4)
-              .fill(null)
-              .map((_, index) => (
-                <label key={index} className="image-thumb-wrapper">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => {
-                      const files = [...otherImages];
-                      files[index] = e.target.files[0];
-                      setOtherImages(files);
+      <div className="add-header">
+        <h1>Create New Event</h1>
+        <p>Complete the form below to list your event on Grooviti</p>
+      </div>
 
-                      const previews = [...otherPreviews];
-                      previews[index] = URL.createObjectURL(e.target.files[0]);
-                      setOtherPreviews(previews);
-                    }}
-                  />
-                  <img
-                    src={
-                      otherPreviews[index]
-                        ? otherPreviews[index]
-                        : assets.upload_area
-                    }
-                    alt={`preview-${index}`}
-                    className="image-thumb"
-                  />
-                </label>
-              ))}
+      <form className="flex-col" onSubmit={onSubmitHandler} autoComplete="off">
+        {/* Image Upload Section */}
+        <div className="form-section">
+          <h3>Event Images</h3>
+          <div className="image-upload-grid">
+            {/* Cover Image */}
+            <div className="cover-image-upload">
+              <p>Cover Image *</p>
+              <label
+                htmlFor="coverImage"
+                className={`image-upload-label${coverDragActive ? " dragover" : ""}`}
+                onDragEnter={handleCoverDrag}
+                onDragOver={handleCoverDrag}
+                onDragLeave={handleCoverDrag}
+                onDrop={handleCoverDrop}
+                tabIndex={0}
+              >
+                {coverPreview ? (
+                  <div className="cover-image-wrapper">
+                    <img
+                      className="cover-image-preview"
+                      src={coverPreview}
+                      alt="Cover Preview"
+                    />
+                    <button
+                      type="button"
+                      className="remove-image-btn"
+                      aria-label="Remove cover image"
+                      onClick={() => {
+                        setCoverImage(null);
+                        setCoverPreview(null);
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <div className="upload-placeholder">
+                    <div className="upload-icon"></div>
+                    <div className="upload-text">
+                      <span className="upload-title">Upload Cover Image</span>
+                      <span className="upload-subtitle">Click, drag & drop or paste</span>
+                      <span className="upload-requirements">JPG, PNG • Recommended: 1200×600px</span>
+                    </div>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id="coverImage"
+                  accept="image/*"
+                  hidden
+                  required
+                  onChange={(e) => setCoverImage(e.target.files[0])}
+                />
+              </label>
+            </div>
+
+            {/* Other Images */}
+            <div className="other-images-upload">
+              <p>Additional Images (3-4 recommended)</p>
+              <div className="other-images-grid">
+                {Array(4)
+                  .fill(null)
+                  .map((_, index) => (
+                    <label
+                      key={index}
+                      className="image-thumb-wrapper"
+                      onDrop={(e) => handleThumbDrop(index, e)}
+                      onDragOver={(e) => e.preventDefault()}
+                      tabIndex={0}
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        onChange={(e) => {
+                          const files = [...otherImages];
+                          files[index] = e.target.files[0];
+                          setOtherImages(files);
+
+                          const previews = [...otherPreviews];
+                          previews[index] = URL.createObjectURL(e.target.files[0]);
+                          setOtherPreviews(previews);
+                        }}
+                      />
+                      {otherPreviews[index] ? (
+                        <div className="thumb-image-wrapper">
+                          <img
+                            src={otherPreviews[index]}
+                            alt={`Preview ${index + 1}`}
+                            className="image-thumb"
+                          />
+                          <button
+                            type="button"
+                            className="remove-thumb-btn"
+                            aria-label={`Remove image ${index + 1}`}
+                            onClick={() => {
+                              const files = [...otherImages];
+                              files[index] = null;
+                              setOtherImages(files);
+
+                              const previews = [...otherPreviews];
+                              previews[index] = null;
+                              setOtherPreviews(previews);
+                            }}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="thumb-placeholder">
+                          <div className="thumb-icon">+</div>
+                          <span>Image {index + 1}</span>
+                        </div>
+                      )}
+                    </label>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Event Name */}
-        <div className="add-product-name flex-col">
-          <p>Event Name</p>
-          <input
-            onChange={onChangeHandler}
-            value={data.name}
-            type="text"
-            name="name"
-            placeholder="Enter event name"
-            required
-          />
-        </div>
-        {/* Description */}
-        <div className="add-product-description flex-col">
-          <p>Event Description</p>
-          <textarea
-            onChange={onChangeHandler}
-            value={data.description}
-            name="description"
-            rows="6"
-            placeholder="Describe the event"
-            required
-          ></textarea>
-        </div>
-        {/* Category and Price */}
-        <div className="add-category-price">
-          <div className="add-category flex-col">
-            <p>Event Category</p>
-            <select
-              className="selectt"
-              onChange={onChangeHandler}
-              name="category"
-              value={data.category}
-            >
-              {[
-                "Cultural",
-                "Club",
-                "Sports",
-                "Tech",
-                "Drama",
-                "Open-mic",
-                "Stand-up",
-                "Conference",
-              ].map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="add-price flex-col">
-            <p>Event Price (Rs)</p>
-            <input
-              className="inputclasa"
-              onChange={onChangeHandler}
-              value={data.price}
-              type="number"
-              name="price"
-              placeholder="ex : 100"
-              required
-            />
-          </div>
-        </div>
-        {/* Total Tickets */}
-        <div className="add-total-tickets flex-col">
-          <p>Total Tickets</p>
-          <input
-            className="inputclasa"
-            onChange={onChangeHandler}
-            value={data.totalTickets}
-            type="number"
-            name="totalTickets"
-            placeholder="Enter total tickets"
-            required
-          />
-        </div>
-        {/* Event highlight */}
-        <div className="highlights-selection">
-          <h4>Event Highlights</h4>
-          {[
-            "Live Music",
-            "Seating Available",
-            "Washrooms",
-            "Parking",
-            "Food Stalls",
-          ].map((highlight) => (
-            <label key={highlight} className="highlight-option">
+        {/* Basic Info Section */}
+        <div className="form-section">
+          <h3>Event Details</h3>
+          <div className="form-grid">
+            {/* Event Name */}
+            <div className="form-group">
+              <label>Event Name *</label>
               <input
-                type="checkbox"
-                value={highlight}
-                checked={data.highlights?.includes(highlight)}
-                onChange={() => {
-                  const updated = data.highlights?.includes(highlight)
-                    ? data.highlights.filter((h) => h !== highlight)
-                    : [...(data.highlights || []), highlight];
+                onChange={onChangeHandler}
+                value={data.name}
+                type="text"
+                name="name"
+                placeholder="Enter event name"
+                required
+                className="grooviti-input"
+              />
+            </div>
+            {/* Description */}
+            <div className="form-group full-width">
+              <label>Event Description *</label>
+              <textarea
+                onChange={onChangeHandler}
+                value={data.description}
+                name="description"
+                rows="6"
+                placeholder="Describe the event, include key attractions, schedule, and what attendees can expect..."
+                required
+                className="grooviti-textarea"
+              ></textarea>
+            </div>
+            {/* Category and Price */}
+            <div className="form-group">
+              <label>Event Category *</label>
+              <select
+                onChange={onChangeHandler}
+                name="category"
+                value={data.category}
+                className="grooviti-select"
+              >
+                {[
+                  "Cultural",
+                  "Club",
+                  "Sports",
+                  "Tech",
+                  "Drama",
+                  "Open-mic",
+                  "Stand-up",
+                  "Conference",
+                ].map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Event Price (₹) *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.price}
+                type="number"
+                name="price"
+                placeholder="Example: 100"
+                required
+                className="grooviti-input"
+                min="0"
+              />
+            </div>
+            {/* Total Tickets */}
+            <div className="form-group">
+              <label>Total Tickets *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.totalTickets}
+                type="number"
+                name="totalTickets"
+                placeholder="Enter total tickets available"
+                required
+                className="grooviti-input"
+                min="1"
+              />
+            </div>
+          </div>
+        </div>
 
+        {/* Highlights Section */}
+        <div className="form-section">
+          <h3>Event Features</h3>
+          <div className="highlights-grid">
+            {[
+              "Live Music",
+              "Seating Available",
+              "Washrooms",
+              "Parking",
+              "Food Stalls",
+            ].map((highlight) => (
+              <label
+                key={highlight}
+                className={`highlight-option ${data.highlights?.includes(highlight) ? "active" : ""}`}
+              >
+                <input
+                  type="checkbox"
+                  value={highlight}
+                  checked={data.highlights?.includes(highlight)}
+                  onChange={() => {
+                    const updated = data.highlights?.includes(highlight)
+                      ? data.highlights.filter((h) => h !== highlight)
+                      : [...(data.highlights || []), highlight];
+
+                    setData((prev) => ({
+                      ...prev,
+                      highlights: updated,
+                    }));
+                  }}
+                />
+                <span className="checkmark"></span>
+                {highlight}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Location Section */}
+        <div className="form-section">
+          <h3>Event Location</h3>
+          <div className="location-grid">
+            <div className="form-group full-width">
+              <label>Full Address</label>
+              <input
+                type="text"
+                name="address"
+                placeholder="Enter complete venue address"
+                value={data.location.address || ""}
+                onChange={(e) =>
                   setData((prev) => ({
                     ...prev,
-                    highlights: updated,
-                  }));
-                }}
+                    location: { ...prev.location, address: e.target.value },
+                  }))
+                }
+                className="grooviti-input"
               />
-              {highlight}
-            </label>
-          ))}
+            </div>
+
+            <div className="form-group">
+              <label>City *</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={data.location.city}
+                onChange={onChangeHandler}
+                required
+                className="grooviti-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>State</label>
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={data.location.state}
+                onChange={onChangeHandler}
+                className="grooviti-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Country</label>
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                value={data.location.country}
+                onChange={onChangeHandler}
+                className="grooviti-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Latitude</label>
+              <input
+                type="number"
+                step="any"
+                name="latitude"
+                placeholder="Latitude coordinates"
+                value={data.location.latitude || ""}
+                onChange={onChangeHandler}
+                className="grooviti-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Longitude</label>
+              <input
+                type="number"
+                step="any"
+                name="longitude"
+                placeholder="Longitude coordinates"
+                value={data.location.longitude || ""}
+                onChange={onChangeHandler}
+                className="grooviti-input"
+              />
+            </div>
+          </div>
+
+          <div className="location-actions">
+            <button
+              type="button"
+              onClick={fetchUserLocation}
+              className="location-btn"
+            >
+              Detect Current Location
+            </button>
+          </div>
         </div>
 
-        {/* Location inputs */}
-        <div className="add-location">
-          <p>Event Location</p>
-          <input
-            type="text"
-            name="address"
-            placeholder="Full address (optional)"
-            value={data.location.address || ""}
-            onChange={(e) =>
-              setData((prev) => ({
-                ...prev,
-                location: { ...prev.location, address: e.target.value },
-              }))
-            }
-          />
-          <input
-            type="text"
-            name="city"
-            placeholder="City (required)"
-            value={data.location.city}
-            onChange={onChangeHandler}
-            required
-          />
-          <input
-            type="text"
-            name="state"
-            placeholder="State"
-            value={data.location.state}
-            onChange={onChangeHandler}
-          />
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            value={data.location.country}
-            onChange={onChangeHandler}
-          />
-          <input
-            type="number"
-            step="any"
-            name="latitude"
-            placeholder="Latitude"
-            value={data.location.latitude || ""}
-            onChange={onChangeHandler}
-          />
-          <input
-            type="number"
-            step="any"
-            name="longitude"
-            placeholder="Longitude"
-            value={data.location.longitude || ""}
-            onChange={onChangeHandler}
-          />
-          <button
-            type="button"
-            onClick={fetchUserLocation}
-            style={{
-              marginTop: "10px",
-              padding: "8px 12px",
-              backgroundColor: "#ff6000",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Use My Current Location
-          </button>
-        </div>
+        {/* Map Picker */}
         <DraggableMapPicker
           lat={data.location.latitude}
           lng={data.location.longitude}
@@ -471,15 +619,30 @@ const Add = ({ url }) => {
               ...prev,
               location: {
                 ...prev.location,
-                ...addr, // { address, city, state, country }
+                ...addr,
               },
             }))
           }
           url={url}
         />
-        <button type="submit" className="add-btn">
-          ADD EVENT
-        </button>
+
+        {/* Submit Button */}
+        <div className="form-actions">
+          <button
+            type="submit"
+            className={`submit-btn ${isSubmitting ? "submitting" : ""}`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <div className="spinner"></div>
+                Creating Event...
+              </>
+            ) : (
+              "Create Event"
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );
