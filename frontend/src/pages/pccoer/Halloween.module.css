@@ -2,23 +2,12 @@
   position: relative;
   min-height: 100vh;
   padding: 90px 15px 100px;
-  background: radial-gradient(
-      1200px 600px at 20% -10%,
-      rgba(115, 73, 172, 0.35),
-      transparent
-    ),
-    radial-gradient(
-      900px 500px at 100% 20%,
-      rgba(235, 97, 35, 0.25),
-      transparent
-    ),
-    #0b0b14;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(115, 73, 172, 0.35), transparent), radial-gradient(900px 500px at 100% 20%, rgba(235, 97, 35, 0.25), transparent), #0b0b14;
   overflow-x: hidden;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #e9e7ff;
 }
 
-/* Particles */
 .particles {
   position: fixed;
   inset: 0;
@@ -35,7 +24,6 @@
   z-index: 0;
 }
 
-/* Floating Emojis */
 .floatingEmojis {
   position: fixed;
   inset: 0;
@@ -51,7 +39,6 @@
   filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.4));
 }
 
-/* Header */
 .voteHeader {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -75,8 +62,12 @@
 }
 
 @keyframes badgePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .voteHeader h1 {
@@ -96,7 +87,6 @@
   margin: 0 auto 1.2rem;
 }
 
-/* All Voted Banner */
 .allVotedBanner {
   background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(34, 197, 94, 0.2));
   border: 2px solid #16a34a;
@@ -113,7 +103,6 @@
   box-shadow: 0 4px 20px rgba(22, 163, 74, 0.3);
 }
 
-/* Voting Progress */
 .votingProgress {
   max-width: 500px;
   margin: 1.2rem auto 0;
@@ -152,14 +141,12 @@
   box-shadow: 0 2px 15px rgba(115, 73, 172, 0.6);
 }
 
-/* Voting section */
 .votingSection {
   position: relative;
   z-index: 1;
   padding: 0 10px;
 }
 
-/* Category section */
 .categorySection {
   margin-bottom: 2.5rem;
   background: rgba(18, 16, 28, 0.95);
@@ -298,7 +285,6 @@
   transform: translateX(5px);
 }
 
-/* Candidate cards */
 .candidatesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -314,6 +300,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 330px;
 }
 
 .candidateCard.disabled {
@@ -342,32 +331,39 @@
 
 .candidateImage {
   position: relative;
+  width: 100%;
   height: 200px;
+  min-height: 200px;
+  max-height: 200px;
   overflow: hidden;
   background: #0f0e17;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .candidateImage img {
+  max-width: 100%;
+  max-height: 100%;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.5s ease, filter 0.3s ease;
   filter: saturate(1.05) contrast(1.05);
+  display: block;
 }
 
 .candidateCard:not(.disabled):hover .candidateImage img {
-  transform: scale(1.08);
+  transform: scale(1.05);
   filter: saturate(1.2) contrast(1.1) brightness(1.1);
 }
 
 .voteOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(83, 41, 134, 0.5),
-    rgba(235, 97, 35, 0.5)
-  );
+  background: linear-gradient(180deg, rgba(83, 41, 134, 0.5), rgba(235, 97, 35, 0.5));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -396,8 +392,12 @@
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .spinning {
@@ -405,7 +405,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .votedOverlay {
@@ -424,30 +426,41 @@
 }
 
 .candidateDetails {
-  padding: 14px 12px;
+  padding: 12px;
   text-align: center;
   color: #efeaff;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  height: 130px;
 }
 
 .candidateDetails h4 {
   font-size: 1.08rem;
-  margin-bottom: 4px;
+  margin: 0 0 4px 0;
   color: #fff7f1;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   font-weight: 600;
+  line-height: 1.3;
 }
 
 .meta {
   color: #b9b1da;
   font-size: 0.85rem;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin-top: auto;
 }
 
-/* Voted confirmation */
 .votedConfirmation {
   background: linear-gradient(135deg, rgba(22, 163, 74, 0.15), rgba(34, 197, 94, 0.15));
   border: 2px solid rgba(22, 163, 74, 0.4);
@@ -480,12 +493,17 @@
 }
 
 @keyframes successPop {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* Category View Page */
 .categoryViewPage {
   position: relative;
   padding: 20px;
@@ -547,10 +565,14 @@
 
 .categoryCandidatesGrid .candidateImage {
   height: 200px;
+  min-height: 200px;
+  max-height: 200px;
 }
 
 .compact .candidateImage {
   height: 180px;
+  min-height: 180px;
+  max-height: 180px;
 }
 
 .emptyState {
@@ -574,7 +596,6 @@
   font-size: 1.1rem;
 }
 
-/* Success notification */
 .successNotification {
   position: fixed;
   bottom: 20px;
@@ -644,7 +665,6 @@
   color: #ffffff;
 }
 
-/* Loading spinner */
 .loadingContainer {
   display: grid;
   place-items: center;
@@ -672,11 +692,14 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .candidatesGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -692,6 +715,14 @@
   .viewAllBtn {
     width: 100%;
     justify-content: center;
+  }
+  
+  .candidateCard {
+    height: 330px;
+  }
+  
+  .candidateDetails {
+    height: 130px;
   }
 }
 
@@ -723,8 +754,18 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   
+  .candidateCard {
+    height: 370px;
+  }
+  
   .candidateImage {
     height: 240px;
+    min-height: 240px;
+    max-height: 240px;
+  }
+  
+  .candidateDetails {
+    height: 130px;
   }
   
   .categoryCandidatesGrid {
@@ -734,6 +775,8 @@
   
   .categoryCandidatesGrid .candidateImage {
     height: 240px;
+    min-height: 240px;
+    max-height: 240px;
   }
   
   .successNotification {
@@ -756,6 +799,10 @@
 @media (min-width: 1024px) {
   .candidatesGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .candidateCard {
+    height: 370px;
   }
   
   .categoryCandidatesGrid {
