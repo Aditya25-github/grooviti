@@ -278,7 +278,7 @@ const App = () => {
           <Route
             path="/event/list"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <List url={url} />
               </ProtectedRoute>
             }
@@ -286,7 +286,7 @@ const App = () => {
           <Route
             path="/bookinglist"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <BookingListPage url={url} />
               </ProtectedRoute>
             }
@@ -296,7 +296,7 @@ const App = () => {
           <Route
             path="/event/manage-event"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <ManageEvent url={url} />
               </ProtectedRoute>
             }
@@ -304,7 +304,7 @@ const App = () => {
           <Route
             path="/event/add"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <Add url={url} />
               </ProtectedRoute>
             }
@@ -312,7 +312,7 @@ const App = () => {
           <Route
             path="/event/add-candidate"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <AddCandidate url={url} />
               </ProtectedRoute>
             }
@@ -320,7 +320,7 @@ const App = () => {
           <Route
             path="/event/my-plan"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <MyPlan />
               </ProtectedRoute>
             }
@@ -328,7 +328,7 @@ const App = () => {
           <Route
             path="/event/settings"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <Settings url={url} />
               </ProtectedRoute>
             }
@@ -336,7 +336,7 @@ const App = () => {
           <Route
             path="/event/orders"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <Orders url={url} />
               </ProtectedRoute>
             }
@@ -344,7 +344,7 @@ const App = () => {
           <Route
             path="/event/statistics"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={["event"]}>
                 <Statistics url={url} />
               </ProtectedRoute>
             }

@@ -39,8 +39,8 @@ const EventHostLogin = ({ url }) => {
         setUserRole("event");
         localStorage.setItem("adminToken", response.data.token);
         localStorage.setItem("organizerEmail", response.data.email);
-        localStorage.setItem("eventHost", response.data.email);
-        localStorage.setItem("userRole", "event");
+        localStorage.setItem("eventHostToken", response.data.token);
+        localStorage.setItem("userType", "event");
         toast.success("Login successful");
         navigate("/event/add");
       } else if (response.data.success) {
@@ -81,8 +81,8 @@ const EventHostLogin = ({ url }) => {
 
   useEffect(() => {
     const tokenFromStorage = localStorage.getItem("adminToken");
-    const roleFromStorage = localStorage.getItem("userRole");
-    const emailFromStorage = localStorage.getItem("eventHost");
+    const roleFromStorage = localStorage.getItem("userType");
+    const emailFromStorage = localStorage.getItem("eventHostToken");
     if (tokenFromStorage && roleFromStorage === "event" && emailFromStorage) {
       setToken(tokenFromStorage);
       setAdmin(true);

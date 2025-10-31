@@ -16,7 +16,7 @@ export const StoreContextProvider = ({ children }) => {
     let storedToken = null;
     if (userType === "academy") {
       storedToken = localStorage.getItem("academyToken");
-    } else if (userType === "eventHost") {
+    } else if (userType === "event") {
       storedToken = localStorage.getItem("eventHostToken");
     } else if (userType === "turfOwner") {
       storedToken = localStorage.getItem("turfOwnerToken");
