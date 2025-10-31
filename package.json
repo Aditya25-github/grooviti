@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@studio-freight/lenis": "^1.0.42",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",

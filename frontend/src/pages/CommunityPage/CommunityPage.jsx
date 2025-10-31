@@ -15,6 +15,7 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import Community from "../Community/Community"
 import DiscoverTab from "../../components/DiscoverTab/DiscoverTab"
+import ChatRoom from "./ChatRoom.jsx"; // same folder as CommunityPage.jsx
 
 const CommunityPage = () => {
   const { id } = useParams()
@@ -649,14 +650,20 @@ const handleDeleteGalleryItem = async (itemId) => {
             </div>
           )}
 
-          {/* Chat Tab */}
           {activeTab === "chat" && (
-            <div className="chat-tab">
-              <div className="chat-placeholder">
-                <p>💬 Community chat coming soon</p>
-              </div>
-            </div>
-          )}
+  <div className="chat-tab">
+    <div className="chat-wrap">
+      <ChatRoom
+        apiBase={url}
+        communityId={id}
+        token={token}
+        currentUserId={currentUserId}
+        theme="dark"       // <- matches your new dark UI
+      />
+    </div>
+  </div>
+)}
+
 
           {/* Gallery Tab */}
           {activeTab === "gallery" && (

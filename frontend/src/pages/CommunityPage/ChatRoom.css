@@ -1,0 +1,303 @@
+/* ===============================
+   🌙 Community Chat — Dark Elegant UI
+   =============================== */
+
+.community-chat {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat container */
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  width: 100%;
+  background: #121212;
+  border: 1px solid #242424;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Toolbar */
+.chat-toolbar {
+  padding: 8px;
+  background: #1b1b1b;
+  border-bottom: 1px solid #2e2e2e;
+  display: flex;
+  justify-content: center;
+}
+.chat-toolbar button {
+  background: #2a2a2a;
+  color: #d1d1d1;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.chat-toolbar button:hover {
+  background: #3a3a3a;
+}
+
+.chat-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Chat Messages
+   =============================== */
+/* Chat List */
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: #121212;
+  color: #e1e1e1;
+}
+.chat-empty {
+  text-align: center;
+  color: #777;
+  margin-top: 40px;
+}
+
+.chat-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 8px;
+}
+
+
+
+/* ===============================
+   Individual Message
+   =============================== */
+.chat-item {
+  background: #1d1d1d;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  width: fit-content;
+  max-width: 75%;
+  word-wrap: break-word;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.chat-item:hover {
+  background: #1b1b1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.chat-item.mine {
+  background: linear-gradient(145deg, #2a2a2a, #202020);
+  margin-left: auto;
+}
+.chat-item.deleted {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* Message Header */
+.chat-header {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.chat-author {
+  font-weight: 600;
+  color: #d8d8d8;
+}
+.chat-time {
+  font-size: 11px;
+  color: #888;
+}
+
+/* Message Text */
+.chat-text {
+  font-size: 15px;
+  color: #eaeaea;
+  line-height: 1.4;
+}
+
+/* Edit and Delete Buttons */
+.chat-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+.chat-actions button {
+  background: transparent;
+  border: none;
+  color: #9a9aff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.chat-actions button:hover {
+  color: #b3b3ff;
+}
+/* ===============================
+   Editing Message
+   =============================== */
+.chat-edit {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.chat-edit input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #101013;
+  color: #e9e9ee;
+  font-size: 14px;
+}
+
+.chat-edit input:focus {
+  outline: none;
+  border-color: #6b5cff;
+}
+
+.chat-edit button {
+  background: #6b5cff;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-edit button:hover {
+  background: #5a48ff;
+}
+
+.chat-edit button:last-child {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+.chat-edit button:last-child:hover {
+  background: #23232a;
+  color: #fff;
+}
+
+/* ===============================
+   Message Input (Composer)
+   =============================== */
+.chat-composer {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: #1a1a1a;
+  border-top: 1px solid #2e2e2e;
+}
+.chat-composer input {
+  flex: 1;
+  background: #121212;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.chat-composer input:focus {
+  border-color: #8b5cf6;
+}
+
+.chat-composer input::placeholder {
+  color: #888;
+}
+
+.chat-composer button {
+  background: linear-gradient(90deg, #8b5cf6, #d946ef);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.chat-composer button:hover {
+  opacity: 0.9;
+}
+
+.chat-composer button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Responsive
+   =============================== */
+@media (max-width: 768px) {
+  .chat-wrap {
+    height: 55vh;
+    border-radius: 10px;
+  }
+
+  .chat-item {
+    padding: 8px 10px;
+  }
+
+  .chat-composer input {
+    font-size: 13px;
+  }
+
+  .chat-composer button {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+}
+/* Emoji button */
+.emoji-btn {
+  background: #222;
+  color: #e6e6e6;
+  border: 1px solid #2e2e2e;
+  border-radius: 10px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.emoji-btn:hover { background: #2a2a2a; border-color: #3a3a3a; }
+
+/* Popover anchored inside the composer */
+.chat-composer {
+  position: relative; /* popover anchor */
+}
+
+.emoji-popover {
+  position: absolute;
+  bottom: 56px;           /* sits above the composer */
+  left: 8px;
+  z-index: 50;
+  background: #111;       /* host bg (picker has its own) */
+  border: 1px solid #2b2b2b;
+  border-radius: 12px;
+  overflow: hidden;       /* round picker edges */
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+}
+
+/* Make sure the picker fits on mobile */
+@media (max-width: 640px) {
+  .emoji-popover {
+    left: 6px;
+    right: 6px;
+  }
+}

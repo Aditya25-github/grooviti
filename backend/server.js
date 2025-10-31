@@ -20,7 +20,8 @@ import reviewRouter from "./routes/ReviewRoute.js";
 import communityRoutes from "./routes/communityRoutes.js";
 import cloudinary from "./utils/cloudinary.js";
 import pccoerRoutes from "./routes/pccoerRoutes.js";
-
+import communityChatRoute from "./routes/communityChatRoute.js";
+import registerCommunityChat from "./sockets/communityChat.js";
 
 
 // ==============================
@@ -46,7 +47,7 @@ if (!fs.existsSync(uploadsPath)) {
 const server = http.createServer(app); // Create HTTP server manually
 const io = new Server(server, {
   cors: {
-    origin: "https://grooviti.com", //frontend url to be stored
+    origin: ["http://localhost:5173", "https://grooviti.com"], //frontend url to be stored
     methods: ["GET", "POST"],
   },
 });
@@ -73,7 +74,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
   });
 });
-
+registerCommunityChat(io);
 app.set("io", io);
 
 // ==============================
@@ -139,6 +140,7 @@ app.use("/api/booking", bookingRouter);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/community", communityRoutes);
+app.use("/api/community", communityChatRoute);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
 app.use("/api/pccoer", HalloweenRoutes)
