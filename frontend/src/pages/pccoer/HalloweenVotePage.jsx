@@ -22,11 +22,13 @@ import Confetti from "react-confetti";
 import { useWindowSize } from "@react-hook/window-size";
 import styles from "./Halloween.module.css";
 
+
 const CATEGORY_LABELS = {
   bestDressed: "👗 Best Dressed",
   famousCharacter: "⭐ Most Famous Character",
   bestDuo: "👯 Best Duo",
 };
+
 
 const CATEGORY_COLORS = {
   bestDressed: "#7349AC",
@@ -34,11 +36,13 @@ const CATEGORY_COLORS = {
   bestDuo: "#16a34a",
 };
 
+
 const CATEGORY_ICON = {
   bestDressed: FaCrown,
   famousCharacter: FaStar,
   bestDuo: FaUserFriends,
 };
+
 
 const HalloweenVotePage = () => {
   const navigate = useNavigate();
@@ -140,7 +144,6 @@ const HalloweenVotePage = () => {
 
   const CategoryHeader = ({ category }) => {
     const Icon = CATEGORY_ICON[category] || FaUsers;
-    const allVoted = hasVoted.bestDressed && hasVoted.famousCharacter && hasVoted.bestDuo;
     
     return (
       <div className={styles.categoryHeader}>
@@ -160,17 +163,10 @@ const HalloweenVotePage = () => {
             </p>
           </div>
         </div>
-        {hasVoted[category] ? (
+        {hasVoted[category] && (
           <div className={styles.votedTag}>
             <FaCheckCircle /> Voted
           </div>
-        ) : (
-          <button
-            className={styles.viewAllBtn}
-            onClick={() => setActiveCategory(category)}
-          >
-            View All <FaArrowRight className={styles.arrowIcon} />
-          </button>
         )}
       </div>
     );
@@ -231,8 +227,8 @@ const HalloweenVotePage = () => {
 
   const CategorySection = ({ category }) => {
     const list = candidates.filter((c) => c.category === category);
-    const visible = list.slice(0, 3);
-    const hasMore = list.length > 3;
+    const visible = list.slice(0, 2); // Show only 2 candidates
+    const hasMore = list.length > 2; // Check if more than 2 candidates exist
 
     return (
       <motion.div
@@ -255,32 +251,34 @@ const HalloweenVotePage = () => {
             <p>Your vote in {CATEGORY_LABELS[category]} has been recorded.</p>
           </motion.div>
         ) : (
-          <div className={styles.candidatesGrid}>
-            {visible.map((c, index) => (
-              <motion.div
-                key={c._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+          <>
+            <div className={styles.candidatesGrid}>
+              {visible.map((c, index) => (
+                <motion.div
+                  key={c._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <CandidateCard candidate={c} category={category} />
+                </motion.div>
+              ))}
+              {visible.length === 0 && (
+                <div className={styles.emptyState}>
+                  <FaGhost className={styles.emptyIcon} />
+                  <p>No candidates yet.</p>
+                </div>
+              )}
+            </div>
+            {hasMore && (
+              <button
+                className={styles.viewAllBtnBottom}
+                onClick={() => setActiveCategory(category)}
               >
-                <CandidateCard candidate={c} category={category} />
-              </motion.div>
-            ))}
-            {visible.length === 0 && (
-              <div className={styles.emptyState}>
-                <FaGhost className={styles.emptyIcon} />
-                <p>No candidates yet.</p>
-              </div>
+                View All {list.length} Candidates <FaArrowRight className={styles.arrowIcon} />
+              </button>
             )}
-          </div>
-        )}
-        {hasMore && !hasVoted[category] && (
-          <button
-            className={styles.viewAllBtnBottom}
-            onClick={() => setActiveCategory(category)}
-          >
-            View All {list.length} Candidates <FaArrowRight className={styles.arrowIcon} />
-          </button>
+          </>
         )}
       </motion.div>
     );
