@@ -26,7 +26,7 @@ const OngoingEventDisplay = () => {
   const halloweenEvent = {
     name: "Halloween Costume Contest",
     description: "Vote for the best costumes and spookiest looks!",
-    endDate: "2025-10-31T23:59:59Z",
+    endDate: "2025-10-30T22:59:30Z",
     coverImage: { url: "/images/halloween.png" }, // add this asset to public/images
   };
 
@@ -92,7 +92,7 @@ const OngoingEventDisplay = () => {
               <button
                 className="vote-now-button"
                 onClick={() => {
-                  navigate("/pccoer/halloween/vote");
+                  navigate("/pccoer/halloween");
                   window.scrollTo({ top: 0, behavior: "instant" });
                 }}
               >
@@ -101,7 +101,7 @@ const OngoingEventDisplay = () => {
               <button
                 className="gallery-button"
                 onClick={() => {
-                  navigate("/pccoer/halloween/gallery");
+                  navigate("/pccoer/halloween");
                   window.scrollTo({ top: 0, behavior: "instant" });
                 }}
               >

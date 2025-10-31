@@ -187,7 +187,7 @@ const PccoerPage = () => {
                     className="vote-btn"
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigate("/pccoer/halloween/vote");
+                      navigate("/pccoer/halloween");
                       window.scrollTo({ top: 0, behavior: "instant" });
                     }}
                   >
@@ -197,7 +197,7 @@ const PccoerPage = () => {
                     className="gallery-btn"
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigate("/pccoer/halloween/gallery");
+                      navigate("/pccoer/halloween");
                       window.scrollTo({ top: 0, behavior: "instant" });
                     }}
                   >
