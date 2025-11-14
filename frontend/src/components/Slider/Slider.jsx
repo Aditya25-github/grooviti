@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Calendar, Users, Trophy } from "lucide-react"
-import "./slider.css"
+import "./Slider.css"
 
 const slides = [
   {
