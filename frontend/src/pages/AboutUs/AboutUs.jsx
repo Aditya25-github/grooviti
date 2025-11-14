@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import TeamGrid from "../TeamGrid/TeamGrid";
+import TeamGrid from "../../components/TeamGrid/TeamGrid";
 import "./AboutUs.css";
 
 // Animation variants (no changes needed here)

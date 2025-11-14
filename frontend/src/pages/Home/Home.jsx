@@ -4,14 +4,18 @@ import "./Home.css";
 import Header from "../../components/Header/Header";
 import ExploreEvents from "../../components/ExploreEvents/ExploreEvents";
 import EventDisplay from "../../components/EventDisplay/EventDisplay";
-import TeamGrid from "../TeamGrid/TeamGrid";
+import TeamGrid from "../../components/TeamGrid/TeamGrid";
 import TrustedBy from "../../components/TrustedBy/TrustedBy";
-import WebBuilt from "../../components/WebBuilt/WebBuilt";
-import ListButton from "../../components/ListButton/ListButton";
+// import WebBuilt from "../../components/WebBuilt/WebBuilt";
+// import ListButton from "../../components/ListButton/ListButton";
 import Feedback from "../../components/Feedback/Feedback";
 import FAQ from "../../components/FAQ/FAQ";
 import AnimateOnScroll from "../../components/AnimateOnScroll/AnimateOnScroll";
 import OngoingEventDisplay from "../../components/OngoingEventDisplay/OngoingEventDisplay";
+import VisionMission from "../../components/VisionMission/VisionMission";
+import NewsLetterSignup from "../../components/NewsLetterSignup/NewsLetterSignup";
+import Slider from "../../components/Slider/Slider";
+
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -82,6 +86,14 @@ const Home = () => {
           initial="hidden"
           animate="visible"
         >
+          <Slider />
+        </motion.div>
+
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <ExploreEvents category={category} setCategory={setCategory} />
         </motion.div>
 
@@ -117,13 +129,13 @@ const Home = () => {
           <TeamGrid />
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           variants={sectionVariants}
           initial="hidden"
           animate="visible"
         >
           <ListButton />
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           variants={sectionVariants}
@@ -131,6 +143,14 @@ const Home = () => {
           animate="visible"
         >
           <TrustedBy />
+        </motion.div>
+
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <VisionMission />
         </motion.div>
 
         <motion.div
@@ -149,12 +169,20 @@ const Home = () => {
           <Feedback />
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           variants={sectionVariants}
           initial="hidden"
           animate="visible"
         >
           <WebBuilt />
+        </motion.div> */}
+
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <NewsLetterSignup />
         </motion.div>
 
         <motion.div

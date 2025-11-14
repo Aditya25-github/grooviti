@@ -1,506 +1,136 @@
-/* Main container */
+/* Light theme background */
 .stack-area {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin: 0 auto;
-  padding: 0 1rem;
-  min-height: 60px;
-  height: auto;
-  width: 100%;
-  max-width: 900px; /* Reduced from 1000px */
-  overflow: visible;
-  background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 50px;
-}
-
-/* Heading */
-.animate-scroll-heading {
   text-align: center;
-  font-size: 2rem; 
-  margin: 0rem 2rem; 
-  margin-bottom: 20px;
-  padding: 0 0.5rem;
-  font-weight: 500;
-  color: #1A1F2C;
-  writing-mode: horizontal-tb;
-  transform: translateY(30px);
-  opacity: 0;
-  border-radius: 0;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  align-items: center;  
-  background-color: transparent;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 100%;
+  padding: 4rem 1rem;
+  background: #faf9f8; /* light off-white */
+  color: #1f2937;      /* dark grey text */
 }
 
-/* Heading visible state */
+/* Title animation */
+.animate-scroll-heading {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  font-weight: 500;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  color: #111827;
+  letter-spacing: -0.5px;
+}
+
 .animate-scroll-heading.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Scroll container */
-.scroll-container {
+/* Row of milestones */
+.milestone-row {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem; /* Reduced from 2rem */
-  padding: 0.75rem; /* Reduced from 1rem */
-  background-color: transparent;
-  margin-top: 0.5rem; /* Reduced from 1rem */
-  width: 100%;
-}
-
-/* Row pair styling - smaller boxes */
-.row-pair {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  width: 80%; /* Reduced from 90% */
-  pointer-events: none;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border-radius: 3rem; /* Reduced from 4rem */
-  padding: 0.2rem 1.5rem; /* Reduced from 1.5rem 2rem */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1.5px solid transparent; /* Reduced from 2px */
+  flex-wrap: wrap;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Alternating row alignment */
-.row-pair[data-row="0"],
-.row-pair[data-row="2"] {
-  margin-right: auto;
-  margin-left: 0;
-  transform: translateX(-40px); /* Reduced from -50px */
-}
-
-.row-pair[data-row="1"],
-.row-pair[data-row="3"] {
-  margin-left: auto;
-  margin-right: 0;
-  transform: translateX(40px); /* Reduced from 50px */
-}
-
-.row-pair:hover {
-  border-color: rgba(255, 112, 23, 0.5);
-  transform: scale(1.02);
-}
-
-/* Boxes layout - smaller proportions */
-.row-pair .left-box {
-  width: 60%;
-  padding-right: 15px; /* Reduced from 20px */
-  position: relative;
-  z-index: 2;
-}
-
-.row-pair .right-box {
-  width: 40%;
-  padding-left: 15px; /* Reduced from 20px */
-  position: relative;
-  z-index: 2;
-}
-
-/* Left block elements - smaller transitions */
-.left-scroll-block {
-  padding: 8px 4px; /* Reduced from 10px 5px */
-  opacity: 0;
-  transform: translateX(-25px); /* Reduced from -30px */
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  background: transparent;
-  display: flex;
-  justify-content: flex-end;
-  pointer-events: auto;
-}
-
-/* Right block elements - smaller transitions */
-.animate-scroll-block {
-  padding: 0;
-  opacity: 0;
-  transform: translateX(25px); /* Reduced from 30px */
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  background: transparent;
-  display: flex;
-  justify-content: flex-start;
-  pointer-events: auto;
-}
-
-/* Visible class */
-.left-scroll-block.visible,
-.animate-scroll-block.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Hidden class */
-.hidden {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-/* Typography for individual blocks - smaller text */
-.left-scroll-block h2 {
-  color: #333;
-  font-size: 1.5rem; /* Reduced from 1.75rem */
-  margin-bottom: 0px;
-  padding: 0.75rem 1.25rem; /* Reduced from 1rem 1.5rem */
-  width: auto;
-  font-weight: 600;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-  background: transparent;
-  border-radius: 1.5rem; /* Reduced from 2rem */
+/* Card */
+.milestone-card {
   text-align: center;
-  display: inline-block;
+  padding: 1.5rem 1rem;
+  min-width: 180px;
 }
 
-.animate-scroll-block h2 {
-  color: #ff7017;
-  font-size: 2.25rem; /* Reduced from 2.5rem */
-  margin-bottom: 0px;
-  padding: 0.4rem 0.75rem; /* Reduced from 0.5rem 1rem */
-  width: auto;
-  font-weight: 800;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-  background: transparent;
-  border-radius: 1.5rem; /* Reduced from 2rem */
-  text-align: center;
-  display: inline-block;
-}
-
-/* Hover effects for rows - slightly reduced scale */
-.row-pair:hover h2,
-.row-pair h2:hover {
-  transform: scale(1.03); /* Reduced from 1.05 */
-  color: #f35d00;
-  text-shadow: 2px 2px 8px rgba(255, 112, 23, 0.2);
-}
-
-/* Title numbers styling - smaller text */
-.title-number-1,
-.title-number-2,
-.title-number-3,
-.title-number-4 {
-  font-size: 2.5rem; /* Reduced from 2.75rem */
-  font-weight: 800;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Text spans */
-.left-scroll-block h2 .text,
-.animate-scroll-block h2 .text {
-  position: relative;
-  display: inline-block;
-  padding: 0 0.4rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1.2rem;
+/* Number */
+.milestone-number {
+  font-size: 3rem;
   font-weight: 500;
+  color: #ff6000;  
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 
-.animate-scroll-block h2 .text{
-  font-size: 2rem;
+/* Subtitle */
+.milestone-title {
+  font-size: 1.15rem;
+  color: #4b5563;  /* soft grey */
+  margin: 0;
   font-weight: 400;
+  line-height: 1.3;
 }
 
-/* Icon containers - adjusted positioning to be more inside the box */
-.icon-container {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+/* ===================== RESPONSIVE ===================== */
+
+@media screen and (max-width: 1024px) {
+  .milestone-row {
+    gap: 3rem;
+  }
+
+  .milestone-card {
+    min-width: 150px;
+  }
+
+  .milestone-number {
+    font-size: 3.3rem;
+  }
 }
 
-.events-icon-container,
-.user-icon-container {
-  left: -7px;
-   /* Moved more inside the box (was -25px) */
-}
-
-.connected-icon-container,
-.cities-icon-container {
-  right: -7px; /* Moved more inside the box (was -25px) */
-}
-
-/* Icon styling */
-.milestone-icon {
-  color: #ff7017;
-  opacity: 0.7;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-/* Hover effects for icons */
-.row-pair:hover .icon-container {
-  transform: translateY(-50%) scale(1.15);
-}
-
-.row-pair:hover .milestone-icon {
-  opacity: 1;
-  color: #f35d00;
-  filter: drop-shadow(0 4px 8px rgba(243, 93, 0, 0.2));
-}
-
-/* Enhanced responsive Media Queries */
-@media (max-width: 1200px) {
+@media screen and (max-width: 768px) {
   .stack-area {
-    max-width: 800px;
+    padding: 3rem 1rem;
   }
-  
-  .row-pair {
-    width: 85%;
-  }
-}
 
-@media (max-width: 992px) {
-  .stack-area {
-    max-width: 700px;
-    padding: 1rem 0.5rem;
-  }
-  
   .animate-scroll-heading {
-    font-size: 2rem;
-    margin: 1rem 1.75rem;
-  }
-  
-  .row-pair {
-    width: 90%;
-    padding: 0.2rem 1.25rem;
-    border-radius: 2.5rem;
-  }
-  
-  .title-number-1,
-  .title-number-2,
-  .title-number-3,
-  .title-number-4 {
-    font-size: 2.25rem;
-  }
-  
-  .left-scroll-block h2 {
-    font-size: 1.35rem;
-  }
-  
-  .animate-scroll-block h2 {
-    font-size: 2rem;
-  }
-  
-  /* Move icons further inside on tablet */
-  .events-icon-container,
-  .user-icon-container {
-    left: -10px;
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
   }
 
-  .connected-icon-container,
-  .cities-icon-container {
-    right: -10px;
+  .milestone-row {
+    gap: 2.5rem;
+  }
+
+  .milestone-card {
+    min-width: 140px;
+    padding: 1.25rem 1rem;
+  }
+
+  .milestone-number {
+    font-size: 2.8rem;
+  }
+
+  .milestone-title {
+    font-size: 1rem;
   }
 }
 
-@media (max-width: 768px) {
-  .stack-area {
-    max-width: 100%;
-    padding: 0.75rem;
+@media screen and (max-width: 640px) {
+  .milestone-row {
+    flex-direction: column;
+    gap: 2rem;
   }
-  
+
+  .milestone-card {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .milestone-number {
+    font-size: 3rem;
+  }
+
+  .milestone-title {
+    font-size: 1.05rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .animate-scroll-heading {
-    font-size: 2rem;
-    margin: 1rem auto 1.5rem;
-  }
-  
-  .row-pair {
-    width: 92%;
-    padding: 0rem 1.1rem;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    /* Change to column layout for mobile - this restructures the elements */
-    flex-direction: column;
-    gap: 0.75rem;
-    transform: none !important;
-    border-radius: 2rem;
-  }
-  
-  /* Change box layout for mobile - restructure for logo-title-count */
-  .row-pair .left-box,
-  .row-pair .right-box {
-    width: 100%;
-    padding: 0.4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Reposition icons to appear at the top in mobile view */
-  .icon-container {
-    position: relative;
-    left: auto !important;
-    right: auto !important;
-    transform: none;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.4rem;
-    top: auto;
-    order: 1; /* Make icons appear first */
-  }
-  
-  .events-icon-container,
-  .user-icon-container,
-  .connected-icon-container,
-  .cities-icon-container {
-    position: static;
-    transform: none;
-    margin: 0 auto 0.4rem;
-  }
-  
-  /* Make title appear second */
-  .left-scroll-block {
-    order: 2;
-    justify-content: center;
-    transform: none;
-    width: 100%;
-    padding-bottom: 0;
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
   }
 
-  .left-scroll-block .title-text-1{
-    padding-bottom: 0;
+  .milestone-number {
+    font-size: 2.6rem;
   }
-  
-  /* Make counter appear third */
-  .animate-scroll-block {
-    order: 3;
-    justify-content: center;
-    transform: none;
-    width: 100%;
-  }
-  
-  .left-scroll-block h2,
-  .animate-scroll-block h2 {
-    font-size: 1.25rem;
-    padding: 0.4rem 0.75rem;
-    text-align: center;
-    width: auto;
-  }
-  
-  .title-number-1,
-  .title-number-2,
-  .title-number-3,
-  .title-number-4 {
-    font-size: 2rem;
-  }
-  
-  .milestone-icon {
-    width: 35px;
-    height: 35px;
-  }
-  
-  .row-pair:hover .icon-container {
-    transform: none;
-  }
-  
-  /* Adjust the mobile presentation of pairs */
-  .row-pair[data-row="0"] .left-box,
-  .row-pair[data-row="1"] .left-box,
-  .row-pair[data-row="2"] .left-box,
-  .row-pair[data-row="3"] .left-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .row-pair[data-row="0"] .right-box,
-  .row-pair[data-row="1"] .right-box, 
-  .row-pair[data-row="2"] .right-box,
-  .row-pair[data-row="3"] .right-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .animate-scroll-heading {
-    font-size: 1.5rem;
-  }
-  
-  .row-pair {
-    padding: 0.75rem;
-    width: 95%;
-    border-radius: 1.5rem;
-  }
-  
-  .left-scroll-block h2,
-  .animate-scroll-block h2 {
-    font-size: 1.1rem;
-    padding: 0.3rem 0.6rem;
-  }
-  
-  .title-number-1,
-  .title-number-2,
-  .title-number-3,
-  .title-number-4 {
-    font-size: 1.75rem;
-  }
-  
-  .milestone-icon {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-/* Animation Keyframes */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Apply animation to the heading */
-.animate-scroll-heading.visible {
-  animation: fadeInUp 1s ease-out;
-}
-
-/* Add pulse glow animation to the numbers */
-.animate-scroll-block h2 {
-  animation: pulseGlow 2s infinite;
-}
-
-/* Define pulse glow animation */
-@keyframes pulseGlow {
-  0% {
-    text-shadow: 0 0 5px rgba(255, 112, 23, 0.2);
-  }
-  50% {
-    text-shadow: 0 0 15px rgba(255, 112, 23, 0.4);
-  }
-  100% {
-    text-shadow: 0 0 5px rgba(255, 112, 23, 0.2);
-  }
-}
-
-/* Add hover effect to the h2 elements */
-.left-scroll-block h2.hovered,
-.animate-scroll-block h2.hovered {
-  color: #f35d00;
-  text-shadow: 2px 2px 8px rgba(255, 112, 23, 0.2);
 }

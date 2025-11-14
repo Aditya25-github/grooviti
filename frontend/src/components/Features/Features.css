@@ -1,0 +1,406 @@
+/* Added 3D flip card animation styles */
+.bento-container {
+  width: 100%;
+  padding: 2rem 1rem; /* Reduced padding from 4rem to 2rem for less vertical space */
+  min-height: auto; /* Changed from 100vh to auto to reduce overall height */
+}
+
+.bento-wrapper {
+  max-width: 1200px; /* Increased from 900px to 1200px for more horizontal space */
+  margin: 0 auto;
+  background: transparent;
+}
+
+.sectioon-header {
+  text-align: center;
+  margin-bottom: 2rem; /* Reduced margin from 3rem to 2rem */
+  padding: 0;
+}
+
+.main-tittle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem; /* Reduced margin from 1rem to 0.5rem */
+  line-height: 1.2;
+  background: transparent;
+}
+
+.main-subtittle {
+  font-size: 1.125rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  background: transparent;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, minmax(160px, auto)); /* Reduced minimum height from 200px to 160px */
+  gap: 1.5rem; /* Increased gap from 1rem to 1.5rem for better spacing between cards */
+  position: relative;
+}
+
+/* Updated card structure for flip animation */
+.bento-card {
+  perspective: 1000px;
+  min-height: 160px; /* Reduced minimum height from 200px to 160px */
+  cursor: pointer;
+  position: relative;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  min-height: 160px; /* Reduced minimum height from 200px to 160px */
+}
+
+.bento-card:hover .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 160px; /* Reduced minimum height from 200px to 160px */
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Applied white and orange color scheme to front and back */
+.event-hosting .card-front,
+.event-hosting .card-back {
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid #e55500;
+}
+
+.sports-page .card-front,
+.sports-page .card-back {
+  background-color: rgba(114, 138, 176, 0.5);
+  border: 1px solid #ff6000;
+}
+
+.communities .card-front,
+.communities .card-back {
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid #e55500;
+}
+
+.admin-panel .card-front,
+.admin-panel .card-back {
+  background-color: rgba(114, 138, 176, 0.5);
+  border: 1px solid #ff6000;
+}
+
+.notifications .card-front,
+.notifications .card-back {
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid #e55500;
+}
+
+.real-time-chat .card-front,
+.real-time-chat .card-back {
+  background-color: rgba(114, 138, 176, 0.5);
+  border: 1px solid #ff6000;
+}
+
+.card-content {
+  padding: 1rem; /* Reduced padding from 1.5rem to 1rem for more compact cards */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.card-icon {
+  width: 2.5rem; /* Reduced icon size from 3rem to 2.5rem */
+  height: 2.5rem;
+  margin-bottom: 0.75rem; /* Reduced margin from 1rem to 0.75rem */
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(255, 96, 0, 0.1);
+}
+
+.card-icon svg {
+  width: 1.25rem; /* Reduced icon size from 1.5rem to 1.25rem */
+  height: 1.25rem;
+  stroke-width: 2;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  color: #ff6000;
+}
+
+.card-title {
+  font-size: 1.125rem; /* Reduced font size from 1.25rem to 1.125rem */
+  font-weight: 600;
+  margin-bottom: 0.25rem; /* Reduced margin from 0.5rem to 0.25rem */
+  line-height: 1.3;
+}
+
+.card-subtitle {
+  font-size: 0.9rem; /* Reduced font size from 1rem to 0.9rem */
+  font-weight: 500;
+  margin-bottom: 0.75rem; /* Reduced margin from 1rem to 0.75rem */
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+.card-description {
+  font-size: 0.875rem; /* Reduced font size from 0.95rem to 0.875rem */
+  line-height: 1.4; /* Reduced line height from 1.5 to 1.4 */
+  text-align: center;
+}
+
+/* Text colors for orange and white cards */
+.event-hosting .card-title,
+.event-hosting .card-subtitle,
+.event-hosting .card-description,
+.communities .card-title,
+.communities .card-subtitle,
+.communities .card-description,
+.notifications .card-title,
+.notifications .card-subtitle,
+.notifications .card-description {
+  color: white;
+}
+
+.sports-page .card-title,
+.sports-page .card-description,
+.admin-panel .card-title,
+.admin-panel .card-description,
+.real-time-chat .card-title,
+.real-time-chat .card-description {
+  color: #1f2937;
+}
+
+.sports-page .card-subtitle,
+.admin-panel .card-subtitle,
+.real-time-chat .card-subtitle {
+  color: #ff6000;
+}
+
+.event-hosting .card-icon svg,
+.communities .card-icon svg,
+.notifications .card-icon svg {
+  color: white;
+}
+
+.sports-page .card-icon svg,
+.admin-panel .card-icon svg,
+.real-time-chat .card-icon svg {
+  color: #ff6000;
+}
+
+/* Bento Grid Layout */
+.event-hosting {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.sports-page {
+  grid-column: span 1;
+  grid-row: span 2;
+  min-height: 340px; /* Reduced minimum height from 420px to 340px */
+}
+
+.communities {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.admin-panel {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.notifications {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.real-time-chat {
+  grid-column: span 3;
+  grid-row: span 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .bento-container {
+    padding: 2rem 1rem; /* Reduced padding from 4rem to 2rem */
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, minmax(150px, auto)); /* Reduced minimum height from 180px to 150px */
+    gap: 1.25rem; /* Increased gap from 1rem to 1.25rem for tablet spacing */
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem; /* Reduced margin from 2rem to 1.5rem */
+  }
+
+  .event-hosting {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .sports-page {
+    grid-column: span 1;
+    grid-row: span 2;
+    min-height: 320px; /* Reduced minimum height from 380px to 320px */
+  }
+
+  .communities {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .admin-panel {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .notifications {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .real-time-chat {
+    grid-column: span 3;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-container {
+    padding: 1.5rem 1rem; /* Reduced padding from 2rem to 1.5rem */
+  }
+
+  .main-title {
+    font-size: 1.75rem;
+  }
+
+  .main-subtitle {
+    font-size: 1rem;
+  }
+
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, minmax(140px, auto)); /* Reduced minimum height from 160px to 140px */
+    gap: 1.25rem; /* Increased gap from 1rem to 1.25rem for mobile spacing */
+  }
+
+  .section-header {
+    margin-bottom: 1rem; /* Reduced margin from 1.5rem to 1rem */
+  }
+
+  .event-hosting,
+  .sports-page,
+  .communities,
+  .admin-panel,
+  .notifications,
+  .real-time-chat {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 120px; /* Reduced minimum height from 140px to 120px */
+  }
+
+  .sports-page {
+    min-height: 140px; /* Reduced minimum height from 160px to 140px */
+  }
+
+  .card-content {
+    padding: 1rem; /* Reduced padding from 1.25rem to 1rem */
+  }
+
+  .card-title {
+    font-size: 1.1rem; /* Reduced font size from 1.2rem to 1.1rem */
+  }
+
+  .card-description {
+    font-size: 0.85rem; /* Reduced font size from 0.9rem to 0.85rem */
+  }
+}
+
+@media (max-width: 480px) {
+  .bento-container {
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .main-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, minmax(120px, auto)); /* Reduced minimum height from 140px to 120px */
+  }
+
+  .section-header {
+    margin-bottom: 0.75rem; /* Reduced margin from 1rem to 0.75rem */
+  }
+
+  .event-hosting,
+  .sports-page,
+  .communities,
+  .admin-panel,
+  .notifications,
+  .real-time-chat {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 120px; /* Reduced minimum height from 140px to 120px */
+  }
+
+  .sports-page {
+    min-height: 140px; /* Reduced minimum height from 160px to 140px */
+  }
+
+  .card-content {
+    padding: 0.875rem; /* Reduced padding from 1rem to 0.875rem */
+  }
+
+  .card-title {
+    font-size: 1rem; /* Reduced font size from 1.1rem to 1rem */
+  }
+
+  .card-subtitle {
+    font-size: 0.85rem; /* Reduced font size from 0.9rem to 0.85rem */
+  }
+
+  .card-description {
+    font-size: 0.8rem; /* Reduced font size from 0.85rem to 0.8rem */
+  }
+}

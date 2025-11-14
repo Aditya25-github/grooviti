@@ -8,7 +8,7 @@ const teamMembers = [
     name: "Aditya Divate",
     role: "CEO & Founder",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/adi.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/aditya1.jpg",
   },
   {
     name: "Swaroop Mane",
@@ -20,7 +20,7 @@ const teamMembers = [
     name: "Saksham Gawande",
     role: "CMO",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/saksham1.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/saksham.jpg",
   },
   {
     name: "Siddhi Pankhade",
@@ -30,7 +30,7 @@ const teamMembers = [
   },
   {
     name: "Samiksha Ner",
-    role: "UI/UX Designer",
+    role: "AI Developer",
     image:
       "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/sam.jpg",
   },
@@ -44,7 +44,7 @@ const teamMembers = [
     name: "Akash Patil",
     role: "App Developer",
     image:
-      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/akash1.jpg",
+      "https://raw.githubusercontent.com/SANNINelite/grooviti-assets/main/akash.jpg",
   },
   {
     name: "Diksha Waghulde",

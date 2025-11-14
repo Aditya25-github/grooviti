@@ -37,7 +37,7 @@
 
 .faq-category-btn {
   padding: 10px 20px;
-  border: 2px solid #ff6000;
+  border: 2px solid #ffc7a4;
   border-radius: 30px;
   background-color: white;
   color: #ff6000;
@@ -49,7 +49,7 @@
 
 .faq-category-btn.active,
 .faq-category-btn:hover {
-  background-color: #ff6000;
+  background-color: #fe7622;
   color: white;
 }
 
@@ -60,51 +60,17 @@
 }
 
 .faq-item {
-  border: 2px solid #ff6000;
+  border: 2px solid #8b8784;
   border-radius: 10px;
   overflow: hidden;
-  background-color: white;
   transition: all 0.3s ease;
   animation: fadeIn 0.8s ease-in-out;
-}
-
-.faq-item:hover {
-  transform: scale(1.01);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-}
-
-.faq-question {
-  width: 100%;
-  padding: 18px;
-  background: #fff5ef;
-  border: none;
-  text-align: left;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.3s;
-}
-
-.faq-question:hover {
-  background-color: #ffe0cc;
 }
 
 .faq-question .icon {
   margin-right: 10px;
   color: #ff6000;
   font-size: 1.2rem;
-}
-
-.faq-answer {
-  padding: 18px;
-  background: #fff;
-  font-size: 1rem;
-  color: #444;
-  border-top: 1px solid #ffe6d9;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
 .faq-answer a {
@@ -115,7 +81,7 @@
 }
 
 .faq-answer a:hover {
-  color: #cc4d00;
+  color: #2b6eea;
 }
 
 .faq-question {
@@ -139,9 +105,10 @@
 }
 
 .faq-answer {
-  padding: 16px;
+  padding: 18px;
   background: #fff;
-  font-size: 0.95rem;
-  color: #333;
-  border-top: 1px solid #eee;
+  font-size: 1rem;
+  color: #444;
+  border-top: 1px solid #ffe6d9;
+  animation: fadeIn 0.3s ease-in-out;
 }
