@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NewsletterSignup.css";
+import "./NewsLetterSignup.css";
 
 const NewsletterSignup = () => {
   const [email, setEmail] = useState("");
