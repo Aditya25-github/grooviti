@@ -54,7 +54,7 @@ export default function GroovitiSlider() {
   const handleExploreClick = () => {
     if (activeIndex === 0) {
       // Handle Events click - you can add events URL here later
-       window.open("http://localhost:5173/event", "_blank")
+       window.open("https://grooviti.com/event", "_blank")
     } else {
       // Open sports section in new tab
       window.open("https://www.sports.grooviti.com/", "_blank")
