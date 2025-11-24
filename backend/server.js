@@ -3,7 +3,7 @@
 // ==============================
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config";
 import fs from "fs";
 import path from "path";
 import http from "http";
@@ -27,7 +27,6 @@ import registerCommunityChat from "./sockets/communityChat.js";
 // ==============================
 // 📦 App Configuration
 // ==============================
-dotenv.config();
 
 
 const app = express();

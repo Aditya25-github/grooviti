@@ -21,6 +21,11 @@ const BuyTicket = () => {
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [teamSize, setTeamSize] = useState(1);
+  const initialTeamMembers = {};
+  for (let i = 1; i <= 10; i++) {
+    initialTeamMembers[`Team_member_name_${i}`] = "";
+  }
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -29,13 +34,10 @@ const BuyTicket = () => {
     Branch: "",
     Team_name: "",
     Team_leader_name: "",
-    Team_size: "",
-    Team_member_name_1: "",
-    Team_member_name_2: "",
-    Team_member_name_3: "",
-    Team_member_name_4: "",
+    Team_size: 1,
     phone: "",
     event: "",
+    ...initialTeamMembers,
   });
 
   useEffect(() => {

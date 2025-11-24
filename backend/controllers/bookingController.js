@@ -37,6 +37,8 @@ transporter.verify((error, success) => {
 
 // Book Ticket
 const bookTicket = async (req, res) => {
+  const orderData = req.body;
+  console.log("ORDER DATA SENDING:", orderData);
   try {
     const { userId, items, amount, address } = req.body;
     if (!userId || !items.length || !amount || !address) {
