@@ -15,6 +15,7 @@ const BuyTicket = () => {
     cartItems,
     addToCart,
     removeFromCart,
+    user,
   } = useContext(StoreContext);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -99,7 +100,14 @@ const BuyTicket = () => {
       }
     });
 
+    if (!user || !user._id) {
+      alert("Please login first before booking.");
+      setLoading(false);
+      return;
+    }
+
     let orderData = {
+      userId: user._id,
       address: data,
       items: eventItems,
       amount: getTotalCartAmount() + 0,

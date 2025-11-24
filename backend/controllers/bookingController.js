@@ -36,14 +36,44 @@ transporter.verify((error, success) => {
 
 
 // Book Ticket
+// Book Ticket
 const bookTicket = async (req, res) => {
-  const orderData = req.body;
-  console.log("ORDER DATA SENDING:", orderData);
+  console.log("\n==============================");
+  console.log("📥 NEW BOOKING REQUEST RECEIVED");
+  console.log("➡️ Full Request Body:", JSON.stringify(req.body, null, 2));
+  console.log("==============================\n");
+
   try {
     const { userId, items, amount, address } = req.body;
-    if (!userId || !items.length || !amount || !address) {
-      return res.json({ success: false, message: "Missing required fields" });
+
+    console.log("🧩 Extracted Data:");
+    console.log("userId:", userId);
+    console.log("items:", items);
+    console.log("amount:", amount);
+    console.log("address:", address);
+
+    // FIXED VALIDATION
+    if (!userId) {
+      console.log("❌ Missing userId");
+      return res.json({ success: false, message: "Missing userId" });
     }
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      console.log("❌ Missing items array");
+      return res.json({ success: false, message: "Missing items" });
+    }
+
+    if (amount === undefined || amount === null) {
+      console.log("❌ Missing or invalid amount");
+      return res.json({ success: false, message: "Missing amount" });
+    }
+
+    if (!address) {
+      console.log("❌ Missing address object");
+      return res.json({ success: false, message: "Missing address" });
+    }
+
+    // REQUIRED FIELDS VALIDATION
     const requiredFields = [
       "firstName",
       "lastName",
@@ -57,18 +87,25 @@ const bookTicket = async (req, res) => {
     ];
 
     for (let field of requiredFields) {
-      if (!address[field]) {
+      if (!address[field] || address[field].trim() === "") {
+        console.log(`❌ Missing required address field: ${field}`);
         return res.json({
           success: false,
           message: `Missing required field: ${field}`,
         });
       }
     }
+
+    // REQUEST PASSED ALL VALIDATIONS
+    console.log("✅ All required fields present. Creating Razorpay order...");
+
     const order = await razorpay.orders.create({
-      amount: amount * 100,
+      amount: Number(amount) * 100,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
+
+    console.log("🧾 Razorpay Order Created Successfully:", order);
 
     const newTicket = new bookingModel({
       userId,
@@ -76,19 +113,24 @@ const bookTicket = async (req, res) => {
       amount,
       address,
       orderId: order.id,
-      status: "Ticket booked , Payment verification pending!",
+      status: "Ticket booked, Payment verification pending!",
       payment: false,
     });
 
     await newTicket.save();
+    console.log("💾 Booking saved in DB successfully:", newTicket._id);
+
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
+    console.log("🛒 Cart cleared for user:", userId);
+
     res.json({ success: true, order_id: order.id });
+
   } catch (error) {
-    console.error("Error while making payment:", error);
+    console.error("❌ ERROR while creating booking:", error);
     res.json({ success: false, message: "Error while making payment" });
   }
-
 };
+
 
 // Verify Payment & Send Email
 const verifyOrder = async (req, res) => {

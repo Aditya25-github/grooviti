@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     resetTokenExpiry: Date,
     profileImage: {
       url: { type: String, default: "" },
-      public_id: { type: String, default: "" }, // uploaded at cloudinary 
+      public_id: { type: String, default: "" },
     },
     phone: { type: String, default: "" },
     gender: { type: String, enum: ["male", "female", "other", ""], default: "" },
