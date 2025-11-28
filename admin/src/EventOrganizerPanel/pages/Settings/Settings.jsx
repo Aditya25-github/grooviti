@@ -29,7 +29,6 @@ const Settings = ({ url }) => {
         const res = await axios.get(`${url}/api/organizer/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
         if (res.data.success) {
           const org = res.data.organizer;
           setFormData({
@@ -44,41 +43,30 @@ const Settings = ({ url }) => {
             newPassword: "",
             confirmPassword: "",
           });
-          if (org.profileImage) {
-            if (typeof org.profileImage === "object" && org.profileImage.url) {
-              setPreviewImage(org.profileImage.url);
-              setProfileImageFromDB(org.profileImage.url);
-            } else if (typeof org.profileImage === "string") {
-              if (org.profileImage.startsWith("http")) {
-                setPreviewImage(org.profileImage);
-                setProfileImageFromDB(org.profileImage);
-              } else {
-                setPreviewImage(
-                  `${url}/uploads/organizers/${org.profileImage}`
-                );
-                setProfileImageFromDB(
-                  `${url}/uploads/organizers/${org.profileImage}`
-                );
-              }
-            }
-          } else {
-            setPreviewImage(null);
-            setProfileImageFromDB(null);
-          }
+          const imageUrl =
+            org.profileImage?.url ||
+            (typeof org.profileImage === "string" &&
+            org.profileImage.startsWith("http")
+              ? org.profileImage
+              : org.profileImage
+              ? `${url}/uploads/organizers/${org.profileImage}`
+              : null);
+          setPreviewImage(imageUrl);
+          setProfileImageFromDB(imageUrl);
+        } else {
+          setPreviewImage(null);
+          setProfileImageFromDB(null);
         }
       } catch (err) {
-        console.error(err);
         toast.error("Error fetching profile");
       }
     };
-
     if (token) fetchData();
   }, [token]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -86,7 +74,6 @@ const Settings = ({ url }) => {
       setPreviewImage(URL.createObjectURL(file));
     }
   };
-
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -101,11 +88,9 @@ const Settings = ({ url }) => {
         .map((s) => s.trim());
       formDataToSend.append("city", city);
       formDataToSend.append("state", state);
-
       if (newProfileImage) {
         formDataToSend.append("profileImage", newProfileImage);
       }
-
       const res = await axios.put(
         `${url}/api/organizer/profile`,
         formDataToSend,
@@ -116,25 +101,18 @@ const Settings = ({ url }) => {
           },
         }
       );
-
-      if (res.data.success) {
-        toast.success("Profile updated successfully");
-      } else {
-        toast.error("Update failed");
-      }
-    } catch (err) {
+      if (res.data.success) toast.success("Profile updated successfully");
+      else toast.error("Update failed");
+    } catch {
       toast.error("Something went wrong");
     }
   };
-
   const handlePasswordChange = async (e) => {
     e.preventDefault();
-
     if (formData.newPassword !== formData.confirmPassword) {
       toast.error("New passwords do not match");
       return;
     }
-
     try {
       const res = await axios.put(
         `${url}/api/organizer/change-password`,
@@ -142,11 +120,8 @@ const Settings = ({ url }) => {
           currentPassword: formData.currentPassword,
           newPassword: formData.newPassword,
         },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-
       if (res.data.success) {
         toast.success("Password updated successfully");
         setFormData((prev) => ({
@@ -158,125 +133,151 @@ const Settings = ({ url }) => {
       } else {
         toast.error(res.data.message || "Password update failed");
       }
-    } catch (err) {
+    } catch {
       toast.error("Something went wrong");
     }
   };
 
   return (
-    <div className="settings-page">
-      <h2>Organizer Settings</h2>
-      <div className="settings-card">
-        <form onSubmit={handleProfileUpdate} encType="multipart/form-data">
-          <h3>Personal Info</h3>
-          <div className="form-grid">
-            <div className="form-fields">
-              <label>Full Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                readOnly
-              />
-              <label>Phone Number</label>
-              <input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-              <label>Organization Name</label>
-              <input
-                type="text"
-                name="organizationName"
-                value={formData.organizationName}
-                onChange={handleChange}
-              />
-              <label>Website</label>
-              <input
-                type="text"
-                name="website"
-                value={formData.website}
-                onChange={handleChange}
-              />
-              <label>About</label>
-              <textarea
-                name="bio"
-                rows="3"
-                value={formData.bio}
-                onChange={handleChange}
-              />
-              <label>Address</label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-              />
-              <button className="save-btn" type="submit">
-                Update Profile
+    <div className="settings-main">
+      <h1 className="settings-title">User Settings</h1>
+      <div className="settings-grid">
+        <div className="settings-left">
+          <form
+            onSubmit={handleProfileUpdate}
+            encType="multipart/form-data"
+            className="settings-section"
+          >
+            <div className="section-title">User Information</div>
+            <div className="section-instructions">
+              Update your basic profile information.
+            </div>
+            <div className="two-inputs">
+              <div>
+                <label>First Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <label>Email Address</label>
+            <input type="email" name="email" value={formData.email} readOnly />
+            <label>Phone Number</label>
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <label>Job Title</label>
+            <input
+              type="text"
+              name="organizationName"
+              value={formData.organizationName}
+              onChange={handleChange}
+            />
+            <label>Company</label>
+            <input
+              type="text"
+              name="company"
+              value={"Grooviti Events"}
+              readOnly
+            />
+            <div className="button-row">
+              <button className="btn-primary" type="submit">
+                Save Changes
+              </button>
+              <button className="btn-neutral" type="reset">
+                Cancel
               </button>
             </div>
-            <div className="profile-img-wrapper">
-              <img
-                src={previewImage || profileImageFromDB || assets.profile_image}
-                alt="Profile Preview"
-                className="profile-img"
-              />
-              <label className="upload-btn">
-                Change Photo
-                <input
-                  type="file"
-                  name="profileImage"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  hidden
-                />
-              </label>
+          </form>
+          <form onSubmit={handlePasswordChange} className="settings-section">
+            <div className="section-title">Password Management</div>
+            <div className="section-instructions">
+              Change your password to keep your account secure.
             </div>
+            <label>Current Password</label>
+            <input
+              type="password"
+              name="currentPassword"
+              value={formData.currentPassword}
+              onChange={handleChange}
+              required
+            />
+            <div className="two-inputs">
+              <div>
+                <label>New Password</label>
+                <input
+                  type="password"
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>Confirm New Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="button-row">
+              <button className="btn-primary" type="submit">
+                Update Password
+              </button>
+              <button className="btn-neutral" type="reset">
+                Cancel
+              </button>
+            </div>
+          </form>
+          <div className="danger-section">
+            <div className="danger-title">Danger Zone</div>
+            <div className="danger-desc">
+              Permanently delete your account and all associated data.
+            </div>
+            <button className="danger-btn">Delete My Account</button>
           </div>
-        </form>
-
-        <hr />
-
-        <form onSubmit={handlePasswordChange}>
-          <h3>Change Password</h3>
-          <label>Current Password</label>
-          <input
-            type="password"
-            name="currentPassword"
-            value={formData.currentPassword}
-            onChange={handleChange}
-            required
-          />
-          <label>New Password</label>
-          <input
-            type="password"
-            name="newPassword"
-            value={formData.newPassword}
-            onChange={handleChange}
-            required
-          />
-          <label>Confirm New Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-          <button className="save-btn" type="submit">
-            Change Password
-          </button>
-        </form>
+        </div>
+        <div className="settings-right">
+          <div className="profile-block">
+            <div className="profile-title">Profile Photo</div>
+            <img
+              src={previewImage || profileImageFromDB || assets.profile_image}
+              alt="Profile Preview"
+              className="profile-img-block"
+            />
+            <label className="btn-primary upload-btn">
+              Upload New Photo
+              <input
+                type="file"
+                name="profileImage"
+                accept="image/*"
+                onChange={handleImageChange}
+                hidden
+              />
+            </label>
+            <button className="btn-neutral remove-btn">Remove Photo</button>
+          </div>
+        </div>
       </div>
     </div>
   );

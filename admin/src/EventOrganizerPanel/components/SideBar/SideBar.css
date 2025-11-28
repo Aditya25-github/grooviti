@@ -1,39 +1,91 @@
 .sidebar {
-  width: 18%;
+  background: #fff;
+  border-right: 1.5px solid #e5e7eb;
+  width: 220px;
   min-height: 100vh;
-  border: 1.5px solid #a9a9a9;
-  border-top: 30;
-  font-size: max(1vw, 10px);
-}
-.sidebar-options {
-  padding-top: 50px;
-  padding-left: 20%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  padding: 28px 0;
+  box-shadow: 2px 0 14px #f3f4f6;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
-.sidebar-option {
+
+.sidebar-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 32px 30px 32px;
+}
+
+.sidebar-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.sidebar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #6620ef;
+  letter-spacing: -0.03em;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+.sidebar-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #a9a9a9;
-  border-right: 0;
-  padding: 8px 10px;
-  border-radius: 3px 0px 0px 3px;
-  cursor: pointer;
-}
-.sidebar-option.active {
-  background-color: #fff0ed;
-  border-color: tomato;
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #313136;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.19s, color 0.19s, box-shadow 0.19s;
 }
 
-@media (max-width: 900px) {
-  .sidebar-option p {
+.sidebar-link.active,
+.sidebar-link:hover {
+  background: #f6faff;
+  color: #6620ef;
+  box-shadow: 0 2px 12px rgba(102, 32, 239, 0.05);
+}
+
+.sidebar-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive design for tablets/mobile */
+@media (max-width: 800px) {
+  .sidebar {
+    width: 60px;
+    padding: 12px 0;
+  }
+  .sidebar-header,
+  .sidebar-label {
     display: none;
   }
-}
-@media (max-width: 450px) {
-  .sidebar-option img {
-    width: 17px;
+  .sidebar-icon {
+    margin: 0 auto;
+  }
+  .sidebar-link {
+    padding: 12px 0;
+    justify-content: center;
   }
 }

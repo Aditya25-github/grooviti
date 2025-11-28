@@ -87,7 +87,7 @@ const EventHostLogin = ({ url }) => {
       setToken(tokenFromStorage);
       setAdmin(true);
       setUserRole(roleFromStorage);
-      navigate("/event/add");
+      navigate("/event/dashboard");
     }
   }, [setToken, setAdmin, setUserRole, navigate]);
 

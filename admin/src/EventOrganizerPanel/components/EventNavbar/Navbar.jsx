@@ -39,8 +39,6 @@ const EventNavbar = ({ url }) => {
       const organizerEmail = localStorage.getItem("organizerEmail");
       if (!organizerEmail) return;
 
-      console.log("🌐 Fetching organizer for:", organizerEmail);
-
       try {
         const res = await fetch(`${url}/api/organizer/get`, {
           method: "POST",
@@ -66,10 +64,10 @@ const EventNavbar = ({ url }) => {
   }, [token, admin, url]);
 
   return (
-    <div className="navbar">
-      <Link to="/add">
-        <img className="logo" src={assets.logo} alt="Logo" />
-      </Link>
+    <nav className="navbar">
+      <div className="navbar-left">
+        <span className="nav-title">Grooviti Event Panel</span>
+      </div>
 
       {token && admin ? (
         <div className="profile-container" ref={menuRef}>
@@ -82,24 +80,35 @@ const EventNavbar = ({ url }) => {
             }
             alt="Profile"
             onClick={() => setShowMenu(!showMenu)}
+            aria-label="Profile"
           />
           {showMenu && (
             <div className="profile-dropdown">
-              <p onClick={() => navigate("/add")}>Dashboard</p>
-              <p onClick={() => navigate("/list")}>My Events</p>
-              <p onClick={() => navigate("/my-plan")}>My Plan</p>
-              <p onClick={() => navigate("/settings")}>Settings</p>
-              <p onClick={() => navigate("/settings")}>Change Password</p>
-              <p onClick={logout}>Logout</p>
+              <button onClick={() => navigate("/event/dashboard")}>
+                Dashboard
+              </button>
+              <button onClick={() => navigate("/event/list")}>My Events</button>
+              <button onClick={() => navigate("/event/my-plan")}>
+                My Plan
+              </button>
+              <button onClick={() => navigate("/event/settings")}>
+                Settings
+              </button>
+              <button onClick={() => navigate("/event/settings")}>
+                Change Password
+              </button>
+              <button className="logout-btn" onClick={logout}>
+                Logout
+              </button>
             </div>
           )}
         </div>
       ) : (
-        <p className="login-conditon" onClick={() => navigate("/")}>
+        <button className="login-btn" onClick={() => navigate("/")}>
           Login
-        </p>
+        </button>
       )}
-    </div>
+    </nav>
   );
 };
 

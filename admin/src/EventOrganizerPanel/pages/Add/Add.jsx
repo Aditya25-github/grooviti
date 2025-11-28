@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Add.css";
+import styles from "./Add.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ const Add = ({ url }) => {
   const navigate = useNavigate();
   const [otherPreviews, setOtherPreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [coverDragActive, setCoverDragActive] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -51,14 +52,9 @@ const Add = ({ url }) => {
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     if (
-      [
-        "city",
-        "state",
-        "country",
-        "latitude",
-        "longitude",
-        "address",
-      ].includes(name)
+      ["city", "state", "country", "latitude", "longitude", "address"].includes(
+        name
+      )
     ) {
       setData((prevData) => ({
         ...prevData,
@@ -75,7 +71,6 @@ const Add = ({ url }) => {
       return;
     }
     toast.info("Detecting your current location...");
-
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
@@ -83,7 +78,6 @@ const Add = ({ url }) => {
           ...prev,
           location: { ...prev.location, latitude, longitude },
         }));
-
         try {
           const res = await axios.get(
             `${url}/api/reverse-geocode?lat=${latitude}&lon=${longitude}`
@@ -111,7 +105,6 @@ const Add = ({ url }) => {
               longitude,
             },
           }));
-
           if (cityName) {
             toast.success(`Location detected: ${cityName}`);
           } else {
@@ -203,7 +196,6 @@ const Add = ({ url }) => {
         setCoverPreview(null);
         setOtherImages([]);
         setOtherPreviews([]);
-
         toast.success("Event created successfully");
         setTimeout(() => {
           navigate("/list");
@@ -218,8 +210,7 @@ const Add = ({ url }) => {
     }
   };
 
-  // Drag-and-drop for cover image (basic implementation)
-  const [coverDragActive, setCoverDragActive] = useState(false);
+  // Drag-and-drop for cover image
   const handleCoverDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -238,7 +229,7 @@ const Add = ({ url }) => {
     }
   };
 
-  // Drag-and-drop for additional images (basic implementation)
+  // Drag-and-drop for other images
   const handleThumbDrop = (index, e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -246,7 +237,6 @@ const Add = ({ url }) => {
       const files = [...otherImages];
       files[index] = e.dataTransfer.files[0];
       setOtherImages(files);
-
       const previews = [...otherPreviews];
       previews[index] = URL.createObjectURL(e.dataTransfer.files[0]);
       setOtherPreviews(previews);
@@ -254,23 +244,28 @@ const Add = ({ url }) => {
   };
 
   return (
-    <div className="add">
-      <div className="add-header">
+    <div className={styles.add}>
+      <div className={styles.addHeader}>
         <h1>Create New Event</h1>
         <p>Complete the form below to list your event on Grooviti</p>
       </div>
-
-      <form className="flex-col" onSubmit={onSubmitHandler} autoComplete="off">
+      <form
+        className={styles.flexCol}
+        onSubmit={onSubmitHandler}
+        autoComplete="off"
+      >
         {/* Image Upload Section */}
-        <div className="form-section">
+        <div className={styles.formSection}>
           <h3>Event Images</h3>
-          <div className="image-upload-grid">
+          <div className={styles.imageUploadGrid}>
             {/* Cover Image */}
-            <div className="cover-image-upload">
+            <div className={styles.coverImageUpload}>
               <p>Cover Image *</p>
               <label
                 htmlFor="coverImage"
-                className={`image-upload-label${coverDragActive ? " dragover" : ""}`}
+                className={`${styles.imageUploadLabel}${
+                  coverDragActive ? " " + styles.dragover : ""
+                }`}
                 onDragEnter={handleCoverDrag}
                 onDragOver={handleCoverDrag}
                 onDragLeave={handleCoverDrag}
@@ -278,15 +273,15 @@ const Add = ({ url }) => {
                 tabIndex={0}
               >
                 {coverPreview ? (
-                  <div className="cover-image-wrapper">
+                  <div className={styles.coverImageWrapper}>
                     <img
-                      className="cover-image-preview"
+                      className={styles.coverImagePreview}
                       src={coverPreview}
                       alt="Cover Preview"
                     />
                     <button
                       type="button"
-                      className="remove-image-btn"
+                      className={styles.removeImageBtn}
                       aria-label="Remove cover image"
                       onClick={() => {
                         setCoverImage(null);
@@ -297,12 +292,18 @@ const Add = ({ url }) => {
                     </button>
                   </div>
                 ) : (
-                  <div className="upload-placeholder">
-                    <div className="upload-icon"></div>
-                    <div className="upload-text">
-                      <span className="upload-title">Upload Cover Image</span>
-                      <span className="upload-subtitle">Click, drag & drop or paste</span>
-                      <span className="upload-requirements">JPG, PNG • Recommended: 1200×600px</span>
+                  <div className={styles.uploadPlaceholder}>
+                    <div className={styles.uploadIcon}></div>
+                    <div className={styles.uploadText}>
+                      <span className={styles.uploadTitle}>
+                        Upload Cover Image
+                      </span>
+                      <span className={styles.uploadSubtitle}>
+                        Click, drag & drop or paste
+                      </span>
+                      <span className={styles.uploadRequirements}>
+                        JPG, PNG • Recommended: 1200×600px
+                      </span>
                     </div>
                   </div>
                 )}
@@ -316,17 +317,16 @@ const Add = ({ url }) => {
                 />
               </label>
             </div>
-
             {/* Other Images */}
-            <div className="other-images-upload">
+            <div className={styles.otherImagesUpload}>
               <p>Additional Images (3-4 recommended)</p>
-              <div className="other-images-grid">
+              <div className={styles.otherImagesGrid}>
                 {Array(4)
                   .fill(null)
                   .map((_, index) => (
                     <label
                       key={index}
-                      className="image-thumb-wrapper"
+                      className={styles.imageThumbWrapper}
                       onDrop={(e) => handleThumbDrop(index, e)}
                       onDragOver={(e) => e.preventDefault()}
                       tabIndex={0}
@@ -339,28 +339,28 @@ const Add = ({ url }) => {
                           const files = [...otherImages];
                           files[index] = e.target.files[0];
                           setOtherImages(files);
-
                           const previews = [...otherPreviews];
-                          previews[index] = URL.createObjectURL(e.target.files[0]);
+                          previews[index] = URL.createObjectURL(
+                            e.target.files[0]
+                          );
                           setOtherPreviews(previews);
                         }}
                       />
                       {otherPreviews[index] ? (
-                        <div className="thumb-image-wrapper">
+                        <div className={styles.thumbImageWrapper}>
                           <img
                             src={otherPreviews[index]}
                             alt={`Preview ${index + 1}`}
-                            className="image-thumb"
+                            className={styles.imageThumb}
                           />
                           <button
                             type="button"
-                            className="remove-thumb-btn"
+                            className={styles.removeThumbBtn}
                             aria-label={`Remove image ${index + 1}`}
                             onClick={() => {
                               const files = [...otherImages];
                               files[index] = null;
                               setOtherImages(files);
-
                               const previews = [...otherPreviews];
                               previews[index] = null;
                               setOtherPreviews(previews);
@@ -370,8 +370,8 @@ const Add = ({ url }) => {
                           </button>
                         </div>
                       ) : (
-                        <div className="thumb-placeholder">
-                          <div className="thumb-icon">+</div>
+                        <div className={styles.thumbPlaceholder}>
+                          <div className={styles.thumbIcon}>+</div>
                           <span>Image {index + 1}</span>
                         </div>
                       )}
@@ -381,13 +381,11 @@ const Add = ({ url }) => {
             </div>
           </div>
         </div>
-
         {/* Basic Info Section */}
-        <div className="form-section">
+        <div className={styles.formSection}>
           <h3>Event Details</h3>
-          <div className="form-grid">
-            {/* Event Name */}
-            <div className="form-group">
+          <div className={styles.formGrid}>
+            <div className={styles.formGroup}>
               <label>Event Name *</label>
               <input
                 onChange={onChangeHandler}
@@ -396,11 +394,10 @@ const Add = ({ url }) => {
                 name="name"
                 placeholder="Enter event name"
                 required
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-            {/* Description */}
-            <div className="form-group full-width">
+            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
               <label>Event Description *</label>
               <textarea
                 onChange={onChangeHandler}
@@ -409,17 +406,16 @@ const Add = ({ url }) => {
                 rows="6"
                 placeholder="Describe the event, include key attractions, schedule, and what attendees can expect..."
                 required
-                className="grooviti-textarea"
+                className={styles.groovitiTextarea}
               ></textarea>
             </div>
-            {/* Category and Price */}
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Event Category *</label>
               <select
                 onChange={onChangeHandler}
                 name="category"
                 value={data.category}
-                className="grooviti-select"
+                className={styles.groovitiSelect}
               >
                 {[
                   "Cultural",
@@ -437,7 +433,7 @@ const Add = ({ url }) => {
                 ))}
               </select>
             </div>
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Event Price (₹) *</label>
               <input
                 onChange={onChangeHandler}
@@ -446,12 +442,11 @@ const Add = ({ url }) => {
                 name="price"
                 placeholder="Example: 100"
                 required
-                className="grooviti-input"
+                className={styles.groovitiInput}
                 min="0"
               />
             </div>
-            {/* Total Tickets */}
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Total Tickets *</label>
               <input
                 onChange={onChangeHandler}
@@ -460,17 +455,16 @@ const Add = ({ url }) => {
                 name="totalTickets"
                 placeholder="Enter total tickets available"
                 required
-                className="grooviti-input"
+                className={styles.groovitiInput}
                 min="1"
               />
             </div>
           </div>
         </div>
-
         {/* Highlights Section */}
-        <div className="form-section">
+        <div className={styles.formSection}>
           <h3>Event Features</h3>
-          <div className="highlights-grid">
+          <div className={styles.highlightsGrid}>
             {[
               "Live Music",
               "Seating Available",
@@ -480,7 +474,9 @@ const Add = ({ url }) => {
             ].map((highlight) => (
               <label
                 key={highlight}
-                className={`highlight-option ${data.highlights?.includes(highlight) ? "active" : ""}`}
+                className={`${styles.highlightOption} ${
+                  data.highlights?.includes(highlight) ? styles.active : ""
+                }`}
               >
                 <input
                   type="checkbox"
@@ -490,25 +486,23 @@ const Add = ({ url }) => {
                     const updated = data.highlights?.includes(highlight)
                       ? data.highlights.filter((h) => h !== highlight)
                       : [...(data.highlights || []), highlight];
-
                     setData((prev) => ({
                       ...prev,
                       highlights: updated,
                     }));
                   }}
                 />
-                <span className="checkmark"></span>
+                <span className={styles.checkmark}></span>
                 {highlight}
               </label>
             ))}
           </div>
         </div>
-
         {/* Location Section */}
-        <div className="form-section">
+        <div className={styles.formSection}>
           <h3>Event Location</h3>
-          <div className="location-grid">
-            <div className="form-group full-width">
+          <div className={styles.locationGrid}>
+            <div className={`${styles.formGroup} ${styles.fullWidth}`}>
               <label>Full Address</label>
               <input
                 type="text"
@@ -521,11 +515,10 @@ const Add = ({ url }) => {
                     location: { ...prev.location, address: e.target.value },
                   }))
                 }
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>City *</label>
               <input
                 type="text"
@@ -534,11 +527,10 @@ const Add = ({ url }) => {
                 value={data.location.city}
                 onChange={onChangeHandler}
                 required
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>State</label>
               <input
                 type="text"
@@ -546,11 +538,10 @@ const Add = ({ url }) => {
                 placeholder="State"
                 value={data.location.state}
                 onChange={onChangeHandler}
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Country</label>
               <input
                 type="text"
@@ -558,11 +549,10 @@ const Add = ({ url }) => {
                 placeholder="Country"
                 value={data.location.country}
                 onChange={onChangeHandler}
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Latitude</label>
               <input
                 type="number"
@@ -571,11 +561,10 @@ const Add = ({ url }) => {
                 placeholder="Latitude coordinates"
                 value={data.location.latitude || ""}
                 onChange={onChangeHandler}
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
-
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Longitude</label>
               <input
                 type="number"
@@ -584,22 +573,20 @@ const Add = ({ url }) => {
                 placeholder="Longitude coordinates"
                 value={data.location.longitude || ""}
                 onChange={onChangeHandler}
-                className="grooviti-input"
+                className={styles.groovitiInput}
               />
             </div>
           </div>
-
-          <div className="location-actions">
+          <div className={styles.locationActions}>
             <button
               type="button"
               onClick={fetchUserLocation}
-              className="location-btn"
+              className={styles.locationBtn}
             >
               Detect Current Location
             </button>
           </div>
         </div>
-
         {/* Map Picker */}
         <DraggableMapPicker
           lat={data.location.latitude}
@@ -625,17 +612,17 @@ const Add = ({ url }) => {
           }
           url={url}
         />
-
-        {/* Submit Button */}
-        <div className="form-actions">
+        <div className={styles.formActions}>
           <button
             type="submit"
-            className={`submit-btn ${isSubmitting ? "submitting" : ""}`}
+            className={`${styles.submitBtn} ${
+              isSubmitting ? styles.submitting : ""
+            }`}
             disabled={isSubmitting}
           >
             {isSubmitting ? (
               <>
-                <div className="spinner"></div>
+                <div className={styles.spinner}></div>
                 Creating Event...
               </>
             ) : (

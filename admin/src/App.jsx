@@ -61,6 +61,7 @@ import MyPlan from "./EventOrganizerPanel/pages/MyPlans/MyPlan";
 import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
 import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
 import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
+import EventDashboard from "./EventOrganizerPanel/pages/EventDashboard/EventDashboard";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
@@ -294,6 +295,14 @@ const App = () => {
 
           {/* Event Organizer Routes */}
           <Route
+            path="/event/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["event"]}>
+                <EventDashboard url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/event/manage-event"
             element={
               <ProtectedRoute allowedRoles={["event"]}>
@@ -321,7 +330,7 @@ const App = () => {
             path="/event/my-plan"
             element={
               <ProtectedRoute allowedRoles={["event"]}>
-                <MyPlan />
+                <MyPlan url={url} />
               </ProtectedRoute>
             }
           />

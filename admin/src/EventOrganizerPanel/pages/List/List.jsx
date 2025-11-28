@@ -2,10 +2,18 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { 
-  FaTags, FaMapMarkerAlt, FaCalendarAlt, FaInfoCircle, 
-  FaTicketAlt, FaCheckCircle, FaMoneyBillWave, 
-  FaDownload, FaTimes, FaTrash, FaChartBar, FaList
+import {
+  FaUsers,
+  FaCalendarAlt,
+  FaMoneyBillWave,
+  FaEye,
+  FaEdit,
+  FaEllipsisH,
+  FaPlus,
+  FaDownload,
+  FaTrash,
+  FaCheck,
+  FaExclamationCircle,
 } from "react-icons/fa";
 
 // Helper for downloads
@@ -35,64 +43,38 @@ const objectToCsv = (obj, orderKeys) => {
   return "\uFEFF" + header + "\n" + row;
 };
 
-// Venue/location display
 const formatVenue = (value) => {
   if (!value) return "";
   if (typeof value === "object") {
-    return [
-      value.address,
-      value.city,
-      value.state,
-      value.country
-    ].filter(Boolean).join(", ");
+    return [value.address, value.city, value.state, value.country]
+      .filter(Boolean)
+      .join(", ");
   }
   return String(value);
 };
 
-// Stats builder
-const buildEventStats = (event) => ({
-  id: event?._id ?? "",
-  name: event?.name ?? "",
-  category: event?.category ?? "",
-  price: event?.price ?? 0,
-  status: event?.status ?? "Active",
-  date: event?.date ?? event?.startDate ?? "",
-  venue: event?.venue ?? event?.location ?? "",
-  totalTickets: event?.totalTickets ?? 0,
-  ticketsSold: event?.ticketsSold ?? 0,
-  revenue:
-    "revenue" in event
-      ? event.revenue
-      : event?.ticketsSold && event?.price
-      ? event.ticketsSold * event.price
-      : 0,
-  organizerEmail: event?.organizerEmail ?? event?.hostEmail ?? "",
-});
-
-const Modal = ({ open, onClose, title, children }) => {
-  if (!open) return null;
-  return (
-    <div
-      className="modal-backdrop"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-      tabIndex={-1}
-      aria-modal="true"
-      role="dialog"
-    >
-      <div className="modal-card">
-        <div className="modal-header">
-          <div className="modal-title">
-            <FaChartBar className="modal-title-icon" />
-            <h3>{title}</h3>
-          </div>
-          <button onClick={onClose} className="modal-close-btn" aria-label="Close">
-            <FaTimes />
-          </button>
-        </div>
-        <div className="modal-body">{children}</div>
-      </div>
-    </div>
-  );
+const statusBadge = (status) => {
+  if (status === "Active")
+    return (
+      <span className="badge status-active">
+        <FaCheck /> Active
+      </span>
+    );
+  if (status === "Completed")
+    return (
+      <span className="badge status-completed">
+        <FaCheck /> Completed
+      </span>
+    );
+  if (status === "Upcoming")
+    return (
+      <span className="badge status-upcoming">
+        <FaExclamationCircle /> Upcoming
+      </span>
+    );
+  if (status === "Draft")
+    return <span className="badge status-draft">Draft</span>;
+  return <span className="badge status-other">{status}</span>;
 };
 
 const List = ({ url }) => {
@@ -106,7 +88,9 @@ const List = ({ url }) => {
       return;
     }
     try {
-      const response = await axios.get(`${url}/api/event/my-events?email=${email}`);
+      const response = await axios.get(
+        `${url}/api/event/my-events?email=${email}`
+      );
       if (response.data.success) setList(response.data.events);
       else toast.error("Error fetching your events");
     } catch {
@@ -116,7 +100,9 @@ const List = ({ url }) => {
 
   const RemoveEvent = async (eventId) => {
     try {
-      const response = await axios.post(`${url}/api/event/remove`, { id: eventId });
+      const response = await axios.post(`${url}/api/event/remove`, {
+        id: eventId,
+      });
       if (response.data.success) {
         await listMyEvents();
         toast.success(response.data.message);
@@ -127,8 +113,29 @@ const List = ({ url }) => {
   };
 
   // Stats for selected event
-  const stats = useMemo(() => (selected ? buildEventStats(selected) : null), [selected]);
-  
+  const stats = useMemo(() => {
+    if (!selected) return null;
+    const event = selected;
+    return {
+      id: event?._id ?? "",
+      name: event?.name ?? "",
+      category: event?.category ?? "",
+      price: event?.price ?? 0,
+      status: event?.status ?? "Active",
+      date: event?.date ?? event?.startDate ?? "",
+      venue: event?.venue ?? event?.location ?? "",
+      totalTickets: event?.totalTickets ?? 0,
+      ticketsSold: event?.ticketsSold ?? 0,
+      revenue:
+        "revenue" in event
+          ? event.revenue
+          : event?.ticketsSold && event?.price
+          ? event.ticketsSold * event.price
+          : 0,
+      organizerEmail: event?.organizerEmail ?? event?.hostEmail ?? "",
+    };
+  }, [selected]);
+
   const downloadAsCSV = () => {
     if (!stats) return;
     const out = { ...stats, venue: formatVenue(stats.venue) };
@@ -155,131 +162,147 @@ const List = ({ url }) => {
   }, [url]);
 
   return (
-    <div className="list add flex-col">
-      <div className="list-header">
-        <FaList className="list-header-icon" />
-        <h2>My Events</h2>
-      </div>
-      
-      <div className="list-table">
-        <div className="list-table-format title">
-          <b>Image</b>
-          <b>Name</b>
-          <b>Category</b>
-          <b>Price</b>
-          <b>Action</b>
+    <div className="event-list-page">
+      <div className="list-topbar">
+        <div>
+          <h1>Event Management</h1>
+          <div className="list-desc">
+            Manage all your events, bookings and participants
+          </div>
         </div>
-        {list.map((item) => (
+        <button className="create-btn">
+          <FaPlus /> Create Event
+        </button>
+      </div>
+      <div className="list-filters">
+        <input className="filter-input" placeholder="Search events..." />
+        <select className="filter-select">
+          <option>All Status</option>
+        </select>
+        <select className="filter-select">
+          <option>All Categories</option>
+        </select>
+        <button className="filter-actions">
+          <FaDownload /> Export
+        </button>
+      </div>
+      <div className="event-card-list">
+        <div className="event-card-list-title">All Events ({list.length})</div>
+        {list.map((ev) => (
           <div
-            key={item._id}
-            className="list-table-format"
-            onClick={(e) => {
-              if (e.target.dataset && e.target.dataset.action === "delete") return;
-              setSelected(item);
-            }}
+            className="event-card"
+            key={ev._id}
+            onClick={() => setSelected(ev)}
           >
-            <img src={item.coverImage?.url || ""} alt={item.name} />
-            <p className="event-name">{item.name}</p>
-            <p className="event-category">
-              <FaTags className="category-icon" />
-              {item.category}
-            </p>
-            <p className="event-price">Rs.{item.price}</p>
-            <button
-              data-action="delete"
-              onClick={(e) => {
-                e.stopPropagation();
-                RemoveEvent(item._id);
+            <div
+              className="event-icon-bg"
+              style={{
+                background:
+                  ev.category === "Music Festival"
+                    ? "linear-gradient(135deg,#7f61e9 0%,#ea70ea 100%)"
+                    : ev.category === "Tech Conference"
+                    ? "linear-gradient(135deg,#e3598c 0%,#9fd6ff 100%)"
+                    : ev.category === "Art Exhibition"
+                    ? "linear-gradient(135deg,#ee4a39 0%,#fdc980 100%)"
+                    : "linear-gradient(135deg,#47b873 0%,#a7e6d3 100%)",
               }}
-              className="delete-btn"
-              title="Delete event"
             >
-              <FaTrash />
-            </button>
+              {ev.category === "Music Festival" && <FaCalendarAlt />}
+              {ev.category === "Tech Conference" && <FaUsers />}
+              {ev.category === "Art Exhibition" && <FaMoneyBillWave />}
+              {![
+                "Music Festival",
+                "Tech Conference",
+                "Art Exhibition",
+              ].includes(ev.category) && <FaCalendarAlt />}
+            </div>
+            <div className="event-card-body">
+              <div className="event-card-main">
+                <b className="event-card-title">{ev.name}</b>
+                <span className="event-card-location">
+                  {formatVenue(ev.venue)}
+                </span>
+                <span className="event-card-date">{ev.date}</span>
+              </div>
+              <div className="event-card-meta">
+                <span className="event-meta-item">
+                  <FaUsers /> {ev.attendees || ev.ticketsSold || 0} attendees
+                </span>
+                <span className="event-meta-item">
+                  <FaMoneyBillWave /> Rs.{ev.revenue || 0} revenue
+                </span>
+                {statusBadge(ev.status)}
+              </div>
+            </div>
+            <div className="event-card-actions">
+              <button className="icon-btn view">
+                <FaEye />
+              </button>
+              <button className="icon-btn edit">
+                <FaEdit />
+              </button>
+              <button className="icon-btn menu">
+                <FaEllipsisH />
+              </button>
+            </div>
           </div>
         ))}
       </div>
-
-      <Modal
-        open={!!selected}
-        onClose={() => setSelected(null)}
-        title={selected ? `Event Stats: ${selected.name}` : "Event Stats"}
-      >
-        {stats && (
-          <>
-            <div className="event-details-grid">
-              <div className="event-image-container">
-                <img
-                  src={selected.coverImage?.url || ""}
-                  alt={selected.name}
-                  className="event-modal-image"
-                />
+      {selected && (
+        <div
+          className="event-modal-backdrop"
+          onClick={(e) => e.target === e.currentTarget && setSelected(null)}
+        >
+          <div className="event-modal-card">
+            <div className="modal-header">
+              <h2>{selected.name}</h2>
+              <button
+                className="icon-btn close"
+                onClick={() => setSelected(null)}
+              >
+                <FaTimes />
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="modal-row">
+                <b>Category:</b> {selected.category}
               </div>
-              <div className="event-details">
-                <div className="detail-row">
-                  <FaTags className="detail-icon category" />
-                  <strong>Category:</strong> 
-                  <span>{selected.category}</span>
-                </div>
-                <div className="detail-row">
-                  <FaMapMarkerAlt className="detail-icon venue" />
-                  <strong>Venue:</strong> 
-                  <span>{formatVenue(stats.venue)}</span>
-                </div>
-                <div className="detail-row">
-                  <FaCalendarAlt className="detail-icon date" />
-                  <strong>Date:</strong> 
-                  <span>{stats.date}</span>
-                </div>
-                <div className="detail-row">
-                  <FaInfoCircle className="detail-icon status" />
-                  <strong>Status:</strong> 
-                  <span className={`status-badge status-${stats.status.toLowerCase()}`}>
-                    {stats.status}
-                  </span>
-                </div>
+              <div className="modal-row">
+                <b>Venue:</b> {formatVenue(selected.venue)}
+              </div>
+              <div className="modal-row">
+                <b>Date:</b> {selected.date}
+              </div>
+              <div className="modal-row">
+                <b>Status:</b> {statusBadge(selected.status)}
+              </div>
+              <div className="modal-row">
+                <b>Total Tickets:</b> {selected.totalTickets}
+              </div>
+              <div className="modal-row">
+                <b>Tickets Sold:</b> {selected.ticketsSold}
+              </div>
+              <div className="modal-row">
+                <b>Revenue:</b> Rs. {selected.revenue}
               </div>
             </div>
-            
-            <hr className="modal-divider" />
-            
-            <h4 className="stats-title">
-              <FaChartBar className="stats-title-icon" />
-              Performance Stats
-            </h4>
-            
-            <div className="stat-grid">
-              <div className="stat-box">
-                <FaTicketAlt className="stat-icon tickets" />
-                <div className="stat-label">Total Tickets</div>
-                <div className="stat-value">{stats.totalTickets}</div>
-              </div>
-              <div className="stat-box">
-                <FaCheckCircle className="stat-icon sold" />
-                <div className="stat-label">Sold</div>
-                <div className="stat-value">{stats.ticketsSold}</div>
-              </div>
-              <div className="stat-box">
-                <FaMoneyBillWave className="stat-icon revenue" />
-                <div className="stat-label">Revenue</div>
-                <div className="stat-value">Rs. {stats.revenue}</div>
-              </div>
-            </div>
-            
             <div className="modal-actions">
-              <button onClick={downloadAsCSV} className="btn btn-primary">
-                <FaDownload className="btn-icon" /> Download CSV
+              <button className="icon-btn" onClick={downloadAsCSV}>
+                <FaDownload /> CSV
               </button>
-              <button onClick={downloadAsJSON} className="btn btn-secondary">
-                <FaDownload className="btn-icon" /> Download JSON
+              <button className="icon-btn" onClick={downloadAsJSON}>
+                <FaDownload /> JSON
               </button>
-              <button onClick={() => setSelected(null)} className="btn btn-close">
-                <FaTimes className="btn-icon" /> Close
+              <button
+                className="icon-btn delete"
+                onClick={() => RemoveEvent(selected._id)}
+              >
+                <FaTrash /> Delete
               </button>
             </div>
-          </>
-        )}
-      </Modal>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
