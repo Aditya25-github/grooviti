@@ -168,7 +168,7 @@ const verifyOrder = async (req, res) => {
         continue;
       }
 
-      event.ticketsSold = newTicketsSold;
+      // event.ticketsSold = newTicketsSold;
       console.log("📧 Preparing to send ticket email...");
       await ticketModel.findByIdAndUpdate(
   event._id,
@@ -181,7 +181,7 @@ console.log("📧 Email sent successfully");
 
     if (booking.address.email) {
       console.log("Sending email to:", booking.address.email);
-      await sendBookingEmail(booking.address.email, booking);
+      sendBookingEmail(booking.address.email, booking);
     } else {
       console.log("❌ User email not found!");
     }
