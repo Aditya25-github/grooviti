@@ -8,6 +8,7 @@ import {
   userOrders,
   verifyOrder,
   getOrderDetails,
+  sendBookingEmail
 } from "../controllers/bookingController.js";
 
 import bookingModel from "../models/bookingsModel.js";
@@ -19,6 +20,56 @@ const bookingRouter = express.Router();
 /* ------------------------------------------------------
    ⬆️ ORGANIZER EVENT STATS
 ------------------------------------------------------ */
+bookingRouter.post("/test-email", async (req, res) => {
+  try {
+    const booking = req.body;
+
+    await sendBookingEmail(booking.address.email, booking);
+
+    res.json({
+      success: true,
+      message: "Test email sent successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      success: false,
+      message: "Email test failed",
+    });
+  }
+});
+// bookingRouter.post("/test-email", async (req, res) => {
+//   try {
+//     const booking = {
+//       orderId: "TEST123456",
+//       amount: 150,
+//       address: {
+//         firstName: "Swaroop",
+//         lastName: "Mane",
+//         email: "swaroopmane21@gmail.com",
+//         phone: "9999999999",
+//         Team_name: "Alpha Team",
+//         Team_leader_name: "Swaroop Mane",
+//         Team_size: 3,
+//         event: "Hackathon",
+//       },
+//     };
+
+//     await sendBookingEmail(booking.address.email, booking);
+
+//     res.json({
+//       success: true,
+//       message: "Test email sent successfully",
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.json({
+//       success: false,
+//       message: "Email test failed",
+//     });
+//   }
+// });
+
 bookingRouter.get("/event-stats", async (req, res) => {
   try {
     const organizerEmail = req.query.email;

@@ -16,13 +16,10 @@ const razorpay = new Razorpay({
 
 //Nodemailer Configuration
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",  // ✅ Use Brevo SMTP
-  port: 587,                     // ✅ Brevo SMTP port
-  secure: false,                 // ✅ Must be false for port 587
+  service: "gmail", 
   auth: {
-    user: "8918db001@smtp-brevo.com",
-    pass: process.env.EMAIL_PASS,
-    method: "LOGIN",
+    user: process.env.EMAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 });
 
@@ -172,7 +169,11 @@ const verifyOrder = async (req, res) => {
       }
 
       event.ticketsSold = newTicketsSold;
-      await event.save();
+      await ticketModel.findByIdAndUpdate(
+  event._id,
+  { $set: { ticketsSold: newTicketsSold } },
+  { runValidators: false }
+);
       console.log(`✅ Updated ticketsSold for ${event.name} to ${event.ticketsSold}`);
     }
 
@@ -339,4 +340,4 @@ const getOrderDetails = async (req, res) => {
 };
 
 // Export Controllers
-export { bookTicket, verifyOrder, userOrders, listOrders, updateStatus, getOrderDetails };
+export { bookTicket, verifyOrder, userOrders, listOrders, updateStatus, getOrderDetails, sendBookingEmail };
