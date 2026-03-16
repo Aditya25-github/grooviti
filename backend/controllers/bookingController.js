@@ -6,6 +6,7 @@ import PDFDocument from "pdfkit";
 import dotenv from "dotenv";
 import ticketModel from "../models/ticketModel.js";
 import path from "path";
+import dns from "dns";
 
 dotenv.config(); // Load environment variables
 
@@ -14,7 +15,7 @@ const razorpay = new Razorpay({
   key_secret: process.env.REACT_APP_RAZORPAY_SECRET_KEY,
 });
 
-import dns from "dns";
+
 
 // Force IPv4 first (helps in some cloud environments)
 dns.setDefaultResultOrder("ipv4first");
@@ -269,13 +270,13 @@ const verifyOrder = async (req, res) => {
 const sendBookingEmail = async (userEmail, booking) => {
   try {
     console.log("📄 Generating PDF Ticket...");
-    console.log("📧 Preparing email for:", booking.address.email);
+    console.log("📧 Preparing email for:", userEmail);
     console.log("📎 Ticket Attachment:", booking?.orderId);
     const pdfTicket = await generateTicketPDF(booking);
     console.log("✅ PDF Generated Successfully");
 
     const mailOptions = {
-      from: `"Grooviti Team" <${process.env.EMAIL_USER}>`,
+      from: `"Grooviti Team" <${process.env.BREVO_USER}>`,
       to: userEmail,
       subject: "🎟️ Your Event Ticket",
       html: `
@@ -297,8 +298,11 @@ const sendBookingEmail = async (userEmail, booking) => {
       ],
     };
 
-    console.log("📧 Sending email to:", booking?.address.email);
-    await transporter.sendMail(mailOptions);
+    console.log("📧 Sending email to:", userEmail);
+    await transporter.sendMail(mailOptions).catch(async (err) => {
+  console.log("Retrying email...");
+  await transporter.sendMail(mailOptions);
+});
     console.log("✅ Email Sent Successfully!");
   } catch (error) {
     console.error("❌ Error sending email:", error);
