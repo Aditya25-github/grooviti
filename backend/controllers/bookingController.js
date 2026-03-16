@@ -169,11 +169,13 @@ const verifyOrder = async (req, res) => {
       }
 
       event.ticketsSold = newTicketsSold;
+      console.log("📧 Preparing to send ticket email...");
       await ticketModel.findByIdAndUpdate(
   event._id,
   { $set: { ticketsSold: newTicketsSold } },
   { runValidators: false }
 );
+console.log("📧 Email sent successfully");
       console.log(`✅ Updated ticketsSold for ${event.name} to ${event.ticketsSold}`);
     }
 
