@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import PDFDocument from "pdfkit";
 import dotenv from "dotenv";
 import ticketModel from "../models/ticketModel.js";
-
+import path from "path";
 
 dotenv.config(); // Load environment variables
 
@@ -16,7 +16,9 @@ const razorpay = new Razorpay({
 
 //Nodemailer Configuration
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.MAIL_PASS,
@@ -262,7 +264,7 @@ const sendBookingEmail = async (userEmail, booking) => {
 
     const mailOptions = {
       from: `"Grooviti Team" <${process.env.EMAIL_USER}>`,
-      to: booking?.address.email,
+      to: userEmail,
       subject: "🎟️ Your Event Ticket",
       html: `
         <h2>Thank you for your booking!</h2>
@@ -279,7 +281,6 @@ const sendBookingEmail = async (userEmail, booking) => {
         {
           filename: `Ticket_${booking?.orderId}.pdf`,
           content: pdfTicket,
-          encoding: "base64",
         },
       ],
     };
