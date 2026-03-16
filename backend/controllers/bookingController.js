@@ -191,7 +191,7 @@ const bookTicket = async (req, res) => {
 //     console.error("Error verifying order:", error);
 //     res.json({ success: false, message: "Error verifying payment" });
 //   }
-// };
+
 const verifyOrder = async (req, res) => {
   let { orderId, paymentId, success } = req.body;
   success = success === "true" || success === true;
