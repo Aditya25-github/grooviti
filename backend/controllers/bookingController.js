@@ -130,6 +130,68 @@ const bookTicket = async (req, res) => {
 
 
 // Verify Payment & Send Email
+// const verifyOrder = async (req, res) => {
+//   let { orderId, paymentId, success } = req.body;
+//   success = success === "true" || success === true;
+
+//   try {
+//     const booking = await bookingModel.findOneAndUpdate(
+//       { orderId },
+//       {
+//         $set: {
+//           payment: success,
+//           paymentId: paymentId,
+//           status: success ? "Confirmed" : "Failed",
+//         },
+//       },
+//       { new: true }
+//     );
+
+//     if (!booking) {
+//       return res.json({ success: false, message: "Order not found" });
+//     }
+
+//     if (!success) {
+//       await bookingModel.findOneAndDelete({ orderId });
+//       return res.json({ success: false, message: "Payment failed, order deleted" });
+//     }
+
+//     for (const item of booking.items) {
+//       console.log("🔍 Ticket Item:", item);
+//       const event = await ticketModel.findById(item._id);
+//       if (!event) continue;
+
+//       const newTicketsSold = event.ticketsSold + item.quantity;
+//       console.log(`🧮 ${event.name}: ${event.ticketsSold} + ${item.quantity} = ${newTicketsSold}`)
+//       if (newTicketsSold > event.totalTickets) {
+//         console.log(`❌ Overbooking prevented for ${event.name}`);
+//         continue;
+//       }
+
+//       // event.ticketsSold = newTicketsSold;
+//       console.log("📧 Preparing to send ticket email...");
+//       await ticketModel.findByIdAndUpdate(
+//   event._id,
+//   { $set: { ticketsSold: newTicketsSold } },
+//   { runValidators: false }
+// );
+// console.log("📧 Email sent successfully");
+//       console.log(`✅ Updated ticketsSold for ${event.name} to ${event.ticketsSold}`);
+//     }
+
+//     if (booking.address.email) {
+//       console.log("Sending email to:", booking.address.email);
+//       sendBookingEmail(booking.address.email, booking);
+//     } else {
+//       console.log("❌ User email not found!");
+//     }
+
+//     res.json({ success: true, message: "Payment confirmed & email sent", booking });
+//   } catch (error) {
+//     console.error("Error verifying order:", error);
+//     res.json({ success: false, message: "Error verifying payment" });
+//   }
+// };
 const verifyOrder = async (req, res) => {
   let { orderId, paymentId, success } = req.body;
   success = success === "true" || success === true;
@@ -157,36 +219,32 @@ const verifyOrder = async (req, res) => {
     }
 
     for (const item of booking.items) {
-      console.log("🔍 Ticket Item:", item);
       const event = await ticketModel.findById(item._id);
       if (!event) continue;
 
       const newTicketsSold = event.ticketsSold + item.quantity;
-      console.log(`🧮 ${event.name}: ${event.ticketsSold} + ${item.quantity} = ${newTicketsSold}`)
+
       if (newTicketsSold > event.totalTickets) {
         console.log(`❌ Overbooking prevented for ${event.name}`);
         continue;
       }
 
-      // event.ticketsSold = newTicketsSold;
-      console.log("📧 Preparing to send ticket email...");
       await ticketModel.findByIdAndUpdate(
-  event._id,
-  { $set: { ticketsSold: newTicketsSold } },
-  { runValidators: false }
-);
-console.log("📧 Email sent successfully");
-      console.log(`✅ Updated ticketsSold for ${event.name} to ${event.ticketsSold}`);
+        event._id,
+        { $set: { ticketsSold: newTicketsSold } },
+        { runValidators: false }
+      );
+
+      console.log(`✅ Updated ticketsSold for ${event.name} to ${newTicketsSold}`);
     }
 
     if (booking.address.email) {
-      console.log("Sending email to:", booking.address.email);
-      sendBookingEmail(booking.address.email, booking);
-    } else {
-      console.log("❌ User email not found!");
+      console.log("📧 Sending ticket email...");
+      sendBookingEmail(booking.address.email, booking); // no await
     }
 
-    res.json({ success: true, message: "Payment confirmed & email sent", booking });
+    res.json({ success: true, message: "Payment confirmed", booking });
+
   } catch (error) {
     console.error("Error verifying order:", error);
     res.json({ success: false, message: "Error verifying payment" });
