@@ -14,15 +14,27 @@ const razorpay = new Razorpay({
   key_secret: process.env.REACT_APP_RAZORPAY_SECRET_KEY,
 });
 
-//Nodemailer Configuration
+import dns from "dns";
+
+// Force IPv4 first (helps in some cloud environments)
+dns.setDefaultResultOrder("ipv4first");
+
+// Nodemailer Configuration
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
   port: 587,
-  secure: false,
+  secure: false, // STARTTLS on 587
   auth: {
     user: process.env.BREVO_USER,
     pass: process.env.BREVO_PASS,
   },
+  requireTLS: true,
+  tls: {
+    minVersion: "TLSv1.2",
+  },
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 30000,
 });
 
 transporter.verify((error, success) => {
