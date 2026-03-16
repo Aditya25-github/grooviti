@@ -26,6 +26,7 @@
     "nodemailer": "^7.0.10",
     "pdfkit": "^0.16.0",
     "razorpay": "^2.9.6",
+    "resend": "^6.9.3",
     "socket.io": "^4.8.1",
     "stream-buffers": "^3.0.3",
     "validator": "^13.12.0"
