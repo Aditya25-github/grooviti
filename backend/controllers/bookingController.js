@@ -319,7 +319,7 @@ const sendBookingEmail = async (userEmail, booking) => {
     console.log("✅ PDF Generated Successfully");
 
     const mailOptions = {
-      from: `"Grooviti Team" <${process.env.BREVO_USER}>`,
+      from: `"Grooviti Team" <groov.iti25@gmail.com>`,
       to: userEmail,
       subject: "🎟️ Your Event Ticket",
       html: `
