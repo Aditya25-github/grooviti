@@ -267,11 +267,54 @@ const verifyOrder = async (req, res) => {
 };
 
 // Send Confirmation Email
+// const sendBookingEmail = async (userEmail, booking) => {
+//   try {
+//     console.log("📄 Generating PDF Ticket...");
+//     console.log("📧 Preparing email for:", userEmail);
+//     console.log("📎 Ticket Attachment:", booking?.orderId);
+//     const pdfTicket = await generateTicketPDF(booking);
+//     console.log("✅ PDF Generated Successfully");
+
+//     const mailOptions = {
+//       from: `"Grooviti Team" <${process.env.BREVO_USER}>`,
+//       to: userEmail,
+//       subject: "🎟️ Your Event Ticket",
+//       html: `
+//         <h2>Thank you for your booking!</h2>
+//         <p>Your payment was successful. Here are your booking details:</p>
+//         <p><strong>Ticket ID:</strong> ${booking?.orderId}</p>
+//         <p><strong>Event Name:</strong> ${booking?.address.event}</p>
+//         <p><strong>Total Amount:</strong> ₹${booking?.amount}</p>
+//         <p><strong>Status:</strong> Confirmed ✅</p>
+//         <p>We look forward to seeing you at the event!</p>
+//         <p>Best Regards,</p>
+//         <p>Grooviti Team</p>
+//       `,
+//       attachments: [
+//         {
+//           filename: `Ticket_${booking?.orderId}.pdf`,
+//           content: pdfTicket,
+//         },
+//       ],
+//     };
+
+//     console.log("📧 Sending email to:", userEmail);
+//     await transporter.sendMail(mailOptions).catch(async (err) => {
+//   console.log("Retrying email...");
+//   await transporter.sendMail(mailOptions);
+// });
+//     console.log("✅ Email Sent Successfully!");
+//   } catch (error) {
+//     console.error("❌ Error sending email:", error);
+//   }
+// };
+
 const sendBookingEmail = async (userEmail, booking) => {
   try {
     console.log("📄 Generating PDF Ticket...");
     console.log("📧 Preparing email for:", userEmail);
     console.log("📎 Ticket Attachment:", booking?.orderId);
+
     const pdfTicket = await generateTicketPDF(booking);
     console.log("✅ PDF Generated Successfully");
 
@@ -299,13 +342,19 @@ const sendBookingEmail = async (userEmail, booking) => {
     };
 
     console.log("📧 Sending email to:", userEmail);
-    await transporter.sendMail(mailOptions).catch(async (err) => {
-  console.log("Retrying email...");
-  await transporter.sendMail(mailOptions);
-});
-    console.log("✅ Email Sent Successfully!");
+
+    // ✅ TIMEOUT + SAFE SEND (IMPORTANT FIX)
+    const result = await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Email timeout after 15s")), 15000)
+      ),
+    ]);
+
+    console.log("✅ Email Sent Successfully!", result);
+
   } catch (error) {
-    console.error("❌ Error sending email:", error);
+    console.error("❌ Error sending email:", error.message || error);
   }
 };
 
