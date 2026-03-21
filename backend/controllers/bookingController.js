@@ -23,7 +23,7 @@ dns.setDefaultResultOrder("ipv4first");
 // Nodemailer Configuration
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
-  port: 587,
+  port: 2525,
   secure: false, // STARTTLS on 587
   auth: {
     user: process.env.BREVO_USER,
