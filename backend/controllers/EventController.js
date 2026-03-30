@@ -89,6 +89,7 @@ export const organizerLogin = async (req, res) => {
 
 const addEvent = async (req, res) => {
   try {
+    console.log("Incoming organizerEmail:", req.body.organizerEmail);
     let parsedLocation = {};
     try {
       parsedLocation = JSON.parse(req.body.location);
@@ -104,7 +105,7 @@ const addEvent = async (req, res) => {
       console.log("Location parsing error:", req.body.location);
       return res.json({ success: false, message: "Invalid location format" });
     }
-
+    
     const coverImageFile = req.files?.coverImage?.[0];
     const otherImageFiles = req.files?.otherImages || [];
     if (!coverImageFile) {
@@ -144,6 +145,7 @@ const addEvent = async (req, res) => {
       email: req.body.organizerEmail,
     });
     if (!organizer) {
+      console.log("Incoming organizerEmail:", req.body.organizerEmail);
       return res
         .status(400)
         .json({ success: false, message: "Organizer not found" });

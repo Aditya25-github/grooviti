@@ -207,5 +207,3 @@ app.get("/api/reverse-geocode", async (req, res) => {
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-console.log("EMAIL USER:", !!process.env.EMAIL_USER);
-console.log("EMAIL PASS:", !!process.env.EMAIL_PASS);

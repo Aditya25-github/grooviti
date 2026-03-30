@@ -6,9 +6,10 @@ import {
   RemoveEvent,
   getEventById,
   getEventsByOrganizer,
-  organizerLogin,
+  // organizerLogin,
   organizerRegister,
 } from "../controllers/EventController.js";
+import { loginOrganizer } from "../controllers/organizerController.js";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../utils/cloudinary.js";
@@ -16,7 +17,8 @@ import cloudinary from "../utils/cloudinary.js";
 const eventRouter = express.Router();
 
 // ---- Auth endpoints (no multer here) ----
-eventRouter.post("/login", organizerLogin);
+// eventRouter.post("/login", organizerLogin);
+eventRouter.post("/login",loginOrganizer)
 eventRouter.post("/register", organizerRegister);
 
 // Image Storage Engine
@@ -54,13 +56,11 @@ const upload = multer({
 
 // Event routes
 eventRouter.get("/my-events", getEventsByOrganizer);
-eventRouter.post(
-  "/add",
+eventRouter.post("/add",
   upload.fields([
     { name: "coverImage", maxCount: 1 },
     { name: "otherImages", maxCount: 5 },
-  ]),
-  addEvent
+  ]),addEvent
 );
 eventRouter.get("/list", listEvent);
 eventRouter.post("/remove", RemoveEvent);

@@ -139,7 +139,7 @@ const Add = ({ url }) => {
   }
 
   try {
-    const organizerEmail = localStorage.getItem("eventHost");
+    const organizerEmail = localStorage.getItem("organizerEmail");
 
     const formData = new FormData();
 
@@ -151,7 +151,7 @@ const Add = ({ url }) => {
     formData.append("organizerEmail", organizerEmail);
 
     // ✅ FIXED (IMPORTANT)
-    formData.append("image", coverImage);
+    formData.append("coverImage", coverImage);
 
     otherImages.forEach((img) => {
       if (img) formData.append("otherImages", img);
@@ -171,8 +171,9 @@ const Add = ({ url }) => {
       })
     );
 
-    const response = await axios.post(`${url}/api/event/add`, formData);
-
+    // const response = await axios.post(`${url} /api/event/add`, formData);
+    console.log("Organizer Email:", organizerEmail);
+    const response = await axios.post (`http://localhost:4000/api/event/add`,formData);
     if (response.data.success) {
       toast.success("Event created successfully");
       navigate("/list");
