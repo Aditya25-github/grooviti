@@ -122,93 +122,70 @@ const Add = ({ url }) => {
   };
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
+  event.preventDefault();
+  setIsSubmitting(true);
 
-    if (
-      !data.name ||
-      !data.description ||
-      !data.price ||
-      !data.totalTickets ||
-      !data.location.city ||
-      !coverImage
-    ) {
-      toast.error("Please fill all required fields and upload a cover image");
-      setIsSubmitting(false);
-      return;
-    }
-    if (Number(data.price) <= 0) {
-      toast.error("Price must be greater than zero");
-      setIsSubmitting(false);
-      return;
-    }
-    if (Number(data.totalTickets) <= 0) {
-      toast.error("Total tickets must be a positive number");
-      setIsSubmitting(false);
-      return;
-    }
-    try {
-      const organizerEmail = localStorage.getItem("eventHost");
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("description", data.description);
-      formData.append("price", Number(data.price));
-      formData.append("category", data.category);
-      formData.append("highlights", JSON.stringify(data.highlights));
-      formData.append("coverImage", coverImage);
-      formData.append("organizerEmail", organizerEmail);
-      otherImages.forEach((img) => {
-        if (img) formData.append("otherImages", img);
-      });
-      formData.append("totalTickets", data.totalTickets);
-      formData.append(
-        "location",
-        JSON.stringify({
-          city: data.location.city,
-          state: data.location.state,
-          country: data.location.country,
-          latitude: parseFloat(data.location.latitude),
-          longitude: parseFloat(data.location.longitude),
-          address: data.location.address,
-        })
-      );
+  if (
+    !data.name ||
+    !data.description ||
+    !data.price ||
+    !data.totalTickets ||
+    !data.location.city ||
+    !coverImage
+  ) {
+    toast.error("Please fill all required fields and upload a cover image");
+    setIsSubmitting(false);
+    return;
+  }
 
-      const response = await axios.post(`${url}/api/event/add`, formData);
+  try {
+    const organizerEmail = localStorage.getItem("eventHost");
 
-      if (response.data.success) {
-        setData({
-          name: "",
-          description: "",
-          price: "",
-          category: "Cultural",
-          totalTickets: "",
-          highlights: [],
-          location: {
-            city: "",
-            state: "",
-            country: "India",
-            latitude: "",
-            longitude: "",
-            address: "",
-          },
-        });
-        setCoverImage(null);
-        setCoverPreview(null);
-        setOtherImages([]);
-        setOtherPreviews([]);
-        toast.success("Event created successfully");
-        setTimeout(() => {
-          navigate("/list");
-        }, 1500);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error("Failed to create event. Please try again");
-    } finally {
-      setIsSubmitting(false);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("price", Number(data.price));
+    formData.append("category", data.category);
+    formData.append("totalTickets", Number(data.totalTickets));
+    formData.append("organizerEmail", organizerEmail);
+
+    // ✅ FIXED (IMPORTANT)
+    formData.append("image", coverImage);
+
+    otherImages.forEach((img) => {
+      if (img) formData.append("otherImages", img);
+    });
+
+    formData.append("highlights", JSON.stringify(data.highlights));
+
+    formData.append(
+      "location",
+      JSON.stringify({
+        city: data.location.city,
+        state: data.location.state,
+        country: data.location.country,
+        latitude: parseFloat(data.location.latitude) || 0,
+        longitude: parseFloat(data.location.longitude) || 0,
+        address: data.location.address,
+      })
+    );
+
+    const response = await axios.post(`${url}/api/event/add`, formData);
+
+    if (response.data.success) {
+      toast.success("Event created successfully");
+      navigate("/list");
+    } else {
+      toast.error(response.data.message);
     }
-  };
+  } catch (error) {
+    console.log(error.response?.data || error.message);
+    toast.error(error.response?.data?.message || "Failed to create event");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   // Drag-and-drop for cover image
   const handleCoverDrag = (e) => {
