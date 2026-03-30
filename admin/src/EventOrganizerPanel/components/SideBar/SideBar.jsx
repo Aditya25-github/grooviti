@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../../../assets/assets"; // update with your actual assets/icons if required
-import "./Sidebar.css";
+import "./SideBar.css";
 
 const Sidebar = () => {
   const navigate = useNavigate();
