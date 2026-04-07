@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import {
   FaUsers,
   FaCalendarAlt,
@@ -14,6 +15,7 @@ import {
   FaTrash,
   FaCheck,
   FaExclamationCircle,
+  FaTimes,
 } from "react-icons/fa";
 
 // Helper for downloads
@@ -80,9 +82,10 @@ const statusBadge = (status) => {
 const List = ({ url }) => {
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
   const listMyEvents = async () => {
-    const email = localStorage.getItem("eventHost");
+    const email = localStorage.getItem("organizerEmail");
     if (!email) {
       toast.error("Organizer email not found.");
       return;
@@ -104,6 +107,7 @@ const List = ({ url }) => {
         id: eventId,
       });
       if (response.data.success) {
+        setSelected(null);
         await listMyEvents();
         toast.success(response.data.message);
       } else toast.error("Error deleting event");
@@ -170,7 +174,8 @@ const List = ({ url }) => {
             Manage all your events, bookings and participants
           </div>
         </div>
-        <button className="create-btn">
+        {/* FIX 1: Navigate to /event/add on click */}
+        <button className="create-btn" onClick={() => navigate("/event/add")}>
           <FaPlus /> Create Event
         </button>
       </div>
@@ -210,17 +215,15 @@ const List = ({ url }) => {
               {ev.category === "Music Festival" && <FaCalendarAlt />}
               {ev.category === "Tech Conference" && <FaUsers />}
               {ev.category === "Art Exhibition" && <FaMoneyBillWave />}
-              {![
-                "Music Festival",
-                "Tech Conference",
-                "Art Exhibition",
-              ].includes(ev.category) && <FaCalendarAlt />}
+              {!["Music Festival", "Tech Conference", "Art Exhibition"].includes(
+                ev.category
+              ) && <FaCalendarAlt />}
             </div>
             <div className="event-card-body">
               <div className="event-card-main">
                 <b className="event-card-title">{ev.name}</b>
                 <span className="event-card-location">
-                  {formatVenue(ev.venue)}
+                  {formatVenue(ev.venue ?? ev.location)}
                 </span>
                 <span className="event-card-date">{ev.date}</span>
               </div>
@@ -235,19 +238,36 @@ const List = ({ url }) => {
               </div>
             </div>
             <div className="event-card-actions">
-              <button className="icon-btn view">
+              <button
+                className="icon-btn view"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelected(ev);
+                }}
+              >
                 <FaEye />
               </button>
-              <button className="icon-btn edit">
+              <button
+                className="icon-btn edit"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/event/edit/${ev._id}`);
+                }}
+              >
                 <FaEdit />
               </button>
-              <button className="icon-btn menu">
+              <button
+                className="icon-btn menu"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <FaEllipsisH />
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* FIX 2: Added FaTimes import, modal close button now works */}
       {selected && (
         <div
           className="event-modal-backdrop"
@@ -268,7 +288,7 @@ const List = ({ url }) => {
                 <b>Category:</b> {selected.category}
               </div>
               <div className="modal-row">
-                <b>Venue:</b> {formatVenue(selected.venue)}
+                <b>Venue:</b> {formatVenue(selected.venue ?? selected.location)}
               </div>
               <div className="modal-row">
                 <b>Date:</b> {selected.date}
@@ -283,7 +303,11 @@ const List = ({ url }) => {
                 <b>Tickets Sold:</b> {selected.ticketsSold}
               </div>
               <div className="modal-row">
-                <b>Revenue:</b> Rs. {selected.revenue}
+                <b>Revenue:</b> Rs.{" "}
+                {selected.revenue ||
+                  (selected.ticketsSold && selected.price
+                    ? selected.ticketsSold * selected.price
+                    : 0)}
               </div>
             </div>
             <div className="modal-actions">
