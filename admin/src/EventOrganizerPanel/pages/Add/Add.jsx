@@ -171,7 +171,7 @@ const Add = ({ url }) => {
       })
     );
     console.log("Organizer Email:", organizerEmail);
-    const response = await axios.post(`${url} /api/event/add`, formData);
+    const response = await axios.post(`${url}/api/event/add`, formData);
     
     // const response = await axios.post (`http://localhost:4000/api/event/add`,formData);
     if (response.data.success) {
