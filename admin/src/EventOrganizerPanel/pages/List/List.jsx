@@ -16,6 +16,7 @@ import {
   FaCheck,
   FaExclamationCircle,
   FaTimes,
+  FaUserAlt,
 } from "react-icons/fa";
 
 
@@ -31,6 +32,24 @@ const downloadFile = ({ data, fileName, mimeType }) => {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+};
+
+const arrayToCsv = (rows) => {
+  if (!rows || rows.length === 0) return "";
+  const keys = Object.keys(rows[0]);
+  const header = keys.join(",");
+  const body = rows
+    .map((row) =>
+      keys
+        .map((k) => {
+          const v = row[k] ?? "";
+          const s = String(v).replace(/"/g, '""');
+          return /[",\n]/.test(s) ? `"${s}"` : s;
+        })
+        .join(",")
+    )
+    .join("\n");
+  return "\uFEFF" + header + "\n" + body;
 };
 
 const objectToCsv = (obj, orderKeys) => {
@@ -84,6 +103,9 @@ const statusBadge = (status) => {
 const List = ({ url }) => {
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [buyers, setBuyers] = useState([]);
+  const [buyersLoading, setBuyersLoading] = useState(false);
+  const [showBuyers, setShowBuyers] = useState(false);
   const navigate = useNavigate();
 
   const listMyEvents = async () => {
@@ -132,6 +154,51 @@ const List = ({ url }) => {
     } catch {
       toast.error("Network error: Unable to delete event");
     }
+  };
+
+  // Fetch buyers for selected event
+  const fetchBuyers = async (eventId) => {
+    setBuyersLoading(true);
+    setBuyers([]);
+    setShowBuyers(true);
+    try {
+      const response = await axios.get(
+        `${url}/api/booking/buyers?eventId=${eventId}`
+      );
+      if (response.data.success) {
+        setBuyers(response.data.buyers);
+        if (response.data.buyers.length === 0) {
+          toast.info("No confirmed buyers for this event yet.");
+        }
+      } else {
+        toast.error("Failed to fetch buyer details");
+      }
+    } catch {
+      toast.error("Network error: Unable to fetch buyers");
+    } finally {
+      setBuyersLoading(false);
+    }
+  };
+
+  // Download all buyers as CSV
+  const downloadBuyersCSV = () => {
+    if (!buyers.length) return toast.info("No buyers to download.");
+    const csv = arrayToCsv(buyers);
+    downloadFile({
+      data: csv,
+      fileName: `${selected?.name || "event"}-buyers.csv`,
+      mimeType: "text/csv;charset=utf-8",
+    });
+  };
+
+  // Download all buyers as JSON
+  const downloadBuyersJSON = () => {
+    if (!buyers.length) return toast.info("No buyers to download.");
+    downloadFile({
+      data: JSON.stringify(buyers, null, 2),
+      fileName: `${selected?.name || "event"}-buyers.json`,
+      mimeType: "application/json;charset=utf-8",
+    });
   };
 
   // Stats for selected event
@@ -183,6 +250,12 @@ const List = ({ url }) => {
     listMyEvents();
   }, [url]);
 
+  // Reset buyers when selected event changes
+  useEffect(() => {
+    setBuyers([]);
+    setShowBuyers(false);
+  }, [selected]);
+
   return (
     <div className="event-list-page">
       <div className="list-topbar">
@@ -192,7 +265,6 @@ const List = ({ url }) => {
             Manage all your events, bookings and participants
           </div>
         </div>
-        {/* FIX 1: Navigate to /event/add on click */}
         <button className="create-btn" onClick={() => navigate("/event/add")}>
           <FaPlus /> Create Event
         </button>
@@ -287,7 +359,6 @@ const List = ({ url }) => {
         ))}
       </div>
 
-      {/* FIX 2: Added FaTimes import, modal close button now works */}
       {selected && (
         <div
           className="event-modal-backdrop"
@@ -303,6 +374,7 @@ const List = ({ url }) => {
                 <FaTimes />
               </button>
             </div>
+
             <div className="modal-body">
               <div className="modal-row">
                 <b>Category:</b> {selected.category}
@@ -330,7 +402,6 @@ const List = ({ url }) => {
                     : 0)}
               </div>
             </div>
-
             <div className="modal-actions">
               <button
                 type="button" 
@@ -340,10 +411,10 @@ const List = ({ url }) => {
                  Generate Certificate
               </button>
               <button className="icon-btn" onClick={downloadAsCSV}>
-                <FaDownload /> CSV
+                <FaDownload /> Stats CSV
               </button>
               <button className="icon-btn" onClick={downloadAsJSON}>
-                <FaDownload /> JSON
+                <FaDownload /> Stats JSON
               </button>
               <button
                 className="icon-btn delete"
@@ -352,6 +423,83 @@ const List = ({ url }) => {
                 <FaTrash /> Delete
               </button>
             </div>
+
+            {/* Buyers Section */}
+            <div className="modal-section-title">Ticket Buyers</div>
+            <div className="modal-actions">
+              <button
+                className="icon-btn"
+                onClick={() => fetchBuyers(selected._id)}
+                disabled={buyersLoading}
+              >
+                <FaUserAlt />{" "}
+                {buyersLoading ? "Loading..." : "View Buyers"}
+              </button>
+              {buyers.length > 0 && (
+                <>
+                  <button className="icon-btn" onClick={downloadBuyersCSV}>
+                    <FaDownload /> Buyers CSV
+                  </button>
+                  <button className="icon-btn" onClick={downloadBuyersJSON}>
+                    <FaDownload /> Buyers JSON
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Buyers Table */}
+            {showBuyers && (
+              <div className="buyers-table-wrapper">
+                {buyersLoading ? (
+                  <div className="buyers-loading">Fetching buyers...</div>
+                ) : buyers.length === 0 ? (
+                  <div className="buyers-empty">No confirmed buyers yet.</div>
+                ) : (
+                  <table className="buyers-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>College</th>
+                        <th>Branch</th>
+                        <th>Team Name</th>
+                        <th>Team Leader</th>
+                        <th>Team Size</th>
+                        <th>Amount</th>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {buyers.map((buyer, index) => (
+                        <tr key={buyer.orderId || index}>
+                          <td>{index + 1}</td>
+                          <td>
+                            {buyer.firstName} {buyer.lastName}
+                          </td>
+                          <td>{buyer.email}</td>
+                          <td>{buyer.phone}</td>
+                          <td>{buyer.college_name}</td>
+                          <td>{buyer.Branch}</td>
+                          <td>{buyer.Team_name}</td>
+                          <td>{buyer.Team_leader_name}</td>
+                          <td>{buyer.Team_size}</td>
+                          <td>Rs.{buyer.amount}</td>
+                          <td>{buyer.orderId}</td>
+                          <td>
+                            {buyer.date
+                              ? new Date(buyer.date).toLocaleDateString()
+                              : ""}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}

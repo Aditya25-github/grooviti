@@ -465,5 +465,56 @@ const getOrderDetails = async (req, res) => {
   }
 };
 
+// Add this function to bookingController.js
+
+const getBuyersByEvent = async (req, res) => {
+  try {
+    const { eventId } = req.query;
+
+    if (!eventId) {
+      return res.status(400).json({ success: false, message: "eventId is required" });
+    }
+
+    // Find all confirmed bookings that contain this eventId
+    const bookings = await bookingModel.find({
+      "items.eventId": eventId,
+      payment: true, // only confirmed/paid bookings
+    });
+
+    // Extract buyer details from address field
+    const buyers = bookings.map((booking) => ({
+      orderId: booking.orderId,
+      amount: booking.amount,
+      date: booking.date,
+      status: booking.status,
+      firstName: booking.address?.firstName || "",
+      lastName: booking.address?.lastName || "",
+      email: booking.address?.email || "",
+      phone: booking.address?.phone || "",
+      college_name: booking.address?.college_name || "",
+      Branch: booking.address?.Branch || "",
+      Team_name: booking.address?.Team_name || "",
+      Team_leader_name: booking.address?.Team_leader_name || "",
+      Team_size: booking.address?.Team_size || 1,
+      Team_member_name_1: booking.address?.Team_member_name_1 || "",
+      Team_member_name_2: booking.address?.Team_member_name_2 || "",
+      Team_member_name_3: booking.address?.Team_member_name_3 || "",
+      Team_member_name_4: booking.address?.Team_member_name_4 || "",
+      Team_member_name_5: booking.address?.Team_member_name_5 || "",
+      Team_member_name_6: booking.address?.Team_member_name_6 || "",
+      Team_member_name_7: booking.address?.Team_member_name_7 || "",
+      Team_member_name_8: booking.address?.Team_member_name_8 || "",
+      Team_member_name_9: booking.address?.Team_member_name_9 || "",
+      Team_member_name_10: booking.address?.Team_member_name_10 || "",
+      event: booking.address?.event || "",
+    }));
+
+    res.json({ success: true, buyers });
+  } catch (error) {
+    console.error("Error fetching buyers:", error);
+    res.status(500).json({ success: false, message: "Error fetching buyers" });
+  }
+};
+
 // Export Controllers
-export { bookTicket, verifyOrder, userOrders, listOrders, updateStatus, getOrderDetails, sendBookingEmail };
+export { bookTicket, verifyOrder, userOrders, listOrders, updateStatus, getOrderDetails, sendBookingEmail, getBuyersByEvent };

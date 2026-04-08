@@ -8,7 +8,8 @@ import {
   userOrders,
   verifyOrder,
   getOrderDetails,
-  sendBookingEmail
+  sendBookingEmail,
+  getBuyersByEvent
 } from "../controllers/bookingController.js";
 
 import bookingModel from "../models/bookingsModel.js";
@@ -189,5 +190,8 @@ bookingRouter.post("/status", updateStatus);
 
 // Order details (protected) ❗ RECOMMENDED FIX
 bookingRouter.post("/order-details", authMiddleware, getOrderDetails);
+
+// Add this route to bookingRoute.js:
+bookingRouter.get("/buyers", getBuyersByEvent);
 
 export default bookingRouter;
