@@ -123,6 +123,15 @@ const addEvent = async (req, res) => {
       url: file.path,
     }));
 
+    const rulebookFile = req.files?.rulebook?.[0];
+    let rulebook = undefined;
+    if (rulebookFile) {
+      rulebook = {
+        public_id: rulebookFile.filename,
+        url: rulebookFile.path,
+      };
+    }
+
     const allowedHighlights = [
       "Live Music",
       "Seating Available",
@@ -164,6 +173,7 @@ const addEvent = async (req, res) => {
       ticketsSold: 0,
       location: parsedLocation,
       highlights,
+      ...(rulebook && { rulebook }),
     });
 
     await event.save();
@@ -288,6 +298,15 @@ const RemoveEvent = async (req, res) => {
       await Promise.all(deletePromises);
     }
 
+    if (event.rulebook?.url) {
+      try {
+        const publicId = getPublicId(event.rulebook.url);
+        if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
+      } catch (err) {
+        console.error("Cloudinary rulebook delete error:", err);
+      }
+    }
+
     // Now delete the event from DB
     await ticketModel.findByIdAndDelete(req.body.id);
 
@@ -397,6 +416,29 @@ const editEvent = async (req, res) => {
       otherImages = [...otherImages, ...newImages];
     }
 
+    const rulebookFile = req.files?.rulebook?.[0];
+    let rulebook = existingEvent.rulebook;
+    if (rulebookFile) {
+      const oldPublicId = getPublicId(existingEvent.rulebook?.url);
+      if (oldPublicId) {
+         try {
+           await cloudinary.uploader.destroy(oldPublicId, { resource_type: "raw" });
+         } catch(e) { console.error("Failed to delete old rulebook", e); }
+      }
+      rulebook = {
+        public_id: rulebookFile.filename,
+        url: rulebookFile.path,
+      };
+    } else if (req.body.removeRulebook === "true") {
+      const oldPublicId = getPublicId(existingEvent.rulebook?.url);
+      if (oldPublicId) {
+         try {
+           await cloudinary.uploader.destroy(oldPublicId, { resource_type: "raw" });
+         } catch(e) { console.error("Failed to delete old rulebook", e); }
+      }
+      rulebook = undefined;
+    }
+
     let highlights = existingEvent.highlights;
     if (req.body.highlights) {
       try {
@@ -415,6 +457,7 @@ const editEvent = async (req, res) => {
     existingEvent.highlights = highlights;
     existingEvent.coverImage = coverImage;
     existingEvent.otherImages = otherImages;
+    existingEvent.rulebook = rulebook;
 
     await existingEvent.save();
     res.json({ success: true, message: "Event Updated" });

@@ -26,6 +26,7 @@ import {
   Award,
   Sparkles,
   Zap,
+  Download,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import "swiper/css";
@@ -294,6 +295,8 @@ const EventDetails = () => {
     );
   };
 
+
+
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -464,7 +467,7 @@ const EventDetails = () => {
             )}
 
             {/* CTA Buttons */}
-            <div className="hero-cta">
+            <div className="hero-cta" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
               <button
                 className={`btn-primary ${ticketsLeft <= 0 ? "sold-out" : ""}`}
                 onClick={() => navigate(`/event/${id}/buyticket`)}
@@ -483,6 +486,19 @@ const EventDetails = () => {
                   </>
                 )}
               </button>
+
+              {event.rulebook?.url && (
+                <a
+                  href={event.rulebook.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.75rem 2rem", borderRadius: "8px", color: "#f97316", border: "2px solid #f97316", textDecoration: "none", fontWeight: "600", transition: "all 0.3s ease", backgroundColor: "transparent", cursor: "pointer" }}
+                >
+                  <Download className="w-5 h-5 mr-2" />
+                  View Rulebook
+                </a>
+              )}
             </div>
           </div>
         </div>

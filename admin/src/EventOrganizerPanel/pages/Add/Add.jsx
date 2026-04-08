@@ -9,6 +9,7 @@ const Add = ({ url }) => {
   const [coverImage, setCoverImage] = useState(null);
   const [otherImages, setOtherImages] = useState([]);
   const [coverPreview, setCoverPreview] = useState(null);
+  const [rulebook, setRulebook] = useState(null);
   const navigate = useNavigate();
   const [otherPreviews, setOtherPreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -156,6 +157,10 @@ const Add = ({ url }) => {
     otherImages.forEach((img) => {
       if (img) formData.append("otherImages", img);
     });
+
+    if (rulebook) {
+      formData.append("rulebook", rulebook);
+    }
 
     formData.append("highlights", JSON.stringify(data.highlights));
 
@@ -474,6 +479,21 @@ const Add = ({ url }) => {
                 {highlight}
               </label>
             ))}
+          </div>
+        </div>
+        {/* Rulebook Section */}
+        <div className={styles.formSection}>
+          <h3>Event Rulebook</h3>
+          <div className={styles.formGroup}>
+            <label>Upload Rulebook (PDF/DOC)</label>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => setRulebook(e.target.files[0])}
+              className={styles.groovitiInput}
+              style={{ paddingTop: "10px" }}
+            />
+            {rulebook && <p style={{ fontSize: "0.9rem", color: "#666", marginTop: "5px" }}>Selected: {rulebook.name}</p>}
           </div>
         </div>
         {/* Location Section */}
