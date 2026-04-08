@@ -7,6 +7,8 @@ const bookingSchema = new mongoose.Schema({
   address: { type: Object, required: true },
   orderId: { type: String, unique: true },
   status: { type: String, default: "Booked" },
+  attendance: { type: Boolean, default: false },
+  certificateSent: { type: Boolean, default: false },
   date: { type: Date, default: Date.now },
   payment: { type: Boolean, default: false },
   paymentId: { type: String },

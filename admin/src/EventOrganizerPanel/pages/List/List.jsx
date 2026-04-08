@@ -19,6 +19,8 @@ import {
   FaUserAlt,
 } from "react-icons/fa";
 
+
+
 // Helper for downloads
 const downloadFile = ({ data, fileName, mimeType }) => {
   const blob = new Blob([data], { type: mimeType });
@@ -114,7 +116,7 @@ const List = ({ url }) => {
     }
     try {
       const response = await axios.get(
-        `${url}/api/event/my-events?email=${email}`
+        `${url}/api/event/my-events?email=${email}`,
       );
       if (response.data.success) setList(response.data.events);
       else toast.error("Error fetching your events");
@@ -122,6 +124,22 @@ const List = ({ url }) => {
       toast.error("Network error: Unable to fetch events");
     }
   };
+
+  const generateCertificate = async (eventId) => {
+  try {
+    const res = await axios.post(`${url}/api/organizer/generate`, {
+      eventId,
+    });
+
+    if (res.data.success) {
+      toast.success("Certificates sent successfully!");
+    } else {
+      toast.error("Failed to send certificates");
+    }
+  } catch (err) {
+    toast.error(err.message);
+  }
+};
 
   const RemoveEvent = async (eventId) => {
     try {
@@ -201,8 +219,8 @@ const List = ({ url }) => {
         "revenue" in event
           ? event.revenue
           : event?.ticketsSold && event?.price
-          ? event.ticketsSold * event.price
-          : 0,
+            ? event.ticketsSold * event.price
+            : 0,
       organizerEmail: event?.organizerEmail ?? event?.hostEmail ?? "",
     };
   }, [selected]);
@@ -278,18 +296,20 @@ const List = ({ url }) => {
                   ev.category === "Music Festival"
                     ? "linear-gradient(135deg,#7f61e9 0%,#ea70ea 100%)"
                     : ev.category === "Tech Conference"
-                    ? "linear-gradient(135deg,#e3598c 0%,#9fd6ff 100%)"
-                    : ev.category === "Art Exhibition"
-                    ? "linear-gradient(135deg,#ee4a39 0%,#fdc980 100%)"
-                    : "linear-gradient(135deg,#47b873 0%,#a7e6d3 100%)",
+                      ? "linear-gradient(135deg,#e3598c 0%,#9fd6ff 100%)"
+                      : ev.category === "Art Exhibition"
+                        ? "linear-gradient(135deg,#ee4a39 0%,#fdc980 100%)"
+                        : "linear-gradient(135deg,#47b873 0%,#a7e6d3 100%)",
               }}
             >
               {ev.category === "Music Festival" && <FaCalendarAlt />}
               {ev.category === "Tech Conference" && <FaUsers />}
               {ev.category === "Art Exhibition" && <FaMoneyBillWave />}
-              {!["Music Festival", "Tech Conference", "Art Exhibition"].includes(
-                ev.category
-              ) && <FaCalendarAlt />}
+              {![
+                "Music Festival",
+                "Tech Conference",
+                "Art Exhibition",
+              ].includes(ev.category) && <FaCalendarAlt />}
             </div>
             <div className="event-card-body">
               <div className="event-card-main">
@@ -382,10 +402,13 @@ const List = ({ url }) => {
                     : 0)}
               </div>
             </div>
-
-            {/* Event Stats Download */}
-            <div className="modal-section-title">Event Stats</div>
             <div className="modal-actions">
+              <button
+                className="icon-btn"
+                onClick={() => generateCertificate(selected._id)}
+              >
+                 Generate Certificate
+              </button>
               <button className="icon-btn" onClick={downloadAsCSV}>
                 <FaDownload /> Stats CSV
               </button>
