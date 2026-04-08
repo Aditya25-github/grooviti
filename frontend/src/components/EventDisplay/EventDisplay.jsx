@@ -37,7 +37,7 @@ const EventDisplay = ({ category, location, userLocation }) => {
           userLocation.latitude,
           userLocation.longitude,
           item.location.latitude,
-          item.location.longitude
+          item.location.longitude,
         );
         distanceMatch = distance <= radiusInKm;
       }
@@ -94,7 +94,11 @@ const EventDisplay = ({ category, location, userLocation }) => {
               <EventItem
                 id={item._id}
                 name={item.name}
-                description={item.description}
+                description={
+                  item.description.length > 80
+                    ? item.description.substring(0, 80) + "..."
+                    : item.description
+                }
                 price={item.price}
                 coverImage={item.coverImage}
                 availableTickets={item.availableTickets}
