@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-hook/window-size": "^3.1.1",
+    "@yudiel/react-qr-scanner": "^2.5.1",
     "antd": "^5.26.6",
     "axios": "^1.8.1",
     "chart.js": "^4.4.8",

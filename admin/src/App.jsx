@@ -63,6 +63,7 @@ import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
 import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
 import Statistics from "./EventOrganizerPanel/pages/Statistics/Statistics";
 import EventDashboard from "./EventOrganizerPanel/pages/EventDashboard/EventDashboard";
+import MarkAttendance from "./EventOrganizerPanel/pages/MarkAttendance/MarkAttendance";
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
@@ -320,6 +321,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/event/mark-attendance" element={<MarkAttendance url={url} />} />
           <Route
             path="/event/edit/:id"
             element={

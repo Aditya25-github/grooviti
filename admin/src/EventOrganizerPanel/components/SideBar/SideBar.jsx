@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { assets } from "../../../assets/assets";
+// import { assets } from "../../../assets/assets";
 import "./SideBar.css";
 
 const Sidebar = () => {
@@ -30,6 +30,10 @@ const Sidebar = () => {
           <NavLink to="/event/add" className="sidebar-link">
             <span className="sidebar-icon"></span>
             <span className="sidebar-label">Add</span>
+          </NavLink>
+          <NavLink to="/event/mark-attendance" className="sidebar-link">
+            <span className="sidebar-icon"></span>
+            <span className="sidebar-label">Mark Attendance</span>
           </NavLink>
           <NavLink to="/event/orders" className="sidebar-link">
             <span className="sidebar-icon"></span>
