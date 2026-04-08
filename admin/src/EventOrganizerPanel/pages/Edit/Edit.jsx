@@ -14,6 +14,10 @@ const Edit = ({ url }) => {
   const [coverPreview, setCoverPreview] = useState(null);
   const [otherPreviews, setOtherPreviews] = useState(Array(4).fill(null));
   
+  const [rulebook, setRulebook] = useState(null);
+  const [existingRulebook, setExistingRulebook] = useState(null);
+  const [removeRulebook, setRemoveRulebook] = useState(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [coverDragActive, setCoverDragActive] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +67,10 @@ const Edit = ({ url }) => {
             setCoverImage(eventData.coverImage.url);
           }
           
+          if (eventData.rulebook?.url) {
+            setExistingRulebook(eventData.rulebook);
+          }
+
           if (eventData.otherImages && eventData.otherImages.length > 0) {
             const previews = Array(4).fill(null);
             const items = Array(4).fill(null);
@@ -229,6 +237,12 @@ const Edit = ({ url }) => {
         }
       });
       formData.append("retainedOtherImages", JSON.stringify(retainedUrls));
+
+      if (rulebook) {
+        formData.append("rulebook", rulebook);
+      } else if (removeRulebook) {
+        formData.append("removeRulebook", "true");
+      }
 
       formData.append("highlights", JSON.stringify(data.highlights));
 
@@ -533,6 +547,33 @@ const Edit = ({ url }) => {
                 {highlight}
               </label>
             ))}
+          </div>
+        </div>
+
+        {/* Rulebook Section */}
+        <div className={styles.formSection}>
+          <h3>Event Rulebook</h3>
+          <div className={styles.formGroup}>
+            <label>Upload Rulebook (PDF/DOC)</label>
+            {existingRulebook && !removeRulebook ? (
+               <div style={{ padding: "10px", background: "#f9f9f9", borderRadius: "8px", marginBottom: "10px" }}>
+                 <p style={{ margin: "0 0 10px 0" }}>Current Rulebook attached.</p>
+                 <a href={existingRulebook.url} target="_blank" rel="noopener noreferrer" style={{ color: "#3b82f6", textDecoration: "underline", marginRight: "15px" }}>View Current</a>
+                 <button type="button" onClick={() => { setRemoveRulebook(true); setRulebook(null); }} style={{ background: "#ef4444", color: "white", border: "none", borderRadius: "5px", padding: "4px 8px", cursor: "pointer" }}>Remove</button>
+               </div>
+            ) : (
+              <>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={(e) => { setRulebook(e.target.files[0]); setRemoveRulebook(false); }}
+                  className={styles.groovitiInput}
+                  style={{ paddingTop: "10px" }}
+                />
+                {rulebook && <p style={{ fontSize: "0.9rem", color: "#666", marginTop: "5px" }}>Selected: {rulebook.name}</p>}
+                {removeRulebook && existingRulebook && <p style={{ fontSize: "0.9rem", color: "#eab308", marginTop: "5px" }}>Current rulebook will be deleted upon save. <button type="button" onClick={() => {setRemoveRulebook(false); setRulebook(null);}} style={{ background: "none", border: "none", color: "#3b82f6", cursor: "pointer", textDecoration: "underline" }}>Cancel</button></p>}
+              </>
+            )}
           </div>
         </div>
 

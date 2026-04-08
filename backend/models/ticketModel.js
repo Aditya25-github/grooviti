@@ -16,6 +16,10 @@ const ticketSchema = new mongoose.Schema({
       public_id: { type: String, required: true },
     }
   ],
+  rulebook: {
+    url: { type: String },
+    public_id: { type: String },
+  },
   category: { type: String, required: true },
   totalTickets: { type: Number, required: true },
   ticketsSold: { type: Number, default: 0 },
