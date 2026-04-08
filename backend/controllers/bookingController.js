@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 import Razorpay from "razorpay";
 import nodemailer from "nodemailer";
 import PDFDocument from "pdfkit";
+import QRCode from "qrcode";
 import dotenv from "dotenv";
 import ticketModel from "../models/ticketModel.js";
 import path from "path";
@@ -358,45 +359,92 @@ const sendBookingEmail = async (userEmail, booking) => {
   }
 };
 
-const generateTicketPDF = async (booking) => {
-  console.log(booking);
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({ size: [921, 768], margin: 0 }); // Set size to match ticket template
-    const buffer = [];
+export const generateTicketPDF = async (booking) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const doc = new PDFDocument({ size: [921, 768], margin: 0 });
+      const buffer = [];
 
-    doc.on("data", (chunk) => buffer.push(chunk));
-    doc.on("end", () => resolve(Buffer.concat(buffer)));
+      doc.on("data", (chunk) => buffer.push(chunk));
+      doc.on("end", () => resolve(Buffer.concat(buffer)));
 
-    // Load the updated ticket template with correct dimensions
-    doc.image("./uploads/ticketTemplate1.png", 0, 0, { width: 921, height: 768 });
+      // 🖼️ TEMPLATE (NEW 1.png)
+      doc.image("./uploads/1.png", 0, 0, {
+        width: 921,
+        height: 768,
+      });
 
-    // Set font and styling
-    doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
+      // 🎯 LEFT SIDE (SHIFTED LIKE YOUR OLD CODE)
 
-    // Event Name
-    doc.text(`Technovate-${booking?.address.event}`, -190, 175, { align: "center" });
+      doc.font("Helvetica-Bold").fillColor("black").fontSize(18);
 
-    // Ticket Holder Details
-    doc.fontSize(14);
-    doc.text(`${booking?.address.firstName} ${booking?.address.lastName}`, -150, 249, { align: "center" });
-    doc.text(booking?.address.email, -150, 278, { align: "center" });
-    doc.text(booking?.address.phone, -150, 303, { align: "center" });
+      // Event Name
+      doc.text(`${booking?.address.event}`, -150, 168, {
+        align: "center",
+      });
 
-    // Team Details
-    doc.text(`${booking?.address.Team_name || "N/A"}`, -150, 380, { align: "center" });
-    doc.text(`${booking?.address.Team_leader_name}`, -150, 412, { align: "center" }); // Team Leader
-    doc.text(`${booking?.address.Team_size || 1}`, -150, 442, { align: "center" }); // Team Size
+      // User Details
+      doc.fontSize(14);
+      doc.text(
+        `${booking?.address.firstName} ${booking?.address.lastName}`,
+        -150,260,
+        { align: "center" }
+      );
+      doc.text(booking?.address.email, -150, 290, {
+        align: "center",
+      });
+      doc.text(booking?.address.phone, -150, 325, {
+        align: "center",
+      });
 
-    // Payment Details
-    doc.text(`Rs. ${booking?.amount}`, -150, 517, { align: "center" });
-    doc.text(`No taxes for students`, -150, 547, { align: "center" });
-    doc.text(`Rs. ${booking?.amount}`, -150, 575, { align: "center" });
+      // Team Details
+      doc.text(`${booking?.address.Team_name || "N/A"}`, -150, 410, {
+        align: "center",
+      });
+      doc.text(`${booking?.address.Team_leader_name || "-"}`, -150, 443, {
+        align: "center",
+      });
+      doc.text(`${booking?.address.Team_size || 1}`, -150, 483, {
+        align: "center",
+      });
 
-    // Ticket ID & Event Date
-    doc.fontSize(20).fillColor("orange");
-    doc.text(booking?.orderId, 445, 470, { align: "center" });
+      // 💰 Payment
+      doc.text(`Rs. ${booking?.amount}`, -150, 520, {
+        align: "center",
+      });
 
-    doc.end();
+      // 🎟️ Ticket ID (bottom right)
+      doc.fontSize(14).fillColor("black");
+      doc.text(booking?.orderId, 591, 520, {
+        width: 200,
+        align: "center",
+      });
+
+      // 📅 RIGHT SIDE DATE (ABOVE APRIL 2026)
+
+      const eventDate = new Date(booking?.date); // using booking date (or replace with event date if available)
+      const day = eventDate.getDate();
+
+      doc
+        .font("Helvetica-Bold")
+        .fontSize(53)
+        .fillColor("#2E2E8B")
+        .text(day.toString(), 677, 230); // adjust slightly if needed
+
+      // 🔳 QR CODE (BIG)
+
+      const qrImage = await QRCode.toDataURL(booking?.orderId);
+
+      doc.image(qrImage, 620, 350, {
+        width: 150,
+        height: 150,
+      });
+
+      doc.end();
+    } catch (err) {
+      console.log("❌ PDF Error:", err);
+      reject(err);
+    }
   });
 };
 
