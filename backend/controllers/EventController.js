@@ -320,4 +320,109 @@ const getEventById = async (req, res) => {
   }
 };
 
-export { addEvent, listEvent, RemoveEvent, getEventById };
+const editEvent = async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(eventId)) {
+      return res.status(400).json({ success: false, message: "Invalid event ID" });
+    }
+
+    const existingEvent = await ticketModel.findById(eventId);
+    if (!existingEvent) {
+      return res.status(404).json({ success: false, message: "Event not found" });
+    }
+
+    let parsedLocation = existingEvent.location;
+    if (req.body.location) {
+      try {
+        parsedLocation = JSON.parse(req.body.location);
+      } catch (err) {
+        return res.status(400).json({ success: false, message: "Invalid location format" });
+      }
+    }
+
+    const coverImageFile = req.files?.coverImage?.[0];
+    const otherImageFiles = req.files?.otherImages || [];
+
+    const getPublicId = (url) => {
+      const match = typeof url === "string"
+        ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
+        : url?.url?.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/);
+      return match ? match[1] : null;
+    };
+
+    let coverImage = existingEvent.coverImage;
+    if (coverImageFile) {
+      const oldPublicId = getPublicId(existingEvent.coverImage?.url);
+      if (oldPublicId) {
+         try {
+           await cloudinary.uploader.destroy(oldPublicId);
+         } catch(e) { console.error("Failed to delete old cover image", e); }
+      }
+      coverImage = {
+        public_id: coverImageFile.filename,
+        url: coverImageFile.path,
+      };
+    }
+
+    let otherImages = existingEvent.otherImages || [];
+    let retainedUrls = [];
+    try {
+       if (req.body.retainedOtherImages) {
+          retainedUrls = JSON.parse(req.body.retainedOtherImages);
+       } else {
+          // If perfectly matching Add.jsx, this might not be sent. Let's just keep everything if so.
+          retainedUrls = otherImages.map(img => img.url);
+       }
+    } catch(e) {
+       retainedUrls = otherImages.map(img => img.url);
+    }
+    
+    otherImages = otherImages.filter(img => {
+       if(!retainedUrls.includes(img.url)) {
+           const oldPublicId = getPublicId(img.url);
+           if (oldPublicId) {
+             cloudinary.uploader.destroy(oldPublicId).catch(console.error);
+           }
+           return false;
+       }
+       return true;
+    });
+
+    if (otherImageFiles.length > 0) {
+      const newImages = otherImageFiles.map((file) => ({
+        public_id: file.filename,
+        url: file.path,
+      }));
+      otherImages = [...otherImages, ...newImages];
+    }
+
+    let highlights = existingEvent.highlights;
+    if (req.body.highlights) {
+      try {
+        const allowedHighlights = ["Live Music", "Seating Available", "Washrooms", "Parking", "Food Stalls"];
+        const parsedHighlights = JSON.parse(req.body.highlights);
+        highlights = parsedHighlights.filter((h) => allowedHighlights.includes(h));
+      } catch (err) {}
+    }
+
+    existingEvent.name = req.body.name || existingEvent.name;
+    existingEvent.description = req.body.description || existingEvent.description;
+    existingEvent.price = req.body.price !== undefined ? req.body.price : existingEvent.price;
+    existingEvent.category = req.body.category || existingEvent.category;
+    existingEvent.totalTickets = req.body.totalTickets || existingEvent.totalTickets;
+    existingEvent.location = parsedLocation;
+    existingEvent.highlights = highlights;
+    existingEvent.coverImage = coverImage;
+    existingEvent.otherImages = otherImages;
+
+    await existingEvent.save();
+    res.json({ success: true, message: "Event Updated" });
+
+  } catch (error) {
+    console.error("Error updating event:", error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+export { addEvent, listEvent, RemoveEvent, getEventById, editEvent };
