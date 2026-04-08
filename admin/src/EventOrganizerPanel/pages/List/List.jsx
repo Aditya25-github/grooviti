@@ -333,6 +333,7 @@ const List = ({ url }) => {
 
             <div className="modal-actions">
               <button
+                type="button" 
                 className="icon-btn"
                 onClick={() => generateCertificate(selected._id)}
               >
