@@ -1,6 +1,26 @@
 import organizerModel from "../models/organizerModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Booking from "../models/bookingsModel.js";
+import PDFDocument from "pdfkit";
+import nodemailer from "nodemailer";
+
+const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 2525,
+  secure: false,
+  auth: {
+    user: process.env.BREVO_USER,
+    pass: process.env.BREVO_PASS,
+  },
+  requireTLS: true,
+  tls: {
+    minVersion: "TLSv1.2",
+  },
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 30000,
+});
 
 //  Token creation function
 const createToken = (id) => {
@@ -28,7 +48,6 @@ export const registerOrganizer = async (req, res) => {
       city,
       state,
     } = req.body;
-
 
     if (!name || !email || !password || !organization || !phone) {
       console.log("❌ Missing required fields");
@@ -179,7 +198,6 @@ export const getOrganizerProfile = async (req, res) => {
   }
 };
 
-
 // 🔄 Update Organizer Profile (name, phone, profileImage, etc.)
 export const updateOrganizerProfile = async (req, res) => {
   try {
@@ -201,7 +219,7 @@ export const updateOrganizerProfile = async (req, res) => {
     const updatedOrganizer = await organizerModel.findByIdAndUpdate(
       organizerId,
       updateFields,
-      { new: true }
+      { new: true },
     );
 
     if (!updatedOrganizer) {
@@ -219,4 +237,130 @@ export const updateOrganizerProfile = async (req, res) => {
     console.error(" Profile Update Error:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
+};
+
+export const generateCertificates = async (req, res) => {
+  try {
+    const { eventId } = req.body;
+    const bookings = await Booking.find({
+      "items._id": eventId,
+      // attendance: true,
+      // certificateSent: false,
+    });
+
+    console.log("📦 Total bookings found:", bookings.length);
+
+    if (!bookings.length) {
+      console.log("❌ No bookings found for this event");
+      return res.json({ success: false, message: "No attendees found" });
+    }
+
+    for (let booking of bookings) {
+
+      const eventItem = booking.items.find(
+        (item) => item._id.toString() === eventId,
+      );
+
+      if (!eventItem) {
+        console.log(
+          "⚠️ Event not found inside items for booking:",
+          booking._id,
+        );
+        continue;
+      }
+
+      console.log("📧 Sending to:", booking.address.email);
+      await sendCertificateEmail(booking.address.email, booking, eventItem);
+
+      booking.certificateSent = true;
+      await booking.save();
+    }
+
+    console.log("🎉 API completed successfully");
+    res.json({ success: true });
+  } catch (err) {
+    console.log("❌ ERROR in generateCertificates:", err);
+    res.json({ success: false });
+  }
+};
+
+const sendCertificateEmail = async (userEmail, booking, eventItem) => {
+  try {
+    const pdfCertificate = await generateCertificatePDF(booking, eventItem);
+
+    const mailOptions = {
+      from: `"Grooviti Team" <groov.iti25@gmail.com>`,
+      to: userEmail,
+      subject: "🎓 Your Certificate",
+      html: `
+        <h2>Congratulations!</h2>
+        <p>You participated in:</p>
+        <p><strong>${eventItem.name}</strong></p>
+        <p><strong>Name:</strong> ${booking.address.firstName} ${booking.address.lastName}</p>
+        <p>Certificate attached below 🎓</p>
+      `,
+      attachments: [
+        {
+          filename: `Certificate_${booking.orderId}.pdf`,
+          content: pdfCertificate,
+        },
+      ],
+    };
+
+    const result = await transporter.sendMail(mailOptions);
+
+    console.log("✅ Email sent successfully!");
+    console.log("📬 Message ID:", result.messageId);
+  } catch (error) {
+    console.error("❌ Error in sendCertificateEmail:", error);
+  }
+};
+
+const generateCertificatePDF = async (booking, eventItem) => {
+  return new Promise((resolve, reject) => {
+
+    const doc = new PDFDocument({ size: "A4", margin: 0 });
+    const buffer = [];
+
+    doc.on("data", (chunk) => buffer.push(chunk));
+
+    doc.on("end", () => {
+      console.log("📄 PDF generation completed");
+      resolve(Buffer.concat(buffer));
+    });
+
+    doc.on("error", (err) => {
+      console.log("❌ PDF Error:", err);
+      reject(err);
+    });
+
+    doc
+      .font("Helvetica-Bold")
+      .fontSize(26)
+      .text("Certificate of Participation", {
+        align: "center",
+      });
+
+    doc.moveDown(2);
+
+    doc
+      .fontSize(20)
+      .text(`${booking.address.firstName} ${booking.address.lastName}`, {
+        align: "center",
+      });
+
+    doc.moveDown();
+
+    doc.text("has successfully participated in", {
+      align: "center",
+    });
+
+    doc.moveDown();
+
+    doc.font("Helvetica-Bold").text(eventItem.name, {
+      align: "center",
+    });
+
+    doc.end();
+  });
 };

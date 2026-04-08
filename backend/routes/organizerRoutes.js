@@ -6,6 +6,7 @@ import {
   loginOrganizer,
   updateOrganizerProfile,
   getOrganizerProfile,
+  generateCertificates,
 } from "../controllers/organizerController.js";
 import { uploadOrganizerImage } from "../middleware/upload.js";
 import authMiddleware from "../middleware/auth.js";
@@ -36,5 +37,6 @@ router.put(
   upload.single("profileImage"),
   updateOrganizerProfile
 );
+router.post("/generate", generateCertificates);
 
 export default router;
