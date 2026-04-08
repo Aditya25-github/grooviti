@@ -183,12 +183,12 @@ const EventDetails = () => {
         const res = await axios.get(`${url}/api/reviews/${id}`);
         if (res.data.success) {
           const sorted = res.data.data.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
           );
           setReviews(sorted);
           if (isLoggedIn && user?._id) {
             const existing = sorted.find(
-              (r) => r.userId?.toString() === user._id.toString()
+              (r) => r.userId?.toString() === user._id.toString(),
             );
             setUserReview(existing || null);
             if (existing) {
@@ -216,12 +216,12 @@ const EventDetails = () => {
         const res = await axios.put(
           `${url}/api/reviews/${userReview._id}`,
           { comment: reviewText, rating },
-          config
+          config,
         );
         if (res.data.success) {
           const updated = res.data.data;
           setReviews((prev) =>
-            prev.map((r) => (r._id === updated._id ? updated : r))
+            prev.map((r) => (r._id === updated._id ? updated : r)),
           );
           setUserReview(updated);
           setIsEditing(false);
@@ -231,7 +231,7 @@ const EventDetails = () => {
         const res = await axios.post(
           `${url}/api/reviews/${id}`,
           { comment: reviewText, rating, userName: user.name },
-          config
+          config,
         );
         if (res.data.success) {
           setReviews((prev) => [res.data.data, ...prev]);
@@ -290,7 +290,7 @@ const EventDetails = () => {
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
     toast.success(
-      isBookmarked ? "Removed from bookmarks" : "Added to bookmarks"
+      isBookmarked ? "Removed from bookmarks" : "Added to bookmarks",
     );
   };
 
@@ -302,14 +302,14 @@ const EventDetails = () => {
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
         stars.push(
-          <Star key={i} className="w-4 h-4 fill-current text-yellow-400" />
+          <Star key={i} className="w-4 h-4 fill-current text-yellow-400" />,
         );
       } else if (i === fullStars + 1 && hasHalfStar) {
         stars.push(
           <Star
             key={i}
             className="w-4 h-4 fill-current text-yellow-400 opacity-50"
-          />
+          />,
         );
       } else {
         stars.push(<Star key={i} className="w-4 h-4 text-gray-300" />);
@@ -505,7 +505,12 @@ const EventDetails = () => {
             </div>
 
             <div className="section-content">
-              <p className="event-description">{event.description}</p>
+              <p
+                className="event-description"
+                style={{ whiteSpace: "pre-line" }}
+              >
+                {event.description}
+              </p>
 
               {highlights.length > 0 && (
                 <div className="event-highlights">
@@ -555,7 +560,7 @@ const EventDetails = () => {
                       onClick={() =>
                         window.open(
                           `https://www.google.com/maps/dir/?api=1&destination=${event.location.latitude},${event.location.longitude}`,
-                          "_blank"
+                          "_blank",
                         )
                       }
                     >
@@ -963,7 +968,7 @@ const EventDetails = () => {
                             {
                               month: "short",
                               day: "numeric",
-                            }
+                            },
                           )}
                         </div>
                         <div className="related-rating">
