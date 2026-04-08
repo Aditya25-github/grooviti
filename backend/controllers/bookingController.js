@@ -332,7 +332,7 @@ const sendBookingEmail = async (userEmail, booking) => {
         <p><strong>Status:</strong> Confirmed ✅</p>
         <p>We look forward to seeing you at the event!</p>
         <p>Best Regards,</p>
-        <p>Grooviti Team</p>
+        <p>Team Grooviti</p>
       `,
       attachments: [
         {
