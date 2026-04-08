@@ -7,6 +7,7 @@ import {
   updateOrganizerProfile,
   getOrganizerProfile,
   generateCertificates,
+  markAttendance,
 } from "../controllers/organizerController.js";
 import { uploadOrganizerImage } from "../middleware/upload.js";
 import authMiddleware from "../middleware/auth.js";
@@ -38,5 +39,6 @@ router.put(
   updateOrganizerProfile
 );
 router.post("/generate", generateCertificates);
+router.post("/mark-attendance", markAttendance);
 
 export default router;

@@ -244,8 +244,8 @@ export const generateCertificates = async (req, res) => {
     const { eventId } = req.body;
     const bookings = await Booking.find({
       "items._id": eventId,
-      // attendance: true,
-      // certificateSent: false,
+      attendance: true,
+      certificateSent: false,
     });
 
     console.log("📦 Total bookings found:", bookings.length);
@@ -363,4 +363,51 @@ const generateCertificatePDF = async (booking, eventItem) => {
 
     doc.end();
   });
+};
+
+
+export const markAttendance = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    console.log("📡 Scanned Order ID:", orderId);
+
+    // 🔍 Find booking
+    const booking = await Booking.findOne({ orderId });
+
+    if (!booking) {
+      return res.json({
+        success: false,
+        message: "Invalid ticket ❌",
+      });
+    }
+
+    // ❗ Already marked
+    if (booking.attendance) {
+      return res.json({
+        success: false,
+        message: "Attendance already marked ⚠️",
+      });
+    }
+
+    // ✅ Mark attendance
+    booking.attendance = true;
+    await booking.save();
+
+    console.log("✅ Attendance marked for:", orderId);
+
+    res.json({
+      success: true,
+      message: "Attendance marked successfully ✅",
+      user: `${booking.address.firstName} ${booking.address.lastName}`,
+      event: booking.address.event,
+    });
+
+  } catch (err) {
+    console.log("❌ Error:", err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
 };
