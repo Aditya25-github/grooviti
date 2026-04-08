@@ -57,6 +57,7 @@ import Pricing from "./TurfOwnerPanel/pages/Pricing/Pricing";
 import ManageEvent from "./EventOrganizerPanel/pages/ManageEvent/ManageEvent";
 import AddCandidate from "./EventOrganizerPanel/pages/AddCandidate/AddCandidate";
 import Add from "./EventOrganizerPanel/pages/Add/Add";
+import Edit from "./EventOrganizerPanel/pages/Edit/Edit";
 import MyPlan from "./EventOrganizerPanel/pages/MyPlans/MyPlan";
 import Settings from "./EventOrganizerPanel/pages/Settings/Settings";
 import Orders from "./EventOrganizerPanel/pages/Orders/Orders";
@@ -65,6 +66,7 @@ import EventDashboard from "./EventOrganizerPanel/pages/EventDashboard/EventDash
 
 const App = () => {
   const url = "https://grooviti-backend.onrender.com";
+  //const url = "http://localhost:4000";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 
@@ -315,6 +317,14 @@ const App = () => {
             element={
               <ProtectedRoute allowedRoles={["event"]}>
                 <Add url={url} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/event/edit/:id"
+            element={
+              <ProtectedRoute allowedRoles={["event"]}>
+                <Edit url={url} />
               </ProtectedRoute>
             }
           />

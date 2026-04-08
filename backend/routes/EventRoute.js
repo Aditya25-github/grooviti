@@ -8,6 +8,7 @@ import {
   getEventsByOrganizer,
   // organizerLogin,
   organizerRegister,
+  editEvent,
 } from "../controllers/EventController.js";
 import { loginOrganizer } from "../controllers/organizerController.js";
 import multer from "multer";
@@ -65,5 +66,11 @@ eventRouter.post("/add",
 eventRouter.get("/list", listEvent);
 eventRouter.post("/remove", RemoveEvent);
 eventRouter.get("/:id", getEventById);
+eventRouter.post("/edit/:id",
+  upload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "otherImages", maxCount: 5 },
+  ]), editEvent
+);
 
 export default eventRouter;
