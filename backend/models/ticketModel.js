@@ -5,6 +5,7 @@ const ticketSchema = new mongoose.Schema({
   description: { type: String, required: true },
   price: { type: Number, required: true },
   organizerEmail: { type: String, required: true },
+  date: { type: Date, required: false },
   organizer: { type: mongoose.Schema.Types.ObjectId, ref: "organizer", required: true },
   coverImage: {
     url: { type: String, required: true },
