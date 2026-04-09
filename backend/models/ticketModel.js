@@ -4,7 +4,9 @@ const ticketSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
+  isPaid: { type: Boolean, default: true },
   organizerEmail: { type: String, required: true },
+  organizerContact: { type: String, default: "" },
   organizer: { type: mongoose.Schema.Types.ObjectId, ref: "organizer", required: true },
   coverImage: {
     url: { type: String, required: true },

@@ -160,12 +160,17 @@ const addEvent = async (req, res) => {
         .json({ success: false, message: "Organizer not found" });
     }
 
+    const isPaidEvent = req.body.isPaid === "true" || req.body.isPaid === true;
+    const finalPrice = isPaidEvent ? Number(req.body.price) : 0;
+
     const event = new ticketModel({
       name: req.body.name,
       description: req.body.description,
       organizerEmail: req.body.organizerEmail,
       organizer: organizer._id,
-      price: req.body.price,
+      organizerContact: req.body.organizerContact || "",
+      isPaid: isPaidEvent,
+      price: finalPrice,
       category: req.body.category,
       coverImage,
       otherImages,
@@ -448,9 +453,16 @@ const editEvent = async (req, res) => {
       } catch (err) {}
     }
 
+    if (req.body.isPaid !== undefined) {
+      existingEvent.isPaid = req.body.isPaid === "true" || req.body.isPaid === true;
+    }
+    if (req.body.organizerContact !== undefined) {
+      existingEvent.organizerContact = req.body.organizerContact;
+    }
+
     existingEvent.name = req.body.name || existingEvent.name;
     existingEvent.description = req.body.description || existingEvent.description;
-    existingEvent.price = req.body.price !== undefined ? req.body.price : existingEvent.price;
+    existingEvent.price = existingEvent.isPaid ? (req.body.price !== undefined ? Number(req.body.price) : existingEvent.price) : 0;
     existingEvent.category = req.body.category || existingEvent.category;
     existingEvent.totalTickets = req.body.totalTickets || existingEvent.totalTickets;
     existingEvent.location = parsedLocation;

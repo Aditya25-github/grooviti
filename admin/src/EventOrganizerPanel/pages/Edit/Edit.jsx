@@ -26,6 +26,8 @@ const Edit = ({ url }) => {
     name: "",
     description: "",
     price: "",
+    isPaid: true,
+    organizerContact: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -49,6 +51,8 @@ const Edit = ({ url }) => {
             name: eventData.name,
             description: eventData.description,
             price: eventData.price,
+            isPaid: eventData.isPaid !== undefined ? eventData.isPaid : true,
+            organizerContact: eventData.organizerContact || "",
             category: eventData.category,
             totalTickets: eventData.totalTickets,
             highlights: eventData.highlights || [],
@@ -206,7 +210,7 @@ const Edit = ({ url }) => {
     if (
       !data.name ||
       !data.description ||
-      !data.price ||
+      (data.isPaid && !data.price && data.price !== 0) ||
       !data.totalTickets ||
       !data.location.city ||
       !coverImage
@@ -220,7 +224,9 @@ const Edit = ({ url }) => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
-      formData.append("price", Number(data.price));
+      formData.append("isPaid", data.isPaid);
+      formData.append("price", data.isPaid ? Number(data.price) : 0);
+      formData.append("organizerContact", data.organizerContact);
       formData.append("category", data.category);
       formData.append("totalTickets", Number(data.totalTickets));
 
@@ -485,18 +491,43 @@ const Edit = ({ url }) => {
               </select>
             </div>
             <div className={styles.formGroup}>
-              <label>Event Price (₹) *</label>
-              <input
-                onChange={onChangeHandler}
-                value={data.price}
-                type="number"
-                name="price"
-                placeholder="Example: 100"
-                required
-                className={styles.groovitiInput}
-                min="0"
-              />
+              <label>Event Type *</label>
+              <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="isPaid"
+                    checked={data.isPaid === true}
+                    onChange={() => setData((prev) => ({ ...prev, isPaid: true }))}
+                  />
+                  Paid
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="isPaid"
+                    checked={data.isPaid === false}
+                    onChange={() => setData((prev) => ({ ...prev, isPaid: false }))}
+                  />
+                  Free
+                </label>
+              </div>
             </div>
+            {data.isPaid && (
+              <div className={styles.formGroup}>
+                <label>Event Price (₹) *</label>
+                <input
+                  onChange={onChangeHandler}
+                  value={data.price}
+                  type="number"
+                  name="price"
+                  placeholder="Example: 100"
+                  required
+                  className={styles.groovitiInput}
+                  min="0"
+                />
+              </div>
+            )}
             <div className={styles.formGroup}>
               <label>Total Tickets *</label>
               <input
@@ -508,6 +539,17 @@ const Edit = ({ url }) => {
                 required
                 className={styles.groovitiInput}
                 min="1"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Organizer Contact Number</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.organizerContact}
+                type="tel"
+                name="organizerContact"
+                placeholder="Example: +91 9876543210"
+                className={styles.groovitiInput}
               />
             </div>
           </div>

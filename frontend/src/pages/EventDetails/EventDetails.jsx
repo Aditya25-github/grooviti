@@ -468,24 +468,41 @@ const EventDetails = () => {
 
             {/* CTA Buttons */}
             <div className="hero-cta" style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-              <button
-                className={`btn-primary ${ticketsLeft <= 0 ? "sold-out" : ""}`}
-                onClick={() => navigate(`/event/${id}/buyticket`)}
-                disabled={ticketsLeft <= 0}
-              >
-                {ticketsLeft > 0 ? (
-                  <>
-                    <Ticket className="w-5 h-5 mr-2" />
-                    Book Now - ₹{event.price}
-                    <span className="tickets-left">{ticketsLeft} left</span>
-                  </>
-                ) : (
-                  <>
-                    <Ticket className="w-5 h-5 mr-2" />
-                    Sold Out
-                  </>
-                )}
-              </button>
+              {event.isPaid === false || event.price === 0 ? (
+                <a
+                  href={`tel:${event.organizerContact || event.organizerPhone}`}
+                  className="btn-primary"
+                  style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}
+                  onClick={(e) => {
+                    if (!event.organizerContact && !event.organizerPhone) {
+                      e.preventDefault();
+                      toast.error("Contact number not provided by organizer");
+                    }
+                  }}
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call the Organizer
+                </a>
+              ) : (
+                <button
+                  className={`btn-primary ${ticketsLeft <= 0 ? "sold-out" : ""}`}
+                  onClick={() => navigate(`/event/${id}/buyticket`)}
+                  disabled={ticketsLeft <= 0}
+                >
+                  {ticketsLeft > 0 ? (
+                    <>
+                      <Ticket className="w-5 h-5 mr-2" />
+                      Book Now - ₹{event.price}
+                      <span className="tickets-left">{ticketsLeft} left</span>
+                    </>
+                  ) : (
+                    <>
+                      <Ticket className="w-5 h-5 mr-2" />
+                      Sold Out
+                    </>
+                  )}
+                </button>
+              )}
 
               {event.rulebook?.url && (
                 <a
@@ -657,13 +674,14 @@ const EventDetails = () => {
                       {event.organizerEmail}
                     </a>
                   )}
-                  {event.organizerPhone && (
+                  {(event.organizerContact || event.organizerPhone) && (
                     <a
-                      href={`tel:${event.organizerPhone}`}
-                      className="contact-link"
+                      href={`tel:${event.organizerContact || event.organizerPhone}`}
+                      className="btn-primary"
+                      style={{ padding: "0.5rem 1rem", marginTop: "10px", display: "inline-flex", background: "#22c55e" }}
                     >
-                      <Phone className="w-4 h-4" />
-                      {event.organizerPhone}
+                      <Phone className="w-4 h-4 mr-2" />
+                      Call the Organizer
                     </a>
                   )}
                 </div>
@@ -1005,16 +1023,36 @@ const EventDetails = () => {
       {/* Enhanced Floating Action Button */}
       {ticketsLeft > 0 && (
         <div className="floating-action">
-          <button
-            className="fab-button"
-            onClick={() => navigate(`/event/${id}/buyticket`)}
-          >
-            <Ticket className="w-5 h-5" />
-            <span className="fab-text">
-              Book Now - ₹{event.price}
-              <small>{ticketsLeft} tickets left</small>
-            </span>
-          </button>
+          {event.isPaid === false || event.price === 0 ? (
+            <a
+              href={`tel:${event.organizerContact || event.organizerPhone}`}
+              className="fab-button"
+              style={{ background: "#22c55e", textDecoration: "none" }}
+              onClick={(e) => {
+                if (!event.organizerContact && !event.organizerPhone) {
+                  e.preventDefault();
+                  toast.error("Contact number not provided by organizer");
+                }
+              }}
+            >
+              <Phone className="w-5 h-5" />
+              <span className="fab-text">
+                Call the Organizer
+                <small>Organizer Contact</small>
+              </span>
+            </a>
+          ) : (
+            <button
+              className="fab-button"
+              onClick={() => navigate(`/event/${id}/buyticket`)}
+            >
+              <Ticket className="w-5 h-5" />
+              <span className="fab-text">
+                Book Now - ₹{event.price}
+                <small>{ticketsLeft} tickets left</small>
+              </span>
+            </button>
+          )}
         </div>
       )}
     </div>

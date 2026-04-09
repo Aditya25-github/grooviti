@@ -27,6 +27,9 @@ const SearchResults = () => {
               price={item.price}
               image={item.image}
               availableTickets={item.availableTickets}
+              isPaid={item.isPaid}
+              organizerContact={item.organizerContact}
+              organizerPhone={item.organizerPhone}
             />
           ))
         ) : (
