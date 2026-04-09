@@ -949,7 +949,12 @@ const EventDetails = () => {
                 <Clock className="w-5 h-5 text-blue-500" />
                 <div>
                   <span className="detail-label">Time</span>
-                  <span className="detail-value">{event.time}</span>
+                  <span>
+  {new Date(event.date).toLocaleTimeString("en-IN", {
+    hour: "numeric",
+    minute: "2-digit",
+  })} onwards
+</span>
                 </div>
               </div>
               <div className="detail-item">
@@ -965,7 +970,7 @@ const EventDetails = () => {
                 <User className="w-5 h-5 text-blue-500" />
                 <div>
                   <span className="detail-label">Organizer</span>
-                  <span className="detail-value">{event.organizerName}</span>
+                  <span className="detail-value">{event.organizerEmail}</span>
                 </div>
               </div>
             </div>
