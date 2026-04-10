@@ -160,12 +160,19 @@ const addEvent = async (req, res) => {
         .json({ success: false, message: "Organizer not found" });
     }
 
+    const isPaidEvent = req.body.isPaid === "true" || req.body.isPaid === true;
+    const finalPrice = isPaidEvent ? Number(req.body.price) : 0;
+
     const event = new ticketModel({
       name: req.body.name,
       description: req.body.description,
       organizerEmail: req.body.organizerEmail,
       organizer: organizer._id,
-      price: req.body.price,
+      organizerContact: req.body.organizerContact || "",
+      teamSizeLimit: req.body.teamSizeLimit ? Number(req.body.teamSizeLimit) : 10,
+      memberWisePayment: req.body.memberWisePayment === "true" || req.body.memberWisePayment === true,
+      isPaid: isPaidEvent,
+      price: finalPrice,
       category: req.body.category,
       coverImage,
       otherImages,
@@ -173,6 +180,7 @@ const addEvent = async (req, res) => {
       ticketsSold: 0,
       location: parsedLocation,
       highlights,
+      date: req.body.date ? new Date(req.body.date) : undefined,
       ...(rulebook && { rulebook }),
     });
 
@@ -448,9 +456,25 @@ const editEvent = async (req, res) => {
       } catch (err) {}
     }
 
+    if (req.body.isPaid !== undefined) {
+      existingEvent.isPaid = req.body.isPaid === "true" || req.body.isPaid === true;
+    }
+    if (req.body.organizerContact !== undefined) {
+      existingEvent.organizerContact = req.body.organizerContact;
+    }
+    if (req.body.teamSizeLimit !== undefined) {
+      existingEvent.teamSizeLimit = Number(req.body.teamSizeLimit);
+    }
+    if (req.body.memberWisePayment !== undefined) {
+      existingEvent.memberWisePayment = req.body.memberWisePayment === "true" || req.body.memberWisePayment === true;
+    }
+    if (req.body.date !== undefined) {
+      existingEvent.date = req.body.date ? new Date(req.body.date) : undefined;
+    }
+
     existingEvent.name = req.body.name || existingEvent.name;
     existingEvent.description = req.body.description || existingEvent.description;
-    existingEvent.price = req.body.price !== undefined ? req.body.price : existingEvent.price;
+    existingEvent.price = existingEvent.isPaid ? (req.body.price !== undefined ? Number(req.body.price) : existingEvent.price) : 0;
     existingEvent.category = req.body.category || existingEvent.category;
     existingEvent.totalTickets = req.body.totalTickets || existingEvent.totalTickets;
     existingEvent.location = parsedLocation;

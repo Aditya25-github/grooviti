@@ -19,6 +19,11 @@ const Add = ({ url }) => {
     name: "",
     description: "",
     price: "",
+    isPaid: true,
+    organizerContact: "",
+    teamSizeLimit: 10,
+    memberWisePayment: false,
+    date: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -129,7 +134,7 @@ const Add = ({ url }) => {
   if (
     !data.name ||
     !data.description ||
-    !data.price ||
+    (data.isPaid && !data.price && data.price !== 0) ||
     !data.totalTickets ||
     !data.location.city ||
     !coverImage
@@ -146,7 +151,14 @@ const Add = ({ url }) => {
 
     formData.append("name", data.name);
     formData.append("description", data.description);
-    formData.append("price", Number(data.price));
+    formData.append("isPaid", data.isPaid);
+    formData.append("price", data.isPaid ? Number(data.price) : 0);
+    formData.append("organizerContact", data.organizerContact);
+    formData.append("teamSizeLimit", Number(data.teamSizeLimit));
+    formData.append("memberWisePayment", data.memberWisePayment);
+    if (data.date) {
+      formData.append("date", data.date);
+    }
     formData.append("category", data.category);
     formData.append("totalTickets", Number(data.totalTickets));
     formData.append("organizerEmail", organizerEmail);
@@ -417,18 +429,62 @@ const Add = ({ url }) => {
               </select>
             </div>
             <div className={styles.formGroup}>
-              <label>Event Price (₹) *</label>
+              <label>Event Date *</label>
               <input
                 onChange={onChangeHandler}
-                value={data.price}
-                type="number"
-                name="price"
-                placeholder="Example: 100"
+                value={data.date}
+                type="date"
+                name="date"
                 required
                 className={styles.groovitiInput}
-                min="0"
               />
             </div>
+            <div className={styles.formGroup}>
+              <label>Event Type *</label>
+              <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="isPaid"
+                    checked={data.isPaid === true}
+                    onChange={() => setData((prev) => ({ ...prev, isPaid: true }))}
+                  />
+                  Paid
+                </label>
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                  <input
+                    type="radio"
+                    name="isPaid"
+                    checked={data.isPaid === false}
+                    onChange={() => setData((prev) => ({ ...prev, isPaid: false }))}
+                  />
+                  Free
+                </label>
+              </div>
+            </div>
+            {data.isPaid && (
+              <div className={styles.formGroup}>
+                <label>Event Price (₹) *</label>
+                <input
+                  onChange={onChangeHandler}
+                  value={data.price}
+                  type="number"
+                  name="price"
+                  placeholder="Example: 100"
+                  required
+                  className={styles.groovitiInput}
+                  min="0"
+                />
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", marginTop: "10px", fontSize: "14px", color: "#555" }}>
+                  <input
+                    type="checkbox"
+                    checked={data.memberWisePayment === true}
+                    onChange={(e) => setData((prev) => ({ ...prev, memberWisePayment: e.target.checked }))}
+                  />
+                  Charge this price per Team Member (Instead of flat fee per Team)
+                </label>
+              </div>
+            )}
             <div className={styles.formGroup}>
               <label>Total Tickets *</label>
               <input
@@ -440,6 +496,30 @@ const Add = ({ url }) => {
                 required
                 className={styles.groovitiInput}
                 min="1"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Max Team Size *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.teamSizeLimit}
+                type="number"
+                name="teamSizeLimit"
+                placeholder="Example: 10"
+                required
+                className={styles.groovitiInput}
+                min="1"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Organizer Contact Number</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.organizerContact}
+                type="tel"
+                name="organizerContact"
+                placeholder="Example: +91 9876543210"
+                className={styles.groovitiInput}
               />
             </div>
           </div>

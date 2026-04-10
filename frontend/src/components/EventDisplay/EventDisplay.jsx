@@ -103,6 +103,9 @@ const EventDisplay = ({ category, location, userLocation }) => {
                 coverImage={item.coverImage}
                 availableTickets={item.availableTickets}
                 location={item.location}
+                isPaid={item.isPaid}
+                organizerContact={item.organizerContact}
+                organizerPhone={item.organizerPhone}
               />
             </motion.div>
           ))

@@ -620,6 +620,7 @@ const getBuyersByEvent = async (req, res) => {
       Team_member_name_9: booking.address?.Team_member_name_9 || "",
       Team_member_name_10: booking.address?.Team_member_name_10 || "",
       event: booking.address?.event || "",
+      attendance: booking.attendance || false,
     }));
 
     res.json({ success: true, buyers });

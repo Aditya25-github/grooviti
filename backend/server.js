@@ -204,6 +204,15 @@ app.get("/api/reverse-geocode", async (req, res) => {
 
 
 
+app.use((err, req, res, next) => {
+  console.error("🔥 Global Error Handler Caught:", err);
+  res.status(500).json({ 
+    success: false, 
+    message: err.message || "Internal Server Error",
+    errorDetails: err 
+  });
+});
+
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
