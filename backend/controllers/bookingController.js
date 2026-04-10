@@ -336,7 +336,7 @@ const sendBookingEmail = async (userEmail, booking) => {
 
     const pdfTicket = await generateTicketPDF(booking);
     console.log("✅ PDF Generated Successfully");
-
+    const whatsappLink = "https://chat.whatsapp.com/G1mFjsA2Ac5JxBGqcAM1PM";
     const mailOptions = {
       from: `"Grooviti Team" <groov.iti25@gmail.com>`,
       to: userEmail,
@@ -364,6 +364,20 @@ const sendBookingEmail = async (userEmail, booking) => {
         <p><b>🎉 Event:</b> ${booking?.address.event}</p>
         <p><b>💰 Amount Paid:</b> ₹${booking?.amount}</p>
         <p><b>✅ Status:</b> Confirmed</p>
+      </div>
+
+       <!-- 🔥 WHATSAPP SECTION -->
+      <div style="margin-top:20px; padding:15px; background:#e6fffa; border-radius:8px; text-align:center;">
+        <p style="margin:0; font-weight:bold;">📢 Join Event WhatsApp Group</p>
+
+        <a href="${whatsappLink}" 
+           style="display:inline-block; margin-top:10px; padding:10px 20px; background:#25D366; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">
+           Join Now
+        </a>
+
+        <p style="font-size:12px; color:#555; margin-top:10px;">
+          ⚠️ All event updates will be shared in this group
+        </p>
       </div>
 
       <!-- CTA -->
