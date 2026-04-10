@@ -286,11 +286,13 @@ const BuyTicket = () => {
                   }}
                   className="team-size-select"
                 >
-                  {[...Array(10).keys()].map((num) => (
-                    <option key={num + 1} value={num + 1}>
-                      {num + 1}
-                    </option>
-                  ))}
+                  {[...Array(eventData?.teamSizeLimit || 10).keys()].map(
+                    (num) => (
+                      <option key={num + 1} value={num + 1}>
+                        {num + 1}
+                      </option>
+                    )
+                  )}
                 </select>
               </div>
 

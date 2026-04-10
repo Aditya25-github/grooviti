@@ -169,6 +169,7 @@ const addEvent = async (req, res) => {
       organizerEmail: req.body.organizerEmail,
       organizer: organizer._id,
       organizerContact: req.body.organizerContact || "",
+      teamSizeLimit: req.body.teamSizeLimit ? Number(req.body.teamSizeLimit) : 10,
       isPaid: isPaidEvent,
       price: finalPrice,
       category: req.body.category,
@@ -458,6 +459,9 @@ const editEvent = async (req, res) => {
     }
     if (req.body.organizerContact !== undefined) {
       existingEvent.organizerContact = req.body.organizerContact;
+    }
+    if (req.body.teamSizeLimit !== undefined) {
+      existingEvent.teamSizeLimit = Number(req.body.teamSizeLimit);
     }
 
     existingEvent.name = req.body.name || existingEvent.name;

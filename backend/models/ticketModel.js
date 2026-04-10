@@ -7,6 +7,7 @@ const ticketSchema = new mongoose.Schema({
   isPaid: { type: Boolean, default: true },
   organizerEmail: { type: String, required: true },
   organizerContact: { type: String, default: "" },
+  teamSizeLimit: { type: Number, default: 10 },
   date: { type: Date, required: false },
   organizer: { type: mongoose.Schema.Types.ObjectId, ref: "organizer", required: true },
   coverImage: {

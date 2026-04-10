@@ -21,6 +21,7 @@ const Add = ({ url }) => {
     price: "",
     isPaid: true,
     organizerContact: "",
+    teamSizeLimit: 10,
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -151,6 +152,7 @@ const Add = ({ url }) => {
     formData.append("isPaid", data.isPaid);
     formData.append("price", data.isPaid ? Number(data.price) : 0);
     formData.append("organizerContact", data.organizerContact);
+    formData.append("teamSizeLimit", Number(data.teamSizeLimit));
     formData.append("category", data.category);
     formData.append("totalTickets", Number(data.totalTickets));
     formData.append("organizerEmail", organizerEmail);
@@ -466,6 +468,19 @@ const Add = ({ url }) => {
                 type="number"
                 name="totalTickets"
                 placeholder="Enter total tickets available"
+                required
+                className={styles.groovitiInput}
+                min="1"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Max Team Size *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.teamSizeLimit}
+                type="number"
+                name="teamSizeLimit"
+                placeholder="Example: 10"
                 required
                 className={styles.groovitiInput}
                 min="1"
