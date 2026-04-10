@@ -392,17 +392,19 @@ const sendBookingEmail = async (userEmail, booking) => {
       <div style="margin-top:25px; padding-top:15px; border-top:1px solid #eee; text-align:center;">
         <p style="font-size:13px; color:#777;">
           Need help? Contact us anytime.<br/>
-          See you at the event! 🚀
+          <p style="font-size:13px; color:#777;">
+📌 Stay tuned for updates via WhatsApp group
+</p>
         </p>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <div style="background:#111; color:#aaa; text-align:center; padding:15px;">
-      <p style="margin:0; font-size:12px;">
-        © 2026 Grooviti • Groove it. Book it. Live it.
-      </p>
-    </div>
+    <div style="margin-top:30px; padding:15px; background:#111; color:#fff; text-align:center;">
+  <p style="margin:0; font-size:14px;">
+     <b>GROOVITI x TECHNOVATE</b>
+  </p>
+  
 
   </div>
 </div>
