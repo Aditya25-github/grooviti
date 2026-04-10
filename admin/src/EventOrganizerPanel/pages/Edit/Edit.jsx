@@ -30,6 +30,7 @@ const Edit = ({ url }) => {
     organizerContact: "",
     teamSizeLimit: 10,
     memberWisePayment: false,
+    date: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -49,6 +50,12 @@ const Edit = ({ url }) => {
         const res = await axios.get(`${url}/api/event/${id}`);
         if (res.data.success) {
           const eventData = res.data.data;
+          // Format date for <input type="date"> which needs YYYY-MM-DD
+          let formattedDate = "";
+          if (eventData.date) {
+             formattedDate = new Date(eventData.date).toISOString().split('T')[0];
+          }
+
           setData({
             name: eventData.name,
             description: eventData.description,
@@ -57,6 +64,7 @@ const Edit = ({ url }) => {
             organizerContact: eventData.organizerContact || "",
             teamSizeLimit: eventData.teamSizeLimit || 10,
             memberWisePayment: eventData.memberWisePayment || false,
+            date: formattedDate,
             category: eventData.category,
             totalTickets: eventData.totalTickets,
             highlights: eventData.highlights || [],
@@ -233,6 +241,9 @@ const Edit = ({ url }) => {
       formData.append("organizerContact", data.organizerContact);
       formData.append("teamSizeLimit", Number(data.teamSizeLimit));
       formData.append("memberWisePayment", data.memberWisePayment);
+      if (data.date) {
+        formData.append("date", data.date);
+      }
       formData.append("category", data.category);
       formData.append("totalTickets", Number(data.totalTickets));
 
@@ -495,6 +506,17 @@ const Edit = ({ url }) => {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className={styles.formGroup}>
+              <label>Event Date *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.date}
+                type="date"
+                name="date"
+                required
+                className={styles.groovitiInput}
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Event Type *</label>

@@ -180,6 +180,7 @@ const addEvent = async (req, res) => {
       ticketsSold: 0,
       location: parsedLocation,
       highlights,
+      date: req.body.date ? new Date(req.body.date) : undefined,
       ...(rulebook && { rulebook }),
     });
 
@@ -466,6 +467,9 @@ const editEvent = async (req, res) => {
     }
     if (req.body.memberWisePayment !== undefined) {
       existingEvent.memberWisePayment = req.body.memberWisePayment === "true" || req.body.memberWisePayment === true;
+    }
+    if (req.body.date !== undefined) {
+      existingEvent.date = req.body.date ? new Date(req.body.date) : undefined;
     }
 
     existingEvent.name = req.body.name || existingEvent.name;

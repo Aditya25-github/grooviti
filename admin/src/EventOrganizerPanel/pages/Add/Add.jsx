@@ -23,6 +23,7 @@ const Add = ({ url }) => {
     organizerContact: "",
     teamSizeLimit: 10,
     memberWisePayment: false,
+    date: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -155,6 +156,9 @@ const Add = ({ url }) => {
     formData.append("organizerContact", data.organizerContact);
     formData.append("teamSizeLimit", Number(data.teamSizeLimit));
     formData.append("memberWisePayment", data.memberWisePayment);
+    if (data.date) {
+      formData.append("date", data.date);
+    }
     formData.append("category", data.category);
     formData.append("totalTickets", Number(data.totalTickets));
     formData.append("organizerEmail", organizerEmail);
@@ -423,6 +427,17 @@ const Add = ({ url }) => {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className={styles.formGroup}>
+              <label>Event Date *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.date}
+                type="date"
+                name="date"
+                required
+                className={styles.groovitiInput}
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Event Type *</label>
