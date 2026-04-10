@@ -9,7 +9,8 @@ import {
   verifyOrder,
   getOrderDetails,
   sendBookingEmail,
-  getBuyersByEvent
+  getBuyersByEvent,
+  sendBookingEmailController
 } from "../controllers/bookingController.js";
 
 import bookingModel from "../models/bookingsModel.js";
@@ -193,5 +194,5 @@ bookingRouter.post("/order-details", authMiddleware, getOrderDetails);
 
 // Add this route to bookingRoute.js:
 bookingRouter.get("/buyers", getBuyersByEvent);
-
+bookingRouter.post("/send-email",sendBookingEmailController);
 export default bookingRouter;

@@ -16,8 +16,6 @@ const razorpay = new Razorpay({
   key_secret: process.env.REACT_APP_RAZORPAY_SECRET_KEY,
 });
 
-
-
 // Force IPv4 first (helps in some cloud environments)
 dns.setDefaultResultOrder("ipv4first");
 
@@ -46,7 +44,6 @@ transporter.verify((error, success) => {
     console.log("✅ SMTP Connected Successfully!");
   }
 });
-
 
 // Book Ticket
 // Book Ticket
@@ -137,13 +134,11 @@ const bookTicket = async (req, res) => {
     console.log("🛒 Cart cleared for user:", userId);
 
     res.json({ success: true, order_id: order.id });
-
   } catch (error) {
     console.error("❌ ERROR while creating booking:", error);
     res.json({ success: false, message: "Error while making payment" });
   }
 };
-
 
 // Verify Payment & Send Email
 // const verifyOrder = async (req, res) => {
@@ -222,7 +217,7 @@ const verifyOrder = async (req, res) => {
           status: success ? "Confirmed" : "Failed",
         },
       },
-      { new: true }
+      { new: true },
     );
 
     if (!booking) {
@@ -231,7 +226,10 @@ const verifyOrder = async (req, res) => {
 
     if (!success) {
       await bookingModel.findOneAndDelete({ orderId });
-      return res.json({ success: false, message: "Payment failed, order deleted" });
+      return res.json({
+        success: false,
+        message: "Payment failed, order deleted",
+      });
     }
 
     for (const item of booking.items) {
@@ -248,10 +246,12 @@ const verifyOrder = async (req, res) => {
       await ticketModel.findByIdAndUpdate(
         event._id,
         { $set: { ticketsSold: newTicketsSold } },
-        { runValidators: false }
+        { runValidators: false },
       );
 
-      console.log(`✅ Updated ticketsSold for ${event.name} to ${newTicketsSold}`);
+      console.log(
+        `✅ Updated ticketsSold for ${event.name} to ${newTicketsSold}`,
+      );
     }
 
     if (booking.address.email) {
@@ -260,7 +260,6 @@ const verifyOrder = async (req, res) => {
     }
 
     res.json({ success: true, message: "Payment confirmed", booking });
-
   } catch (error) {
     console.error("Error verifying order:", error);
     res.json({ success: false, message: "Error verifying payment" });
@@ -309,7 +308,26 @@ const verifyOrder = async (req, res) => {
 //     console.error("❌ Error sending email:", error);
 //   }
 // };
+export const sendBookingEmailController = async (req, res) => {
+  try {
+    const { orderId } = req.body;
 
+    const booking = await bookingModel.findOne({ orderId });
+
+    if (!booking) {
+      return res.json({ success: false, message: "Booking not found" });
+    }
+
+    const userEmail = booking.address.email;
+
+    await sendBookingEmail(userEmail, booking);
+
+    res.json({ success: true, message: "Email sent!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false });
+  }
+};
 const sendBookingEmail = async (userEmail, booking) => {
   try {
     console.log("📄 Generating PDF Ticket...");
@@ -324,16 +342,57 @@ const sendBookingEmail = async (userEmail, booking) => {
       to: userEmail,
       subject: "🎟️ Your Event Ticket",
       html: `
-        <h2>Thank you for your booking!</h2>
-        <p>Your payment was successful. Here are your booking details:</p>
-        <p><strong>Ticket ID:</strong> ${booking?.orderId}</p>
-        <p><strong>Event Name:</strong> ${booking?.address.event}</p>
-        <p><strong>Total Amount:</strong> ₹${booking?.amount}</p>
-        <p><strong>Status:</strong> Confirmed ✅</p>
-        <p>We look forward to seeing you at the event!</p>
-        <p>Best Regards,</p>
-        <p>Team Grooviti</p>
-      `,
+<div style="font-family: Arial, sans-serif; background:#f4f6f8; padding:20px;">
+  <div style="max-width:600px; margin:auto; background:white; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+    
+    <!-- HEADER -->
+    <div style="background:#4f46e5; color:white; padding:20px; text-align:center;">
+      <h1 style="margin:0;">🎟️ Grooviti</h1>
+      <p style="margin:5px 0 0;">Your Ticket is Confirmed!</p>
+    </div>
+
+    <!-- BODY -->
+    <div style="padding:20px;">
+      <h2 style="color:#111;">Hi ${booking?.address.firstName},</h2>
+      <p style="color:#555;">
+        Your booking has been <b>successfully confirmed</b>. We're excited to have you at the event!
+      </p>
+
+      <!-- DETAILS BOX -->
+      <div style="background:#f9fafb; padding:15px; border-radius:8px; margin-top:15px;">
+        <p><b>🎫 Ticket ID:</b> ${booking?.orderId}</p>
+        <p><b>🎉 Event:</b> ${booking?.address.event}</p>
+        <p><b>💰 Amount Paid:</b> ₹${booking?.amount}</p>
+        <p><b>✅ Status:</b> Confirmed</p>
+      </div>
+
+      <!-- CTA -->
+      <div style="margin-top:20px; text-align:center;">
+        <p style="font-size:14px; color:#555;">
+          📎 Your ticket PDF is attached to this email.  
+          Please show it at the entry.
+        </p>
+      </div>
+
+      <!-- FOOTER NOTE -->
+      <div style="margin-top:25px; padding-top:15px; border-top:1px solid #eee; text-align:center;">
+        <p style="font-size:13px; color:#777;">
+          Need help? Contact us anytime.<br/>
+          See you at the event! 🚀
+        </p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background:#111; color:#aaa; text-align:center; padding:15px;">
+      <p style="margin:0; font-size:12px;">
+        © 2026 Grooviti • Groove it. Book it. Live it.
+      </p>
+    </div>
+
+  </div>
+</div>
+`,
       attachments: [
         {
           filename: `Ticket_${booking?.orderId}.pdf`,
@@ -348,12 +407,11 @@ const sendBookingEmail = async (userEmail, booking) => {
     const result = await Promise.race([
       transporter.sendMail(mailOptions),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Email timeout after 15s")), 15000)
+        setTimeout(() => reject(new Error("Email timeout after 15s")), 15000),
       ),
     ]);
 
     console.log("✅ Email Sent Successfully!", result);
-
   } catch (error) {
     console.error("❌ Error sending email:", error.message || error);
   }
@@ -387,8 +445,9 @@ export const generateTicketPDF = async (booking) => {
       doc.fontSize(14);
       doc.text(
         `${booking?.address.firstName} ${booking?.address.lastName}`,
-        -150,260,
-        { align: "center" }
+        -150,
+        260,
+        { align: "center" },
       );
       doc.text(booking?.address.email, -150, 290, {
         align: "center",
@@ -464,7 +523,9 @@ const listOrders = async (req, res) => {
     const organizerEmail = req.query.email;
 
     if (!organizerEmail) {
-      return res.status(400).json({ success: false, message: "Email is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
     }
     const organizerEvents = await ticketModel.find({ organizerEmail });
 
@@ -472,7 +533,7 @@ const listOrders = async (req, res) => {
 
     // Step 3: Find bookings that include any of these event IDs
     const orders = await bookingModel.find({
-      "items.eventId": { $in: eventIds }
+      "items.eventId": { $in: eventIds },
     });
 
     res.json({ success: true, data: orders });
@@ -485,7 +546,9 @@ const listOrders = async (req, res) => {
 // Update Order Status
 const updateStatus = async (req, res) => {
   try {
-    await bookingModel.findByIdAndUpdate(req.body.orderId, { status: req.body.status });
+    await bookingModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
     res.json({ success: true, message: "Status Updated" });
   } catch (error) {
     console.log(error);
@@ -520,7 +583,9 @@ const getBuyersByEvent = async (req, res) => {
     const { eventId } = req.query;
 
     if (!eventId) {
-      return res.status(400).json({ success: false, message: "eventId is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "eventId is required" });
     }
 
     // Find all confirmed bookings that contain this eventId
@@ -565,4 +630,13 @@ const getBuyersByEvent = async (req, res) => {
 };
 
 // Export Controllers
-export { bookTicket, verifyOrder, userOrders, listOrders, updateStatus, getOrderDetails, sendBookingEmail, getBuyersByEvent };
+export {
+  bookTicket,
+  verifyOrder,
+  userOrders,
+  listOrders,
+  updateStatus,
+  getOrderDetails,
+  sendBookingEmail,
+  getBuyersByEvent,
+};
