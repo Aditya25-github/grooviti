@@ -148,12 +148,15 @@ const StoreContextProvider = ({ children }) => {
   // -------------------------------------------------------------
   // 🔹 6. GET TOTAL CART AMOUNT
   // -------------------------------------------------------------
-  const getTotalCartAmount = () => {
+  const getTotalCartAmount = (teamSize = 1) => {
     let total = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
         const event = myevents_list.find((e) => e._id === item);
-        if (event) total += event.price * cartItems[item];
+        if (event) {
+          const multiplier = event.memberWisePayment ? teamSize : 1;
+          total += event.price * cartItems[item] * multiplier;
+        }
       }
     }
     return total;

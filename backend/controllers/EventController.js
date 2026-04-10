@@ -170,6 +170,7 @@ const addEvent = async (req, res) => {
       organizer: organizer._id,
       organizerContact: req.body.organizerContact || "",
       teamSizeLimit: req.body.teamSizeLimit ? Number(req.body.teamSizeLimit) : 10,
+      memberWisePayment: req.body.memberWisePayment === "true" || req.body.memberWisePayment === true,
       isPaid: isPaidEvent,
       price: finalPrice,
       category: req.body.category,
@@ -462,6 +463,9 @@ const editEvent = async (req, res) => {
     }
     if (req.body.teamSizeLimit !== undefined) {
       existingEvent.teamSizeLimit = Number(req.body.teamSizeLimit);
+    }
+    if (req.body.memberWisePayment !== undefined) {
+      existingEvent.memberWisePayment = req.body.memberWisePayment === "true" || req.body.memberWisePayment === true;
     }
 
     existingEvent.name = req.body.name || existingEvent.name;

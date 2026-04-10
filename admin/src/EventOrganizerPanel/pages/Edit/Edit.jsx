@@ -29,6 +29,7 @@ const Edit = ({ url }) => {
     isPaid: true,
     organizerContact: "",
     teamSizeLimit: 10,
+    memberWisePayment: false,
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -55,6 +56,7 @@ const Edit = ({ url }) => {
             isPaid: eventData.isPaid !== undefined ? eventData.isPaid : true,
             organizerContact: eventData.organizerContact || "",
             teamSizeLimit: eventData.teamSizeLimit || 10,
+            memberWisePayment: eventData.memberWisePayment || false,
             category: eventData.category,
             totalTickets: eventData.totalTickets,
             highlights: eventData.highlights || [],
@@ -230,6 +232,7 @@ const Edit = ({ url }) => {
       formData.append("price", data.isPaid ? Number(data.price) : 0);
       formData.append("organizerContact", data.organizerContact);
       formData.append("teamSizeLimit", Number(data.teamSizeLimit));
+      formData.append("memberWisePayment", data.memberWisePayment);
       formData.append("category", data.category);
       formData.append("totalTickets", Number(data.totalTickets));
 
@@ -529,6 +532,14 @@ const Edit = ({ url }) => {
                   className={styles.groovitiInput}
                   min="0"
                 />
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", marginTop: "10px", fontSize: "14px", color: "#555" }}>
+                  <input
+                    type="checkbox"
+                    checked={data.memberWisePayment === true}
+                    onChange={(e) => setData((prev) => ({ ...prev, memberWisePayment: e.target.checked }))}
+                  />
+                  Charge this price per Team Member (Instead of flat fee per Team)
+                </label>
               </div>
             )}
             <div className={styles.formGroup}>

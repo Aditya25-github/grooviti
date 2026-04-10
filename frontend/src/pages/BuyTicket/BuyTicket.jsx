@@ -110,7 +110,7 @@ const BuyTicket = () => {
       userId: user._id,
       address: data,
       items: eventItems,
-      amount: getTotalCartAmount() + 0,
+      amount: getTotalCartAmount(data.Team_size) + 0,
     };
 
     try {
@@ -399,7 +399,7 @@ const BuyTicket = () => {
               <div className="price-details">
                 <div className="price-row">
                   <span>Subtotal</span>
-                  <span>Rs.{getTotalCartAmount()}</span>
+                  <span>Rs.{getTotalCartAmount(data.Team_size)}</span>
                 </div>
                 <div className="price-row">
                   <span>Processing fee</span>
@@ -408,7 +408,7 @@ const BuyTicket = () => {
                 <div className="divider"></div>
                 <div className="price-row total">
                   <span>Total</span>
-                  <span>Rs.{getTotalCartAmount()}</span>
+                  <span>Rs.{getTotalCartAmount(data.Team_size)}</span>
                 </div>
               </div>
 

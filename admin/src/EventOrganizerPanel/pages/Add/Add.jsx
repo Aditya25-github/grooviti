@@ -22,6 +22,7 @@ const Add = ({ url }) => {
     isPaid: true,
     organizerContact: "",
     teamSizeLimit: 10,
+    memberWisePayment: false,
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -153,6 +154,7 @@ const Add = ({ url }) => {
     formData.append("price", data.isPaid ? Number(data.price) : 0);
     formData.append("organizerContact", data.organizerContact);
     formData.append("teamSizeLimit", Number(data.teamSizeLimit));
+    formData.append("memberWisePayment", data.memberWisePayment);
     formData.append("category", data.category);
     formData.append("totalTickets", Number(data.totalTickets));
     formData.append("organizerEmail", organizerEmail);
@@ -458,6 +460,14 @@ const Add = ({ url }) => {
                   className={styles.groovitiInput}
                   min="0"
                 />
+                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", marginTop: "10px", fontSize: "14px", color: "#555" }}>
+                  <input
+                    type="checkbox"
+                    checked={data.memberWisePayment === true}
+                    onChange={(e) => setData((prev) => ({ ...prev, memberWisePayment: e.target.checked }))}
+                  />
+                  Charge this price per Team Member (Instead of flat fee per Team)
+                </label>
               </div>
             )}
             <div className={styles.formGroup}>
