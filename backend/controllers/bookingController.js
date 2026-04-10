@@ -481,7 +481,7 @@ export const generateTicketPDF = async (booking) => {
 
       // 📅 RIGHT SIDE DATE (ABOVE APRIL 2026)
 
-      const eventDate = new Date(booking?.date); // using booking date (or replace with event date if available)
+      const eventDate = new Date(booking?.items[0]?.date); // using booking date (or replace with event date if available)
       const day = eventDate.getDate();
 
       doc
