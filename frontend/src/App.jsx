@@ -16,7 +16,7 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 // Pages
 import Home from "./pages/Home/Home";
-import Cart from "./pages/Cart/Cart";
+
 import BuyTicket from "./pages/BuyTicket/BuyTicket";
 import TicketConfirmation from "./pages/TicketConfirmation/TicketConfirmation";
 import Verify from "./pages/Verify/Verify";
@@ -70,7 +70,7 @@ const App = () => {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
+
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/event/:id/buyticket" element={<BuyTicket />} />

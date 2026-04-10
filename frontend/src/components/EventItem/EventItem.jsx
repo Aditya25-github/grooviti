@@ -36,37 +36,7 @@ const EventItem = ({
           alt={name || "Event image"}
         />
 
-        {!isSoldOut && !cartItems[id] ? (
-          <img
-            className="add"
-            onClick={(e) => {
-              e.stopPropagation();
-              addToCart(id);
-            }}
-            src={assets.add_icon_white}
-            alt=""
-          />
-        ) : !isSoldOut ? (
-          <div className="event-item-counter">
-            <img
-              onClick={(e) => {
-                e.stopPropagation();
-                removeFromCart(id);
-              }}
-              src={assets.remove_icon_red}
-              alt=""
-            />
-            <p>{cartItems[id]}</p>
-            <img
-              onClick={(e) => {
-                e.stopPropagation();
-                addToCart(id);
-              }}
-              src={assets.add_icon_green}
-              alt="Add"
-            />
-          </div>
-        ) : null}
+
       </div>
 
       <div className="event-item-info">

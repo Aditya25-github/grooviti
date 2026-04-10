@@ -66,8 +66,8 @@ import EventDashboard from "./EventOrganizerPanel/pages/EventDashboard/EventDash
 import MarkAttendance from "./EventOrganizerPanel/pages/MarkAttendance/MarkAttendance";
 
 const App = () => {
-  const url = "https://grooviti-backend.onrender.com";
-  //const url = "http://localhost:4000";
+  //const url = "https://grooviti-backend.onrender.com";
+  const url = "http://localhost:4000";
   const location = useLocation();
   const { token, userRole, loading } = useContext(StoreContext);
 

@@ -13,7 +13,7 @@ import { Server } from "socket.io";
 import { connectDB } from "./config/db.js";
 import eventRouter from "./routes/EventRoute.js";
 import userRouter from "./routes/userRoute.js";
-import cartRouter from "./routes/CartRoute.js";
+
 import bookingRouter from "./routes/bookingRoute.js";
 import organizerRoutes from "./routes/organizerRoutes.js";
 import reviewRouter from "./routes/ReviewRoute.js";
@@ -134,7 +134,7 @@ import HalloweenRoutes from "./routes/HalloweenRoutes.js"
 
 app.use("/api/event", eventRouter);
 app.use("/api/user", userRouter);
-app.use("/api/cart", cartRouter);
+
 app.use("/api/booking", bookingRouter);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/reviews", reviewRouter);
