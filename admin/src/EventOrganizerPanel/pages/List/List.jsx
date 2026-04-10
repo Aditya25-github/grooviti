@@ -106,6 +106,7 @@ const List = ({ url }) => {
   const [buyers, setBuyers] = useState([]);
   const [buyersLoading, setBuyersLoading] = useState(false);
   const [showBuyers, setShowBuyers] = useState(false);
+  const [showAttendance, setShowAttendance] = useState(false);
   const navigate = useNavigate();
 
   const listMyEvents = async () => {
@@ -156,11 +157,17 @@ const List = ({ url }) => {
     }
   };
 
-  // Fetch buyers for selected event
-  const fetchBuyers = async (eventId) => {
+  // Fetch buyers/attendance for selected event
+  const loadPeopleData = async (eventId, isAttendance = false) => {
     setBuyersLoading(true);
     setBuyers([]);
-    setShowBuyers(true);
+    if (isAttendance) {
+      setShowAttendance(true);
+      setShowBuyers(false);
+    } else {
+      setShowBuyers(true);
+      setShowAttendance(false);
+    }
     try {
       const response = await axios.get(
         `${url}/api/booking/buyers?eventId=${eventId}`
@@ -201,6 +208,29 @@ const List = ({ url }) => {
     });
   };
 
+  const getAttendanceList = () => buyers.filter((b) => b.attendance);
+
+  const downloadAttendanceCSV = () => {
+    const list = getAttendanceList();
+    if (!list.length) return toast.info("No attendees found.");
+    const csv = arrayToCsv(list);
+    downloadFile({
+      data: csv,
+      fileName: `${selected?.name || "event"}-attendance.csv`,
+      mimeType: "text/csv;charset=utf-8",
+    });
+  };
+
+  const downloadAttendanceJSON = () => {
+    const list = getAttendanceList();
+    if (!list.length) return toast.info("No attendees found.");
+    downloadFile({
+      data: JSON.stringify(list, null, 2),
+      fileName: `${selected?.name || "event"}-attendance.json`,
+      mimeType: "application/json;charset=utf-8",
+    });
+  };
+
   // Stats for selected event
   const stats = useMemo(() => {
     if (!selected) return null;
@@ -217,9 +247,9 @@ const List = ({ url }) => {
       ticketsSold: event?.ticketsSold ?? 0,
       revenue:
         "revenue" in event
-          ? event.revenue
-          : event?.ticketsSold && event?.price
-            ? event.ticketsSold * event.price
+          ? parseFloat((event.revenue * 0.98).toFixed(2))
+          : (event?.attendees || event?.ticketsSold) && event?.price
+            ? parseFloat(((event.attendees || event.ticketsSold) * event.price * 0.98).toFixed(2))
             : 0,
       organizerEmail: event?.organizerEmail ?? event?.hostEmail ?? "",
     };
@@ -254,6 +284,7 @@ const List = ({ url }) => {
   useEffect(() => {
     setBuyers([]);
     setShowBuyers(false);
+    setShowAttendance(false);
   }, [selected]);
 
   return (
@@ -324,7 +355,7 @@ const List = ({ url }) => {
                   <FaUsers /> {ev.attendees || ev.ticketsSold || 0} attendees
                 </span>
                 <span className="event-meta-item">
-                  <FaMoneyBillWave /> Rs.{ev.revenue || 0} revenue
+                  <FaMoneyBillWave /> Rs.{parseFloat(((ev?.attendees || ev?.ticketsSold || 0) * (ev?.price || 0) * 0.98).toFixed(2))} revenue
                 </span>
                 {statusBadge(ev.status)}
               </div>
@@ -396,10 +427,7 @@ const List = ({ url }) => {
               </div>
               <div className="modal-row">
                 <b>Revenue:</b> Rs.{" "}
-                {selected.revenue ||
-                  (selected.ticketsSold && selected.price
-                    ? selected.ticketsSold * selected.price
-                    : 0)}
+                {parseFloat(((selected?.attendees || selected?.ticketsSold || 0) * (selected?.price || 0) * 0.98).toFixed(2))}
               </div>
             </div>
             <div className="modal-actions">
@@ -424,36 +452,63 @@ const List = ({ url }) => {
               </button>
             </div>
 
-            {/* Buyers Section */}
-            <div className="modal-section-title">Ticket Buyers</div>
+            {/* Buyers & Attendance Section */}
+            <div className="modal-section-title">Participants & Buyers</div>
             <div className="modal-actions">
-              <button
-                className="icon-btn"
-                onClick={() => fetchBuyers(selected._id)}
-                disabled={buyersLoading}
-              >
-                <FaUserAlt />{" "}
-                {buyersLoading ? "Loading..." : "View Buyers"}
-              </button>
-              {buyers.length > 0 && (
-                <>
-                  <button className="icon-btn" onClick={downloadBuyersCSV}>
-                    <FaDownload /> Buyers CSV
-                  </button>
-                  <button className="icon-btn" onClick={downloadBuyersJSON}>
-                    <FaDownload /> Buyers JSON
-                  </button>
-                </>
-              )}
+               {/* Buyers Button Group */}
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
+                <button
+                  className={`icon-btn ${showBuyers && !buyersLoading ? 'active' : ''}`}
+                  onClick={() => loadPeopleData(selected._id, false)}
+                  disabled={buyersLoading}
+                >
+                  <FaUserAlt />{" "}
+                  {buyersLoading && showBuyers ? "Loading..." : "View Buyers"}
+                </button>
+                {showBuyers && buyers.length > 0 && (
+                  <>
+                    <button className="icon-btn" onClick={downloadBuyersCSV}>
+                      <FaDownload /> Buyers CSV
+                    </button>
+                    <button className="icon-btn" onClick={downloadBuyersJSON}>
+                      <FaDownload /> Buyers JSON
+                    </button>
+                  </>
+                )}
+              </div>
+
+               {/* Attendance Button Group */}
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center", marginTop: "10px" }}>
+                <button
+                  className={`icon-btn ${showAttendance && !buyersLoading ? 'active' : ''}`}
+                  onClick={() => loadPeopleData(selected._id, true)}
+                  disabled={buyersLoading}
+                >
+                  <FaCheck />{" "}
+                  {buyersLoading && showAttendance ? "Loading..." : "View Attendance"}
+                </button>
+                {showAttendance && getAttendanceList().length > 0 && (
+                  <>
+                    <button className="icon-btn" onClick={downloadAttendanceCSV}>
+                      <FaDownload /> Attendance CSV
+                    </button>
+                    <button className="icon-btn" onClick={downloadAttendanceJSON}>
+                      <FaDownload /> Attendance JSON
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
 
-            {/* Buyers Table */}
-            {showBuyers && (
+            {/* Buyers / Attendance Table */}
+            {(showBuyers || showAttendance) && (
               <div className="buyers-table-wrapper">
                 {buyersLoading ? (
-                  <div className="buyers-loading">Fetching buyers...</div>
-                ) : buyers.length === 0 ? (
-                  <div className="buyers-empty">No confirmed buyers yet.</div>
+                  <div className="buyers-loading">Fetching data...</div>
+                ) : (showAttendance ? getAttendanceList() : buyers).length === 0 ? (
+                  <div className="buyers-empty">
+                    {showAttendance ? "No attendance marked yet." : "No confirmed buyers yet."}
+                  </div>
                 ) : (
                   <table className="buyers-table">
                     <thead>
@@ -470,10 +525,11 @@ const List = ({ url }) => {
                         <th>Amount</th>
                         <th>Order ID</th>
                         <th>Date</th>
+                        {showAttendance && <th>Attendance</th>}
                       </tr>
                     </thead>
                     <tbody>
-                      {buyers.map((buyer, index) => (
+                      {(showAttendance ? getAttendanceList() : buyers).map((buyer, index) => (
                         <tr key={buyer.orderId || index}>
                           <td>{index + 1}</td>
                           <td>
@@ -493,6 +549,11 @@ const List = ({ url }) => {
                               ? new Date(buyer.date).toLocaleDateString()
                               : ""}
                           </td>
+                          {showAttendance && (
+                            <td style={{ color: "green", fontWeight: "bold" }}>
+                              Present
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>

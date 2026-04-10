@@ -5,8 +5,8 @@ import { jwtDecode } from "jwt-decode";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = ({ children }) => {
-  const url = "https://grooviti-backend.onrender.com"; // backend URL
-  //const url = "http://localhost:4000";
+  //const url = "https://grooviti-backend.onrender.com"; // backend URL
+  const url = "http://localhost:4000";
 
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [user, setUser] = useState(() => {
