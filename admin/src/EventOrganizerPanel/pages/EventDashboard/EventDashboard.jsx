@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./EventDashboard.module.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   FaCalendarAlt,
   FaWallet,
@@ -9,89 +11,104 @@ import {
   FaEye,
   FaFileAlt,
   FaCog,
-  FaUserCircle,
 } from "react-icons/fa";
 
-const summary = [
-  {
-    label: "Total Events",
-    value: 142,
-    accent: "#7f9cf5",
-    icon: <FaCalendarAlt />,
-    desc: "+12% from last month",
-  },
-  {
-    label: "Total Bookings",
-    value: 3247,
-    accent: "#85d6b5",
-    icon: <FaWallet />,
-    desc: "+8% from last month",
-  },
-  {
-    label: "Revenue",
-    value: "$89,432",
-    accent: "#d5b7fb",
-    icon: <FaMoneyBillWave />,
-    desc: "+15% from last month",
-  },
-  {
-    label: "Participants",
-    value: 12847,
-    accent: "#ffa085",
-    icon: <FaUsers />,
-    desc: "+22% from last month",
-  },
-];
+export default function EventDashboard({ url }) {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const recentEvents = [
-  {
-    name: "Summer Music Festival",
-    date: "July 15, 2024",
-    attendees: 1247,
-    status: "Active",
-    icon: <FaCalendarAlt color="#7f9cf5" />,
-    accent: "#edeffc",
-  },
-  {
-    name: "Tech Conference 2024",
-    date: "Aug 22, 2024",
-    attendees: 892,
-    status: "Upcoming",
-    icon: <FaWallet color="#d5b7fb" />,
-    accent: "#f6edfc",
-  },
-  {
-    name: "Art Exhibition",
-    date: "June 10, 2024",
-    attendees: 456,
-    status: "Completed",
-    icon: <FaFileAlt color="#ffa085" />,
-    accent: "#fcedef",
-  },
-];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const email = localStorage.getItem("organizerEmail");
+      if (!email) {
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await axios.get(
+          `${url}/api/event/my-events?email=${email}`
+        );
+        if (response.data.success) {
+          // Sort events by newest first assuming _id corresponds to creation time roughly, or date parsing
+          const sortedEvents = response.data.events.reverse();
+          setEvents(sortedEvents);
+        }
+      } catch (err) {
+        console.error("Error fetching dashboard events:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+  }, [url]);
 
-const team = [
-  {
-    name: "Sarah Wilson",
-    role: "Event Manager",
-    avatar: "https://randomuser.me/api/portraits/women/26.jpg",
-    online: true,
-  },
-  {
-    name: "Mike Johnson",
-    role: "Marketing Lead",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-    online: true,
-  },
-  {
-    name: "Emma Davis",
-    role: "Operations",
-    avatar: "https://randomuser.me/api/portraits/women/50.jpg",
-    online: false,
-  },
-];
+  // Compute dynamic stats
+  const totalEvents = events.length;
+  const totalBookings = events.reduce((acc, ev) => acc + (ev.ticketsSold || 0), 0);
+  const totalRevenue = events.reduce((acc, ev) => {
+    const rev = "revenue" in ev
+      ? ev.revenue * 0.98
+      : (ev.attendees || ev.ticketsSold || 0) * (ev.price || 0) * 0.98;
+    return acc + rev;
+  }, 0);
+  const totalParticipants = events.reduce(
+    (acc, ev) => acc + (ev.attendees || ev.ticketsSold || 0),
+    0
+  );
 
-export default function EventDashboard() {
+  const summary = [
+    {
+      label: "Total Events",
+      value: totalEvents,
+      accent: "#7f9cf5",
+      icon: <FaCalendarAlt />,
+      desc: "All time hosted events",
+    },
+    {
+      label: "Total Bookings",
+      value: totalBookings,
+      accent: "#85d6b5",
+      icon: <FaWallet />,
+      desc: "Confirmed ticket orders",
+    },
+    {
+      label: "Revenue",
+      value: `Rs. ${totalRevenue.toFixed(2)}`,
+      accent: "#d5b7fb",
+      icon: <FaMoneyBillWave />,
+      desc: "Net estimated revenue",
+    },
+    {
+      label: "Participants",
+      value: totalParticipants,
+      accent: "#ffa085",
+      icon: <FaUsers />,
+      desc: "Total people attended",
+    },
+  ];
+
+  const recentEvents = events.slice(0, 4).map((ev, idx) => {
+    const colors = ["#7f9cf5", "#d5b7fb", "#ffa085", "#85d6b5"];
+    const accentColors = ["#edeffc", "#f6edfc", "#fcedef", "#ebf9f3"];
+    return {
+      name: ev.name,
+      date: ev.date || ev.startDate || "TBD",
+      attendees: ev.attendees || ev.ticketsSold || 0,
+      status: ev.status || "Active",
+      icon: <FaCalendarAlt color={colors[idx % colors.length]} />,
+      accent: accentColors[idx % accentColors.length],
+    };
+  });
+
+  const team = [
+    {
+      name: "Logged in as",
+      role: "Event Organizer",
+      avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+      online: true,
+    },
+  ];
+
   return (
     <div className={styles.dashboardMain}>
       <div className={styles.dashboardHeader}>
@@ -112,7 +129,7 @@ export default function EventDashboard() {
               {s.icon}
             </div>
             <div className={styles.summaryMeta}>
-              <div className={styles.summaryValue}>{s.value}</div>
+              <div className={styles.summaryValue}>{loading ? "..." : s.value}</div>
               <div className={styles.summaryLabel}>{s.label}</div>
               <div className={styles.summaryDesc}>{s.desc}</div>
             </div>
@@ -124,35 +141,41 @@ export default function EventDashboard() {
           <div className={`${styles.card} ${styles.recentEvents}`}>
             <div className={styles.cardHead}>
               <b>Recent Events</b>
-              <a className={styles.cardLink} href="/">
+              <Link className={styles.cardLink} to="/event/list">
                 View All
-              </a>
+              </Link>
             </div>
             <div className={styles.eventList}>
-              {recentEvents.map((ev, idx) => (
-                <div
-                  className={styles.eventRow}
-                  key={idx}
-                  style={{ background: ev.accent }}
-                >
-                  <span className={styles.eventIcon}>{ev.icon}</span>
-                  <span>
-                    <b>{ev.name}</b> <br />
-                    <span className={styles.eventDate}>
-                      {ev.date} &nbsp;•&nbsp; {ev.attendees} attendees
-                    </span>
-                  </span>
-                  <span
-                    className={`${styles.eventStatus} ${
-                      styles["status" + ev.status]
-                        ? styles["status" + ev.status]
-                        : ""
-                    }`}
+              {loading ? (
+                <div style={{ padding: "20px", color: "#666" }}>Loading events...</div>
+              ) : recentEvents.length === 0 ? (
+                <div style={{ padding: "20px", color: "#666" }}>No events found.</div>
+              ) : (
+                recentEvents.map((ev, idx) => (
+                  <div
+                    className={styles.eventRow}
+                    key={idx}
+                    style={{ background: ev.accent }}
                   >
-                    {ev.status}
-                  </span>
-                </div>
-              ))}
+                    <span className={styles.eventIcon}>{ev.icon}</span>
+                    <span>
+                      <b>{ev.name}</b> <br />
+                      <span className={styles.eventDate}>
+                        {ev.date} &nbsp;•&nbsp; {ev.attendees} attendees
+                      </span>
+                    </span>
+                    <span
+                      className={`${styles.eventStatus} ${
+                        styles["status" + ev.status]
+                          ? styles["status" + ev.status]
+                          : ""
+                      }`}
+                    >
+                      {ev.status}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -161,21 +184,29 @@ export default function EventDashboard() {
             <b>Quick Actions</b>
             <ul>
               <li>
-                <FaPlus className={styles.actionIcon} /> Create New Event
+                <Link to="/event/add" style={{color: "inherit", textDecoration: "none", display: "flex", alignItems: "center"}}>
+                  <FaPlus className={styles.actionIcon} /> Create New Event
+                </Link>
               </li>
               <li>
-                <FaEye className={styles.actionIcon} /> View Bookings
+                <Link to="/event/orders" style={{color: "inherit", textDecoration: "none", display: "flex", alignItems: "center"}}>
+                  <FaEye className={styles.actionIcon} /> View Bookings
+                </Link>
               </li>
               <li>
-                <FaFileAlt className={styles.actionIcon} /> Generate Report
+                <Link to="/event/list" style={{color: "inherit", textDecoration: "none", display: "flex", alignItems: "center"}}>
+                  <FaFileAlt className={styles.actionIcon} /> Manage Events
+                </Link>
               </li>
               <li>
-                <FaCog className={styles.actionIcon} /> Manage Settings
+                <Link to="/event/settings" style={{color: "inherit", textDecoration: "none", display: "flex", alignItems: "center"}}>
+                  <FaCog className={styles.actionIcon} /> Manage Settings
+                </Link>
               </li>
             </ul>
           </div>
           <div className={`${styles.card} ${styles.teamBox}`}>
-            <b>Team Members</b>
+            <b>Team Details</b>
             <ul>
               {team.map((m, idx) => (
                 <li key={idx}>

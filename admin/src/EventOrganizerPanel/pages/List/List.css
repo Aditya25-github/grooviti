@@ -41,6 +41,7 @@
 
 .list-filters {
   display: flex;
+  flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 14px;
 }
@@ -247,14 +248,21 @@
 .event-modal-card {
   background: #fff;
   border-radius: 18px;
-  width: 99vw;
-  max-width: 450px;
-  padding: 28px 22px;
+  width: 92vw;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 20px;
   box-shadow: 0 0 60px #7f61e9ab;
   animation: slideUp 0.3s;
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.buyers-table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 .event-modal-card .modal-header {
   display: flex;
@@ -285,6 +293,7 @@
 .event-modal-card .modal-actions {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .event-modal-card .icon-btn {
   padding: 7px 16px;
@@ -307,6 +316,29 @@
   background: #ee4a39;
   color: #fff;
 }
+
+/* Table styling fixes */
+.buyers-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+.buyers-table th, .buyers-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid #eef2ff;
+  text-align: left;
+  white-space: nowrap; /* Forces wide columns to stay on one line, triggering horizontal scroll instead of ugly wrapping */
+}
+.buyers-table th {
+  font-weight: 600;
+  color: #242344;
+  background: #fcfcfd;
+}
+.buyers-table td {
+  color: #474f73;
+}
+
 
 /* Animations */
 @keyframes fadeIn {
@@ -333,8 +365,25 @@
   .event-list-page {
     padding: 12px;
   }
+  .list-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
   .event-card {
     padding: 12px 8px;
     margin: 14px 5px;
+    flex-wrap: wrap;
+  }
+  .event-card-actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .event-meta-item {
+    font-size: 0.9rem;
+  }
+  .filter-input, .filter-select, .filter-actions {
+    width: 100%;
   }
 }

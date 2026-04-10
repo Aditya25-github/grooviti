@@ -150,13 +150,7 @@ const Navbar = ({ setShowLogin }) => {
           )}
         </div>
         <div className="mobile-top-buttons">
-          <Link
-            to="/cart"
-            className="mobile-cart-btn"
-            onClick={() => setMenuOpen(false)}
-          >
-            Go to Cart
-          </Link>
+
           {token && (
             <div className="mobile-only">
               <Link
@@ -276,12 +270,7 @@ const Navbar = ({ setShowLogin }) => {
           )}
         </div>
 
-        <div className="navbar-search-icon desktop-only">
-          <Link to="/Cart">
-            <img src={assets.basket_icon} alt="Cart" />
-          </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div>
+
 
         <div className="desktop-buttons">
           {!token ? (

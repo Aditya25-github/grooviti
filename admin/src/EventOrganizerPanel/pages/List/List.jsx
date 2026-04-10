@@ -458,78 +458,117 @@ const List = ({ url }) => {
                {/* Buyers Button Group */}
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
                 <button
-                  className={`icon-btn ${showBuyers && !buyersLoading ? 'active' : ''}`}
+                  className="icon-btn"
                   onClick={() => loadPeopleData(selected._id, false)}
                   disabled={buyersLoading}
                 >
                   <FaUserAlt />{" "}
                   {buyersLoading && showBuyers ? "Loading..." : "View Buyers"}
                 </button>
-                {showBuyers && buyers.length > 0 && (
-                  <>
-                    <button className="icon-btn" onClick={downloadBuyersCSV}>
-                      <FaDownload /> Buyers CSV
-                    </button>
-                    <button className="icon-btn" onClick={downloadBuyersJSON}>
-                      <FaDownload /> Buyers JSON
-                    </button>
-                  </>
-                )}
               </div>
 
                {/* Attendance Button Group */}
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center", marginTop: "10px" }}>
                 <button
-                  className={`icon-btn ${showAttendance && !buyersLoading ? 'active' : ''}`}
+                  className="icon-btn"
                   onClick={() => loadPeopleData(selected._id, true)}
                   disabled={buyersLoading}
                 >
                   <FaCheck />{" "}
                   {buyersLoading && showAttendance ? "Loading..." : "View Attendance"}
                 </button>
-                {showAttendance && getAttendanceList().length > 0 && (
-                  <>
-                    <button className="icon-btn" onClick={downloadAttendanceCSV}>
-                      <FaDownload /> Attendance CSV
-                    </button>
-                    <button className="icon-btn" onClick={downloadAttendanceJSON}>
-                      <FaDownload /> Attendance JSON
-                    </button>
-                  </>
-                )}
               </div>
             </div>
+          </div>
+        </div>
+      )}
 
-            {/* Buyers / Attendance Table */}
-            {(showBuyers || showAttendance) && (
-              <div className="buyers-table-wrapper">
-                {buyersLoading ? (
-                  <div className="buyers-loading">Fetching data...</div>
-                ) : (showAttendance ? getAttendanceList() : buyers).length === 0 ? (
-                  <div className="buyers-empty">
-                    {showAttendance ? "No attendance marked yet." : "No confirmed buyers yet."}
-                  </div>
-                ) : (
-                  <table className="buyers-table">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>College</th>
-                        <th>Branch</th>
-                        <th>Team Name</th>
-                        <th>Team Leader</th>
-                        <th>Team Size</th>
-                        <th>Amount</th>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        {showAttendance && <th>Attendance</th>}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {(showAttendance ? getAttendanceList() : buyers).map((buyer, index) => (
+      {/* Buyers / Attendance Pop-up Modal */}
+      {(showBuyers || showAttendance) && (
+        <div
+          className="event-modal-backdrop"
+          style={{ zIndex: 1300 }}
+          onClick={() => {
+            setShowBuyers(false);
+            setShowAttendance(false);
+          }}
+        >
+          <div
+            className="event-modal-card"
+            style={{ maxWidth: "800px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <h2>
+                {showAttendance ? "Attendance List" : "Ticket Buyers"} -{" "}
+                {selected?.name}
+              </h2>
+              <button
+                className="icon-btn close"
+                onClick={() => {
+                  setShowBuyers(false);
+                  setShowAttendance(false);
+                }}
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="modal-actions" style={{ marginBottom: "15px" }}>
+              {showBuyers && buyers.length > 0 && (
+                <>
+                  <button className="icon-btn" onClick={downloadBuyersCSV}>
+                    <FaDownload /> Export Buyers CSV
+                  </button>
+                  <button className="icon-btn" onClick={downloadBuyersJSON}>
+                    <FaDownload /> Export Buyers JSON
+                  </button>
+                </>
+              )}
+              {showAttendance && getAttendanceList().length > 0 && (
+                <>
+                  <button className="icon-btn" onClick={downloadAttendanceCSV}>
+                    <FaDownload /> Export Attendance CSV
+                  </button>
+                  <button className="icon-btn" onClick={downloadAttendanceJSON}>
+                    <FaDownload /> Export Attendance JSON
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className="buyers-table-wrapper">
+              {buyersLoading ? (
+                <div className="buyers-loading">Fetching data...</div>
+              ) : (showAttendance ? getAttendanceList() : buyers).length ===
+                0 ? (
+                <div className="buyers-empty">
+                  {showAttendance
+                    ? "No attendance marked yet."
+                    : "No confirmed buyers yet."}
+                </div>
+              ) : (
+                <table className="buyers-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>College</th>
+                      <th>Branch</th>
+                      <th>Team Name</th>
+                      <th>Team Leader</th>
+                      <th>Team Size</th>
+                      <th>Amount</th>
+                      <th>Order ID</th>
+                      <th>Date</th>
+                      {showAttendance && <th>Attendance</th>}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(showAttendance ? getAttendanceList() : buyers).map(
+                      (buyer, index) => (
                         <tr key={buyer.orderId || index}>
                           <td>{index + 1}</td>
                           <td>
@@ -555,12 +594,12 @@ const List = ({ url }) => {
                             </td>
                           )}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
-              </div>
-            )}
+                      )
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
           </div>
         </div>
       )}

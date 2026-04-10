@@ -50,11 +50,13 @@ const BuyTicket = () => {
       const foundEvent = myevents_list.find((e) => e._id === id);
       if (foundEvent) {
         setEventData(foundEvent);
+        const limitMin = foundEvent.teamSizeMinLimit || 1;
         setData((prevData) => ({
           ...prevData,
           event: foundEvent.name,
-          Team_size: prevData.Team_size || 1,
+          Team_size: prevData.Team_size === 1 ? limitMin : prevData.Team_size,
         }));
+        setTeamSize((prev) => prev === 1 ? limitMin : prev);
         if (!cartItems[foundEvent._id] || cartItems[foundEvent._id] === 0) {
           addToCart(foundEvent._id);
         }
@@ -286,13 +288,15 @@ const BuyTicket = () => {
                   }}
                   className="team-size-select"
                 >
-                  {[...Array(eventData?.teamSizeLimit || 10).keys()].map(
-                    (num) => (
-                      <option key={num + 1} value={num + 1}>
-                        {num + 1}
+                  {(() => {
+                    const min = eventData?.teamSizeMinLimit || 1;
+                    const max = eventData?.teamSizeLimit || 10;
+                    return Array.from({ length: Math.max(1, max - min + 1) }, (_, i) => i + min).map((num) => (
+                      <option key={num} value={num}>
+                        {num}
                       </option>
-                    )
-                  )}
+                    ));
+                  })()}
                 </select>
               </div>
 

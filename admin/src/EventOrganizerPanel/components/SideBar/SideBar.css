@@ -74,18 +74,54 @@
 /* Responsive design for tablets/mobile */
 @media (max-width: 800px) {
   .sidebar {
-    width: 60px;
-    padding: 12px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 60px;
+    height: 65px;
+    flex-direction: row;
+    padding: 0;
+    border-right: none;
+    border-top: 1.5px solid #e5e7eb;
+    z-index: 9999;
+    box-shadow: 0 -2px 14px rgba(0,0,0,0.05);
+  }
+  .sidebar-section {
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+  }
+  .sidebar-menu {
+    flex-direction: row;
+    padding: 0;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .sidebar-menu::-webkit-scrollbar {
+    display: none;
   }
   .sidebar-header,
   .sidebar-label {
     display: none;
   }
   .sidebar-icon {
-    margin: 0 auto;
+    margin: 0;
+    font-size: 1.35rem; 
   }
   .sidebar-link {
-    padding: 12px 0;
+    padding: 18px 0;
+    flex: 1;
+    min-width: 60px;
     justify-content: center;
+    border-radius: 0;
+  }
+  .sidebar-link.active,
+  .sidebar-link:hover {
+    box-shadow: inset 0 -4px 0 #6620ef;
+    background: #f6faff;
   }
 }

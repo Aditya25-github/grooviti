@@ -22,6 +22,7 @@ const Add = ({ url }) => {
     isPaid: true,
     organizerContact: "",
     teamSizeLimit: 10,
+    teamSizeMinLimit: 1,
     memberWisePayment: false,
     date: "",
     category: "Cultural",
@@ -155,6 +156,7 @@ const Add = ({ url }) => {
     formData.append("price", data.isPaid ? Number(data.price) : 0);
     formData.append("organizerContact", data.organizerContact);
     formData.append("teamSizeLimit", Number(data.teamSizeLimit));
+    formData.append("teamSizeMinLimit", Number(data.teamSizeMinLimit));
     formData.append("memberWisePayment", data.memberWisePayment);
     if (data.date) {
       formData.append("date", data.date);
@@ -499,6 +501,19 @@ const Add = ({ url }) => {
               />
             </div>
             <div className={styles.formGroup}>
+              <label>Min Team Size *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.teamSizeMinLimit}
+                type="number"
+                name="teamSizeMinLimit"
+                placeholder="Example: 1"
+                required
+                className={styles.groovitiInput}
+                min="1"
+              />
+            </div>
+            <div className={styles.formGroup}>
               <label>Max Team Size *</label>
               <input
                 onChange={onChangeHandler}
@@ -508,7 +523,7 @@ const Add = ({ url }) => {
                 placeholder="Example: 10"
                 required
                 className={styles.groovitiInput}
-                min="1"
+                min={data.teamSizeMinLimit}
               />
             </div>
             <div className={styles.formGroup}>
