@@ -21,6 +21,7 @@ const BuyTicket = () => {
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [teamSize, setTeamSize] = useState(1);
+  const [showCertificateAlert, setShowCertificateAlert] = useState(true);
 
   const initialTeamMembers = {};
   for (let i = 1; i <= 10; i++) {
@@ -43,6 +44,9 @@ const BuyTicket = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Auto-hide certificate alert after 7 seconds
+    const timer = setTimeout(() => setShowCertificateAlert(false), 7000);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -188,16 +192,25 @@ const BuyTicket = () => {
               <span>Please sign up before proceeding to payment.</span>
             </div>
           )}
-          <div className="certificate-alert">
-            <FiInfo className="certificate-alert-icon" />
-            <div className="certificate-alert-content">
-              <h3>Certificate notice:</h3>
-              <p>
-                Details entered below will appear on your{" "}
-                <strong>official certificate</strong>. Ensure accuracy before paying.
-              </p>
-            </div>
-          </div>
+          {showCertificateAlert && (
+            <motion.div
+              className="certificate-alert"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <FiInfo className="certificate-alert-icon" />
+              <div className="certificate-alert-content">
+                <h3>Certificate notice:</h3>
+                <p>
+                  Details entered below will appear on your{" "}
+                  <strong>official certificate</strong>. Ensure accuracy before paying.
+                </p>
+              </div>
+              <div className="certificate-alert-progress"></div>
+            </motion.div>
+          )}
         </div>
 
         {/* Form */}
