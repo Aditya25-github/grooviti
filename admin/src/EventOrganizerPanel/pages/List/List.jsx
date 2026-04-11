@@ -107,6 +107,7 @@ const List = ({ url }) => {
   const [buyersLoading, setBuyersLoading] = useState(false);
   const [showBuyers, setShowBuyers] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
+  const [eventRevenue, setEventRevenue] = useState({});
   const navigate = useNavigate();
 
   const listMyEvents = async () => {
@@ -119,10 +120,27 @@ const List = ({ url }) => {
       const response = await axios.get(
         `${url}/api/event/my-events?email=${email}`,
       );
-      if (response.data.success) setList(response.data.events);
+      if (response.data.success) {
+        setList(response.data.events);
+        // Fetch actual revenue data from bookings
+        fetchEventRevenue(email);
+      }
       else toast.error("Error fetching your events");
     } catch {
       toast.error("Network error: Unable to fetch events");
+    }
+  };
+
+  const fetchEventRevenue = async (email) => {
+    try {
+      const response = await axios.get(
+        `${url}/api/booking/event-revenue?email=${email}`
+      );
+      if (response.data.success) {
+        setEventRevenue(response.data.data || {});
+      }
+    } catch (err) {
+      console.error("Error fetching event revenue:", err);
     }
   };
 
@@ -235,6 +253,10 @@ const List = ({ url }) => {
   const stats = useMemo(() => {
     if (!selected) return null;
     const event = selected;
+    
+    // Get actual revenue from the booking data
+    const actualRevenue = eventRevenue[event.name]?.totalRevenue || 0;
+    
     return {
       id: event?._id ?? "",
       name: event?.name ?? "",
@@ -245,15 +267,10 @@ const List = ({ url }) => {
       venue: event?.venue ?? event?.location ?? "",
       totalTickets: event?.totalTickets ?? 0,
       ticketsSold: event?.ticketsSold ?? 0,
-      revenue:
-        "revenue" in event
-          ? parseFloat((event.revenue * 0.98).toFixed(2))
-          : (event?.attendees || event?.ticketsSold) && event?.price
-            ? parseFloat(((event.attendees || event.ticketsSold) * event.price * 0.98).toFixed(2))
-            : 0,
+      revenue: parseFloat(actualRevenue.toFixed(2)), // Use actual paid amount
       organizerEmail: event?.organizerEmail ?? event?.hostEmail ?? "",
     };
-  }, [selected]);
+  }, [selected, eventRevenue]);
 
   const downloadAsCSV = () => {
     if (!stats) return;
@@ -355,7 +372,7 @@ const List = ({ url }) => {
                   <FaUsers /> {ev.attendees || ev.ticketsSold || 0} attendees
                 </span>
                 <span className="event-meta-item">
-                  <FaMoneyBillWave /> Rs.{parseFloat(((ev?.attendees || ev?.ticketsSold || 0) * (ev?.price || 0) * 0.98).toFixed(2))} revenue
+                  <FaMoneyBillWave /> Rs.{parseFloat((eventRevenue[ev.name]?.totalRevenue || 0).toFixed(2))} revenue
                 </span>
                 {statusBadge(ev.status)}
               </div>
@@ -427,7 +444,7 @@ const List = ({ url }) => {
               </div>
               <div className="modal-row">
                 <b>Revenue:</b> Rs.{" "}
-                {parseFloat(((selected?.attendees || selected?.ticketsSold || 0) * (selected?.price || 0) * 0.98).toFixed(2))}
+                {parseFloat((eventRevenue[selected?.name]?.totalRevenue || 0).toFixed(2))}
               </div>
             </div>
             <div className="modal-actions">
