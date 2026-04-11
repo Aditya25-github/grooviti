@@ -195,4 +195,72 @@ bookingRouter.post("/order-details", authMiddleware, getOrderDetails);
 // Add this route to bookingRoute.js:
 bookingRouter.get("/buyers", getBuyersByEvent);
 bookingRouter.post("/send-email",sendBookingEmailController);
+
+/* ======================================================
+   EVENT REVENUE - Based on actual payment amounts
+   ====================================================== */
+bookingRouter.get("/event-revenue", async (req, res) => {
+  try {
+    const organizerEmail = req.query.email;
+    if (!organizerEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "Organizer email required",
+      });
+    }
+
+    // Get all events for this organizer
+    const events = await ticketModel.find({ organizerEmail });
+    const eventDetails = {}; // Store event info by ID
+
+    events.forEach((event) => {
+      eventDetails[event._id.toString()] = {
+        name: event.name,
+        price: event.price,
+        ticketsSold: event.ticketsSold,
+      };
+    });
+
+    // Get all confirmed bookings that contain these events
+    const bookings = await bookingModel.find({
+      "items._id": { $in: Object.keys(eventDetails) },
+      payment: true, // Only confirmed/paid bookings
+    });
+
+    // Calculate revenue based on actual amounts paid
+    const eventRevenue = {};
+
+    for (const booking of bookings) {
+      for (const item of booking.items) {
+        const eventId = item._id?.toString();
+        if (!eventDetails[eventId]) continue;
+
+        const eventName = eventDetails[eventId].name;
+        if (!eventRevenue[eventName]) {
+          eventRevenue[eventName] = {
+            totalRevenue: 0,
+            ticketsSold: 0,
+          };
+        }
+
+        // Add the actual amount paid (not the current price)
+        // Apply 2% Razorpay cut (organizer keeps 98%)
+        eventRevenue[eventName].totalRevenue += booking.amount * 0.98;
+        eventRevenue[eventName].ticketsSold += 1;
+      }
+    }
+
+    return res.json({
+      success: true,
+      data: eventRevenue,
+    });
+  } catch (error) {
+    console.error("Error fetching event revenue:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+});
+
 export default bookingRouter;

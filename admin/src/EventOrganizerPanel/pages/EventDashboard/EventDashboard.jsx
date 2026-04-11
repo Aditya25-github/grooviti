@@ -16,40 +16,48 @@ import {
 export default function EventDashboard({ url }) {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [eventRevenue, setEventRevenue] = useState({});
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchData = async () => {
       const email = localStorage.getItem("organizerEmail");
       if (!email) {
         setLoading(false);
         return;
       }
       try {
-        const response = await axios.get(
+        // Fetch events
+        const eventsResponse = await axios.get(
           `${url}/api/event/my-events?email=${email}`
         );
-        if (response.data.success) {
-          // Sort events by newest first assuming _id corresponds to creation time roughly, or date parsing
-          const sortedEvents = response.data.events.reverse();
+        if (eventsResponse.data.success) {
+          const sortedEvents = eventsResponse.data.events.reverse();
           setEvents(sortedEvents);
         }
+
+        // Fetch actual revenue from bookings
+        const revenueResponse = await axios.get(
+          `${url}/api/booking/event-revenue?email=${email}`
+        );
+        if (revenueResponse.data.success) {
+          setEventRevenue(revenueResponse.data.data || {});
+        }
       } catch (err) {
-        console.error("Error fetching dashboard events:", err);
+        console.error("Error fetching dashboard data:", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchEvents();
+    fetchData();
   }, [url]);
 
   // Compute dynamic stats
   const totalEvents = events.length;
   const totalBookings = events.reduce((acc, ev) => acc + (ev.ticketsSold || 0), 0);
-  const totalRevenue = events.reduce((acc, ev) => {
-    const rev = "revenue" in ev
-      ? ev.revenue * 0.98
-      : (ev.attendees || ev.ticketsSold || 0) * (ev.price || 0) * 0.98;
-    return acc + rev;
+  
+  // Calculate total revenue from actual booking amounts
+  const totalRevenue = Object.values(eventRevenue).reduce((acc, event) => {
+    return acc + (event.totalRevenue || 0);
   }, 0);
   const totalParticipants = events.reduce(
     (acc, ev) => acc + (ev.attendees || ev.ticketsSold || 0),
