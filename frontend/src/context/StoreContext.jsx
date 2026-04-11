@@ -74,76 +74,89 @@ const StoreContextProvider = ({ children }) => {
   // -------------------------------------------------------------
   // 🔹 3. FETCH CART FROM BACKEND
   // -------------------------------------------------------------
-  const loadCart = async () => {
-    if (!user) return;
+  // const loadCart = async () => {
+  //   if (!user) return;
 
-    try {
-      console.log("🛒 Fetching user cart:", user._id);
+  //   try {
+  //     console.log("🛒 Fetching user cart:", user._id);
 
-      const res = await axios.post(
-        `${url}/api/cart/get`,
-        { userId: user._id },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+  //     const res = await axios.post(
+  //       `${url}/api/cart/get`,
+  //       { userId: user._id },
+  //       { headers: { Authorization: `Bearer ${token}` } }
+  //     );
 
-      if (res.data.success) {
-        setCartItems(res.data.cartData || {});
-      }
-    } catch (err) {
-      console.error("❌ Failed to load cart:", err);
-    }
-  };
+  //     if (res.data.success) {
+  //       setCartItems(res.data.cartData || {});
+  //     }
+  //   } catch (err) {
+  //     console.error("❌ Failed to load cart:", err);
+  //   }
+  // };
 
   // -------------------------------------------------------------
   // 🔹 4. ADD TO CART (SAFE)
   // -------------------------------------------------------------
-  const addToCart = async (itemId) => {
-    console.log("🛒 Add to cart clicked:", itemId);
+  const addToCart = (itemId) => {
+  if (!isLoggedIn || !user) {
+    alert("Please log in to continue.");
+    return;
+  }
 
-    if (!isLoggedIn || !user) {
-      alert("Please log in to continue.");
-      console.error("❌ Add to cart denied — user not logged in.");
-      return;
-    }
+  setCartItems({
+    [itemId]: 1,
+  });
+};
+  // const addToCart = async (itemId) => {
+  //   console.log("🛒 Add to cart clicked:", itemId);
 
-    // Update UI immediately
-    setCartItems((prev) => ({
-      ...prev,
-      [itemId]: (prev[itemId] || 0) + 1,
-    }));
+  //   if (!isLoggedIn || !user) {
+  //     alert("Please log in to continue.");
+  //     console.error("❌ Add to cart denied — user not logged in.");
+  //     return;
+  //   }
 
-    try {
-      await axios.post(
-        `${url}/api/cart/add`,
-        { itemId, userId: user._id },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (err) {
-      console.error("❌ Backend addToCart failed:", err);
-    }
-  };
+  //   // Update UI immediately
+  //   setCartItems((prev) => ({
+  //     ...prev,
+  //     [itemId]: (prev[itemId] || 0) + 1,
+  //   }));
+
+  //   try {
+  //     await axios.post(
+  //       `${url}/api/cart/add`,
+  //       { itemId, userId: user._id },
+  //       { headers: { Authorization: `Bearer ${token}` } }
+  //     );
+  //   } catch (err) {
+  //     console.error("❌ Backend addToCart failed:", err);
+  //   }
+  // };
 
   // -------------------------------------------------------------
   // 🔹 5. REMOVE FROM CART (SAFE)
   // -------------------------------------------------------------
-  const removeFromCart = async (itemId) => {
-    if (!isLoggedIn || !user) return;
+  const removeFromCart = () => {
+  setCartItems({});
+};
+  // const removeFromCart = async (itemId) => {
+  //   if (!isLoggedIn || !user) return;
 
-    setCartItems((prev) => ({
-      ...prev,
-      [itemId]: prev[itemId] - 1,
-    }));
+  //   setCartItems((prev) => ({
+  //     ...prev,
+  //     [itemId]: prev[itemId] - 1,
+  //   }));
 
-    try {
-      await axios.post(
-        `${url}/api/cart/remove`,
-        { itemId, userId: user._id },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (err) {
-      console.error("❌ Backend removeFromCart failed:", err);
-    }
-  };
+  //   try {
+  //     await axios.post(
+  //       `${url}/api/cart/remove`,
+  //       { itemId, userId: user._id },
+  //       { headers: { Authorization: `Bearer ${token}` } }
+  //     );
+  //   } catch (err) {
+  //     console.error("❌ Backend removeFromCart failed:", err);
+  //   }
+  // };
 
   // -------------------------------------------------------------
   // 🔹 6. GET TOTAL CART AMOUNT
@@ -182,9 +195,9 @@ const StoreContextProvider = ({ children }) => {
     loadUserFromToken();
   }, [token]);
 
-  useEffect(() => {
-    if (user) loadCart();
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) loadCart();
+  // }, [user]);
 
   // Sync token across tabs
   useEffect(() => {
