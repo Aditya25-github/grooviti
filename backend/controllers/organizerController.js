@@ -285,84 +285,193 @@ export const generateCertificates = async (req, res) => {
 
 const sendCertificateEmail = async (userEmail, booking, eventItem) => {
   try {
-    const pdfCertificate = await generateCertificatePDF(booking, eventItem);
+    const members = [];
+
+    // 👇 Collect all team members
+    for (let i = 1; i <= 10; i++) {
+      const member = booking.address[`Team_member_name_${i}`];
+      if (member && member.trim() !== "") {
+        members.push(member.trim());
+      }
+    }
+
+    // 👉 If no members found, fallback to main user
+    if (members.length === 0) {
+      members.push(
+        `${booking.address.firstName} ${booking.address.lastName}`
+      );
+    }
+
+    const attachments = [];
+
+    // 🔥 Generate certificate for EACH member
+    for (let memberName of members) {
+      const pdf = await generateCertificatePDF(
+        memberName,
+        booking.address.college_name,
+        eventItem.name
+      );
+
+      attachments.push({
+        filename: `Certificate_${memberName.replace(/\s/g, "_")}.pdf`,
+        content: pdf,
+      });
+    }
 
     const mailOptions = {
       from: `"Grooviti Team" <groov.iti25@gmail.com>`,
       to: userEmail,
-      subject: "🎓 Your Certificate",
+      subject: "🎓 Your Team Certificates",
       html: `
-  <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f8;">
+<div style="font-family: Arial, sans-serif; background:#f4f6f8; padding:30px;">
+  
+  <div style="max-width:650px; margin:auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,0.08);">
     
-    <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <!-- HEADER -->
+    <div style="background:linear-gradient(135deg,#4f46e5,#6366f1); padding:25px; text-align:center; color:white;">
+      <h1 style="margin:0; font-size:26px;">🎓 Grooviti</h1>
+      <p style="margin:5px 0 0; font-size:14px;">Certificate of Participation</p>
+    </div>
+
+    <!-- BODY -->
+    <div style="padding:30px; color:#333;">
       
-      <h2 style="color: #2E2E8B; text-align: center; margin-bottom: 10px;">
-        🎓 Certificate of Participation
-      </h2>
+      <h2 style="margin-top:0;">Hello ${booking.address.firstName}, 👋</h2>
 
-      <p style="font-size: 16px;">
-        Dear <strong>${booking.address.firstName} ${booking.address.lastName}</strong>,
-      </p>
-
-      <p style="font-size: 15px; line-height: 1.6;">
+      <p style="font-size:15px; line-height:1.6;">
         Congratulations! 🎉  
-        We are pleased to inform you that your <strong>Certificate of Participation</strong> for the event 
-        <strong>${eventItem.name}</strong> has been successfully generated.
+        Your <b>Certificate(s) of Participation</b> for the event  
+        <b style="color:#4f46e5;">${eventItem.name}</b> have been successfully generated.
       </p>
 
-      <p style="font-size: 15px; line-height: 1.6;">
-        Your dedication and enthusiasm made this event a success, and we truly appreciate your participation.
-      </p>
-
-      <div style="margin: 20px 0; padding: 15px; background: #f1f5ff; border-left: 4px solid #2E2E8B; border-radius: 5px;">
-        <p style="margin: 0; font-size: 14px;">
-          📎 Your certificate is attached with this email.  
-          You can download and keep it for your records.
-        </p>
+      <!-- INFO BOX -->
+      <div style="margin:20px 0; padding:18px; background:#f9fafb; border-radius:8px; border-left:4px solid #4f46e5;">
+        <p style="margin:0;"><b>🎟️ Event:</b> ${eventItem.name}</p>
+        <p style="margin:5px 0;"><b>👥 Team Name:</b> ${booking.address.Team_name || "Individual"}</p>
+        <p style="margin:5px 0;"><b>🏫 College:</b> ${booking.address.college_name}</p>
+        <p style="margin:5px 0;"><b>📄 Certificates:</b> ${members.length} attached</p>
       </div>
 
-      <p style="font-size:14px;">
-  🏆 Event: <strong>${eventItem.name}</strong><br/>
-  🎓 Participant: <strong>${booking.address.firstName}</strong><br/>
-  🏫 College: <strong>${booking.address.college_name}</strong>
-</p>
+      <!-- IMPORTANT NOTE -->
+      <div style="margin:20px 0; padding:15px; background:#ecfeff; border-radius:6px;">
+        📎 <b>Your certificates are attached with this email.</b><br/>
+        Please download and keep them safe for future use.
+      </div>
 
-      <p style="font-size: 14px; color: #555;">
-        We hope to see you in more events in the future 🚀
-      </p>
-      
-      <p style="margin-top: 25px;">
-        Regards,<br/>
-        <strong>Grooviti Team</strong><br/>
-        <span style="color: #888;">Groove it. Book it. Live it.</span>
+      <!-- MESSAGE -->
+      <p style="font-size:15px; line-height:1.6;">
+        We truly appreciate your participation and enthusiasm.  
+        We look forward to seeing you in more exciting events in the future 🚀
       </p>
 
     </div>
 
+    <!-- FOOTER -->
+    <div style="background:#111; color:#aaa; text-align:center; padding:20px;">
+      <p style="margin:0; font-size:14px;">
+        🎟️ <b style="color:#fff;">Grooviti</b>
+      </p>
+      <p style="margin:5px 0 0; font-size:12px;">
+        Groove it. Book it. Live it.
+      </p>
+    </div>
+
   </div>
+
+</div>
 `,
-      attachments: [
-        {
-          filename: `Certificate_${booking.orderId}.pdf`,
-          content: pdfCertificate,
-        },
-      ],
+      attachments: attachments,
     };
 
-    const result = await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
-    console.log("✅ Email sent successfully!");
-    console.log("📬 Message ID:", result.messageId);
+    console.log("✅ All certificates sent!");
   } catch (error) {
-    console.error("❌ Error in sendCertificateEmail:", error);
+    console.error("❌ Error:", error);
   }
 };
 
+// const sendCertificateEmail = async (userEmail, booking, eventItem) => {
+//   try {
+//     const pdfCertificate = await generateCertificatePDF(booking, eventItem);
+
+//     const mailOptions = {
+//       from: `"Grooviti Team" <groov.iti25@gmail.com>`,
+//       to: userEmail,
+//       subject: "🎓 Your Certificate",
+//       html: `
+//   <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f8;">
+    
+//     <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      
+//       <h2 style="color: #2E2E8B; text-align: center; margin-bottom: 10px;">
+//         🎓 Certificate of Participation
+//       </h2>
+
+//       <p style="font-size: 16px;">
+//         Dear <strong>${booking.address.firstName} ${booking.address.lastName}</strong>,
+//       </p>
+
+//       <p style="font-size: 15px; line-height: 1.6;">
+//         Congratulations! 🎉  
+//         We are pleased to inform you that your <strong>Certificate of Participation</strong> for the event 
+//         <strong>${eventItem.name}</strong> has been successfully generated.
+//       </p>
+
+//       <p style="font-size: 15px; line-height: 1.6;">
+//         Your dedication and enthusiasm made this event a success, and we truly appreciate your participation.
+//       </p>
+
+//       <div style="margin: 20px 0; padding: 15px; background: #f1f5ff; border-left: 4px solid #2E2E8B; border-radius: 5px;">
+//         <p style="margin: 0; font-size: 14px;">
+//           📎 Your certificate is attached with this email.  
+//           You can download and keep it for your records.
+//         </p>
+//       </div>
+
+//       <p style="font-size:14px;">
+//   🏆 Event: <strong>${eventItem.name}</strong><br/>
+//   🎓 Participant: <strong>${booking.address.firstName}</strong><br/>
+//   🏫 College: <strong>${booking.address.college_name}</strong>
+// </p>
+
+//       <p style="font-size: 14px; color: #555;">
+//         We hope to see you in more events in the future 🚀
+//       </p>
+      
+//       <p style="margin-top: 25px;">
+//         Regards,<br/>
+//         <strong>Grooviti Team</strong><br/>
+//         <span style="color: #888;">Groove it. Book it. Live it.</span>
+//       </p>
+
+//     </div>
+
+//   </div>
+// `,
+//       attachments: [
+//         {
+//           filename: `Certificate_${booking.orderId}.pdf`,
+//           content: pdfCertificate,
+//         },
+//       ],
+//     };
+
+//     const result = await transporter.sendMail(mailOptions);
+
+//     console.log("✅ Email sent successfully!");
+//     console.log("📬 Message ID:", result.messageId);
+//   } catch (error) {
+//     console.error("❌ Error in sendCertificateEmail:", error);
+//   }
+// };
 
 
-const generateCertificatePDF = async (booking) => {
+
+export const generateCertificatePDF = async (name, eventName) => {
   return new Promise((resolve, reject) => {
     try {
+      const shortEventName = eventName.slice(12);
       const doc = new PDFDocument({
         size: "A4",
         layout: "landscape",
@@ -374,37 +483,30 @@ const generateCertificatePDF = async (booking) => {
       doc.on("data", (chunk) => buffer.push(chunk));
       doc.on("end", () => resolve(Buffer.concat(buffer)));
 
-      // 🖼️ BACKGROUND TEMPLATE (VERY IMPORTANT)
-      doc.image("./uploads/certificate-1.png", 0, 0, {
+      // 🖼️ TEMPLATE
+      doc.image("./uploads/certificate-2-1.png", 0, 0, {
         width: 842,
         height: 595,
       });
 
-      const name = `${booking.address.firstName} ${booking.address.lastName}`;
-      const college = booking.address.college_name || "Your College";
-
-      // 🎯 NAME (CENTER BIG TEXT)
+      // 🎯 NAME
       doc
         .font("Helvetica-Bold")
         .fontSize(26)
-        .fillColor("#000000")
-        .text(name, 60, 273, {
-          align: "center",
-        });
+        .fillColor("#000")
+        .text(name, 60, 273, { align: "center" });
 
-      // 🎯 COLLEGE NAME (RIGHT SIDE "from ______")
+      // Event Name
       doc
         .font("Helvetica")
-        .fontSize(18)
-        .fillColor("#000000")
-        .text(college, 150, 304, {
+        .fontSize(20)
+        .text(shortEventName, 363, 306, {
           width: 200,
           align: "center",
         });
 
       doc.end();
     } catch (err) {
-      console.log("❌ Certificate PDF Error:", err);
       reject(err);
     }
   });
