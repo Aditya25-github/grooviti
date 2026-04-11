@@ -14,7 +14,7 @@ import { loginOrganizer } from "../controllers/organizerController.js";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../utils/cloudinary.js";
-
+import authMiddleware from "../middleware/auth.js";
 const eventRouter = express.Router();
 
 // ---- Auth endpoints (no multer here) ----
@@ -87,7 +87,7 @@ eventRouter.post("/add",
   ]),addEvent
 );
 eventRouter.get("/list", listEvent);
-eventRouter.post("/remove", RemoveEvent);
+eventRouter.post("/remove",authMiddleware,RemoveEvent);
 eventRouter.get("/:id", getEventById);
 eventRouter.post("/edit/:id",
   upload.fields([

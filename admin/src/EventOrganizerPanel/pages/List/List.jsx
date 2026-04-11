@@ -18,7 +18,8 @@ import {
   FaTimes,
   FaUserAlt,
 } from "react-icons/fa";
-
+import { useContext } from "react";
+import { StoreContext } from "../../../context/StoreContext"; // adjust path
 
 
 // Helper for downloads
@@ -109,7 +110,8 @@ const List = ({ url }) => {
   const [showAttendance, setShowAttendance] = useState(false);
   const [eventRevenue, setEventRevenue] = useState({});
   const navigate = useNavigate();
-
+  const { token } = useContext(StoreContext);
+  // const token = localStorage.getItem("eventHostToken");
   const listMyEvents = async () => {
     const email = localStorage.getItem("organizerEmail");
     if (!email) {
@@ -160,21 +162,42 @@ const List = ({ url }) => {
   }
 };
 
-  const RemoveEvent = async (eventId) => {
-    try {
-      const response = await axios.post(`${url}/api/event/remove`, {
-        id: eventId,
-      });
-      if (response.data.success) {
-        setSelected(null);
-        await listMyEvents();
-        toast.success(response.data.message);
-      } else toast.error("Error deleting event");
-    } catch {
-      toast.error("Network error: Unable to delete event");
-    }
-  };
 
+const RemoveEvent = async (eventId) => {
+  try {
+    const confirmDelete = window.confirm(
+      "⚠️ Are you sure you want to delete this event?"
+    );
+    if (!confirmDelete) return;
+
+    const password = prompt("🔐 Enter your password to confirm deletion");
+    if (!password) return;
+
+    const response = await axios.post(
+      `${url}/api/event/remove`,
+      {
+        id: eventId,
+        password,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // 🔥 NOW WORKS
+        },
+      }
+    );
+
+    if (response.data.success) {
+      setSelected(null);
+      await listMyEvents();
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.message);
+    }
+
+  } catch {
+    toast.error("Network error");
+  }
+};
   // Fetch buyers/attendance for selected event
   const loadPeopleData = async (eventId, isAttendance = false) => {
     setBuyersLoading(true);

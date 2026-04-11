@@ -15,7 +15,10 @@ export const organizerRegister = async (req, res) => {
     if (!name || !email || !password) {
       return res
         .status(400)
-        .json({ success: false, message: "Name, email and password are required" });
+        .json({
+          success: false,
+          message: "Name, email and password are required",
+        });
     }
 
     const exists = await OrganizerModel.findOne({ email });
@@ -51,7 +54,9 @@ export const organizerLogin = async (req, res) => {
         .json({ success: false, message: "Email and password required" });
     }
 
-    const organizer = await OrganizerModel.findOne({ email: email.toLowerCase() });
+    const organizer = await OrganizerModel.findOne({
+      email: email.toLowerCase(),
+    });
     if (!organizer) {
       return res
         .status(401)
@@ -69,7 +74,7 @@ export const organizerLogin = async (req, res) => {
     const token = jwt.sign(
       { id: organizer._id, role: organizer.role, email: organizer.email },
       process.env.JWT_SECRET || "dev_secret_change_me",
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     // Match frontend expectations exactly
@@ -105,7 +110,7 @@ const addEvent = async (req, res) => {
       console.log("Location parsing error:", req.body.location);
       return res.json({ success: false, message: "Invalid location format" });
     }
-    
+
     const coverImageFile = req.files?.coverImage?.[0];
     const otherImageFiles = req.files?.otherImages || [];
     if (!coverImageFile) {
@@ -144,7 +149,7 @@ const addEvent = async (req, res) => {
     try {
       const parsedHighlights = JSON.parse(req.body.highlights || "[]");
       highlights = parsedHighlights.filter((h) =>
-        allowedHighlights.includes(h)
+        allowedHighlights.includes(h),
       );
     } catch (err) {
       console.log("Invalid highlights format");
@@ -169,9 +174,15 @@ const addEvent = async (req, res) => {
       organizerEmail: req.body.organizerEmail,
       organizer: organizer._id,
       organizerContact: req.body.organizerContact || "",
-      teamSizeLimit: req.body.teamSizeLimit ? Number(req.body.teamSizeLimit) : 10,
-      teamSizeMinLimit: req.body.teamSizeMinLimit ? Number(req.body.teamSizeMinLimit) : 1,
-      memberWisePayment: req.body.memberWisePayment === "true" || req.body.memberWisePayment === true,
+      teamSizeLimit: req.body.teamSizeLimit
+        ? Number(req.body.teamSizeLimit)
+        : 10,
+      teamSizeMinLimit: req.body.teamSizeMinLimit
+        ? Number(req.body.teamSizeMinLimit)
+        : 1,
+      memberWisePayment:
+        req.body.memberWisePayment === "true" ||
+        req.body.memberWisePayment === true,
       isPaid: isPaidEvent,
       price: finalPrice,
       category: req.body.category,
@@ -269,63 +280,99 @@ const listEvent = async (req, res) => {
 //   }
 // };
 
+// import bcrypt from "bcrypt";
+// import organizerModel from "../models/organizerModel.js"; // adjust path if needed
+
 const RemoveEvent = async (req, res) => {
   try {
-    const event = await ticketModel.findById(req.body.id);
+    const { id, password } = req.body;
+
+    // ✅ FIXED LINE
+    const userId = req.user?.id;
+
+    const user = await OrganizerModel.findById(userId);
+
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // 🔐 VERIFY PASSWORD
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.json({
+        success: false,
+        message: "❌ Incorrect password",
+      });
+    }
+
+    // 🔍 Find event
+    const event = await ticketModel.findById(id);
+
     if (!event) {
       return res.json({ success: false, message: "Event not found" });
     }
 
-    // Helper to extract public_id from Cloudinary URL
+    // ⚠️ OPTIONAL SAFETY (HIGHLY RECOMMENDED)
+    if (event.ticketsSold > 0) {
+      return res.json({
+        success: false,
+        message: "⚠️ Cannot delete event with bookings",
+      });
+    }
+
+    // 🔧 Helper to extract public_id
     const getPublicId = (url) => {
-      const match = typeof url === "string"
-        ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
-        : url?.url?.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/);
+      const match =
+        typeof url === "string"
+          ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
+          : url?.url?.match(
+              /\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/,
+            );
       return match ? match[1] : null;
     };
 
-    // Delete cover image
+    // 🧹 Delete cover image
     if (event.coverImage) {
-      try {
-        const publicId = getPublicId(event.coverImage);
-        if (publicId) await cloudinary.uploader.destroy(publicId);
-      } catch (err) {
-        console.error("Cloudinary cover image delete error:", err);
-      }
+      const publicId = getPublicId(event.coverImage);
+      if (publicId) await cloudinary.uploader.destroy(publicId);
     }
 
-    // Delete other images (parallel deletion)
+    // 🧹 Delete other images
     if (event.otherImages?.length > 0) {
-      const deletePromises = event.otherImages.map(async (img) => {
-        try {
+      await Promise.all(
+        event.otherImages.map(async (img) => {
           const publicId = getPublicId(img);
           if (publicId) await cloudinary.uploader.destroy(publicId);
-        } catch (err) {
-          console.error("Cloudinary image delete error:", err);
-        }
-      });
-      await Promise.all(deletePromises);
+        }),
+      );
     }
 
+    // 🧹 Delete rulebook
     if (event.rulebook?.url) {
-      try {
-        const publicId = getPublicId(event.rulebook.url);
-        if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
-      } catch (err) {
-        console.error("Cloudinary rulebook delete error:", err);
+      const publicId = getPublicId(event.rulebook.url);
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId, {
+          resource_type: "raw",
+        });
       }
     }
 
-    // Now delete the event from DB
-    await ticketModel.findByIdAndDelete(req.body.id);
+    // 🗑️ Delete event
+    await ticketModel.findByIdAndDelete(id);
 
-    res.json({ success: true, message: "Event and images deleted successfully" });
+    res.json({
+      success: true,
+      message: "✅ Event deleted successfully",
+    });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, message: "Error while deleting event" });
+    res.json({
+      success: false,
+      message: "Error while deleting event",
+    });
   }
 };
-
 
 const getEventById = async (req, res) => {
   const { id } = req.params;
@@ -352,12 +399,16 @@ const editEvent = async (req, res) => {
   try {
     const eventId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(eventId)) {
-      return res.status(400).json({ success: false, message: "Invalid event ID" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid event ID" });
     }
 
     const existingEvent = await ticketModel.findById(eventId);
     if (!existingEvent) {
-      return res.status(404).json({ success: false, message: "Event not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Event not found" });
     }
 
     let parsedLocation = existingEvent.location;
@@ -365,7 +416,9 @@ const editEvent = async (req, res) => {
       try {
         parsedLocation = JSON.parse(req.body.location);
       } catch (err) {
-        return res.status(400).json({ success: false, message: "Invalid location format" });
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid location format" });
       }
     }
 
@@ -373,9 +426,12 @@ const editEvent = async (req, res) => {
     const otherImageFiles = req.files?.otherImages || [];
 
     const getPublicId = (url) => {
-      const match = typeof url === "string"
-        ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
-        : url?.url?.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/);
+      const match =
+        typeof url === "string"
+          ? url.match(/\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/)
+          : url?.url?.match(
+              /\/upload\/(?:v\d+\/)?([^/.]+(?:\/[^/.]+)*)\.[a-z]+$/,
+            );
       return match ? match[1] : null;
     };
 
@@ -383,9 +439,11 @@ const editEvent = async (req, res) => {
     if (coverImageFile) {
       const oldPublicId = getPublicId(existingEvent.coverImage?.url);
       if (oldPublicId) {
-         try {
-           await cloudinary.uploader.destroy(oldPublicId);
-         } catch(e) { console.error("Failed to delete old cover image", e); }
+        try {
+          await cloudinary.uploader.destroy(oldPublicId);
+        } catch (e) {
+          console.error("Failed to delete old cover image", e);
+        }
       }
       coverImage = {
         public_id: coverImageFile.filename,
@@ -396,25 +454,25 @@ const editEvent = async (req, res) => {
     let otherImages = existingEvent.otherImages || [];
     let retainedUrls = [];
     try {
-       if (req.body.retainedOtherImages) {
-          retainedUrls = JSON.parse(req.body.retainedOtherImages);
-       } else {
-          // If perfectly matching Add.jsx, this might not be sent. Let's just keep everything if so.
-          retainedUrls = otherImages.map(img => img.url);
-       }
-    } catch(e) {
-       retainedUrls = otherImages.map(img => img.url);
+      if (req.body.retainedOtherImages) {
+        retainedUrls = JSON.parse(req.body.retainedOtherImages);
+      } else {
+        // If perfectly matching Add.jsx, this might not be sent. Let's just keep everything if so.
+        retainedUrls = otherImages.map((img) => img.url);
+      }
+    } catch (e) {
+      retainedUrls = otherImages.map((img) => img.url);
     }
-    
-    otherImages = otherImages.filter(img => {
-       if(!retainedUrls.includes(img.url)) {
-           const oldPublicId = getPublicId(img.url);
-           if (oldPublicId) {
-             cloudinary.uploader.destroy(oldPublicId).catch(console.error);
-           }
-           return false;
-       }
-       return true;
+
+    otherImages = otherImages.filter((img) => {
+      if (!retainedUrls.includes(img.url)) {
+        const oldPublicId = getPublicId(img.url);
+        if (oldPublicId) {
+          cloudinary.uploader.destroy(oldPublicId).catch(console.error);
+        }
+        return false;
+      }
+      return true;
     });
 
     if (otherImageFiles.length > 0) {
@@ -430,9 +488,13 @@ const editEvent = async (req, res) => {
     if (rulebookFile) {
       const oldPublicId = getPublicId(existingEvent.rulebook?.url);
       if (oldPublicId) {
-         try {
-           await cloudinary.uploader.destroy(oldPublicId, { resource_type: "raw" });
-         } catch(e) { console.error("Failed to delete old rulebook", e); }
+        try {
+          await cloudinary.uploader.destroy(oldPublicId, {
+            resource_type: "raw",
+          });
+        } catch (e) {
+          console.error("Failed to delete old rulebook", e);
+        }
       }
       rulebook = {
         public_id: rulebookFile.filename,
@@ -441,9 +503,13 @@ const editEvent = async (req, res) => {
     } else if (req.body.removeRulebook === "true") {
       const oldPublicId = getPublicId(existingEvent.rulebook?.url);
       if (oldPublicId) {
-         try {
-           await cloudinary.uploader.destroy(oldPublicId, { resource_type: "raw" });
-         } catch(e) { console.error("Failed to delete old rulebook", e); }
+        try {
+          await cloudinary.uploader.destroy(oldPublicId, {
+            resource_type: "raw",
+          });
+        } catch (e) {
+          console.error("Failed to delete old rulebook", e);
+        }
       }
       rulebook = undefined;
     }
@@ -451,14 +517,23 @@ const editEvent = async (req, res) => {
     let highlights = existingEvent.highlights;
     if (req.body.highlights) {
       try {
-        const allowedHighlights = ["Live Music", "Seating Available", "Washrooms", "Parking", "Food Stalls"];
+        const allowedHighlights = [
+          "Live Music",
+          "Seating Available",
+          "Washrooms",
+          "Parking",
+          "Food Stalls",
+        ];
         const parsedHighlights = JSON.parse(req.body.highlights);
-        highlights = parsedHighlights.filter((h) => allowedHighlights.includes(h));
+        highlights = parsedHighlights.filter((h) =>
+          allowedHighlights.includes(h),
+        );
       } catch (err) {}
     }
 
     if (req.body.isPaid !== undefined) {
-      existingEvent.isPaid = req.body.isPaid === "true" || req.body.isPaid === true;
+      existingEvent.isPaid =
+        req.body.isPaid === "true" || req.body.isPaid === true;
     }
     if (req.body.organizerContact !== undefined) {
       existingEvent.organizerContact = req.body.organizerContact;
@@ -470,17 +545,25 @@ const editEvent = async (req, res) => {
       existingEvent.teamSizeMinLimit = Number(req.body.teamSizeMinLimit);
     }
     if (req.body.memberWisePayment !== undefined) {
-      existingEvent.memberWisePayment = req.body.memberWisePayment === "true" || req.body.memberWisePayment === true;
+      existingEvent.memberWisePayment =
+        req.body.memberWisePayment === "true" ||
+        req.body.memberWisePayment === true;
     }
     if (req.body.date !== undefined) {
       existingEvent.date = req.body.date ? new Date(req.body.date) : undefined;
     }
 
     existingEvent.name = req.body.name || existingEvent.name;
-    existingEvent.description = req.body.description || existingEvent.description;
-    existingEvent.price = existingEvent.isPaid ? (req.body.price !== undefined ? Number(req.body.price) : existingEvent.price) : 0;
+    existingEvent.description =
+      req.body.description || existingEvent.description;
+    existingEvent.price = existingEvent.isPaid
+      ? req.body.price !== undefined
+        ? Number(req.body.price)
+        : existingEvent.price
+      : 0;
     existingEvent.category = req.body.category || existingEvent.category;
-    existingEvent.totalTickets = req.body.totalTickets || existingEvent.totalTickets;
+    existingEvent.totalTickets =
+      req.body.totalTickets || existingEvent.totalTickets;
     existingEvent.location = parsedLocation;
     existingEvent.highlights = highlights;
     existingEvent.coverImage = coverImage;
@@ -489,7 +572,6 @@ const editEvent = async (req, res) => {
 
     await existingEvent.save();
     res.json({ success: true, message: "Event Updated" });
-
   } catch (error) {
     console.error("Error updating event:", error);
     res.status(500).json({ success: false, message: "Server Error" });
