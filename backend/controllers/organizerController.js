@@ -308,7 +308,6 @@ const sendCertificateEmail = async (userEmail, booking, eventItem) => {
     for (let memberName of members) {
       const pdf = await generateCertificatePDF(
         memberName,
-        booking.address.college_name,
         eventItem.name
       );
 
