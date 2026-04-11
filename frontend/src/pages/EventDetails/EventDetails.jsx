@@ -906,7 +906,6 @@ const EventDetails = () => {
             <div className="ticket-info">
               <div className="price-display">
                 <span className="price">₹{event.price}</span>
-                <span className="price-label">per person</span>
               </div>
               <div className="ticket-availability">
                 <div className="availability-bar">
