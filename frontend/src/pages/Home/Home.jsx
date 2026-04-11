@@ -14,7 +14,7 @@ import AnimateOnScroll from "../../components/AnimateOnScroll/AnimateOnScroll";
 import OngoingEventDisplay from "../../components/OngoingEventDisplay/OngoingEventDisplay";
 import VisionMission from "../../components/VisionMission/VisionMission";
 import NewsLetterSignup from "../../components/NewsLetterSignup/NewsLetterSignup";
-import Slider from "../../components/Slider/Slider";
+
 
 
 const Home = () => {
@@ -81,13 +81,7 @@ const Home = () => {
           <Header />
         </motion.div>
 
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <Slider />
-        </motion.div>
+        
 
         <motion.div
           variants={sectionVariants}
