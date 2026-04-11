@@ -365,7 +365,7 @@ const List = ({ url }) => {
                 <span className="event-card-location">
                   {formatVenue(ev.venue ?? ev.location)}
                 </span>
-                <span className="event-card-date">{ev.date}</span>
+                <span className="event-card-date">{ev.date} {ev.startTime || ev.eventTime || ev.time ? `at ${ev.startTime || ev.eventTime || ev.time}` : ""}</span>
               </div>
               <div className="event-card-meta">
                 <span className="event-meta-item">
@@ -432,6 +432,9 @@ const List = ({ url }) => {
               </div>
               <div className="modal-row">
                 <b>Date:</b> {selected.date}
+              </div>
+              <div className="modal-row">
+                <b>Time:</b> {selected.startTime || selected.eventTime || selected.time || "Not specified"}
               </div>
               <div className="modal-row">
                 <b>Status:</b> {statusBadge(selected.status)}
