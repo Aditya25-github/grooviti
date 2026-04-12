@@ -11,6 +11,7 @@ const ticketSchema = new mongoose.Schema({
   teamSizeMinLimit: { type: Number, default: 1 },
   memberWisePayment: { type: Boolean, default: false },
   date: { type: Date, required: false },
+  time: { type: String, required: false },
   organizer: { type: mongoose.Schema.Types.ObjectId, ref: "organizer", required: true },
   coverImage: {
     url: { type: String, required: true },

@@ -193,6 +193,7 @@ const addEvent = async (req, res) => {
       location: parsedLocation,
       highlights,
       date: req.body.date ? new Date(req.body.date) : undefined,
+      time: req.body.time || undefined,
       ...(rulebook && { rulebook }),
     });
 
@@ -551,6 +552,9 @@ const editEvent = async (req, res) => {
     }
     if (req.body.date !== undefined) {
       existingEvent.date = req.body.date ? new Date(req.body.date) : undefined;
+    }
+    if (req.body.time !== undefined) {
+      existingEvent.time = req.body.time ? req.body.time : undefined;
     }
 
     existingEvent.name = req.body.name || existingEvent.name;

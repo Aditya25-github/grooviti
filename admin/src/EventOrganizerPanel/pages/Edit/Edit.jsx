@@ -32,6 +32,7 @@ const Edit = ({ url }) => {
     teamSizeMinLimit: 1,
     memberWisePayment: false,
     date: "",
+    time: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -67,6 +68,7 @@ const Edit = ({ url }) => {
             teamSizeMinLimit: eventData.teamSizeMinLimit || 1,
             memberWisePayment: eventData.memberWisePayment || false,
             date: formattedDate,
+            time: eventData.time || "",
             category: eventData.category,
             totalTickets: eventData.totalTickets,
             highlights: eventData.highlights || [],
@@ -246,6 +248,9 @@ const Edit = ({ url }) => {
       formData.append("memberWisePayment", data.memberWisePayment);
       if (data.date) {
         formData.append("date", data.date);
+      }
+      if (data.time) {
+        formData.append("time", data.time);
       }
       formData.append("category", data.category);
       formData.append("totalTickets", Number(data.totalTickets));
@@ -517,6 +522,17 @@ const Edit = ({ url }) => {
                 value={data.date}
                 type="date"
                 name="date"
+                required
+                className={styles.groovitiInput}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Event Time *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.time}
+                type="time"
+                name="time"
                 required
                 className={styles.groovitiInput}
               />

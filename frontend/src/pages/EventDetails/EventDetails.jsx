@@ -436,7 +436,22 @@ const EventDetails = () => {
               </div>
               <div className="meta-item">
                 <Clock className="w-5 h-5 text-blue-500" />
-                <span>{event.time}</span>
+                <span>
+                  {event.time ? (
+                    new Date(`1970-01-01T${event.time}:00Z`).toLocaleTimeString("en-IN", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                      timeZone: "UTC"
+                    })
+                  ) : event.date ? (
+                    new Date(event.date).toLocaleTimeString("en-IN", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    }) + " onwards"
+                  ) : (
+                    "TBA"
+                  )}
+                </span>
               </div>
               <div className="meta-item">
                 <MapPin className="w-5 h-5 text-blue-500" />
@@ -948,12 +963,22 @@ const EventDetails = () => {
                 <Clock className="w-5 h-5 text-blue-500" />
                 <div>
                   <span className="detail-label">Time</span>
-                  <span>
-  {new Date(event.date).toLocaleTimeString("en-IN", {
-    hour: "numeric",
-    minute: "2-digit",
-  })} onwards
-</span>
+                  <span className="detail-value">
+                    {event.time ? (
+                      new Date(`1970-01-01T${event.time}:00Z`).toLocaleTimeString("en-IN", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                        timeZone: "UTC"
+                      })
+                    ) : event.date ? (
+                      new Date(event.date).toLocaleTimeString("en-IN", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      }) + " onwards"
+                    ) : (
+                      "TBA"
+                    )}
+                  </span>
                 </div>
               </div>
               <div className="detail-item">

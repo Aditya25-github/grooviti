@@ -25,6 +25,7 @@ const Add = ({ url }) => {
     teamSizeMinLimit: 1,
     memberWisePayment: false,
     date: "",
+    time: "",
     category: "Cultural",
     totalTickets: "",
     highlights: [],
@@ -160,6 +161,9 @@ const Add = ({ url }) => {
     formData.append("memberWisePayment", data.memberWisePayment);
     if (data.date) {
       formData.append("date", data.date);
+    }
+    if (data.time) {
+      formData.append("time", data.time);
     }
     formData.append("category", data.category);
     formData.append("totalTickets", Number(data.totalTickets));
@@ -437,6 +441,17 @@ const Add = ({ url }) => {
                 value={data.date}
                 type="date"
                 name="date"
+                required
+                className={styles.groovitiInput}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Event Time *</label>
+              <input
+                onChange={onChangeHandler}
+                value={data.time}
+                type="time"
+                name="time"
                 required
                 className={styles.groovitiInput}
               />
