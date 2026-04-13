@@ -245,7 +245,7 @@ bookingRouter.get("/event-revenue", async (req, res) => {
 
         // Add the actual amount paid (not the current price)
         // Apply 2% Razorpay cut (organizer keeps 98%)
-        eventRevenue[eventName].totalRevenue += booking.amount * 0.98;
+        eventRevenue[eventName].totalRevenue += booking.amount * 0.9763;
         eventRevenue[eventName].ticketsSold += 1;
       }
     }
