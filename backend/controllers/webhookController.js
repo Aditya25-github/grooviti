@@ -37,7 +37,10 @@ export const handleBrevoWebhook = async (req, res) => {
       // ── 2. Build the update payload based on event type ────────────────────
       const updatePayload = {};
 
+      console.log(`[Brevo Webhook] Processing event: "${statusEvent}" for ${recipientEmail}`);
+
       switch (statusEvent) {
+        case "request":
         case "sent":
           updatePayload.emailSent = true;
           break;
@@ -48,6 +51,7 @@ export const handleBrevoWebhook = async (req, res) => {
           break;
 
         case "opened":
+        case "unique_opened":
           updatePayload.emailSent = true;
           updatePayload.emailDelivered = true;
           updatePayload.emailOpened = true;

@@ -426,15 +426,12 @@ const sendBookingEmail = async (userEmail, booking) => {
     console.log("📧 Sending email to:", userEmail);
 
     // ✅ TIMEOUT + SAFE SEND (IMPORTANT FIX)
-    const result = await Promise.race([
+    await Promise.race([
       transporter.sendMail(mailOptions),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error("Email timeout after 15s")), 15000),
       ),
     ]);
-
-    // Update DB to reflect email was correctly sent to SMTP server
-    await bookingModel.updateOne({ orderId: booking.orderId }, { emailSent: true });
 
     console.log("✅ Email Sent Successfully!");
   } catch (error) {
