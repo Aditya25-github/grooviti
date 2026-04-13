@@ -24,6 +24,7 @@ import cloudinary from "./utils/cloudinary.js";
 import pccoerRoutes from "./routes/pccoerRoutes.js";
 import communityChatRoute from "./routes/communityChatRoute.js";
 import registerCommunityChat from "./sockets/communityChat.js";
+import webhookRoutes from "./routes/webhookRoutes.js";
 
 
 // ==============================
@@ -145,6 +146,8 @@ app.use("/api/community", communityChatRoute);
 app.use("/api/users", userRouter);
 app.use("/api/pccoer", pccoerRoutes);
 app.use("/api/pccoer", HalloweenRoutes)
+
+app.use("/api/webhooks", webhookRoutes);
 
 /////////////////////////SPORTS////////////////////////
 import academyRoutes from "./routes/Academy/academyRoutes.js"

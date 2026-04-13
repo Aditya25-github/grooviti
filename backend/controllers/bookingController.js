@@ -542,7 +542,7 @@ const userOrders = async (req, res) => {
     res.json({ success: false, message: "Error" });
   }
 };
-// fetches particular order from event organizers
+// fetches particular order from event organizers (Confirmed only)
 const listOrders = async (req, res) => {
   try {
     const organizerEmail = req.query.email;
@@ -552,13 +552,33 @@ const listOrders = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Email is required" });
     }
+
+    // Get all events belonging to this organizer
     const organizerEvents = await ticketModel.find({ organizerEmail });
+    const eventIdToName = {};
+    organizerEvents.forEach((event) => {
+      eventIdToName[event._id.toString()] = event.name;
+    });
+    const eventIds = Object.keys(eventIdToName);
 
-    const eventIds = organizerEvents.map((event) => event._id.toString());
+    // Find only confirmed/paid bookings that include any of these event IDs
+    // items._id is the correct field (not items.eventId)
+    const rawOrders = await bookingModel.find({
+      "items._id": { $in: eventIds },
+      payment: true,
+    });
 
-    // Step 3: Find bookings that include any of these event IDs
-    const orders = await bookingModel.find({
-      "items.eventId": { $in: eventIds },
+    // Attach eventName to each order for the frontend
+    const orders = rawOrders.map((order) => {
+      const orderObj = order.toObject();
+      // Derive event name from the first matching item
+      const matchingItem = orderObj.items.find(
+        (item) => item._id && eventIdToName[item._id.toString()]
+      );
+      orderObj.eventName = matchingItem
+        ? eventIdToName[matchingItem._id.toString()]
+        : orderObj.address?.event || "Unknown Event";
+      return orderObj;
     });
 
     res.json({ success: true, data: orders });

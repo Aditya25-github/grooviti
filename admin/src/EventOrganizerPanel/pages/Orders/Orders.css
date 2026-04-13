@@ -33,7 +33,7 @@
 .orders-table-head,
 .orders-table-row {
   display: grid;
-  grid-template-columns: 2.5fr 2fr 1.4fr 1.2fr 1.2fr;
+  grid-template-columns: 2.5fr 2fr 1.4fr 1.2fr 1.4fr;
   gap: 18px;
   align-items: center;
   padding: 12px 26px;
@@ -138,7 +138,7 @@
 @media (max-width: 1100px) {
   .orders-table-head,
   .orders-table-row {
-    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1.2fr;
     padding: 10px 8px;
     font-size: 0.98rem;
   }
@@ -154,7 +154,7 @@
   }
   .orders-table-head,
   .orders-table-row {
-    grid-template-columns: 1.7fr 1.2fr 1fr 1fr;
+    grid-template-columns: 1.7fr 1.2fr 1fr 0.9fr 1fr;
     font-size: 0.96rem;
     gap: 7px;
     padding: 7px 3px;

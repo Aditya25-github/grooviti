@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 
 //  Token creation function
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 //  Register Organizer
@@ -380,6 +380,10 @@ const sendCertificateEmail = async (userEmail, booking, eventItem) => {
 </div>
 `,
       attachments: attachments,
+      // Tracking headers for Brevo
+      headers: {
+        "X-Mailin-custom": JSON.stringify({ orderId: booking.orderId })
+      }
     };
 
     await transporter.sendMail(mailOptions);
