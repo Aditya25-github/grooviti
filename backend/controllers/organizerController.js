@@ -555,3 +555,42 @@ export const markAttendance = async (req, res) => {
     });
   }
 };
+
+export const exportPhonesCSV = async (req, res) => {
+  try {
+    const { eventId } = req.query;
+    
+    const matchStage = {
+      payment: true,
+      date: {
+        $gt: new Date('Fri, 10 Apr 2026 00:00:00 GMT')
+      }
+    };
+    
+    if (eventId) {
+      matchStage['items._id'] = eventId;
+    }
+
+    const result = await Booking.aggregate([
+      { $match: matchStage },
+      {
+        $group: {
+          _id: '$address.phone'
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          phone: {
+            $concat: ['+91', '$_id']
+          }
+        }
+      }
+    ]);
+
+    res.json({ success: true, data: result });
+  } catch (err) {
+    console.error("Export Phones Error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

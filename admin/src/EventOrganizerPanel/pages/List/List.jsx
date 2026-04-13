@@ -162,6 +162,34 @@ const List = ({ url }) => {
   }
 };
 
+  const downloadPhonesCSV = async (eventId = null) => {
+    try {
+      const endpoint = eventId 
+        ? `${url}/api/organizer/export-phones?eventId=${eventId}` 
+        : `${url}/api/organizer/export-phones`;
+        
+      const response = await axios.get(endpoint);
+      if (response.data.success) {
+        const phones = response.data.data;
+        if (phones.length === 0) {
+          toast.info("No phone numbers found.");
+          return;
+        }
+        const csv = arrayToCsv(phones);
+        downloadFile({
+          data: csv,
+          fileName: eventId ? `${selected?.name || "event"}-phones.csv` : "all-events-phones.csv",
+          mimeType: "text/csv;charset=utf-8",
+        });
+        toast.success("Phone numbers exported successfully!");
+      } else {
+        toast.error("Failed to export phone numbers");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Network error: Unable to export phone numbers");
+    }
+  };
 
 const RemoveEvent = async (eventId) => {
   try {
@@ -348,8 +376,8 @@ const RemoveEvent = async (eventId) => {
         <select className="filter-select">
           <option>All Categories</option>
         </select>
-        <button className="filter-actions">
-          <FaDownload /> Export
+        <button className="filter-actions" onClick={() => downloadPhonesCSV()}>
+          <FaDownload /> Export All Phones (CSV)
         </button>
       </div>
       <div className="event-card-list">
@@ -519,6 +547,12 @@ const RemoveEvent = async (eventId) => {
                 >
                   <FaCheck />{" "}
                   {buyersLoading && showAttendance ? "Loading..." : "View Attendance"}
+                </button>
+                <button
+                  className="icon-btn"
+                  onClick={() => downloadPhonesCSV(selected._id)}
+                >
+                  <FaDownload /> Export Phones (CSV)
                 </button>
               </div>
             </div>

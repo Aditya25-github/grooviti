@@ -336,7 +336,9 @@ const sendBookingEmail = async (userEmail, booking) => {
 
     const pdfTicket = await generateTicketPDF(booking);
     console.log("✅ PDF Generated Successfully");
+    
     const whatsappLink = "https://chat.whatsapp.com/G1mFjsA2Ac5JxBGqcAM1PM";
+    
     const mailOptions = {
       from: `"Grooviti Team" <groov.iti25@gmail.com>`,
       to: userEmail,
@@ -415,6 +417,10 @@ const sendBookingEmail = async (userEmail, booking) => {
           content: pdfTicket,
         },
       ],
+      // Tracking headers for Brevo
+      headers: {
+        "X-Mailin-custom": JSON.stringify({ orderId: booking?.orderId })
+      }
     };
 
     console.log("📧 Sending email to:", userEmail);
@@ -427,7 +433,10 @@ const sendBookingEmail = async (userEmail, booking) => {
       ),
     ]);
 
-    console.log("✅ Email Sent Successfully!", result);
+    // Update DB to reflect email was correctly sent to SMTP server
+    await bookingModel.updateOne({ orderId: booking.orderId }, { emailSent: true });
+
+    console.log("✅ Email Sent Successfully!");
   } catch (error) {
     console.error("❌ Error sending email:", error.message || error);
   }
@@ -637,6 +646,10 @@ const getBuyersByEvent = async (req, res) => {
       Team_member_name_10: booking.address?.Team_member_name_10 || "",
       event: booking.address?.event || "",
       attendance: booking.attendance || false,
+      emailSent: booking.emailSent || false,
+      emailDelivered: booking.emailDelivered || false,
+      emailOpened: booking.emailOpened || false,
+      whatsappClicked: booking.whatsappClicked || false,
     }));
 
     res.json({ success: true, buyers });

@@ -12,6 +12,10 @@ const bookingSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   payment: { type: Boolean, default: false },
   paymentId: { type: String },
+  emailSent: { type: Boolean, default: false },
+  emailDelivered: { type: Boolean, default: false },
+  emailOpened: { type: Boolean, default: false },
+  whatsappClicked: { type: Boolean, default: false },
 })
 
 const bookingModel = mongoose.models.booking || mongoose.model("bookings", bookingSchema)

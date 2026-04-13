@@ -9,6 +9,7 @@ import {
   generateCertificates,
   markAttendance,
   generateCertificatePDF,
+  exportPhonesCSV,
 } from "../controllers/organizerController.js";
 import { uploadOrganizerImage } from "../middleware/upload.js";
 import authMiddleware from "../middleware/auth.js";
@@ -41,6 +42,7 @@ router.put(
 );
 router.post("/generate", generateCertificates);
 router.post("/mark-attendance", markAttendance);
+router.get("/export-phones", exportPhonesCSV);
 router.get("/view-certificate", async (req, res) => {
   try {
     const pdf = await generateCertificatePDF(
