@@ -440,7 +440,7 @@ export const generateCertificatePDF = async (booking, memberName) => {
       // 🎯 DATA
       const name = memberName;
       const college = booking?.address.college_name;
-      const event = booking?.address.event;
+      const event = booking?.address.event.slice(12);
 
       // 🧾 STUDENT NAME
       doc
