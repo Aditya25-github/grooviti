@@ -11,12 +11,17 @@ const [scanned, setScanned] = useState(false);
 const handleScan = async (result) => {
   if (scanned) return;
 
-  if (result?.[0]?.rawValue) {
-    const orderId = result[0].rawValue;
+  const scannedValue =
+    result?.[0]?.rawValue ||
+    result?.text ||
+    result?.rawValue;
+
+  if (scannedValue) {
+    console.log("Scanned QR:", scannedValue);
 
     setScanned(true);
 
-    await markAttendance(orderId);
+    await markAttendance(scannedValue);
 
     setTimeout(() => {
       setScanned(false);

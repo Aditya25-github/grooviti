@@ -473,51 +473,47 @@ export const generateCertificatePDF = async (booking, memberName) => {
 
 export const markAttendance = async (req, res) => {
   try {
-    const { orderId } = req.body;
+    console.log("REQ BODY:", req.body);
 
-    console.log("📡 Scanned Order ID:", orderId);
+    const orderId = req.body.orderId || req.body;
 
-    // 🔍 Find booking
+    console.log("ORDER ID:", orderId);
+
     const booking = await Booking.findOne({ orderId });
 
+    console.log("BOOKING:", booking);
+
+    // ❌ THIS WAS MISSING
     if (!booking) {
       return res.json({
         success: false,
-        message: "Invalid ticket ❌",
+        message: "Booking not found"
       });
     }
 
-    // ❗ Already marked
     if (booking.attendance) {
       return res.json({
         success: false,
-        message: "Attendance already marked ⚠️",
+        message: "Attendance already marked"
       });
     }
 
-    // ✅ Mark attendance
-    if (success) {
-      booking.certificateSent = true;
-      await booking.save();
-    }
-
-    console.log("✅ Attendance marked for:", orderId);
+    booking.attendance = true;
+    await booking.save();
 
     res.json({
       success: true,
-      message: "Attendance marked successfully ✅",
-      user: `${booking.address.firstName} ${booking.address.lastName}`,
-      event: booking.address.event,
+      message: "Attendance marked successfully"
     });
+
   } catch (err) {
-    console.log("❌ Error:", err);
+    console.log("❌ ERROR:", err);
     res.status(500).json({
       success: false,
-      message: "Server error",
+      message: "Server error"
     });
   }
 };
-
 export const exportPhonesCSV = async (req, res) => {
   try {
     const { eventId } = req.query;
