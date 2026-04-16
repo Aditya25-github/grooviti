@@ -8,8 +8,8 @@ import {
   getOrganizerProfile,
   generateCertificates,
   markAttendance,
-  generateCertificatePDF,
   exportPhonesCSV,
+  testCertificate
 } from "../controllers/organizerController.js";
 import { uploadOrganizerImage } from "../middleware/upload.js";
 import authMiddleware from "../middleware/auth.js";
@@ -33,6 +33,7 @@ router.post("/get", getOrganizerByEmail);
 
 router.get("/profile", authMiddleware, getOrganizerProfile);
 
+router.get("/test-certificate/:orderId", testCertificate);
 
 router.put(
   "/profile",
@@ -43,21 +44,5 @@ router.put(
 router.post("/generate", generateCertificates);
 router.post("/mark-attendance", markAttendance);
 router.get("/export-phones", exportPhonesCSV);
-router.get("/view-certificate", async (req, res) => {
-  try {
-    const pdf = await generateCertificatePDF(
-      "Swaroop Shivaji Mane",
-      "Technovate - Battle of Bands"
-    );
 
-    // ✅ IMPORTANT HEADERS
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "inline; filename=certificate.pdf");
-
-    res.send(pdf);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error generating PDF");
-  }
-});
 export default router;

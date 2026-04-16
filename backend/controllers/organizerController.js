@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import Booking from "../models/bookingsModel.js";
 import PDFDocument from "pdfkit";
 import nodemailer from "nodemailer";
+import mongoose from "mongoose";
 
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
@@ -297,19 +298,14 @@ const sendCertificateEmail = async (userEmail, booking, eventItem) => {
 
     // 👉 If no members found, fallback to main user
     if (members.length === 0) {
-      members.push(
-        `${booking.address.firstName} ${booking.address.lastName}`
-      );
+      members.push(`${booking.address.firstName} ${booking.address.lastName}`);
     }
 
     const attachments = [];
 
     // 🔥 Generate certificate for EACH member
     for (let memberName of members) {
-      const pdf = await generateCertificatePDF(
-        memberName,
-        eventItem.name
-      );
+      const pdf = await generateCertificatePDF(booking, memberName);
 
       attachments.push({
         filename: `Certificate_${memberName.replace(/\s/g, "_")}.pdf`,
@@ -382,11 +378,12 @@ const sendCertificateEmail = async (userEmail, booking, eventItem) => {
       attachments: attachments,
       // Tracking headers for Brevo
       headers: {
-        "X-Mailin-custom": JSON.stringify({ orderId: booking.orderId })
-      }
+        "X-Mailin-custom": JSON.stringify({ orderId: booking.orderId }),
+      },
     };
 
     await transporter.sendMail(mailOptions);
+    return true;
 
     console.log("✅ All certificates sent!");
   } catch (error) {
@@ -394,122 +391,81 @@ const sendCertificateEmail = async (userEmail, booking, eventItem) => {
   }
 };
 
-// const sendCertificateEmail = async (userEmail, booking, eventItem) => {
-//   try {
-//     const pdfCertificate = await generateCertificatePDF(booking, eventItem);
+export const testCertificate = async (req, res) => {
+  try {
+    const { orderId } = req.params;
 
-//     const mailOptions = {
-//       from: `"Grooviti Team" <groov.iti25@gmail.com>`,
-//       to: userEmail,
-//       subject: "🎓 Your Certificate",
-//       html: `
-//   <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f6f8;">
-    
-//     <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-      
-//       <h2 style="color: #2E2E8B; text-align: center; margin-bottom: 10px;">
-//         🎓 Certificate of Participation
-//       </h2>
+    const booking = await Booking.findOne({ orderId });
 
-//       <p style="font-size: 16px;">
-//         Dear <strong>${booking.address.firstName} ${booking.address.lastName}</strong>,
-//       </p>
+    if (!booking) {
+      return res.status(404).send("Booking not found");
+    }
 
-//       <p style="font-size: 15px; line-height: 1.6;">
-//         Congratulations! 🎉  
-//         We are pleased to inform you that your <strong>Certificate of Participation</strong> for the event 
-//         <strong>${eventItem.name}</strong> has been successfully generated.
-//       </p>
+    // 👉 pick one name for testing
+    const name =
+      booking.address.Team_member_name_1 ||
+      `${booking.address.firstName} ${booking.address.lastName}`;
 
-//       <p style="font-size: 15px; line-height: 1.6;">
-//         Your dedication and enthusiasm made this event a success, and we truly appreciate your participation.
-//       </p>
+    const pdf = await generateCertificatePDF(booking, name);
 
-//       <div style="margin: 20px 0; padding: 15px; background: #f1f5ff; border-left: 4px solid #2E2E8B; border-radius: 5px;">
-//         <p style="margin: 0; font-size: 14px;">
-//           📎 Your certificate is attached with this email.  
-//           You can download and keep it for your records.
-//         </p>
-//       </div>
+    // 🔥 SEND DIRECT PDF
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=certificate.pdf");
 
-//       <p style="font-size:14px;">
-//   🏆 Event: <strong>${eventItem.name}</strong><br/>
-//   🎓 Participant: <strong>${booking.address.firstName}</strong><br/>
-//   🏫 College: <strong>${booking.address.college_name}</strong>
-// </p>
+    res.send(pdf);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error generating certificate");
+  }
+};
 
-//       <p style="font-size: 14px; color: #555;">
-//         We hope to see you in more events in the future 🚀
-//       </p>
-      
-//       <p style="margin-top: 25px;">
-//         Regards,<br/>
-//         <strong>Grooviti Team</strong><br/>
-//         <span style="color: #888;">Groove it. Book it. Live it.</span>
-//       </p>
-
-//     </div>
-
-//   </div>
-// `,
-//       attachments: [
-//         {
-//           filename: `Certificate_${booking.orderId}.pdf`,
-//           content: pdfCertificate,
-//         },
-//       ],
-//     };
-
-//     const result = await transporter.sendMail(mailOptions);
-
-//     console.log("✅ Email sent successfully!");
-//     console.log("📬 Message ID:", result.messageId);
-//   } catch (error) {
-//     console.error("❌ Error in sendCertificateEmail:", error);
-//   }
-// };
-
-
-
-export const generateCertificatePDF = async (name, eventName) => {
+export const generateCertificatePDF = async (booking, memberName) => {
   return new Promise((resolve, reject) => {
     try {
-      const shortEventName = eventName.slice(12);
       const doc = new PDFDocument({
-        size: "A4",
-        layout: "landscape",
+        size: [2360, 1655], // landscape certificate size
         margin: 0,
       });
 
       const buffer = [];
-
       doc.on("data", (chunk) => buffer.push(chunk));
       doc.on("end", () => resolve(Buffer.concat(buffer)));
 
       // 🖼️ TEMPLATE
-      doc.image("./uploads/certificate-2-1.png", 0, 0, {
-        width: 842,
-        height: 595,
+      doc.image("./uploads/certificate-3.png", 0, 0, {
+        width: 2360,
+        height: 1655,
       });
 
-      // 🎯 NAME
+      // 🎯 DATA
+      const name = memberName;
+      const college = booking?.address.college_name;
+      const event = booking?.address.event;
+
+      // 🧾 STUDENT NAME
       doc
         .font("Helvetica-Bold")
-        .fontSize(26)
-        .fillColor("#000")
-        .text(name, 60, 273, { align: "center" });
-
-      // Event Name
-      doc
-        .font("Helvetica")
-        .fontSize(20)
-        .text(shortEventName, 363, 306, {
-          width: 200,
+        .fontSize(70)
+        .fillColor("black")
+        .text(name, 440, 720, {
+          width: 1600,
           align: "center",
         });
 
+      // 🏫 COLLEGE NAME
+      doc.font("Helvetica").fontSize(58).text(college, 400, 812, {
+        width: 1700,
+        align: "center",
+      });
+
+      // 🎯 EVENT NAME
+      doc.font("Helvetica-Bold").fontSize(45).text(event, 468, 915, {
+        align: "center",
+      });
+
       doc.end();
     } catch (err) {
+      console.log("❌ Certificate Error:", err);
       reject(err);
     }
   });
@@ -540,8 +496,10 @@ export const markAttendance = async (req, res) => {
     }
 
     // ✅ Mark attendance
-    booking.attendance = true;
-    await booking.save();
+    if (success) {
+      booking.certificateSent = true;
+      await booking.save();
+    }
 
     console.log("✅ Attendance marked for:", orderId);
 
@@ -563,33 +521,33 @@ export const markAttendance = async (req, res) => {
 export const exportPhonesCSV = async (req, res) => {
   try {
     const { eventId } = req.query;
-    
+
     const matchStage = {
       payment: true,
       date: {
-        $gt: new Date('Fri, 10 Apr 2026 00:00:00 GMT')
-      }
+        $gt: new Date("Fri, 10 Apr 2026 00:00:00 GMT"),
+      },
     };
-    
+
     if (eventId) {
-      matchStage['items._id'] = eventId;
+      matchStage["items._id"] = eventId;
     }
 
     const result = await Booking.aggregate([
       { $match: matchStage },
       {
         $group: {
-          _id: '$address.phone'
-        }
+          _id: "$address.phone",
+        },
       },
       {
         $project: {
           _id: 0,
           phone: {
-            $concat: ['+91', '$_id']
-          }
-        }
-      }
+            $concat: ["+91", "$_id"],
+          },
+        },
+      },
     ]);
 
     res.json({ success: true, data: result });
